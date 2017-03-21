@@ -10,7 +10,7 @@ define([
 function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, esriapi, clicks, lang ) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
-		toolbarName: "UMR Floodplain Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
+		toolbarName: "WI App Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
 		hasCustomPrint: false, size:'custom', width:420, hasHelp:true, 
 		
 		// First function called when the user clicks the pluging icon. 
@@ -48,6 +48,14 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 				$('#' + this.id + ' .umr-help').hide();
 			}	
 			this.open = "yes";
+		},
+		showHelp: function(h){
+			$('#' + this.id + 'umr-wrap').hide()
+			$('#' + this.id + ' .umr-help').show()
+			this.clicks.updateAccord(this);			
+				
+			// Show this help on startup anymore, after the first time 
+			// this.app.suppressHelpOnStartup(true);
 		},
 		// Called when user hits the minimize '_' icon on the pluging. Also called before hibernate when users closes app by clicking 'X'.
 		deactivate: function () {
@@ -138,14 +146,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.esriapi.esriApiFunctions(this);
 			
 			this.rendered = true;	
-		},
-		showHelp: function(h){
-			$('#' + this.id + 'umr-wrap').hide()
-			$('#' + this.id + ' .umr-help').show()
-			this.clicks.updateAccord(this);			
-				
-			// Show this help on startup anymore, after the first time 
-			// this.app.suppressHelpOnStartup(true);
 		}
 	});
 });
