@@ -1,3 +1,5 @@
+/*  Main CSS Styling for WI apps //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
 .infoIcon{
 	margin-bottom:-2px; margin-left:3px; cursor:pointer;
 }
@@ -25,34 +27,57 @@
 .sidebar-content .getHelpBtnWrap .button{
 	margin-bottom:0;
 }
-.umr-wrap .slider{
+.wfa-wrap .slider{
 	margin-left:30px;
 }
-.umr-first-section .toggle-btn{
+.wfa-wrap{
+	display: none;
+}
+.wfa-first-section .toggle-btn{
 	margin-top:-10px;	
 }
 .under{
 	text-decoration:underline;
 }
-/* fix the accordion height issue in Safari */
+/* fix the accordion height issue in Safari //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 .sidebar-content{
 	height:auto !important;
 }
-.umr-count-font{
+.wfa-count-font{
 	color:#2f6384; text-align:center; margin-top:-5px; margin-bottom:-10px;
 }
 .slider-container .ui-state-disabled {
     cursor: not-allowed !important;
 }
-.umr-slider-label{
+.wfa-slider-label{
 	display:none; margin-left:-8px;
 }
-.umr-radio-indent{
+.wfa-radio-indent{
 	margin-left:22px;
 }
-.umr-grth{
+.wfa-grth{
 	display:none; color: #2f6384; font-weight: 700;
 }
-.umr-shosu{
+.wfa-shosu{
 	position:absolute; top:94px; right:3px;
+}
+/* HUC dropdown styling area ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.wfa-huc8Chosen, .wfa-huc10Chosen, .wfa-huc12Chosen{
+	display: none;
+}
+.wfa-huc6Text, .wfa-huc8Text, .wfa-huc10Text, .wfa-huc12Text{
+	display: none;
+}
+.wfa-hucSelText{
+	margin: 10px;
+}
+.wfa-backBtn{
+	cursor: pointer; color: #2F6384;
+}
+/* Attribute wrap styling for select a site /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.wfa-fas_AttributeWrap{
+	margin-top: 20px;
+}
+.wfa-fas_AttributeWrap div{
+	padding: 5px;
 }

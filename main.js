@@ -10,7 +10,7 @@ define([
 function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, esriapi, clicks, lang ) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
-		toolbarName: "WI App Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
+		toolbarName: "WAWFA Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
 		hasCustomPrint: false, size:'custom', width:420, hasHelp:true, 
 		
 		// First function called when the user clicks the pluging icon. 
@@ -19,7 +19,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			declare.safeMixin(this, frameworkParameters);
 			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
-			this.url = "http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_AGR/umrFloodplain/MapServer";
+			this.url = "http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer";
 			this.layerDefs = [];
 		},
 		// Called after initialize at plugin startup (why the tests for undefined). Also called after deactivate when user closes app by clicking X. 
@@ -44,14 +44,14 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 				this.showHelp();
 			}else{
 				$('#' + this.id + '-shosu').attr('checked', true);
-				$('#' + this.id + 'umr-wrap').show()
-				$('#' + this.id + ' .umr-help').hide();
+				$('#' + this.id + 'wfa-wrap').show()
+				$('#' + this.id + ' .wfa-help').hide();
 			}	
 			this.open = "yes";
 		},
 		showHelp: function(h){
-			$('#' + this.id + 'umr-wrap').hide()
-			$('#' + this.id + ' .umr-help').show()
+			$('#' + this.id + ' .wfa-wrap').hide()
+			$('#' + this.id + ' .wfa-help').show()
 			this.clicks.updateAccord(this);			
 				
 			// Show this help on startup anymore, after the first time 
@@ -78,21 +78,21 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 					}
 				}));	
 				// Git ids of checked checkboxes above sliders
-				$.each( $('#' + this.id + 'umr-wrap .-slCb'),lang.hitch(this,function(i,v){
+				$.each( $('#' + this.id + 'wfa-wrap .-slCb'),lang.hitch(this,function(i,v){
 					if (v.checked == true){
 						var id = "-" + v.id.split('-').pop();
 						this.obj.slCbIds.push(id)
 					}
 				}))
 				// Get ids of checked radio buttons
-				$.each( $('#' + this.id + ' .umr-radio-indent input'),lang.hitch(this,function(i,v){
+				$.each( $('#' + this.id + ' .wfa-radio-indent input'),lang.hitch(this,function(i,v){
 					if (v.checked == true){
 						var id = "-" + v.id.split('-').pop();
 						this.obj.rbIds.push(id)
 					}
 				}));	
 				// Get ids of checked checkboxes above radio buttons
-				$.each( $('#' + this.id + 'umr-wrap .rb_cb'),lang.hitch(this,function(i,v){
+				$.each( $('#' + this.id + 'wfa-wrap .rb_cb'),lang.hitch(this,function(i,v){
 					if (v.checked == true){
 						var id = "-" + v.id.split('-').pop();
 						this.obj.rbCbIds.push(id)

@@ -1,6 +1,6 @@
 {
-	"visibleLayers": [0],
-	"hucLayer": "0",
+	"visibleLayers": [1,3],
+	"selHuc": "6",
 	"mngmtAction": "cons",
 	"floodFreq": "1 in 100",
 	"ffDef": "",
