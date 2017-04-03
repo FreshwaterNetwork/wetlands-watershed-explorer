@@ -7,133 +7,131 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!-- Main Content accordian window -->
 <div class="accord flex1 wfa-wrap">
 	<div id="mainAccord">
-<!--  Select a wetland site //////////////////////////////////////////////////////////////////////////////////// -->
-		<h3 class="wfaC1">Find a Wetland Site</h3>
+<!--  Explore a wetland site //////////////////////////////////////////////////////////////////////////////////// -->
+		<h3 class="wfaC1">Explore Wetland Sites</h3>
 		<div class="contentWrap" style="display:block;">
-			<div class="toggle-btn" style="width:375px;">
-				<input type="radio" id="num1" name="num" value="one" checked />
+			<h3 class="wfaC1">What would you like to do?</h3>
+			<div id="wfa-findEvalSiteToggle" class="toggle-btn" style="width:375px; ">
+				<input type="radio" id="num1" name="num" value="find"/>
 				<label for="num1">Find a Wetland Site</label>
-				<input type="radio" id="num2" name="num" value="two"/>
+				<input type="radio" id="num2" name="num" value="eval"/>
 				<label for="num2">Evaluate a Wetland Site</label>
 			</div>
-			<h3>Please Choose or Click on a HUC:</h3>
-<!-- Chosen menu content area ///////////////////////////////////////////////////////////////////////////////////////////// -->
-			<!-- Add class chos  to select's parent -->
-			<div id="wfa-huc6Chosen" class="wfa-huc6Chosen chosen-wrap" style="margin-bottom:10px;">
-				<select data-placeholder="Choose a HUC 6" id="wfa-huc6dd" class="chosen">
-					<option></option>
-					<option value="one">Huc6_1</option>
-					<option value="two">Huc6_2</option>
-					<option value="three">Huc6_3</option>
-					<option value="four">Huc6_4</option>
-					<option value="five">Huc6_5</option>
-				</select>
-			</div>
-			<div id="wfa-huc6Text" class="wfa-huc6Text wfa-hucSelText"><b>Selected HUC 6:</b><span></span> <span id="wfa-huc6back" class="wfa-backBtn"><b>Back</b></span></div>
-			<div id="wfa-huc8Chosen" class="wfa-huc8Chosen chosen-wrap" style="margin-bottom:10px;">
-				<select data-placeholder="Choose a HUC 8" id="wfa-huc8dd" class="chosen">
-					<option value=""></option>
-					<option value="one">Huc8_1</option>
-					<option value="two">Huc8_2</option>
-					<option value="three">Huc8_3</option>
-					<option value="four">Huc8_4</option>
-					<option value="five">Huc8_5</option>
-				</select>
-			</div>
-			<div id="wfa-huc8Text" class="wfa-huc8Text wfa-hucSelText"><b>Selected HUC 8:</b><span></span> <span id="wfa-huc8back" class="wfa-backBtn"><b>Back</b></span></div>
-			<div id="wfa-huc10Chosen" class="wfa-huc10Chosen chosen-wrap" style="margin-bottom:10px;">
-				<select data-placeholder="Choose a HUC 10" id="wfa-huc10dd" class="chosen">
-					<option></option>
-					<option value="one">Huc10_1</option>
-					<option value="two">Huc10_2</option>
-					<option value="three">Huc10_3</option>
-					<option value="four">Huc10_4</option>
-					<option value="five">Huc10_5</option>
-				</select>
-			</div>
-			<div id="wfa-huc10Text" class="wfa-huc10Text wfa-hucSelText"><b>Selected HUC 10:</b><span></span> <span id="wfa-huc10back" class="wfa-backBtn"><b>Back</b></span></div>
-			<div id="wfa-huc12Chosen" class="wfa-huc12Chosen chosen-wrap" style="margin-bottom:10px;">
-				<select data-placeholder="Choose a HUC 12" id="wfa-huc12dd" class="chosen">
-					<option></option>
-					<option value="one">Huc12_1</option>
-					<option value="two">Huc12_2</option>
-					<option value="three">Huc12_3</option>
-					<option value="four">Huc12_4</option>
-					<option value="five">Huc12_5</option>
-				</select>
-			</div>
-			<div id="wfa-huc12Text" class="wfa-huc12Text wfa-hucSelText"><b>Selected HUC 12:</b><span></span> <span id="wfa-huc12back" class="wfa-backBtn"><b>Back</b></span></div>
+<!--  Find a wetland site //////////////////////////////////////////////////////////////////////////////////// -->
+			<div id="wfa-find_WetlandWrap" style="display: none;">
+				<h3>Please Choose or Click on a HUC:</h3>
+				<!-- Chosen menu content area //////////////////////////////////////////////////////// -->
+				<!-- Add class chos  to select's parent -->
+				<div id="wfa-huc6Chosen" class="wfa-huc6Chosen chosen-wrap" style="margin-bottom:10px;">
+					<select data-placeholder="Choose a HUC 6" id="wfa-huc6dd" class="chosen">
+						<option></option>
+						<option value="one">Huc6_1</option>
+						<option value="two">Huc6_2</option>
+						<option value="three">Huc6_3</option>
+						<option value="four">Huc6_4</option>
+						<option value="five">Huc6_5</option>
+					</select>
+				</div>
+				<div id="wfa-huc6Text" class="wfa-huc6Text wfa-hucSelText"><b>Selected HUC 6:</b><span></span> <span id="wfa-huc6back" class="wfa-backBtn"><b>Back</b></span></div>
+				<div id="wfa-huc8Chosen" class="wfa-huc8Chosen chosen-wrap" style="margin-bottom:10px;">
+					<select data-placeholder="Choose a HUC 8" id="wfa-huc8dd" class="chosen">
+						<option value=""></option>
+						<option value="one">Huc8_1</option>
+						<option value="two">Huc8_2</option>
+						<option value="three">Huc8_3</option>
+						<option value="four">Huc8_4</option>
+						<option value="five">Huc8_5</option>
+					</select>
+				</div>
+				<div id="wfa-huc8Text" class="wfa-huc8Text wfa-hucSelText"><b>Selected HUC 8:</b><span></span> <span id="wfa-huc8back" class="wfa-backBtn"><b>Back</b></span></div>
+				<div id="wfa-huc10Chosen" class="wfa-huc10Chosen chosen-wrap" style="margin-bottom:10px;">
+					<select data-placeholder="Choose a HUC 10" id="wfa-huc10dd" class="chosen">
+						<option></option>
+						<option value="one">Huc10_1</option>
+						<option value="two">Huc10_2</option>
+						<option value="three">Huc10_3</option>
+						<option value="four">Huc10_4</option>
+						<option value="five">Huc10_5</option>
+					</select>
+				</div>
+				<div id="wfa-huc10Text" class="wfa-huc10Text wfa-hucSelText"><b>Selected HUC 10:</b><span></span> <span id="wfa-huc10back" class="wfa-backBtn"><b>Back</b></span></div>
+				<div id="wfa-huc12Chosen" class="wfa-huc12Chosen chosen-wrap" style="margin-bottom:10px;">
+					<select data-placeholder="Choose a HUC 12" id="wfa-huc12dd" class="chosen">
+						<option></option>
+						<option value="one">Huc12_1</option>
+						<option value="two">Huc12_2</option>
+						<option value="three">Huc12_3</option>
+						<option value="four">Huc12_4</option>
+						<option value="five">Huc12_5</option>
+					</select>
+				</div>
+				<div id="wfa-huc12Text" class="wfa-huc12Text wfa-hucSelText"><b>Selected HUC 12:</b><span></span> <span id="wfa-huc12back" class="wfa-backBtn"><b>Back</b></span></div>
 
-			<!-- <p>Selected value: <span class="blueFont">none</span></p> -->
+				<!-- <p>Selected value: <span class="blueFont">none</span></p> -->
 
 <!--  Choose a function of interest radio buttons //////////////////////////////////////////////////////////////// -->
-			<h3>Choose Function of Interest:</h3>
-			<div id="funcWrapper" class="funcWrapper wfa-radio-indent">
-				<label class="form-component" for="all-option">
-					<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
-					<div class="check"></div>
-					<span class="form-text">All</span>
-				</label>
-				<br>
-				<label class="form-component" for="flood-option">
-					<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
-					<div class="check"></div>
-					<span class="form-text">Flood Abatement</span>
-				</label>
-				<br>
-				<label class="form-component" for="fish-option">
-					<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
-					<div class="check"></div>
-					<span class="form-text">Fish and Aquatic Habitat</span>
-				</label>
-				<br>
-				<label class="form-component" for="sed-option">
-					<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment/Phosphorous">
-					<div class="check"></div>
-					<span class="form-text">Sediment/Phosphorous</span>
-				</label>
-				<br>
-				<label class="form-component" for="nitro-option">
-					<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
-					<div class="check"></div>
-					<span class="form-text">Nitrogen</span>
-				</label>
-				<br>
-				<label class="form-component" for="water-option">
-					<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Maintenance">
-					<div class="check"></div>
-					<span class="form-text">Surface Water Maintenance</span>
-				</label>
-			</div>
-			<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap">
-				<div><b>Current Watershed:</b> </div>
-				<div><b>Current Wetland ID:</b> </div>
-				<div><b>FAH:</b> </div>
-				<div><b>SS:</b> </div>
-				<div><b>FA:</b> </div>
+				<h3>Choose Function of Interest:</h3>
+				<div id="funcWrapper" class="funcWrapper wfa-radio-indent">
+					<label class="form-component" for="all-option">
+						<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
+						<div class="check"></div>
+						<span class="form-text">All</span>
+					</label>
+					<br>
+					<label class="form-component" for="flood-option">
+						<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
+						<div class="check"></div>
+						<span class="form-text">Flood Abatement</span>
+					</label>
+					<br>
+					<label class="form-component" for="fish-option">
+						<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
+						<div class="check"></div>
+						<span class="form-text">Fish and Aquatic Habitat</span>
+					</label>
+					<br>
+					<label class="form-component" for="sed-option">
+						<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment/Phosphorous">
+						<div class="check"></div>
+						<span class="form-text">Sediment/Phosphorous</span>
+					</label>
+					<br>
+					<label class="form-component" for="nitro-option">
+						<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
+						<div class="check"></div>
+						<span class="form-text">Nitrogen</span>
+					</label>
+					<br>
+					<label class="form-component" for="water-option">
+						<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Maintenance">
+						<div class="check"></div>
+						<span class="form-text">Surface Water Maintenance</span>
+					</label>
+				</div>
+				<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap">
+					<div><b>Current Watershed:</b> </div>
+					<div><b>Current Wetland ID:</b> </div>
+					<div><b>FAH:</b> </div>
+					<div><b>SS:</b> </div>
+					<div><b>FA:</b> </div>
 
+				</div>
+			</div>
+<!-- Evalute watershed section ////////////////////////////////////////////////////////////////////////// -->
+			<div class="contentWrap" id="wfa-eval_WetlandWrap" style="display: none;">
+				<h3>If you know your wetland location search below: </h3>
+				<div style="height: 50px; width: 200px; border-style: solid; border-color: red;">Placeholder for search box??</div>
+				
 			</div>
 		</div> 
 
+
+
+
 <!-- Evalute watershed section ////////////////////////////////////////////////////////////////////////// -->
-		<h3 class="wfaC2">Evaluate a Wetland Site</h3>
-		<div class="contentWrap">
-			<h3>If you know your wetland location search below: </h3>
-			<div style="height: 50px; width: 200px; border-style: solid; border-color: red;">Placeholder for search box??</div>
-			
-		</div>
+		<!-- <h3 class="wfaC2">Evaluate a Wetland Site</h3> -->
 		
-
-
-
-
-
-
-
-
-
-
-
+		
 
 
 <!-- Download Data section ////////////////////////////////////////////////////////////////////////// -->

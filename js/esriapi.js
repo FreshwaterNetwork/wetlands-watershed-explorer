@@ -14,16 +14,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				if (t.obj.visibleLayers.length > 0){	
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				}
-				// add feature layers in mode selection
-				//t.HUC6 = new FeatureLayer(t.url + "/0", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
-
-				// var q = new Query();
-				// //q.where = "Name = '"+t.profileName +"'";
-				// t.HUC6.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
-
-				// t.HUC6.on('selection-complete', function(evt){
-				// 	console.log(evt);
-				// });
 
 				t.dynamicLayer.on("load", function () { 			
 					t.layersArray = t.dynamicLayer.layerInfos;

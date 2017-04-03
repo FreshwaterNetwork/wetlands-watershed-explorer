@@ -57,10 +57,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search) {
 					var v = c.target.value;
 					// if an item was selected 
 					if(p){
-						// var q = new Query();
-						// q.where = "Name = '"+ +"'";
-						// t.HUC6.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
-
 						t.obj.selHuc = '6' // set huc tracker
 						$("#" + t.id + "wfa-huc8Chosen").slideDown();
 						$("#" + t.id + "wfa-huc6Chosen").slideUp();
@@ -186,6 +182,21 @@ function ( declare, Query, QueryTask,FeatureLayer, Search) {
 				// 		$(v).attr('disabled', false)
 				// 	});
 				// });
+				// Set selected value text for button clicks
+				$( '#' + t.id + 'wfa-findEvalSiteToggle input' ).click(function(c){
+					console.log(c, 'c');
+					if (c.currentTarget.value == 'find'){
+						console.log('valeu');
+						$( '#' + t.id + 'wfa-eval_WetlandWrap').slideUp()
+						$( '#' + t.id + 'wfa-find_WetlandWrap').slideDown()
+
+					}else{
+						$( '#' + t.id + 'wfa-eval_WetlandWrap').slideDown()
+						$( '#' + t.id + 'wfa-find_WetlandWrap').slideUp()
+						console.log('other')
+					}
+					//$('#' + c.target.id ).parent().next().find("span").html(c.target.value) 
+				});
 
 				
 // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
