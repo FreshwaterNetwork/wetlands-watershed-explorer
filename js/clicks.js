@@ -1,7 +1,7 @@
 define([
-	"dojo/_base/declare", "esri/tasks/query", "esri/tasks/QueryTask"
+	"dojo/_base/declare", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer", "esri/dijit/Search"
 ],
-function ( declare, Query, QueryTask ) {
+function ( declare, Query, QueryTask,FeatureLayer, Search) {
         "use strict";
 
         return declare(null, {
@@ -54,10 +54,13 @@ function ( declare, Query, QueryTask ) {
 //Single deselect only works if the first option in the select tag is blank
 // huc 6 chosen menu ////////////////////////////////////////////////////////////////////////////////////////////////////////
 				$("#" + t.id + "wfa-huc6dd").chosen({allow_single_deselect:true, width:"355px"}).change(function(c,p){
-					console.log(t.layersArray);
 					var v = c.target.value;
 					// if an item was selected 
 					if(p){
+						// var q = new Query();
+						// q.where = "Name = '"+ +"'";
+						// t.HUC6.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
+
 						t.obj.selHuc = '6' // set huc tracker
 						$("#" + t.id + "wfa-huc8Chosen").slideDown();
 						$("#" + t.id + "wfa-huc6Chosen").slideUp();
@@ -76,6 +79,32 @@ function ( declare, Query, QueryTask ) {
 					$("#" + t.id + "wfa-huc8dd" + ",#" + t.id + "wfa-huc10dd" + ",#" + t.id + "wfa-huc12dd").val('').trigger("chosen:updated").trigger('change');
 					// $('#' + t.id + 'ch-years').val('').trigger('chosen:updated').trigger('change');
 					$("#" + t.id + "wfa-huc6Text" + ",#" + t.id + "wfa-huc8Text" + ",#" + t.id + "wfa-huc10Text" + ",#" + t.id + "wfa-huc12Text").slideUp();
+				});
+
+// Populate huc 6 dropdown /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				// create query task on the huc 8 table at app startup
+				var queryTask = new QueryTask(t.url + "/0")
+				var query = new Query();
+				query.returnGeometry = false;
+				query.outFields = ["WHUC6"];
+				// query.where = "OBJECTID > -1"
+				query.where = "WHUC6 = '040103'"
+				queryTask.execute(query, function(results){
+					var hucs = [];
+					$.each(results.features, function(i,v){
+						hucs.push(v.attributes)
+					});
+					// sort huc list......
+					hucs.sort(function(a,b) {return (a.WHUC6 > b.WHUC6) ? 1 : ((b.WHUC6 > a.WHUC6) ? -1 : 0);} );
+
+					t.HUC6s = hucs;
+					$('#' + t.id + 'wfa-huc6dd').empty();
+					$('#' + t.id + 'wfa-huc6dd').append("<option value=''></option>")
+					$('#' + t.id + 'wfa-huc6dd').append("<option value='fullExtent'>Zoom to Full Extent</option>")
+					$.each(t.HUC6s, function(i,v){
+						$('#' + t.id + 'wfa-huc6dd').append("<option value='" + v.WHUC6 + "'>" + v.WHUC6 + "</option>")
+					}); 
+					$('#' + t.id + 'wfa-huc6dd').trigger("chosen:updated");
 				});
 
 // huc 8 chosen menu ////////////////////////////////////////////////////////////////////////////////////////////////////////
