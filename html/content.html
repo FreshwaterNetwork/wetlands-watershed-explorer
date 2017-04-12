@@ -5,125 +5,300 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 <!--Add class accord to the accordion's parent div-->
 <!-- Main Content accordian window -->
-<div class="accord flex1 wfa-wrap">
-	<div id="mainAccord">
-<!--  Explore a wetland site //////////////////////////////////////////////////////////////////////////////////// -->
-		<h3 class="wfaC1">Explore Wetland Sites</h3>
-		<div class="contentWrap" style="display:block;">
-			<h3 class="wfaC1">What would you like to do?</h3>
-			<div id="wfa-findEvalSiteToggle" class="toggle-btn" style="width:375px; ">
-				<input type="radio" id="num1" name="num" value="find"/>
-				<label for="num1">Find a Wetland Site</label>
-				<input type="radio" id="num2" name="num" value="eval"/>
-				<label for="num2">Evaluate a Wetland Site</label>
-			</div>
+
+<!-- <div style="display:flex; justify-content:center; margin-bottom:6px;">
+	</div> -->
+<div class="wfa-app">
+	<section id="selComReminder" style="margin-top:0px; width: 420px;">
+		<h3 style="margin-left:8px;">What would you like to do?</h3>
+	</section>
+
+	<div id="tabBtns" class="toggle-btn tabBtns" style="width:420px;">
+		<input type="radio" id="dfe1" name="crs-dfe" value="wfa-findASite"/>
+		<label for="dfe1">Find a Site</label>
+		<input type="radio" id="dfe2" name="crs-dfe" value="wfa-evalASite"/>
+		<label for="dfe2">Evaluate a Site</label>
+		<input type="radio" id="dfe3" name="crs-dfe" value="wfa-downloadData"/>
+		<label for="dfe3">Download Data</label>
+		<input type="radio" id="dfe4" name="crs-dfe" value="wfa-showInfo"/>
+		<label for="dfe4">Info</label>
+	</div>
+</div>
+
+
+
+<!-- Find A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<div id="wfa-findASite" class="wfa-fasWrap wfa-sections">
+	<h3>Please Click on Map to Explore Wetlands</h3>
+</div>
+<!-- Evaluate A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<div id="wfa-evalASite" class="wfa-easWrap wfa-sections hide">
+	test text eval a site wrap
+</div>
+
+<div id="wfa-mainContentWrap" class="wfa-mainContentWrap">
+	<div id="wfa-hucSelWrap">
+		<div class="wfa-huc-wrap">	
+			<div class="elm-title">HUC 6 Watershed:</div>	
+			<div class="wfa-attZoom">Zoom</div>
+			<div class="elm-results">
+				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> Test Current Watershed <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+			</div>	
+		</div>
+		<div class="wfa-huc-wrap">	
+			<div class="elm-title">HUC 8 Watershed:</div>
+			<div class="wfa-attZoom">Zoom</div>
+			<div class="elm-results">
+				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+			</div>	
+		</div>
+		<div class="wfa-huc-wrap">	
+			<div class="elm-title">HUC 10 Watershed:</div>
+			<div class="wfa-attZoom">Zoom</div>
+			<div class="elm-results">
+				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+			</div>	
+		</div>
+		<div class="wfa-huc-wrap">	
+			<div class="elm-title">HUC 12 Watershed:</div>
+			<div class="wfa-attZoom">Zoom</div>
+			<div class="elm-results">
+				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+			</div>	
+		</div>
+	</div>	
+
+<!-- Function of Interest find/eval wrapper ///////////////////////////////////////////////////////////////////////////////////////// -->
+	<h3 style="margin-top: 15px;">Choose Function of Interest:</h3>
+	<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
+		<label class="form-component wfa-funcLabel" for="all-option">
+			<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
+			<div class="check"></div>
+			<span class="form-text">All</span>
+		</label>
+		<br>
+		<label class="form-component wfa-funcLabel" for="flood-option">
+			<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
+			<div class="check"></div>
+			<span class="form-text">Flood Abatement</span>
+		</label>
+		<br>
+		<label class="form-component wfa-funcLabel" for="fish-option">
+			<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
+			<div class="check"></div>
+			<span class="form-text">Fish and Aquatic Habitat</span>
+		</label>
+		<br>
+		<label class="form-component wfa-funcLabel" for="sed-option">
+			<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment/Phosphorous">
+			<div class="check"></div>
+			<span class="form-text">Sediment/Phosphorous</span>
+		</label>
+		<br>
+		<label class="form-component wfa-funcLabel" for="nitro-option">
+			<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
+			<div class="check"></div>
+			<span class="form-text">Nitrogen</span>
+		</label>
+		<br>
+		<label class="form-component wfa-funcLabel" for="water-option">
+			<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Maintenance">
+			<div class="check"></div>
+			<span class="form-text">Surface Water Maintenance</span>
+		</label>
+	</div>
+
+<!-- Find/eval a site attribute wrap //////////////////////////////////////////////////////////////////////////////////////////////////-->
+	<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap">
+		<div class="wfa-sum-wrap">	
+			<div class="elm-title">Current Watershed:</div>	
+			<div class="elm-results">
+				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> Test Current Watershed <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+			</div>	
+			<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+		</div>
+		<div class="wfa-sum-wrap">	
+			<div class="elm-title">Current Wetland ID:</div>
+			<div class="elm-results">
+				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+			</div>	
+			<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+		</div>
+		<div class="wfa-sum-wrap" style="background-color: #F0F0F0">	
+			<div class="elm-title">Fish & Aquatic Habitat:</div>
+			<div class="elm-results">
+				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>High<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+			</div>	
+			<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+		</div>
+		<div class="wfa-sum-wrap" style="background-color: #AACC66">	
+			<div class="elm-title">Sediment Stabilization:</div>
+			<div class="elm-results">
+				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>Moderate<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+			</div>	
+			<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+		</div>
+		<div class="wfa-sum-wrap" style="background-color: #70A800">	
+			<div class="elm-title">Flood Abatement:</div>
+			<div class="elm-results">
+				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>Low<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+			</div>	
+			<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+		</div>
+	</div>
+</div>
+
+<!-- Download data Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<div id="wfa-downloadData" class="wfa-easWrap wfa-sections hide">
+	<div id="wfa-downloadDiv" class="wfa-dlwrap">
+		<h4>The download package contains:</h4>
+		<p id="allParLink">&#8226; Report (<a id="-_AllParcels.pdf" target="_blank">preview</a>)</p>
+		<p id="sbLinksbLink">&#8226; Map of selected wetlands (<a id="-_Setbacks.pdf" target="_blank">preview</a>)</p>
+		<p id="ceosLink">&#8226; All Geospatial Data (Ranked HUCs) </p>
+		<p id="larParLink">&#8226; Map(s) of the 10 largest OSP eligible parcels (<a id="-_Parcels_Large.pdf" target="_blank">preview</a>)</p>
+		<p id="csvDesc">&#8226; CSV file of OSP eligible parcel attributes</p>
+		<div style="margin-top:12px;"><button class="button button-primary" id="dlBtn">Download</button></div>
+	</div>
+</div>
+
+<!-- Info Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<div id="wfa-showInfo" class="wfa-sections hide">
+	<section style="height: 250px;">
+		<h2>Documentation</h2>
+		<h3 class="elemInfo">Wetland Atrribute Descriptions</h3>
+		<div id="exwrap" class="explainWrap">
+			<h4 class="ccInfo">Fish and aquatic habitat</h4>
+			<p id="ccInfo" class="ccInfo">Fish and aquatic habitat text placeholder Lorem ipsum dolor sit amet, leo et nunc ac. Nunc tincidunt vivamus, in suscipit lectus est quia magnis diam. Et non rutrum elit eget leo tempus, mauris pellentesque fringilla ante sed vestibulum vel, consequat morbi tincidunt aliquam, at duis possimus nulla. Netus diam et phasellus ut adipiscing, duis in vel</p>
+			<h4 class="cndInfo">Flood Abatement</h4> 
+			<p id="cndInfo" class="cndInfo">Flood abatement help text placeholder Lorem ipsum dolor sit amet, leo et nunc ac. Nunc tincidunt vivamus, in suscipit lectus est quia magnis diam. Et non rutrum elit eget leo tempus, mauris pellentesque fringilla ante sed vestibulum vel, consequat morbi tincidunt aliquam, at duis possimus nulla. Netus diam et phasellus ut adipiscing, duis in vel</p>
+			<h4 class="iasInfo">Nitrogen</h4>
+			<p id="iasInfo" class="iasInfo">Nitrogen placeholder text Lorem ipsum dolor sit amet, leo et nunc ac. Nunc tincidunt vivamus, in suscipit lectus est quia magnis diam. Et non rutrum elit eget leo tempus, mauris pellentesque fringilla ante sed vestibulum vel, consequat morbi tincidunt aliquam, at duis possimus nulla. Netus diam et phasellus ut adipiscing, duis in vel</p>
+			<h4 class="ospInfo">Sediment and Phosphorous</h4>
+			<p class="ospInfo">Sediment and Phosphorous text placeholder Lorem ipsum dolor sit amet, leo et nunc ac. Nunc tincidunt vivamus, in suscipit lectus est quia magnis diam. Et non rutrum elit eget leo tempus, mauris pellentesque fringilla ante sed vestibulum vel, consequat morbi tincidunt aliquam, at duis possimus nulla. Netus diam et phasellus ut adipiscing, duis in vel</p>
+		</div>
+	</section>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
 <!--  Find a wetland site //////////////////////////////////////////////////////////////////////////////////// -->
-			<div id="wfa-find_WetlandWrap" style="display: none;">
-				<h3>Please Choose or Click on a HUC:</h3>
-				<!-- Chosen menu content area //////////////////////////////////////////////////////// -->
-				<!-- Add class chos  to select's parent -->
-				<div id="wfa-huc6Chosen" class="wfa-huc6Chosen chosen-wrap" style="margin-bottom:10px;">
-					<select data-placeholder="Choose a HUC 6" id="wfa-huc6dd" class="chosen">
-						<option></option>
-						<option value="one">Huc6_1</option>
-						<option value="two">Huc6_2</option>
-						<option value="three">Huc6_3</option>
-						<option value="four">Huc6_4</option>
-						<option value="five">Huc6_5</option>
-					</select>
+			<!-- <div id="wfa-funcAttWrap">
+				<div class="wfa-huc-wrap">	
+					<div class="elm-title">HUC 6 Watershed:</div>	
+					<div class="wfa-attZoom">Zoom</div>
+					<div class="elm-results">
+						<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> Test Current Watershed <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+					</div>	
 				</div>
-				<div id="wfa-huc6Text" class="wfa-huc6Text wfa-hucSelText"><b>Selected HUC 6:</b><span></span> <span id="wfa-huc6back" class="wfa-backBtn"><b>Back</b></span></div>
-				<div id="wfa-huc8Chosen" class="wfa-huc8Chosen chosen-wrap" style="margin-bottom:10px;">
-					<select data-placeholder="Choose a HUC 8" id="wfa-huc8dd" class="chosen">
-						<option value=""></option>
-						<option value="one">Huc8_1</option>
-						<option value="two">Huc8_2</option>
-						<option value="three">Huc8_3</option>
-						<option value="four">Huc8_4</option>
-						<option value="five">Huc8_5</option>
-					</select>
-				</div>
+
+				<div class="wfa-huc-wrap">	
+					<div class="elm-title">HUC 8 Watershed:</div>
+					<div class="wfa-attZoom">Zoom</div>
+					<div class="elm-results">
+						<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+					</div>	
+				</div> -->
+				<!-- <div id="wfa-huc6Text" class="wfa-huc6Text wfa-hucSelText"><b>Selected HUC 6:</b><span></span> <span id="wfa-huc6back" class="wfa-backBtn"><b>Back</b></span></div>
 				<div id="wfa-huc8Text" class="wfa-huc8Text wfa-hucSelText"><b>Selected HUC 8:</b><span></span> <span id="wfa-huc8back" class="wfa-backBtn"><b>Back</b></span></div>
-				<div id="wfa-huc10Chosen" class="wfa-huc10Chosen chosen-wrap" style="margin-bottom:10px;">
-					<select data-placeholder="Choose a HUC 10" id="wfa-huc10dd" class="chosen">
-						<option></option>
-						<option value="one">Huc10_1</option>
-						<option value="two">Huc10_2</option>
-						<option value="three">Huc10_3</option>
-						<option value="four">Huc10_4</option>
-						<option value="five">Huc10_5</option>
-					</select>
-				</div>
 				<div id="wfa-huc10Text" class="wfa-huc10Text wfa-hucSelText"><b>Selected HUC 10:</b><span></span> <span id="wfa-huc10back" class="wfa-backBtn"><b>Back</b></span></div>
-				<div id="wfa-huc12Chosen" class="wfa-huc12Chosen chosen-wrap" style="margin-bottom:10px;">
-					<select data-placeholder="Choose a HUC 12" id="wfa-huc12dd" class="chosen">
-						<option></option>
-						<option value="one">Huc12_1</option>
-						<option value="two">Huc12_2</option>
-						<option value="three">Huc12_3</option>
-						<option value="four">Huc12_4</option>
-						<option value="five">Huc12_5</option>
-					</select>
-				</div>
-				<div id="wfa-huc12Text" class="wfa-huc12Text wfa-hucSelText"><b>Selected HUC 12:</b><span></span> <span id="wfa-huc12back" class="wfa-backBtn"><b>Back</b></span></div>
-
-				<!-- <p>Selected value: <span class="blueFont">none</span></p> -->
-
+				<div id="wfa-huc12Text" class="wfa-huc12Text wfa-hucSelText"><b>Selected HUC 12:</b><span></span> <span id="wfa-huc12back" class="wfa-backBtn"><b>Back</b></span></div> -->
 <!--  Choose a function of interest radio buttons //////////////////////////////////////////////////////////////// -->
-				<h3>Choose Function of Interest:</h3>
+				<!-- <h3>Choose Function of Interest:</h3>
 				<div id="funcWrapper" class="funcWrapper wfa-radio-indent">
-					<label class="form-component" for="all-option">
+					<label class="form-component wfa-funcLabel" for="all-option">
 						<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
 						<div class="check"></div>
 						<span class="form-text">All</span>
 					</label>
 					<br>
-					<label class="form-component" for="flood-option">
+					<label class="form-component wfa-funcLabel" for="flood-option">
 						<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
 						<div class="check"></div>
 						<span class="form-text">Flood Abatement</span>
 					</label>
 					<br>
-					<label class="form-component" for="fish-option">
+					<label class="form-component wfa-funcLabel" for="fish-option">
 						<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
 						<div class="check"></div>
 						<span class="form-text">Fish and Aquatic Habitat</span>
 					</label>
 					<br>
-					<label class="form-component" for="sed-option">
+					<label class="form-component wfa-funcLabel" for="sed-option">
 						<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment/Phosphorous">
 						<div class="check"></div>
 						<span class="form-text">Sediment/Phosphorous</span>
 					</label>
 					<br>
-					<label class="form-component" for="nitro-option">
+					<label class="form-component wfa-funcLabel" for="nitro-option">
 						<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
 						<div class="check"></div>
 						<span class="form-text">Nitrogen</span>
 					</label>
 					<br>
-					<label class="form-component" for="water-option">
+					<label class="form-component wfa-funcLabel" for="water-option">
 						<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Maintenance">
 						<div class="check"></div>
 						<span class="form-text">Surface Water Maintenance</span>
 					</label>
 				</div>
 				<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap">
-					<div><b>Current Watershed:</b> </div>
-					<div><b>Current Wetland ID:</b> </div>
-					<div><b>FAH:</b> </div>
-					<div><b>SS:</b> </div>
-					<div><b>FA:</b> </div>
 
+					<div class="wfa-sum-wrap">	
+						<div class="elm-title">Current Watershed:</div>	
+						<div class="elm-results">
+							<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> Test Current Watershed <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+						</div>	
+						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+					</div>
+
+					<div class="wfa-sum-wrap">	
+						<div class="elm-title">Current Wetland ID:</div>
+						<div class="elm-results">
+							<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+						</div>	
+						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+					</div>
+					<div class="wfa-sum-wrap" style="background-color: #F0F0F0">	
+						<div class="elm-title">Fish & Aquatic Habitat:</div>
+						<div class="elm-results">
+							<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>High<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+						</div>	
+						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+					</div>
+					<div class="wfa-sum-wrap" style="background-color: #AACC66">	
+						<div class="elm-title">Sediment Stabilization:</div>
+						<div class="elm-results">
+							<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>Moderate<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+						</div>	
+						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+					</div>
+					<div class="wfa-sum-wrap" style="background-color: #70A800">	
+						<div class="elm-title">Flood Abatement:</div>
+						<div class="elm-results">
+							<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>Low<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
+						</div>	
+						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+					</div>
 				</div>
-			</div>
+			</div> -->
 <!-- Evalute watershed section ////////////////////////////////////////////////////////////////////////// -->
-			<div class="contentWrap" id="wfa-eval_WetlandWrap" style="display: none;">
+			<!-- <div class="contentWrap" id="wfa-eval_WetlandWrap" style="display: none;">
 				<h3>If you know your wetland location search below: </h3>
 				<div style="height: 50px; width: 200px; border-style: solid; border-color: red;">Placeholder for search box??</div>
 				
-			</div>
-		</div> 
+			</div> -->
+		<!-- </div>  -->
 
 
 
@@ -135,21 +310,21 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 
 <!-- Download Data section ////////////////////////////////////////////////////////////////////////// -->
-		<h3 class="wfaC3">Download Data</h3>
+		<!-- <h3 class="wfaC3">Download Data</h3>
 		<div class="contentWrap">
 			<p>Download Data Placeholder</p>
-		</div>
+		</div> -->
 
 <!-- Report section ////////////////////////////////////////////////////////////////////////// -->
-		<h3 class="wfaC4">Build a report</h3>
+		<!-- <h3 class="wfaC4">Build a report</h3>
 		<div class="contentWrap">
 			<p>Build a report placeholder</p>
-		</div>
+		</div> -->
 
-	</div>
-</div>
+	<!-- </div> -->
+<!-- </div> -->
 <!-- Help button -->
-<div class="wfa-help">
+<!-- <div class="wfa-help">
 	<div id="getHelpBtnWrap" class="getHelpBtnWrap">
 		<button id="getHelpBtn" class="button button-default">Start WAWFA Explorer</button>
 	</div>
@@ -160,9 +335,9 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				<span class="form-text">Don't show at startup</span>
 		</label>
 	</div>	
-</div>
+</div> -->
 <!-- Help accordian window -->
-<div id="infoAccord" class="flex1 wfa-help">
+<!-- <div id="infoAccord" class="flex1 wfa-help hide">
 	<h3 class="wfaH1">Identify Floodplain Units</h3>
 	<div class="explainWrap" style="display:block;">
 		<p>Maybe a few intro sentences here</p>
@@ -206,7 +381,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<h4>Habitat and Biodiversity Benefits</h4>
 		<p>explain</p>
 	</div>
-</div>
+</div> -->
 
 
 <!-- <div id="wfa-wrap" class="flex1 wfa-wrap accord" style="padding:0.5em; color: #5d6165; height:1000px; width:350px; margin-bottom:10px;">

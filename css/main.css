@@ -33,6 +33,12 @@
 .wfa-wrap{
 	display: none;
 }
+.wfa-sections{
+	position: relative; top: 100px; padding: 10px;
+}
+.wfa-mainContentWrap{
+	padding-left: 7px;
+}
 .wfa-first-section .toggle-btn{
 	margin-top:-10px;	
 }
@@ -65,9 +71,9 @@
 .wfa-huc8Chosen, .wfa-huc10Chosen, .wfa-huc12Chosen{
 	display: none;
 }
-.wfa-huc6Text, .wfa-huc8Text, .wfa-huc10Text, .wfa-huc12Text{
+/*.wfa-huc6Text, .wfa-huc8Text, .wfa-huc10Text, .wfa-huc12Text{
 	display: none;
-}
+}*/
 .wfa-hucSelText{
 	margin: 10px;
 }
@@ -76,8 +82,37 @@
 }
 /* Attribute wrap styling for select a site /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 .wfa-fas_AttributeWrap{
-	margin-top: 20px;
+	margin-top: 20px; display: flex; flex-wrap: wrap; padding-bottom: 20px;
 }
 .wfa-fas_AttributeWrap div{
-	padding: 5px;
+	padding: 3px;
+}
+.wfa-sum-wrap {
+    width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative;
+}
+.wfa-huc-wrap{
+	width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative;
+
+}
+.wfa-attZoom{
+	position: absolute; top:3px; right: 3px;
+}
+.wfa-funcLabel{
+	margin-bottom: 7px !important;
+}
+.tabBtns{
+	margin-right:-6px; margin-bottom:0 !important; background:#f3f3f3; border-bottom: 1px solid #cdd5d5 !important; border-top: 1px solid #cdd5d5 !important;
+}
+.wfa-funcWrapper{
+	margin-top: 20px;
+}
+.wfa-app{
+	background: #fff; position: absolute; z-index: 1000; width: 420;
+}
+.wfa-mainContentWrap{
+	position: relative; top: 125px;
+}
+
+.wfa-dlwrap a {
+	color: blue !important; cursor: pointer !important;
 }

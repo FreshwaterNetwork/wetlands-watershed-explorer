@@ -1,7 +1,7 @@
 define([
-	"dojo/_base/declare", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer", "esri/dijit/Search"
+	"dojo/_base/declare", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer", "esri/dijit/Search", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color"
 ],
-function ( declare, Query, QueryTask,FeatureLayer, Search) {
+function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color) {
         "use strict";
 
         return declare(null, {
@@ -47,141 +47,175 @@ function ( declare, Query, QueryTask,FeatureLayer, Search) {
 						t.app.suppressHelpOnStartup(false);
 					}
 				})
+				// tab button listener
+				$( "#" + t.id + "tabBtns input").on('click',function(c){
+					console.log('tab btn click', c);
+					t.obj.active = c.target.value;
+					$.each($("#" + t.id + " .wfa-sections"),function(i,v){
+						console.log(v.id);
+						if (v.id != t.id + t.obj.active){
+							$("#"+ v.id).slideUp();
+						}else{
+							$("#"+ v.id).slideDown();
+						}
+					});
+					if(t.obj.active == 'wfa-showInfo' || t.obj.active == 'wfa-downloadData'){
+						$("#"+ t.id + 'wfa-mainContentWrap').slideUp();
+					}
+				});
 
+
+				
+				
+
+
+
+
+
+				// Build the Huc 6 DD menu on init
+				//t.clicks.populateDD(t);
 
 //Choosen menu and click handler
 //For Chosen options visit https://harvesthq.github.io/chosen/
 //Single deselect only works if the first option in the select tag is blank
 // huc 6 chosen menu ////////////////////////////////////////////////////////////////////////////////////////////////////////
-				$("#" + t.id + "wfa-huc6dd").chosen({allow_single_deselect:true, width:"355px"}).change(function(c,p){
-					var v = c.target.value;
-					// if an item was selected 
-					if(p){
-						t.obj.selHuc = '6' // set huc tracker
-						$("#" + t.id + "wfa-huc8Chosen").slideDown();
-						$("#" + t.id + "wfa-huc6Chosen").slideUp();
-						$("#" + t.id + "wfa-huc6Text").slideDown();
-						$("#" + t.id + "wfa-huc6dd").parent().next().find("span").first().html(' '+ v);
-					}else{ // else if the x was clicked on the dropdown menu
-						$("#" + t.id + "wfa-huc8Chosen").slideUp();
-					}
-				});
-				// on click of back button 
-				$('#' + t.id + 'wfa-huc6back').on('click',function(c){
-					t.obj.selHuc = '6' // set huc tracker
-					$("#" + t.id + "wfa-huc6Chosen").slideDown();
-					$("#" + t.id + "wfa-huc8Chosen" + ",#" + t.id + "wfa-huc10Chosen" + ",#" + t.id + "wfa-huc12Chosen").slideUp();
-					// Empty dd menus below the back button
-					$("#" + t.id + "wfa-huc8dd" + ",#" + t.id + "wfa-huc10dd" + ",#" + t.id + "wfa-huc12dd").val('').trigger("chosen:updated").trigger('change');
-					// $('#' + t.id + 'ch-years').val('').trigger('chosen:updated').trigger('change');
-					$("#" + t.id + "wfa-huc6Text" + ",#" + t.id + "wfa-huc8Text" + ",#" + t.id + "wfa-huc10Text" + ",#" + t.id + "wfa-huc12Text").slideUp();
-				});
+				// $("#" + t.id + "wfa-huc6dd").chosen({allow_single_deselect:true, width:"355px"}).change(function(c,p){
+				// 	var v = c.target.value;
+				// 	t.huc6val  = v.split('_')[0]
+				// 	var ddVal = v.split('_')[1]
+				// 	t.hucQuery = 8;
+				// 	// if an item was selected 
+				// 	if(p){
+				// 		var q = new Query();
+				// 		q.where = "WHUC6 = '" + t.huc6val + "'";
+				// 		t.huc6Feat.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
+				// 		//t.clicks.layerDefs(t);
+				// 		t.clicks.populateDD(t);
+				// 		t.obj.selHuc = '6' // set huc tracker
+				// 		$("#" + t.id + "wfa-huc8Chosen").slideDown();
+				// 		$("#" + t.id + "wfa-huc6Chosen").slideUp();
+				// 		$("#" + t.id + "wfa-huc6Text").slideDown();
+				// 		$("#" + t.id + "wfa-huc6dd").parent().next().find("span").first().html(' '+ ddVal);
+				// 	}else{ // else if the x was clicked on the dropdown menu
+				// 		$("#" + t.id + "wfa-huc8Chosen").slideUp();
+				// 	}
+				// });
 
-// Populate huc 6 dropdown /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				// create query task on the huc 8 table at app startup
-				var queryTask = new QueryTask(t.url + "/0")
-				var query = new Query();
-				query.returnGeometry = false;
-				query.outFields = ["WHUC6"];
-				// query.where = "OBJECTID > -1"
-				query.where = "WHUC6 = '040103'"
-				queryTask.execute(query, function(results){
-					var hucs = [];
-					$.each(results.features, function(i,v){
-						hucs.push(v.attributes)
-					});
-					// sort huc list......
-					hucs.sort(function(a,b) {return (a.WHUC6 > b.WHUC6) ? 1 : ((b.WHUC6 > a.WHUC6) ? -1 : 0);} );
+// 				// on click of back button 
+// 				$('#' + t.id + 'wfa-huc6back').on('click',function(c){
+// 					// t.obj.visibleLayers = [0];
+// 					// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+// 					t.map.setExtent(t.huc6InitExt, true);
+// 					t.obj.selHuc = '6' // set huc tracker
+// 					t.clicks.layerDefs(t);
+// 					$("#" + t.id + "wfa-huc6Chosen").slideDown();
+// 					$( "#" + t.id + "wfa-huc6Text" + ",#" + t.id + "wfa-huc8Text" + ",#" + t.id + "wfa-huc10Text" + ",#" + t.id + "wfa-huc12Text" + ",#" + t.id + "wfa-huc8Chosen" + ",#" + t.id + "wfa-huc10Chosen" + ",#" + t.id + "wfa-huc12Chosen").slideUp();
+// 					// Empty dd menus below the back button
+// 					$("#" + t.id + "wfa-huc8dd" + ",#" + t.id + "wfa-huc10dd" + ",#" + t.id + "wfa-huc12dd").val('').trigger("chosen:updated").trigger('change');
+// 					// $("#" + t.id + "wfa-huc6Text" + ",#" + t.id + "wfa-huc8Text" + ",#" + t.id + "wfa-huc10Text" + ",#" + t.id + "wfa-huc12Text").slideUp();
+// 				});
 
-					t.HUC6s = hucs;
-					$('#' + t.id + 'wfa-huc6dd').empty();
-					$('#' + t.id + 'wfa-huc6dd').append("<option value=''></option>")
-					$('#' + t.id + 'wfa-huc6dd').append("<option value='fullExtent'>Zoom to Full Extent</option>")
-					$.each(t.HUC6s, function(i,v){
-						$('#' + t.id + 'wfa-huc6dd').append("<option value='" + v.WHUC6 + "'>" + v.WHUC6 + "</option>")
-					}); 
-					$('#' + t.id + 'wfa-huc6dd').trigger("chosen:updated");
-				});
 
-// huc 8 chosen menu ////////////////////////////////////////////////////////////////////////////////////////////////////////
-				$("#" + t.id + "wfa-huc8dd").chosen({allow_single_deselect:true, width:"355px"}).change(function(c, p){
-					var v = c.target.value;
-					// if an item was selected 
-					if(p){
-						t.obj.selHuc = '8' // set huc tracker
-						$("#" + t.id + "wfa-huc10Chosen").slideDown();
-						$("#" + t.id + "wfa-huc8Chosen").slideUp();
-						$("#" + t.id + "wfa-huc8Text").slideDown();
-						$("#" + t.id + "wfa-huc8dd").parent().next().find("span").first().html(' '+ v);
-					}else{ // else if the x was clicked on the dropdown menu
-						$("#" + t.id + "wfa-huc10Chosen").slideUp();
-					}
-				});
 
-				// on click of back button 
-				$('#' + t.id + 'wfa-huc8back').on('click',function(c){
-					t.obj.selHuc = '8' // set huc tracker
-					$("#" + t.id + "wfa-huc8Chosen").slideDown();
-					// Empty dd menus below the back button
-					$("#" + t.id + "wfa-huc10dd" + ",#" + t.id + "wfa-huc12dd").val('').trigger("chosen:updated").trigger('change');
-					$( "#" + t.id + "wfa-huc10Chosen" + ",#" + t.id + "wfa-huc12Chosen").slideUp();
-					$("#" + t.id + "wfa-huc8Text" + ",#" + t.id + "wfa-huc10Text" + ",#" + t.id + "wfa-huc12Text").slideUp();
-				});
+// // huc 8 chosen menu ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 				$("#" + t.id + "wfa-huc8dd").chosen({allow_single_deselect:true, width:"355px"}).change(function(c, p){
+// 					var v = c.target.value;
+// 					t.huc8val  = v.split('_')[0]
+// 					t.hucQuery = 10;
+// 					t.clicks.populateDD(t);
+// 					// if an item was selected 
+// 					if(p){
+// 						var q = new Query();
+// 						q.where = "WHUC8 = '" + t.huc8val + "'";
+// 						t.huc8Feat.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
+// 						t.obj.selHuc = '8' // set huc tracker
+// 						//t.clicks.layerDefs(t);
+// 						$("#" + t.id + "wfa-huc10Chosen").slideDown();
+// 						$("#" + t.id + "wfa-huc8Chosen").slideUp();
+// 						$("#" + t.id + "wfa-huc8Text").slideDown();
+// 						$("#" + t.id + "wfa-huc8dd").parent().next().find("span").first().html(' '+ v);
+// 					}else{ // else if the x was clicked on the dropdown menu
+// 						$("#" + t.id + "wfa-huc10Chosen").slideUp();
+// 					}
+// 				});
 
-// huc 10 chosen menu ////////////////////////////////////////////////////////////////////////////////////////////////////////
-				$("#" + t.id + "wfa-huc10dd").chosen({allow_single_deselect:true, width:"355px"}).change(function(c,p){
-					var v = c.target.value;
-					// if an item was selected 
-					if(p){
-						t.obj.selHuc = '10' // set huc tracker
-						$("#" + t.id + "wfa-huc12Chosen").slideDown();
-						$("#" + t.id + "wfa-huc10Chosen").slideUp();
-						$("#" + t.id + "wfa-huc10Text").slideDown();
-						$("#" + t.id + "wfa-huc10dd").parent().next().find("span").first().html(' '+ v);
-					}else{ // else if the x was clicked on the dropdown menu
-						$("#" + t.id + "wfa-huc12Chosen").slideUp();
-					}
-				});
+// 				// on click of back button 
+// 				$('#' + t.id + 'wfa-huc8back').on('click',function(c){
+// 					t.map.setExtent(t.huc8InitExt, true);
+// 					t.obj.selHuc = '8' // set huc tracker
+// 					t.clicks.layerDefs(t);
+// 					$("#" + t.id + "wfa-huc8Chosen").slideDown();
+// 					// Empty dd menus below the back button
+// 					$("#" + t.id + "wfa-huc10dd" + ",#" + t.id + "wfa-huc12dd").val('').trigger("chosen:updated").trigger('change');
+// 					$( "#" + t.id + "wfa-huc10Chosen" + ",#" + t.id + "wfa-huc12Chosen").slideUp();
+// 					$("#" + t.id + "wfa-huc8Text" + ",#" + t.id + "wfa-huc10Text" + ",#" + t.id + "wfa-huc12Text").slideUp();
+// 				});
 
-				// on click of back button 
-				$('#' + t.id + 'wfa-huc10back').on('click',function(c){
-					t.obj.selHuc = '10' // set huc tracker
-					$("#" + t.id + "wfa-huc10Chosen").slideDown();
-					$("#" + t.id + "wfa-huc12Chosen").slideUp();
-					// Empty dd menus below the back button
-					$("#" + t.id + "wfa-huc12dd").val('').trigger("chosen:updated").trigger('change');
-					$("#" + t.id + "wfa-huc10Text" + ",#" + t.id + "wfa-huc12Text").slideUp();
-				});
+// // huc 10 chosen menu ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 				$("#" + t.id + "wfa-huc10dd").chosen({allow_single_deselect:true, width:"355px"}).change(function(c,p){
+// 					var v = c.target.value;
+// 					t.huc10val  = v.split('_')[0]
+// 					t.hucQuery = 12;
+// 					t.clicks.populateDD(t);
+// 					//t.clicks.layerDefs(t);
+// 					// if an item was selected 
+// 					if(p){
+// 						var q = new Query();
+// 						q.where = "WHUC10 = '" + t.huc10val + "'";
+// 						t.huc10Feat.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
+// 						t.obj.selHuc = '10' // set huc tracker
+// 						//t.clicks.layerDefs(t);
+// 						$("#" + t.id + "wfa-huc12Chosen").slideDown();
+// 						$("#" + t.id + "wfa-huc10Chosen").slideUp();
+// 						$("#" + t.id + "wfa-huc10Text").slideDown();
+// 						$("#" + t.id + "wfa-huc10dd").parent().next().find("span").first().html(' '+ v);
+// 					}else{ // else if the x was clicked on the dropdown menu
+// 						$("#" + t.id + "wfa-huc12Chosen").slideUp();
+// 					}
+// 				});
 
-// huc 12 chosen menu ////////////////////////////////////////////////////////////////////////////////////////////////////////
-				$("#" + t.id + "wfa-huc12dd").chosen({allow_single_deselect:true, width:"355px"}).change(function(c,p){
-					var v = c.target.value;
-					// if an item was selected 
-					if(p){
-						t.obj.selHuc = '12' // set huc tracker
-						//$("#" + t.id + "wfa-huc12Chosen").slideDown();
-						$("#" + t.id + "wfa-huc12Chosen").slideUp();
-						$("#" + t.id + "wfa-huc12Text").slideDown();
-						$("#" + t.id + "wfa-huc12dd").parent().next().find("span").first().html(' '+ v);
-					}else{ // else if the x was clicked on the dropdown menu
-						//$("#" + t.id + "wfa-huc12Chosen").slideUp();
-					}
-				});
+// 				// on click of back button 
+// 				$('#' + t.id + 'wfa-huc10back').on('click',function(c){
+// 					t.map.setExtent(t.huc10InitExt, true);
+// 					t.obj.selHuc = '10' // set huc tracker
+// 					//t.clicks.layerDefs(t);
+// 					$("#" + t.id + "wfa-huc10Chosen").slideDown();
+// 					$("#" + t.id + "wfa-huc12Chosen").slideUp();
+// 					// Empty dd menus below the back button
+// 					$("#" + t.id + "wfa-huc12dd").val('').trigger("chosen:updated").trigger('change');
+// 					$("#" + t.id + "wfa-huc10Text" + ",#" + t.id + "wfa-huc12Text").slideUp();
+// 				});
 
-				// on click of back button 
-				$('#' + t.id + 'wfa-huc12back').on('click',function(c){
-					t.obj.selHuc = '10' // set huc tracker
-					$("#" + t.id + "wfa-huc12dd").val('').trigger("chosen:updated").trigger('change');
-					$("#" + t.id + "wfa-huc12Chosen").slideDown();
-					$("#" + t.id + "wfa-huc12Text").slideUp();
-				});
+// // huc 12 chosen menu ////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 				$("#" + t.id + "wfa-huc12dd").chosen({allow_single_deselect:true, width:"355px"}).change(function(c,p){
+// 					var v = c.target.value;
+// 					t.huc12val  = v.split('_')[0]
+// 					t.clicks.layerDefs(t);
+// 					// if an item was selected 
+// 					if(p){
+// 						var q = new Query();
+// 						q.where = "WHUC12 = '" + t.huc12val + "'";
+// 						t.huc12Feat.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
+// 						t.obj.selHuc = '12' // set huc tracker
+// 						//t.clicks.layerDefs(t);
+// 						$("#" + t.id + "wfa-huc12Chosen").slideUp();
+// 						$("#" + t.id + "wfa-huc12Text").slideDown();
+// 						$("#" + t.id + "wfa-huc12dd").parent().next().find("span").first().html(' '+ v);
+// 					}else{ // else if the x was clicked on the dropdown menu
+// 						//$("#" + t.id + "wfa-huc12Chosen").slideUp();
+// 					}
+// 				});
+
+// 				// on click of back button 
+// 				$('#' + t.id + 'wfa-huc12back').on('click',function(c){
+// 					t.map.setExtent(t.huc12InitExt, true);
+// 					t.obj.selHuc = '10' // set huc tracker
+// 					$("#" + t.id + "wfa-huc12dd").val('').trigger("chosen:updated").trigger('change');
+// 					$("#" + t.id + "wfa-huc12Chosen").slideDown();
+// 					$("#" + t.id + "wfa-huc12Text").slideUp();
+// 				});
 
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				// $('#' + t.id + 'funcWrapper .rb_cb').on('click',function(c){
-				// 	$.each($('#' + c.target.id).parent().parent().find('input'),function(i,v){
-				// 		$(v).attr('disabled', false)
-				// 	});
-				// });
 				// Set selected value text for button clicks
 				$( '#' + t.id + 'wfa-findEvalSiteToggle input' ).click(function(c){
 					console.log(c, 'c');
@@ -195,7 +229,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search) {
 						$( '#' + t.id + 'wfa-find_WetlandWrap').slideUp()
 						console.log('other')
 					}
-					//$('#' + c.target.id ).parent().next().find("span").html(c.target.value) 
 				});
 
 				
@@ -214,240 +247,217 @@ function ( declare, Query, QueryTask,FeatureLayer, Search) {
 						}
 					});
 				})
-
-
-
-				var clickCnt = 0;
-				// Flood frequency, HUC, and Management Action clicks
-				$('#' + t.id + 'top-controls input').on('click',function(c){
-					// Update json object
-					var rname = $('#' + c.target.id).attr("name")
-					var val = c.target.value;
-					t.obj[rname] = val;
-					// Flood Frequency
-					if (rname == "floodFreq"){
-						t.obj.ffDef = "( FloodFrequency = '" + val + "' )";
-					}
-					// HUCs
-					if (rname == "huc"){
-						var h = val.split(" ").pop();
-						$('.h10, .h12').hide();
-						$('.h' + h).show();
-						$.each(t.layersArray, function(i,v){
-							if (v.name == val){
-								t.obj.hucLayer = v.id;
-								t.obj.hucLayerSel = (v.id - 1)
-								t.obj.visibleLayers = [t.obj.hucLayerSel, t.obj.hucLayer];
-								t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-							}
-						})
-					}
-					// Management Action
-					if (rname == "mngmtAction"){
-						$('.mng-act-wrap').slideUp(500,function(){
-							$('.mng-act-toggle').hide();
-							$('.' + c.target.value).show()
-							$('.mng-act-wrap').slideDown(500);	
-						});
-					}
-					if (clickCnt < 2){
-						clickCnt = clickCnt + 1
-					}else{
-						// Set definition expressions for visible and enable sliders
-						$.each($('#' + t.id + 'mng-act-wrap .slider'),function(i,v){
-							var idArray = v.id.split("-")
-							var h = t.obj.huc.split(" ").pop();
-							var ben  = v.id.split("-").pop();
-							if (idArray[1] == h){
-								if ( $('#' + v.id).parents('.' + t.obj.mngmtAction).length ){
-									var dis = $('#' + v.id).slider("option", "disabled");
-									if (dis == false){
-										var values = $('#' + v.id).slider("option", "values");
-										t[ben] = "(" + ben + " >= " + values[0] + " AND " + ben + " <= " + values[1] + ")";
-									}else{
-										t[ben] = "";
-									}								
-								}else{
-									t[ben] = "";
-								}	
-							}
-						})
-						// Set definition expressions for visible and enabled radion buttons
-						$.each( $('.wfa-radio-indent input'), function(i,v){
-							var ben = v.value.split("-")[0]
-							var val = v.value.split("-")[1]
-							// use class name to test if it's visible
-							if ( $('#' + v.id).parents('.' + t.obj.mngmtAction).length ){
-								if (v.disabled == true){
-									t[ben] = "";
-								}
-								if (v.disabled == false && v.checked == true){
-									t[ben] = "( " + ben + " = '" + val + "' )";
-								}	
-							}else{	
-								t[ben] = "";
-							}
-						}) 
-						t.clicks.layerDefs(t);
-					}	
-				})
-				// Checkboxes for sliders
-				$('#' + t.id + 'wfa-wrap .-slCb').on('click',function(c){
-					if (c.target.checked == true){
-						$('#' + c.target.id).parent().parent().find('.wfa-slider-label').css("display", "inline-block");
-						var sl = $('#' + c.target.id).parent().parent().find('.slider')[0].id 
-						$('#' + sl).slider( "option", "disabled", false );
-						var values = $('#' + sl).slider("option", "values");
-						$('#' + sl).slider('values', values);
-					}
-					if (c.target.checked == false){
-						$('#' + c.target.id).parent().parent().find('.wfa-slider-label').css("display", "none");
-						var sl = $('#' + c.target.id).parent().parent().find('.slider')[0].id 
-						$('#' + sl).slider( "option", "disabled", true );
-						var ben  = sl.split("-").pop();
-						t[ben] = "";
-						t.clicks.layerDefs(t);
-					}	
-				})
-
-				//Natural lands not behind levess slider
-				$('#' + t.id + '-10-NatNotProt').slider({range:true, min:0, max:8000, values:[0,8000], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				$('#' + t.id + '-12-NatNotProt').slider({range:true, min:0, max:2000, values:[0,2000], disabled:true,
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				//Agricultural lands not behind levess slider
-				$('#' + t.id + '-10-RowAgNotProt').slider({range:true, min:0, max:10000, values:[0,10000], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				$('#' + t.id + '-12-RowAgNotProt').slider({range:true, min:0, max:2000, values:[0,2000], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				//Structural loss slider
-				$('#' + t.id + '-10-FRStruct_TotLoss').slider({range:true, min:0, max:10000000, values:[0,10000000], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				$('#' + t.id + '-12-FRStruct_TotLoss').slider({range:true, min:0, max:10000000, values:[0,10000000], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				//Agricultural loss slider
-				$('#' + t.id + '-10-AGLoss_7').slider({range:true, min:0, max:20000000, values:[0,20000000], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				$('#' + t.id + '-12-AGLoss_7').slider({range:true, min:0, max:1000000, values:[0,1000000], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				//Agricultural land use behind levees slider
-				$('#' + t.id + '-10-RowAgProt').slider({range:true, min:0, max:1000, values:[0,1000], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				$('#' + t.id + '-12-RowAgProt').slider({range:true, min:0, max:1000, values:[0,1000], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				//Developed lands behind levess slider
-				$('#' + t.id + '-10-DevProt').slider({range:true, min:0, max:1000, values:[0,1000], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
-				$('#' + t.id + '-12-DevProt').slider({range:true, min:0, max:500, values:[0,500], disabled:true, 
-						change:function(event,ui){t.clicks.sliderChange(event,ui,t)},
-						slide:function(event,ui){t.clicks.sliderSlide(event,ui,t)}
-					})
 			},
-			sliderChange: function(e, ui, t){
-				var max = $('#' + e.target.id).slider("option", "max");
-				var ben  = e.target.id.split("-").pop()
-				// slider change was mouse-driven
-				if (e.originalEvent) {
-					if (max == ui.values[1]){
-						t[ben] = "(" + ben + " >= " + ui.values[0] + ")";
-						$('#' + e.target.id).parent().prev().find('.wfa-grth').css('display', 'inline-block');
-					}else{
-						t[ben] = "(" + ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1] + ")";	
-						$('#' + e.target.id).parent().prev().find('.wfa-grth').css('display', 'none');
-					}
-					t.clicks.layerDefs(t);
-				}
-				//slider change was programmatic
-				else{
-					if (t.obj.stateSet == "no"){
-						if (max == ui.values[1]){
-							t[ben] = "(" + ben + " >= " + ui.values[0] + ")";
-							$('#' + e.target.id).parent().prev().find('.wfa-grth').css('display', 'inline-block');
-						}else{
-							t[ben] = "(" + ben + " >= " + ui.values[0] + " AND " + ben + " <= " + ui.values[1] + ")";	
-							$('#' + e.target.id).parent().prev().find('.wfa-grth').css('display', 'none');
-						}	
-						t.clicks.sliderSlide(e, ui, t);
-						t.clicks.layerDefs(t);
-					}else{
-						t.clicks.sliderSlide(e, ui, t);
-					}
-				}	
-			},
-			sliderSlide: function(e, ui, t){
-				var sid = e.target.id.split("-");
-				$('#' + t.id + '-' + sid[1] + '-' + sid[2]).parent().prev().find('.blueFont').each(function(i,v){
-					if (ui.values[i] > 100000){
-						var val = t.clicks.abbreviateNumber(ui.values[i])
-					}else{
-						var val = t.clicks.commaSeparateNumber(ui.values[i])
-					}
-					$(v).html(val)
-				})	
-			},
+
 			layerDefs: function(t){
-				if (t.obj.stateSet == "no"){
-					
-					t.obj.exp = [t.NatNotProt, t.RowAgNotProt, t.RowAgProt, t.DevProt, t.FRStruct_TotLoss, t.AGLoss_7, 
-								 t.NDelRet, t.Denitrification, t.Reconnection, t.BF_Existing, t.BF_Priority, t.SDM]
-				}
-				var exp = "";
-				var cnt = 0;
-				$.each(t.obj.exp, function(i, v){
-					if (v.length > 0){
-						cnt = cnt + 1;
-					}	
-				});	
-				if (cnt > 0){
-					t.obj.exp.unshift(t.obj.ffDef);
-					$.each(t.obj.exp, function(i, v){
-						if (v.length > 0){
-							if (exp.length == 0){
-								exp = v;
-							}else{
-								exp = exp + " AND " + v;
-							}	
-						}	
-					});
 					t.layerDefinitions = [];		
-					t.layerDefinitions[t.obj.hucLayerSel] = exp;			
+					t.layerDefinitions[0] = "WHUC6 <> '" + t.huc6val + "'";	
 					t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-					t.obj.visibleLayers = [t.obj.hucLayerSel, t.obj.hucLayer];
+
+					t.obj.visibleLayers = [0,2,4];
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-					var query = new Query();
-					var queryTask = new QueryTask(t.url + '/' + t.obj.hucLayerSel);
-					query.where = exp;
-					queryTask.executeForCount(query,function(count){
-						var countWcomma = t.clicks.commaSeparateNumber(count)
-						$('#' + t.id + 'mng-act-wrap .fuCount').html(countWcomma); 
+
+
+
+					// t.layerDefinitions[3] = "WHUC6 = '" + t.huc6val + "'";			
+					// t.layerDefinitions[6] = "WHUC6 = '" + t.huc6val + "'";
+					// t.layerDefinitions[9] = "WHUC6 = '" + t.huc6val + "'";
+					// t.layerDefinitions[12] = "WHUC6 = '" + t.huc6val + "'";
+					// t.layerDefinitions[15] = "WHUC6 = '" + t.huc6val + "'";
+					// t.layerDefinitions[18] = "WHUC6 = '" + t.huc6val + "'";
+
+					// t.layerDefinitions[4] = "WHUC8 = '" + t.huc8val + "'";
+					// t.layerDefinitions[7] = "WHUC8 = '" + t.huc8val + "'";
+					// t.layerDefinitions[10] = "WHUC8 = '" + t.huc8val + "'";
+					// t.layerDefinitions[13] = "WHUC8 = '" + t.huc8val + "'";
+					// t.layerDefinitions[16] = "WHUC8 = '" + t.huc8val + "'";
+					// t.layerDefinitions[19] = "WHUC8 = '" + t.huc8val + "'";
+
+					// t.layerDefinitions[5] = "WHUC10 = '" + t.huc10val + "'";
+					// t.layerDefinitions[8] = "WHUC10 = '" + t.huc10val + "'";
+					// t.layerDefinitions[11] = "WHUC10 = '" + t.huc10val + "'";
+					// t.layerDefinitions[14] = "WHUC10 = '" + t.huc10val + "'";
+					// t.layerDefinitions[17] = "WHUC10 = '" + t.huc10val + "'";
+					// t.layerDefinitions[20] = "WHUC10 = '" + t.huc10val + "'";
+					
+
+					// t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+					// if(t.obj.selHuc == 6){
+					// 	console.log('look here for 6');
+					// 	t.obj.visibleLayers = [0,1,4];
+					// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					// }
+					
+					// if(t.obj.selHuc == 8){
+					// 	console.log('look here for huc 10');
+					// 	t.obj.visibleLayers = [1,2,4];
+					// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					// }
+					// if(t.obj.selHuc == 10){
+					// 	console.log('look here for huc 12');
+					// 	t.obj.visibleLayers = [2,5];
+					// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					// }
+				
+			},
+			featureLayerListeners: function(t){
+				// Create a feature layer of future parcels selected by PIN
+				t.hiddenSym = new SimpleFillSymbol( SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
+					SimpleLineSymbol.STYLE_SOLID, new Color([0,0,255,0]), 0 ), new Color([255,255,255,0])
+				);
+				// t.fManyPinFL = new FeatureLayer(t.url + "/1" , { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
+				t.hucMask = new FeatureLayer(t.url + "/0", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
+
+				t.huc6Feat = new FeatureLayer(t.url + "/1", { mode: FeatureLayer.MODE_SELECTION, outFields: ["*"] });
+				t.huc6Feat.setSelectionSymbol(t.hiddenSym);
+				t.map.addLayer(t.huc6Feat);
+				var hoverSym = new SimpleFillSymbol( SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(
+					SimpleLineSymbol.STYLE_SOLID, new Color([0,128,255,0]), 0 ), new Color([0,0,0,0.15])
+				);
+				t.huc6Feat.on('mouse-over', function(evt){
+					console.log('look here');
+					if ( t.open == "yes"){ 
+						t.map.setMapCursor("pointer");
+						var highlightGraphic = new Graphic(evt.graphic.geometry,hoverSym);
+						t.map.graphics.add(highlightGraphic);
+						t.obid = evt.graphic.attributes.OBJECTID
+					}	
+				});
+				t.map.graphics.on("mouse-out", function(){
+					if ( t.open == "yes"){ 
+						t.map.setMapCursor("default");
+						t.map.graphics.clear();
+					}	
+				});
+
+				t.map.on("click", function(evt) {
+					console.log(evt);
+					t.obj.pnt = evt.mapPoint;
+					var q = new Query();
+					q.geometry = t.obj.pnt;
+					console.log(t.huc6val);
+					// var where = "WHUC6 = '"  + 040301 + "'"
+					//var where = "WHUC6 = '040301'"
+					// q.where = where
+					
+					t.huc6Feat.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
+					//t.hucMask.selectFeatures(q,esri.layers.FeatureLayer.SELECTION_NEW);
+				
+				});
+				t.huc6Feat.on('selection-complete', function(evt){
+					console.log(evt);
+					t.huc12InitExt = t.map.extent;
+					var fExt = evt.features[0].geometry.getExtent().expand(.8);
+					t.map.setExtent(fExt, true);
+					t.huc6val = evt.features[0].attributes.WHUC6
+					t.clicks.layerDefs(t);
+				});
+				t.hucMask.on('selection-complete', function(evt){
+					console.log(evt);
+					
+				});
+			},
+
+			populateDD: function(t){
+// Populate huc 6 dropdown /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				// create query task on the huc 6 table at app startup
+				var queryTask = new QueryTask(t.url + "/1")
+				var query = new Query();
+				query.returnGeometry = false;
+				query.outFields = ["WHUC6", "name"];
+				query.where = "OBJECTID > -1"
+				queryTask.execute(query, function(results){
+					var hucs = [];
+					$.each(results.features, function(i,v){
+						hucs.push(v.attributes)
 					});
-				}else{
-					t.obj.visibleLayers = [t.obj.hucLayer];
-					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-					$('#' + t.id + 'mng-act-wrap .fuCount').html("0"); 
-				}	
+					// sort huc list......
+					hucs.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
+					t.HUC6s = hucs;
+					$('#' + t.id + 'wfa-huc6dd').empty();
+					$('#' + t.id + 'wfa-huc6dd').append("<option value=''></option>")
+					// $('#' + t.id + 'wfa-huc6dd').append("<option value='fullExtent'>Zoom to Full Extent</option>")
+					$.each(t.HUC6s, function(i,v){
+						$('#' + t.id + 'wfa-huc6dd').append("<option value='" + v.WHUC6 + '_'+v.name + "'>" + v.name + "</option>")
+					}); 
+					$('#' + t.id + 'wfa-huc6dd').trigger("chosen:updated");
+				});
+
+				if (t.hucQuery == 8){
+					// create query task on the huc 8 table at app startup
+					var queryTask = new QueryTask(t.url + "/2")
+					var query = new Query();
+					query.returnGeometry = false;
+					query.outFields = ["WHUC8", "name"];
+					query.where = "WHUC6 = '" + t.huc6val + "'";
+					queryTask.execute(query, function(results){
+						var hucs = [];
+						$.each(results.features, function(i,v){
+							hucs.push(v.attributes)
+						});
+						// sort huc list......
+						hucs.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
+						t.HUC6s = hucs;
+						$('#' + t.id + 'wfa-huc8dd').empty();
+						$('#' + t.id + 'wfa-huc8dd').append("<option value=''></option>")
+						// $('#' + t.id + 'wfa-huc8dd').append("<option value='fullExtent'>Zoom to Full Extent</option>")
+						$.each(t.HUC6s, function(i,v){
+							$('#' + t.id + 'wfa-huc8dd').append("<option value='" + v.WHUC8 + '_'+v.name + "'>" + v.name + "</option>")
+						}); 
+						$('#' + t.id + 'wfa-huc8dd').trigger("chosen:updated");
+					});
+				}
+				if (t.hucQuery == 10){
+					// create query task on the huc 10 table at app startup
+					var queryTask = new QueryTask(t.url + "/3")
+					var query = new Query();
+					query.returnGeometry = false;
+					query.outFields = ["WHUC10", "name"];
+					query.where = "WHUC8 = '" + t.huc8val + "'";
+					queryTask.execute(query, function(results){
+						var hucs = [];
+						$.each(results.features, function(i,v){
+							hucs.push(v.attributes)
+						});
+						// sort huc list......
+						hucs.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
+						t.HUC6s = hucs;
+						$('#' + t.id + 'wfa-huc10dd').empty();
+						$('#' + t.id + 'wfa-huc10dd').append("<option value=''></option>")
+						// $('#' + t.id + 'wfa-huc8dd').append("<option value='fullExtent'>Zoom to Full Extent</option>")
+						$.each(t.HUC6s, function(i,v){
+							$('#' + t.id + 'wfa-huc10dd').append("<option value='" + v.WHUC10 + '_'+v.name + "'>" + v.name + "</option>")
+						}); 
+						$('#' + t.id + 'wfa-huc10dd').trigger("chosen:updated");
+					});
+				}
+				if (t.hucQuery == 12){
+					console.log('huc 12');
+					// create query task on the huc 10 table at app startup
+					var queryTask = new QueryTask(t.url + "/6")
+					var query = new Query();
+					query.returnGeometry = false;
+					query.outFields = ["WHUC12", "name"];
+					query.where = "WHUC10 = '" + t.huc10val + "'";
+					queryTask.execute(query, function(results){
+						var hucs = [];
+						$.each(results.features, function(i,v){
+							hucs.push(v.attributes)
+						});
+						// sort huc list......
+						hucs.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
+						t.HUC6s = hucs;
+						$('#' + t.id + 'wfa-huc12dd').empty();
+						$('#' + t.id + 'wfa-huc12dd').append("<option value=''></option>")
+						// $('#' + t.id + 'wfa-huc8dd').append("<option value='fullExtent'>Zoom to Full Extent</option>")
+						$.each(t.HUC6s, function(i,v){
+							console.log(v);
+							$('#' + t.id + 'wfa-huc12dd').append("<option value='" + v.WHUC12 + '_'+v.Name + "'>" + v.Name + "</option>")
+						}); 
+						$('#' + t.id + 'wfa-huc12dd').trigger("chosen:updated");
+					});
+				}
+
 			},
 			makeVariables: function(t){
 				t.NatNotProt = "";
