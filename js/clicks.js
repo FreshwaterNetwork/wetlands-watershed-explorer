@@ -100,6 +100,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
+				
 				t.open = 'yes';
 				// handle map clicks
 				t.map.setMapCursor("pointer")
@@ -122,12 +123,14 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.currentHuc = 'WHUC6' 
 									t.hucVal  = evt.features[0].attributes.WHUC6
 									t.obj.visibleLayers = [0,2,t.obj.selHuc]
+									
 
 								}else if(t.obj.visibleLayers[1] == 2 ){
 									t.obj.selHuc = 12;
 									t.currentHuc = 'WHUC8' 
 									t.hucVal  = evt.features[0].attributes.WHUC8
 									t.obj.visibleLayers = [0,3,t.obj.selHuc]
+									
 
 								}else if(t.obj.visibleLayers[1] == 3 ){
 									t.obj.selHuc = 13;
@@ -135,73 +138,28 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.hucVal  = evt.features[0].attributes.WHUC10
 									t.obj.visibleLayers = [0,4,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 4 ){
+
+
 									t.obj.selHuc = 13;
 									t.currentHuc = 'WHUC12'
 									t.hucVal  = evt.features[0].attributes.WHUC12
 									t.obj.visibleLayers = [0,4,5,6,t.obj.selHuc]
+									// t.obj.visibleLayers = [0,4,5,6]
 								}
 								t.layerDefinitions = [];	
 								// set the def query for the huc mask /////////////////////	
 								t.layerDefinitions[0] =  t.currentHuc + " <> '" + t.hucVal + "'";
 								t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+								console.log(t.obj.visibleLayers);
 								t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+								t.clicks.hoverGraphic(t, t.obj.visibleLayers[1])
 							}
 						})	
 
+
 					}
 				});
-// control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
-				//and add it to the maps graphics layer
-				var graphicQuery = new QueryTask(t.url + "/" + 1);
-				var gQ = new Query();
-				//gQ.geometry = pnt;
-				gQ.returnGeometry = true;
-				gQ.outFields = ["WHUC6", "name"];
-				gQ.where = "OBJECTID > 0"
-				// gQ.outSpatialReference = { "wkid": 102100 };
-				graphicQuery.execute(gQ, function(evt){
-					console.log(evt)
-					
-				});
-				graphicQuery.on("complete", function(event){
-					console.log('new query', event)
-					t.map.graphics.clear();
-		            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-		                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-		                  new Color([0, 0, 255]), 1), new Color([125, 125, 125, 0.1]));
 
-		            var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
-		                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-		                  new Color([255, 255, 255, 0]), 1), new Color([125, 125, 125, 0]));
-		            var features = event.featureSet.features;
-		            console.log(features)
-		            t.countiesGraphicsLayer = new GraphicsLayer();
-		            console.log(t.countiesGraphicsLayer, 'graph layer')
-		            //QueryTask returns a featureSet.
-		            //Loop through features in the featureSet and add them to the map.
-		            var featureCount = features.length;
-		            for (var i = 0; i < featureCount; i++) {
-		                //Get the current feature from the featureSet.
-		                var graphic = features[i]; //Feature is a graphic
-		                graphic.setSymbol(symbol);
-		                t.countiesGraphicsLayer.add(graphic);
-		            }
-		            t.map.addLayer(t.countiesGraphicsLayer);
-      				t.map.graphics.enableMouseEvents();
-      				t.countiesGraphicsLayer.on("mouse-over",function (event) {
-      					console.log('mouse over')
-		            	console.log(event.graphic.attributes);
-		                t.map.graphics.clear();  //use the maps graphics layer as the highlight layer
-		                var highlightGraphic = new Graphic(event.graphic.geometry, highlightSymbol);
-                		t.map.graphics.add(highlightGraphic);
-		            });
-		            //listen for when map.graphics mouse-out event is fired
-		            //and then clear the highlight graphic
-		            t.map.graphics.on("mouse-out", function () {
-		            	console.log('mouse out')
-		                t.map.graphics.clear();
-		            });
-				});
 			}, 
 			// Layer deff functions //////////////////////////////////////////////////////////////////////////////////////////////
 			layerDefs: function(t){ 
@@ -223,6 +181,67 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				// 	t.obj.visibleLayers = [0,6];
 				// }
 				// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+			},
+// control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
+			hoverGraphic: function(t, lyrNum){
+				// the try catch statement below is used to remove the graphic layer. 
+				try {
+				    t.map.removeLayer(t.countiesGraphicsLayer);
+				}
+				catch(err) {
+				    console.log('there is no layer to remove on the first iteration')
+				}
+				// t.map.removeLayer(t.countiesGraphicsLayer);
+				
+
+				//and add it to the maps graphics layer
+				var graphicQuery = new QueryTask(t.url + "/" + lyrNum);
+				var gQ = new Query();
+				//gQ.geometry = pnt;
+				gQ.returnGeometry = true;
+				gQ.outFields = ["WHUC6", "name"];
+				gQ.where = t.currentHuc + " = '" + t.hucVal + "'";
+				// gQ.outSpatialReference = { "wkid": 102100 };
+				graphicQuery.execute(gQ, function(evt){
+					
+				});
+				graphicQuery.on("complete", function(event){
+					t.map.graphics.clear();
+		            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+		                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+		                  new Color([0, 0, 255]), 1), new Color([125, 125, 125, 0.1]));
+
+		            var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+		                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+		                  new Color([255, 255, 255, 0]), 1), new Color([125, 125, 125, 0]));
+		            var features = event.featureSet.features;
+		            t.countiesGraphicsLayer = new GraphicsLayer();
+		            //QueryTask returns a featureSet.
+		            //Loop through features in the featureSet and add them to the map.
+		            var featureCount = features.length;
+		            for (var i = 0; i < featureCount; i++) {
+		                //Get the current feature from the featureSet.
+		                var graphic = features[i]; //Feature is a graphic
+		                graphic.setSymbol(symbol);
+		                t.countiesGraphicsLayer.add(graphic);
+		            }
+		            t.map.addLayer(t.countiesGraphicsLayer);
+      				t.map.graphics.enableMouseEvents();
+      				t.countiesGraphicsLayer.on("mouse-over",function (event) {
+		                t.map.graphics.clear();  //use the maps graphics layer as the highlight layer
+		                var highlightGraphic = new Graphic(event.graphic.geometry, highlightSymbol);
+                		t.map.graphics.add(highlightGraphic);
+                		console.log(event.graphic.attributes.name)
+                		$('#' + t.basinId).html(event.graphic.attributes.name)
+						$('#' + t.basinId).show()
+		            });
+		            //listen for when map.graphics mouse-out event is fired
+		            //and then clear the highlight graphic
+		            t.map.graphics.on("mouse-out", function () {
+		                t.map.graphics.clear();
+						$('#' + t.basinId).hide()
+		            });
+				});
 			},
 				// Create a feature layer of future parcels selected by PIN
 				// t.hiddenSym = new SimpleFillSymbol( SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(

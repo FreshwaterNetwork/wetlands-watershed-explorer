@@ -116,3 +116,6 @@
 .wfa-dlwrap a {
 	color: blue !important; cursor: pointer !important;
 }
+.wfa_basinText{
+	color:#FFF; background-color:#21658c; font-size: 23px; width: 66px;
+}
