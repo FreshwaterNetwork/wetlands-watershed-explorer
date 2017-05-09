@@ -94,8 +94,11 @@
 	width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative;
 
 }
-.wfa-attZoom{
-	position: absolute; top:3px; right: 3px;
+.wfa-hucSelWrap{
+	font-size: 15px;
+}
+.wfa-hucZoom{
+	color: blue; margin-left: 15px; padding: 5px;
 }
 .wfa-funcLabel{
 	margin-bottom: 7px !important;

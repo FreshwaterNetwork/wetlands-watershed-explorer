@@ -167,11 +167,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.where)
 							}
 						})	
-
-
 					}
 				});
-
 			}, 
 			// Layer deff functions //////////////////////////////////////////////////////////////////////////////////////////////
 			// layerDefs: function(t){ 
@@ -197,6 +194,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
 				console.log('look here hover')
+				console.log(lyrNum);
 				// the try catch statement below is used to remove the graphic layer. 
 				try {
 				    t.map.removeLayer(t.countiesGraphicsLayer);
@@ -240,8 +238,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 		                t.map.graphics.clear();  //use the maps graphics layer as the highlight layer
 		                var highlightGraphic = new Graphic(event.graphic.geometry, highlightSymbol);
                 		t.map.graphics.add(highlightGraphic);
-                		$('#' + t.basinId).html(event.graphic.attributes.name)
-						$('#' + t.basinId).show()
+                		$('#' + t.basinId).html(event.graphic.attributes.name);
+						$('#' + t.basinId).show();
 		            });
 		            //listen for when map.graphics mouse-out event is fired
 		            //and then clear the highlight graphic
