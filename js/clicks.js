@@ -96,7 +96,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			featureLayerListeners: function(t){
 				var initExtent = {spatialReference: {latestWkid:3857, wkid: 102100}, type: "extent", xmin: -10340526.601751778, ymin: 5234826.134900004, xmax: -9663093.4824, ymax: 5955266.8075999999}
 				t.hucExps = ['','','',''];
-				t.hucExtents = [initExtent,'','',''];
+				console.log(t.obj.dynamicLyrExt)
+				t.hucExtents = [t.obj.dynamicLyrExt,'','',''];
 				t.maskExps = ['OBJECTID < 0','','',''];
 
 				t.layerDefinitions = [];	
@@ -138,7 +139,9 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.fExt = evt.features[0].geometry.getExtent().expand(1);
 								t.map.setExtent(t.fExt, true);
 								if(t.obj.visibleLayers[1] == 1 ){
+									console.log('have clicked on 6')
 									t.where = 
+									t.obj.selHuc = 11;
 									t.currentHuc = 'WHUC6' 
 									t.hucVal  = evt.features[0].attributes.WHUC6
 									t.obj.visibleLayers = [0,2,t.obj.selHuc]
@@ -190,7 +193,9 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						var id = c.currentTarget.id.split('-')[1];
 						// reset viz layers on zoom click 
 						if(id == 0){
-							t.currentHuc = 'fullExt'
+							t.currentHuc = 'WHUC6'
+							t.where = "OBJECTID > 0";
+							t.clicks.hoverGraphic(t,1,t.where)
 							t.obj.visibleLayers = [0,1]
 						}else if (id == 1){
 							t.currentHuc = 'WHUC6'

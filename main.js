@@ -152,7 +152,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.clicks.makeVariables(this);
 			// Click listeners
 			this.clicks.eventListeners(this);
-			this.clicks.featureLayerListeners(this);
+			//this.clicks.featureLayerListeners(this);
 			
 			this.rendered = true;	
 		}
