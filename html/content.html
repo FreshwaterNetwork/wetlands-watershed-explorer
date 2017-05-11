@@ -35,98 +35,73 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <div id="wfa-evalASite" class="wfa-easWrap wfa-sections hide">
 	test text eval a site wrap
 </div>
-
+<!-- Main Content Wrap area ///////////////////////////////////////////////////////////////////////////////////// -->
 <div id="wfa-mainContentWrap" class="wfa-mainContentWrap">
-
-	<div id="wfa-hucSelWrap">
+	<div id="hucSelWrap">
 		<div class="wfa-hucSelWrap">
-			<div>HUC 6 Watershed: <span id="huc6Sel" class="blueFont">test text</span><span class="wfa-hucZoom">Zoom</span></div>
-			<div>HUC 8 Watershed: <span id="huc8Sel" class="blueFont">test text</span><span class="wfa-hucZoom">Zoom</span></div>
-			<div>HUC 10 Watershed: <span id="huc10Sel" class="blueFont">test text</span><span class="wfa-hucZoom">Zoom</span></div>
-			<div>HUC 12 Watershed: <span id="huc12Sel" class="blueFont">test text</span><span class="wfa-hucZoom">Zoom</span></div>
-			<!-- <div class="elm-title">HUC 6 Watershed: <span id="huc6Sel" class="blueFont">Test watershed name area <div class="wfa-attZoom">Zoom</div></span><div class="wfa-attZoom">Zoom</div></div> -->
+			<div id="fullExt-selText" class="">Full Extent<span id="zoom-0" class="wfa-hucZoom">Zoom</span></div>
 		</div>
-		
-		<!-- <div class="elm-title">HUC 8 Watershed: <span id="huc8Sel" class="blueFont">Test watershed name area</span></div><div class="wfa-attZoom">Zoom</div>
-		<div class="elm-title">HUC 10 Watershed: <span id="huc10Sel" class="blueFont">Test watershed name area</span></div><div class="wfa-attZoom">Zoom</div>
-		<div class="elm-title">HUC 12 Watershed: <span id="huc12Sel" class="blueFont">Test watershed name area</span></div><div class="wfa-attZoom">Zoom</div> -->
+		<div class="wfa-hucSelWrap">
+			<div id="WHUC6-selText" class="hide">HUC 6 Watershed: <span id="huc6Sel" class="blueFont">test text</span><span id="zoom-1" class="wfa-hucZoom">Zoom</span></div>
+		</div>
+		<div class="wfa-hucSelWrap">
+			<div id="WHUC8-selText" class="hide">HUC 8 Watershed: <span id="huc8Sel" class="blueFont">test text</span><span id="zoom-2" class="wfa-hucZoom">Zoom</span></div>
+		</div>
+		<div class="wfa-hucSelWrap">
+			<div id="WHUC10-selText" class="hide">HUC 10 Watershed: <span id="huc10Sel" class="blueFont">test text</span><span id="zoom-3" class="wfa-hucZoom">Zoom</span></div>
+		</div>
+		<div class="wfa-hucSelWrap">
+			<div id="WHUC12-selText" class="hide">HUC 12 Watershed: <span id="huc12Sel" class="blueFont">test text</span></div>
+		</div>
 	</div>
-	<!-- <div class="wfa-huc-wrap">	
-			<div class="elm-title">HUC 6 Watershed:</div>	
-			<div class="wfa-attZoom">Zoom</div>
-			<div class="elm-results">
-				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> Test Current Watershed <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-			</div>	
-		</div> -->
-
-	<!-- <div id="wfa-hucSelWrap">
-		
-		<div class="wfa-huc-wrap">	
-			<div class="elm-title">HUC 8 Watershed:</div>
-			<div class="wfa-attZoom">Zoom</div>
-			<div class="elm-results">
-				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-			</div>	
-		</div>
-		<div class="wfa-huc-wrap">	
-			<div class="elm-title">HUC 10 Watershed:</div>
-			<div class="wfa-attZoom">Zoom</div>
-			<div class="elm-results">
-				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-			</div>	
-		</div>
-		<div class="wfa-huc-wrap">	
-			<div class="elm-title">HUC 12 Watershed:</div>
-			<div class="wfa-attZoom">Zoom</div>
-			<div class="elm-results">
-				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-			</div>	
-		</div>
-	</div>	 -->
 
 <!-- Function of Interest find/eval wrapper ///////////////////////////////////////////////////////////////////////////////////////// -->
-	<h3 style="margin-top: 15px;">Choose Function of Interest:</h3>
-	<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
-		<label class="form-component wfa-funcLabel" for="all-option">
-			<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
-			<div class="check"></div>
-			<span class="form-text">All</span>
-		</label>
-		<br>
-		<label class="form-component wfa-funcLabel" for="flood-option">
-			<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
-			<div class="check"></div>
-			<span class="form-text">Flood Abatement</span>
-		</label>
-		<br>
-		<label class="form-component wfa-funcLabel" for="fish-option">
-			<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
-			<div class="check"></div>
-			<span class="form-text">Fish and Aquatic Habitat</span>
-		</label>
-		<br>
-		<label class="form-component wfa-funcLabel" for="sed-option">
-			<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment/Phosphorous">
-			<div class="check"></div>
-			<span class="form-text">Sediment/Phosphorous</span>
-		</label>
-		<br>
-		<label class="form-component wfa-funcLabel" for="nitro-option">
-			<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
-			<div class="check"></div>
-			<span class="form-text">Nitrogen</span>
-		</label>
-		<br>
-		<label class="form-component wfa-funcLabel" for="water-option">
-			<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Maintenance">
-			<div class="check"></div>
-			<span class="form-text">Surface Water Maintenance</span>
-		</label>
+	<div class="hide" id="mainFuncWrapper">
+		<h3 style="margin-top: 15px;">Choose Function of Interest:</h3>
+		<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
+			<label class="form-component wfa-funcLabel" for="all-option">
+				<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
+				<div class="check"></div>
+				<span class="form-text">All</span>
+			</label>
+			<br>
+			<label class="form-component wfa-funcLabel" for="flood-option">
+				<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
+				<div class="check"></div>
+				<span class="form-text">Flood Abatement</span>
+			</label>
+			<br>
+			<label class="form-component wfa-funcLabel" for="fish-option">
+				<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
+				<div class="check"></div>
+				<span class="form-text">Fish and Aquatic Habitat</span>
+			</label>
+			<br>
+			<label class="form-component wfa-funcLabel" for="sed-option">
+				<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment/Phosphorous">
+				<div class="check"></div>
+				<span class="form-text">Sediment/Phosphorous</span>
+			</label>
+			<br>
+			<label class="form-component wfa-funcLabel" for="nitro-option">
+				<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
+				<div class="check"></div>
+				<span class="form-text">Nitrogen</span>
+			</label>
+			<br>
+			<label class="form-component wfa-funcLabel" for="water-option">
+				<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Maintenance">
+				<div class="check"></div>
+				<span class="form-text">Surface Water Maintenance</span>
+			</label>
+		</div>
 	</div>
+	
 
 <!-- Find/eval a site attribute wrap //////////////////////////////////////////////////////////////////////////////////////////////////-->
-	<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap">
-		<div class="wfa-sum-wrap">	
+	<div class="hide" id="mainAttributeWrap">
+		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap ">
+			<div class="wfa-sum-wrap">	
 			<div class="elm-title">Current Watershed:</div>	
 			<div class="elm-results">
 				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> Test Current Watershed <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span><img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
@@ -161,7 +136,9 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			</div>	
 			
 		</div>
+		
 	</div>
+	
 </div>
 
 <!-- Download data Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->

@@ -118,6 +118,8 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		},	
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
+			this.obj.extent = this.map.geographicExtent;
+			console.log(this.obj.extent)
 			//this.oid = -1;
 			//$('.basemap-selector').trigger('change', 3);
 			this.mapScale  = this.map.getScale();

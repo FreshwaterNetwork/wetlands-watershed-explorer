@@ -2,6 +2,7 @@
 	"visibleLayers": [0,1],
 	"hucClickTracker": "huc6",
 	"selHuc": 11,
+	"dynamicLyrExt": "",
 	"mngmtAction": "cons",
 	"floodFreq": "1 in 100",
 	"ffDef": "",

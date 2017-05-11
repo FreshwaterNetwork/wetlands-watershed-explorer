@@ -98,7 +98,10 @@
 	font-size: 15px;
 }
 .wfa-hucZoom{
-	color: blue; margin-left: 15px; padding: 5px;
+	color: blue; position: absolute; right: 7px;
+}
+.wfa-hucZoom:hover {
+	cursor: pointer;
 }
 .wfa-funcLabel{
 	margin-bottom: 7px !important;

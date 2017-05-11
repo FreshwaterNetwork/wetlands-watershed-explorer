@@ -20,6 +20,8 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				t.dynamicLayer.on("load", function () { 			
 					t.layersArray = t.dynamicLayer.layerInfos;
 					console.log(t.dynamicLayer.fullExtent);
+					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent;
+					console.log(t.obj.dynamicLyrExt)
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1.2), true)
 					}
