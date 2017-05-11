@@ -175,14 +175,21 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.hucExps[(t.obj.visibleLayers[1]-1)] = t.where;
 									t.maskExps[(t.obj.visibleLayers[1]-1)] = t.maskWhere;
 									t.hucExtents[(t.obj.visibleLayers[1]-1)] = t.fExt;
-									$('#' + t.id + t.currentHuc + '-selText').parent().prev().children().slideDown();
+									console.log(t.currentHuc)
+									console.log($('#' + t.id + t.currentHuc + '-selText').parent().children())
+									if(t.currentHuc == "WHUC6"){
+										$('#' + t.id + t.currentHuc + '-selText').parent().prev().children().slideDown();
+										$('#' + t.id + 'mainFuncWrapper').slideDown();
+										$('#' + t.id + 'wfa-findASite').slideUp();
+
+									}
+									$('#' + t.id + t.currentHuc + '-selText').parent().children().slideDown();
 									$('#' + t.id + t.currentHuc + '-selText').parent().find('span').first().html(name);
 								}else{
 									$('#' + t.id + t.currentHuc + '-selText').parent().prev().children().slideDown();
 									$('#' + t.id + t.currentHuc + '-selText').parent().find('span').first().html(name);
 									$('#' + t.id + t.currentHuc + '-selText').slideDown();
 								}
-
 								// call the hover graphic function ////////////////////////////
 								t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.where)
 							}
@@ -197,6 +204,10 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							t.where = "OBJECTID > 0";
 							t.clicks.hoverGraphic(t,1,t.where)
 							t.obj.visibleLayers = [0,1]
+							$('#' + t.id +'fullExt-selText').slideUp();
+							$('#' + t.id + 'mainFuncWrapper').slideUp();
+							$('#' + t.id + 'wfa-findASite').slideDown();
+
 						}else if (id == 1){
 							t.currentHuc = 'WHUC6'
 							t.obj.visibleLayers = [0,2,11]
@@ -279,6 +290,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$('#' + t.basinId).hide()
 		            });
 				});
+				console.log('end of hover graphic')
 			},
 
 			makeVariables: function(t){
