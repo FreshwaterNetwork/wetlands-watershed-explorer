@@ -183,7 +183,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						var id = c.currentTarget.id.split('-')[1];
 						// reset viz layers on zoom click 
 						if(id == 0){
-							t.currentHuc = 'WHUC6'
+							t.currentHuc = 'WHUC4'
 							t.where = "OBJECTID > 0";
 							t.clicks.hoverGraphic(t,1,t.where)
 							t.obj.visibleLayers = [0,1]
@@ -234,7 +234,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					$.each($(t.layersArray),function(i,v){
 						if(lyrName == v.name){
 							var id = v.id
-							// remove last item from array and add new item id
 							t.obj.visibleLayers.pop();
 							t.obj.visibleLayers.push(v.id)
 						}
