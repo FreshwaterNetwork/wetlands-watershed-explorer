@@ -139,7 +139,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.fExt = evt.features[0].geometry.getExtent().expand(1);
 								t.map.setExtent(t.fExt, true);
 								if(t.obj.visibleLayers[1] == 1 ){
-									console.log('have clicked on 6')
 									t.where = 
 									t.obj.selHuc = 11;
 									t.currentHuc = 'WHUC6' 
