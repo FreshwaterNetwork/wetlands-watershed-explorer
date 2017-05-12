@@ -77,29 +77,14 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				
 // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-radio-indent input').on('click',function(c){
-					var val = c.target.value.split("-")[0]
-					t.obj.funcTracker = val;
+					t.obj.funcTracker = c.target.value.split("-")[0];
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
 				});
-				// 	$.each($(t.layersArray),function(i,v){
-				// 		var lyrName = v.name.split(' - ');
-				// 		var hucNum = lyrName[0]
-				// 		lyrName = lyrName.pop();
-				// 		// t.obj.selHuc;
-				// 		// console.log(val, 'val', lyrName, 'layer name')
-				// 		// console.log(hucNum, 'huc num',  t.currentHuc.slice(1,t.currentHuc.length), 'sel huc')
-				// 		// if(val == lyrName && hucNum ==  t.currentHuc){
-				// 		// 	t.obj.visibleLayers.push(v.id);
-				// 		// 	console.log(t.obj.visibleLayers)
-				// 		// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-				// 		// }
-				// 	// });
-				// })
 			},
 			
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
-				var initExtent = {spatialReference: {latestWkid:3857, wkid: 102100}, type: "extent", xmin: -10340526.601751778, ymin: 5234826.134900004, xmax: -9663093.4824, ymax: 5955266.8075999999}
+				// set initial array vars, these will be populated later. 
 				t.hucExps = ['','','',''];
 				t.hucExtents = [t.obj.dynamicLyrExt,'','',''];
 				t.maskExps = ['OBJECTID < 0','','',''];
@@ -137,7 +122,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						q1.geometry = pnt;
 						q1.returnGeometry = true;
 						q1.outFields = ["*"];
-						//&& t.maskClick == 'no'
 						qt1.execute(q1, function(evt){
 							if (evt.features.length > 0 && t.maskClick == 'no'){
 								t.fExt = evt.features[0].geometry.getExtent().expand(1);
@@ -167,10 +151,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								// set the def query for the huc mask /////////////////////	
 								t.where = t.currentHuc + " = '" + t.hucVal + "'";
 								t.obj.maskWhere = t.currentHuc + " <> '" + t.hucVal + "'";
-								// t.layerDefinitions = [];
-								// t.layerDefinitions[0] =  t.maskWhere
-								// t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-								// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 
 								// add the expression and extents in the approriate location in the huc expression tracker array. 
 								var name = evt.features[0].attributes.name;
@@ -225,12 +205,10 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.map.setExtent(t.hucExtents[id], true);
 						// set huc exp on back button click
 						t.clicks.hoverGraphic(t,t.obj.visibleLayers[1], t.hucExps[id]);
-						t.layerDefinitions = [];
-						t.layerDefinitions[0] =  t.maskExps[id]
 						// reset maskwhere tracker
 						t.obj.maskWhere = t.maskExps[id]
-						t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+						// control viz function
+						t.clicks.controlVizLayers(t,t.obj.maskWhere);
 						// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
 						$.each($('#' + c.currentTarget.id).parent().parent().nextAll().children(),function(i,v){
 							$('#' + v.id).slideUp();
@@ -325,7 +303,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 		            });
 				});
 			},
-
+// Make vars //////////////////////////////////////////////////////////////////////////////////////////////////
 			makeVariables: function(t){
 				t.NatNotProt = "";
 				t.RowAgNotProt = "";
