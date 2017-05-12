@@ -79,7 +79,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				$('.wfa-radio-indent input').on('click',function(c){
 					var val = c.target.value.split("-")[0]
 					$.each($(t.layersArray),function(i,v){
-						// console.log(i,v,'i');
 						var lyrName = v.name.split(' - ');
 						var hucNum = lyrName[0]
 						lyrName = lyrName.pop();
@@ -96,7 +95,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			featureLayerListeners: function(t){
 				var initExtent = {spatialReference: {latestWkid:3857, wkid: 102100}, type: "extent", xmin: -10340526.601751778, ymin: 5234826.134900004, xmax: -9663093.4824, ymax: 5955266.8075999999}
 				t.hucExps = ['','','',''];
-				console.log(t.obj.dynamicLyrExt)
 				t.hucExtents = [t.obj.dynamicLyrExt,'','',''];
 				t.maskExps = ['OBJECTID < 0','','',''];
 
@@ -174,8 +172,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.hucExps[(t.obj.visibleLayers[1]-1)] = t.where;
 									t.maskExps[(t.obj.visibleLayers[1]-1)] = t.maskWhere;
 									t.hucExtents[(t.obj.visibleLayers[1]-1)] = t.fExt;
-									console.log(t.currentHuc)
-									console.log($('#' + t.id + t.currentHuc + '-selText').parent().children())
 									if(t.currentHuc == "WHUC6"){
 										$('#' + t.id + t.currentHuc + '-selText').parent().prev().children().slideDown();
 										$('#' + t.id + 'mainFuncWrapper').slideDown();
@@ -289,7 +285,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$('#' + t.basinId).hide()
 		            });
 				});
-				console.log('end of hover graphic')
 			},
 
 			makeVariables: function(t){
