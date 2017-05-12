@@ -78,13 +78,17 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-radio-indent input').on('click',function(c){
 					var val = c.target.value.split("-")[0]
+					console.log(val);
 					$.each($(t.layersArray),function(i,v){
 						var lyrName = v.name.split(' - ');
 						var hucNum = lyrName[0]
 						lyrName = lyrName.pop();
 						t.obj.selHuc;
-						if(val == lyrName && hucNum == 'HUC' + t.obj.selHuc){
+						console.log(val, 'val', lyrName, 'layer name')
+						console.log(hucNum, 'huc num',  t.currentHuc.slice(1,t.currentHuc.length), 'sel huc')
+						if(val == lyrName && hucNum ==  t.currentHuc){
 							t.obj.visibleLayers.push(v.id);
+							console.log(t.obj.visibleLayers)
 							t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 						}
 					});
@@ -230,6 +234,11 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					});
 				});
 			}, 
+
+			controlVizLayers :function(){
+				t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+			},
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
