@@ -78,21 +78,23 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-radio-indent input').on('click',function(c){
 					var val = c.target.value.split("-")[0]
-					console.log(val);
-					$.each($(t.layersArray),function(i,v){
-						var lyrName = v.name.split(' - ');
-						var hucNum = lyrName[0]
-						lyrName = lyrName.pop();
-						t.obj.selHuc;
-						console.log(val, 'val', lyrName, 'layer name')
-						console.log(hucNum, 'huc num',  t.currentHuc.slice(1,t.currentHuc.length), 'sel huc')
-						if(val == lyrName && hucNum ==  t.currentHuc){
-							t.obj.visibleLayers.push(v.id);
-							console.log(t.obj.visibleLayers)
-							t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-						}
-					});
-				})
+					t.obj.funcTracker = val;
+					t.clicks.controlVizLayers(t, t.obj.maskWhere);
+				});
+				// 	$.each($(t.layersArray),function(i,v){
+				// 		var lyrName = v.name.split(' - ');
+				// 		var hucNum = lyrName[0]
+				// 		lyrName = lyrName.pop();
+				// 		// t.obj.selHuc;
+				// 		// console.log(val, 'val', lyrName, 'layer name')
+				// 		// console.log(hucNum, 'huc num',  t.currentHuc.slice(1,t.currentHuc.length), 'sel huc')
+				// 		// if(val == lyrName && hucNum ==  t.currentHuc){
+				// 		// 	t.obj.visibleLayers.push(v.id);
+				// 		// 	console.log(t.obj.visibleLayers)
+				// 		// 	t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				// 		// }
+				// 	// });
+				// })
 			},
 			
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
@@ -105,9 +107,9 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				t.layerDefinitions = [];	
 				// set the def query for the huc mask /////////////////////	
 				t.layerDefinitions[0] =  "WHUC6 < 0";
-				t.maskWhere = "OBJECTID < 0";
+				//t.maskWhere = "OBJECTID < 0";
 				t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-				t.currentHuc = 'WHUC6' 
+				t.currentHuc = 'WHUC4' 
 				t.where = "OBJECTID > 0";
 				t.clicks.hoverGraphic(t,1,t.where)
 				t.open = 'yes';
@@ -121,7 +123,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						mq.geometry = pnt;
 						mq.returnGeometry = true;
 						mq.outFields = ["*"];
-						mq.where = t.maskWhere
+						mq.where = t.obj.maskWhere
 						maskQ.execute(mq, function(evt){
 							if (evt.features.length > 0){
 								t.maskClick = 'yes';
@@ -164,17 +166,17 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								}
 								// set the def query for the huc mask /////////////////////	
 								t.where = t.currentHuc + " = '" + t.hucVal + "'";
-								t.maskWhere = t.currentHuc + " <> '" + t.hucVal + "'";
-								t.layerDefinitions = [];
-								t.layerDefinitions[0] =  t.maskWhere
-								t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-								t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+								t.obj.maskWhere = t.currentHuc + " <> '" + t.hucVal + "'";
+								// t.layerDefinitions = [];
+								// t.layerDefinitions[0] =  t.maskWhere
+								// t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+								// t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 
 								// add the expression and extents in the approriate location in the huc expression tracker array. 
 								var name = evt.features[0].attributes.name;
 								if(t.currentHuc != 'WHUC12'){
 									t.hucExps[(t.obj.visibleLayers[1]-1)] = t.where;
-									t.maskExps[(t.obj.visibleLayers[1]-1)] = t.maskWhere;
+									t.maskExps[(t.obj.visibleLayers[1]-1)] = t.obj.maskWhere;
 									t.hucExtents[(t.obj.visibleLayers[1]-1)] = t.fExt;
 									if(t.currentHuc == "WHUC6"){
 										$('#' + t.id + t.currentHuc + '-selText').parent().prev().children().slideDown();
@@ -191,6 +193,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								}
 								// call the hover graphic function ////////////////////////////
 								t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.where)
+								// call the viz layers function ///////////////////////////////
+								t.clicks.controlVizLayers(t,t.obj.maskWhere);
 							}
 						})
 					}
@@ -224,7 +228,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.layerDefinitions = [];
 						t.layerDefinitions[0] =  t.maskExps[id]
 						// reset maskwhere tracker
-						t.maskWhere = t.maskExps[id]
+						t.obj.maskWhere = t.maskExps[id]
 						t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
 						t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 						// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
@@ -234,9 +238,35 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					});
 				});
 			}, 
-
-			controlVizLayers :function(){
+// control visible layers function /////////////////////////////////////////////////////////////////////////////
+			controlVizLayers :function(t, maskWhere){
+				if (t.currentHuc != 'WHUC4') {
+					// manipulate string to the proper format, use the same tracker as for the queries but add 2 unless it is a huc 12
+					var curHucNum = t.currentHuc.slice(-1);
+					var curHucNum2 = t.currentHuc.slice(0,-1);
+					if(t.currentHuc != 'WHUC12'){
+						var curHucNum3 = parseInt(curHucNum)  + 2;
+					}else{
+						var curHucNum3 = parseInt(curHucNum)
+					}
+					var newHuc = curHucNum2 + curHucNum3;
+					newHuc =  newHuc.substring(1);
+					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
+					// loop through layers array and see if any layer name matches 
+					$.each($(t.layersArray),function(i,v){
+						if(lyrName == v.name){
+							var id = v.id
+							// remove last item from array and add new item id
+							t.obj.visibleLayers.pop();
+							t.obj.visibleLayers.push(v.id)
+						}
+					});
+				}
+				// set layer defs and update the mask layer /////////////////////
+				t.layerDefinitions = [];
+				t.layerDefinitions[0] =  maskWhere
 				t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
+				// update the visible layers ///////////////////////////
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 			},
 			
