@@ -128,28 +128,32 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.map.setExtent(t.fExt, true);
 								if(t.obj.visibleLayers[1] == 1 ){
 									t.where = 
-									t.obj.selHuc = 11;
+									t.obj.selHuc = 17;
 									t.currentHuc = 'WHUC6' 
 									t.hucVal  = evt.features[0].attributes.WHUC6
 									t.obj.visibleLayers = [0,2,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 2 ){
-									t.obj.selHuc = 12;
+									t.obj.selHuc = 18;
 									t.currentHuc = 'WHUC8' 
 									t.hucVal  = evt.features[0].attributes.WHUC8
 									t.obj.visibleLayers = [0,3,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 3 ){
-									t.obj.selHuc = 13;
+									t.obj.selHuc = 19;
 									t.currentHuc = 'WHUC10'
 									t.hucVal  = evt.features[0].attributes.WHUC10
 									t.obj.visibleLayers = [0,4,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 4 ){
-									t.obj.selHuc = 13;
+									t.obj.selHuc = 19;
 									t.currentHuc = 'WHUC12'
 									t.hucVal  = evt.features[0].attributes.WHUC12
-									t.obj.visibleLayers = [0,4,5,6,t.obj.selHuc]
+									t.obj.visibleLayers = [0,4,t.obj.selHuc]
 								}
 								// set the def query for the huc mask /////////////////////	
-								t.where = t.currentHuc + " = '" + t.hucVal + "'";
+								if(t.currentHuc != 'WHUC12'){
+									t.where = t.currentHuc + " = '" + t.hucVal + "'";
+								}else{
+									t.where = t.currentHuc + " = '" + 9999 + "'";
+								}				
 								t.obj.maskWhere = t.currentHuc + " <> '" + t.hucVal + "'";
 
 								// add the expression and extents in the approriate location in the huc expression tracker array. 
@@ -230,12 +234,29 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					var newHuc = curHucNum2 + curHucNum3;
 					newHuc =  newHuc.substring(1);
 					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
+					// console.log(lyrName);
+					var curWetLyrName = 'Wetlands - Current - ' + t.obj.funcTracker;
+					var potWetLyrName = 'Wetlands - Potential - ' + t.obj.funcTracker;
+					// the code below will remove the wetland layers from the viz layers array. we will add them back below
+					t.obj.visibleLayers = t.obj.visibleLayers.filter(function(item){
+						return !(item > 4 && item < 13)
+					})
 					// loop through layers array and see if any layer name matches 
 					$.each($(t.layersArray),function(i,v){
 						if(lyrName == v.name){
 							var id = v.id
 							t.obj.visibleLayers.pop();
 							t.obj.visibleLayers.push(v.id)
+							if(t.currentHuc == "WHUC12"){
+								$.each($(t.layersArray),function(i,v){
+									if(curWetLyrName == v.name){
+										t.obj.visibleLayers.push(v.id)
+									}
+									if(potWetLyrName == v.name){
+										t.obj.visibleLayers.push(v.id)
+									}
+								});
+							}
 						}
 					});
 				}
@@ -244,6 +265,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				t.layerDefinitions[0] =  maskWhere
 				t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
 				// update the visible layers ///////////////////////////
+				console.log(t.obj.visibleLayers)
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 			},
 			
@@ -261,6 +283,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				var gQ = new Query();
 				gQ.returnGeometry = true;
 				gQ.outFields = ["OBJECTID","WHUC6", "name"];
+				console.log(where);
 				gQ.where =  where
 				graphicQuery.execute(gQ, function(evt){
 
