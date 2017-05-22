@@ -1,7 +1,7 @@
 /*  Main CSS Styling for WI apps //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 .infoIcon{
-	margin-bottom:-2px; margin-left:3px; cursor:pointer;
+	margin-bottom:-2px; margin-left:3px; cursor:pointer; position: absolute; right: 10px; top: 7px;
 }
 .flex-center{
 	display:flex; align-items:center;
@@ -93,6 +93,9 @@
 .wfa-huc-wrap{
 	width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative;
 
+}
+.s2Atts{
+	font-size: 14px; color: #2f6384; font-weight: bold;
 }
 .wfa-hucSelWrap{
 	font-size: 15px;

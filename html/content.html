@@ -13,7 +13,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<h3 style="margin-left:8px;">What would you like to do?</h3>
 	</section>
 
-	<div id="tabBtns" class="toggle-btn tabBtns" style="width:420px;">
+	<div id="tabBtns" class="toggle-btn tabBtns" style="width:429px;">
 		<input checked type="radio" id="dfe1" name="crs-dfe" value="wfa-findASite"/>
 		<label for="dfe1">Find a Site</label>
 		<input type="radio" id="dfe2" name="crs-dfe" value="wfa-evalASite"/>
@@ -101,44 +101,98 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!-- Find/eval a site attribute wrap //////////////////////////////////////////////////////////////////////////////////////////////////-->
 	<div class="hide" id="mainAttributeWrap">
 		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap ">
+			
 			<div class="wfa-sum-wrap">	
-			<div class="elm-title">Current Watershed:</div>	
-			<div class="elm-results">
-				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> Test Current Watershed <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span><img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
-			</div>	
+				<div data-wfa='WETLAND_ID' class="elm-title">Current Wetland ID:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">8156475236</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
+			<div class="wfa-sum-wrap">	
+				<div data-wfa='FA_RANK' class="elm-title">Flood Abatement:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">High</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
+			<div class="wfa-sum-wrap" >	
+				<div data-wfa='SS_RANK' class="elm-title">Sediment Retention Rank:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
+			<div class="wfa-sum-wrap" >	
+				<div data-wfa='PR_RANK' class="elm-title">Phosphorus Reduction Rank:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
+			<div class="wfa-sum-wrap">	
+				<div data-wfa='NR_RANK' class="elm-title">Nitrogen Reduction Rank:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
+			<div class="wfa-sum-wrap">	
+				<div data-wfa='SP_RANK' class="elm-title">Shoreline Protection Rank:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
+			<div class="wfa-sum-wrap">	
+				<div data-wfa='FAH_RANK' class="elm-title">Fish and Aquatic Habitat Rank:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
+			<div class="wfa-sum-wrap">	
+				<div data-wfa='CS_RANK' class="elm-title">Carbon Storage Rank:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">High</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
+			<div class="wfa-sum-wrap">	
+				<div data-wfa='FQ_RANK' class="elm-title">Floristic Quality Rank:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">N/A</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
+			<div class="wfa-sum-wrap">	
+				<div data-wfa='SBS_RANK' class="elm-title">Stream Baseflow Support Rank:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
+			<div class="wfa-sum-wrap">	
+				<div data-wfa='ALL_RANK' class="elm-title">Composite Rank All Services:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
+					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
+				</div>	
+				
+			</div>
 			
 		</div>
-		<div class="wfa-sum-wrap">	
-			<div class="elm-title">Current Wetland ID:</div>
-			<div class="elm-results">
-				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span><img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
-			</div>	
-			
-		</div>
-		<div class="wfa-sum-wrap" style="background-color: #F0F0F0">	
-			<div class="elm-title">Fish & Aquatic Habitat:</div>
-			<div class="elm-results">
-				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>High<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span><img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
-			</div>	
-			
-		</div>
-		<div class="wfa-sum-wrap" style="background-color: #AACC66">	
-			<div class="elm-title">Sediment Stabilization:</div>
-			<div class="elm-results">
-				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>Moderate<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span><img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
-			</div>	
-			
-		</div>
-		<div class="wfa-sum-wrap" style="background-color: #70A800">	
-			<div class="elm-title">Flood Abatement:</div>
-			<div class="elm-results">
-				<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>Low<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span><img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
-			</div>	
-			
-		</div>
-		
 	</div>
-	
 </div>
 
 <!-- Download data Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
