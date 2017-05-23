@@ -53,15 +53,12 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					$.each($("#" + t.id + " .wfa-sections"),function(i,v){
 						if (v.id != t.id + t.obj.active){
 							$("#"+ v.id).slideUp();
-							console.log(v.id)
 						}else{
-							console.log(v.id)
 							$("#"+ v.id).slideDown();
 						}
 					});
 					if(t.obj.active == 'wfa-showInfo' || t.obj.active == 'wfa-downloadData'){
 						$("#"+ t.id + 'wfa-mainContentWrap').slideUp();
-						console.log('look here')
 					}
 				});
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -102,13 +99,14 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				t.open = 'yes';
 				// handle map clicks
 				t.map.setMapCursor("pointer")
-				
 				t.map.on('click',function(c){
 					if (t.open == "yes"){
-						var pnt = c.mapPoint;
+						// map click point ////////////////////////////////////////
+						t.pnt = c.mapPoint;
+						// mask query //////////////////
 						t.mq = new Query();
 						t.maskQ = new QueryTask(t.url + "/" + 0);
-						t.mq.geometry = pnt;
+						t.mq.geometry = t.pnt;
 						t.mq.returnGeometry = true;
 						t.mq.outFields = ["*"];
 						t.mq.where = t.obj.maskWhere
@@ -120,84 +118,23 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.maskClick = 'no';
 							}
 						});
-						// Only trigger wetland query when in the huc 12 current huc 8dh
-						if(t.currentHuc == 'WHUC12'){
-							// wetland query 
-							var wq = new Query();
-							var wetQ = new QueryTask(t.url + "/" + 35);
-							wq.geometry = pnt;
-							wq.returnGeometry = true;
-							wq.outFields = ["*"];
-							wq.where = "OBJECTID > 0"
-							wetQ.execute(wq, function(evt){
-								if (evt.features.length > 0){
-									var curColors  = ['#F0F0F0', '#BFD690','#AACC66', '#70A800'];
-									var potColors = ['blue', 'green', 'red', 'purple'];
-									// $("[data-wfa=FA_RANK]").css("color", "red");
-									var atts = evt.features[0].attributes;
-									console.log(atts)
-									$('#' + t.id + 'mainAttributeWrap').slideDown();
-									var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
-									$.each(title, function(i,v){
-										let attVal = atts[$(v).data('wfa')];
-										let spanElem = $(v).next().find('.s2Atts').html(attVal);
-										if(atts.WETLAND_TYPE == 'WWI'){
-											$(v).parent().css('background-color', curColors[attVal])
-										}else{
-											console.log('pot colors')
-											$(v).parent().css('background-color', potColors[attVal])
-										}
-									});
 
-								}else{
-									$('#' + t.id + 'mainAttributeWrap').slideUp();
-								}
-							});
-							// potential wetland query 
-							var pwq = new Query();
-							var pwetQ = new QueryTask(t.url + "/" + 9);
-							pwq.geometry = pnt;
-							pwq.returnGeometry = true;
-							pwq.outFields = ["*"];
-							pwq.where = "OBJECTID > 0"
-							pwetQ.execute(pwq, function(evt){
-								if (evt.features.length > 0){
-									// var curColors  = ['#F0F0F0', '#BFD690','#AACC66', '#70A800'];
-									var potColors = ['blue', 'green', 'red', 'purple'];
-									// $("[data-wfa=FA_RANK]").css("color", "red");
-									var atts = evt.features[0].attributes;
-									console.log(atts)
-									$('#' + t.id + 'mainAttributeWrap').slideDown();
-									var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
-									$.each(title, function(i,v){
-										let attVal = atts[$(v).data('wfa')];
-										let spanElem = $(v).next().find('.s2Atts').html(attVal);
-										$(v).parent().css('background-color', potColors[attVal])
-									});
-								}else{
-									//$('#' + t.id + 'mainAttributeWrap').slideUp();
-								}
-							});
-						}
-						
-						
+						// query for for the hucs /////////////////////////////////////						
 						var q1 = new Query();
 						var qt1 = new QueryTask(t.url + "/" + t.obj.visibleLayers[1]);
-						q1.geometry = pnt;
+						q1.geometry = t.pnt;
 						q1.returnGeometry = true;
 						q1.outFields = ["*"];
 						qt1.execute(q1, function(evt){
 							if (evt.features.length > 0 && t.maskClick == 'no'){
 								t.fExt = evt.features[0].geometry.getExtent().expand(1);
-								t.map.setExtent(t.fExt, true);
 								if(t.obj.visibleLayers[1] == 1 ){
-									t.where = 
 									t.obj.selHuc = 17;
 									t.currentHuc = 'WHUC6' 
 									t.hucVal  = evt.features[0].attributes.WHUC6
 									t.obj.visibleLayers = [0,2,t.obj.selHuc]
-								}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 13){
-									t.currentHuc == 'wetland' // this is a wetland click
+								}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26){
+									t.currentWet = 'wetland' // this is a wetland click
 								}else if(t.obj.visibleLayers[1] == 2 ){
 									t.obj.selHuc = 18;
 									t.currentHuc = 'WHUC8' 
@@ -210,9 +147,10 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.obj.visibleLayers = [0,4,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 4 ){
 									t.obj.selHuc = 19;
-									t.currentHuc = 'WHUC12'
+									t.currentHuc = 'WHUC12';
+									//t.currentWet = 'wetland'
 									t.hucVal  = evt.features[0].attributes.WHUC12
-									t.obj.visibleLayers = [0,4,5,9]
+									t.obj.visibleLayers = [0,4,6,16]
 								}
 								// set the def query for the huc mask /////////////////////	
 								if(t.currentHuc != 'WHUC12'){
@@ -221,18 +159,21 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.where = t.currentHuc + " = '" + 9999 + "'";
 								}				
 								t.obj.maskWhere = t.currentHuc + " <> '" + t.hucVal + "'";
-
 								// add the expression and extents in the approriate location in the huc expression tracker array. 
 								var name = evt.features[0].attributes.name;
+								// change the extent if current wet does not = wetland
+								if(t.currentWet != 'wetland'){
+									t.map.setExtent(t.fExt, true); // only change the extent if the wetlands are not displayed
+								}
 								if(t.currentHuc != 'WHUC12'){
 									t.hucExps[(t.obj.visibleLayers[1]-1)] = t.where;
 									t.maskExps[(t.obj.visibleLayers[1]-1)] = t.obj.maskWhere;
 									t.hucExtents[(t.obj.visibleLayers[1]-1)] = t.fExt;
+									
 									if(t.currentHuc == "WHUC6"){
 										$('#' + t.id + t.currentHuc + '-selText').parent().prev().children().slideDown();
 										$('#' + t.id + 'mainFuncWrapper').slideDown();
 										$('#' + t.id + 'wfa-findASite').slideUp();
-
 									}
 									$('#' + t.id + t.currentHuc + '-selText').parent().children().slideDown();
 									$('#' + t.id + t.currentHuc + '-selText').parent().find('span').first().html(name);
@@ -241,61 +182,104 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									$('#' + t.id + t.currentHuc + '-selText').parent().find('span').first().html(name);
 									$('#' + t.id + t.currentHuc + '-selText').slideDown();
 								}
+// Call the functions at the end of map click /////////////////////////////////////////////////////////////////
 								// call the hover graphic function ////////////////////////////
 								t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.where)
-								// call the viz layers function ///////////////////////////////
-								t.clicks.controlVizLayers(t,t.obj.maskWhere);
+								// call the wetland click function ////////////////////////////
+								t.clicks.wetlandClick(t);
 							}
 						})
 					}
-					// var zoomBtns = $('#' + t.id + 'hucSelWrap').find('.wfa-hucZoom');
-					$('.wfa-hucZoom').unbind().on('click',function(c){
-						var id = c.currentTarget.id.split('-')[1];
-						// reset viz layers on zoom click 
-						if(id == 0){
-							$('#' + t.id +'fullExt-selText').slideUp();
-							$('#' + t.id + 'mainFuncWrapper').slideUp();
-							$('#' + t.id + 'wfa-findASite').slideDown();
-							t.currentHuc = 'WHUC4'
-							t.where = "OBJECTID > 0";
-							t.clicks.hoverGraphic(t,1,t.where)
-							t.obj.visibleLayers = [0,1]
-							
-
-						}else if (id == 1){
-							t.currentHuc = 'WHUC6'
-							t.obj.visibleLayers = [0,2,11]
-						}else if(id == 2){
-							t.currentHuc = 'WHUC8'
-							t.obj.visibleLayers = [0,3,12]
-						}else if(id == 3){
-							t.currentHuc = 'WHUC10'
-							t.obj.visibleLayers = [0,4,13]
-						}
-						// set map extent on back button click
-						if(id<1){
-							t.map.setExtent(t.obj.dynamicLyrExt, true);
-						}else{
-							t.map.setExtent(t.hucExtents[id], true);
-							// set huc exp on back button click
-							t.clicks.hoverGraphic(t,t.obj.visibleLayers[1], t.hucExps[id]);
-						}
-						
-						
-						
-						// reset maskwhere tracker
-						t.obj.maskWhere = t.maskExps[id]
-						// control viz function
-						t.clicks.controlVizLayers(t,t.obj.maskWhere);
-						// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
-						$.each($('#' + c.currentTarget.id).parent().parent().nextAll().children(),function(i,v){
-							$('#' + v.id).slideUp();
-						});
+				});
+// zoom buttons click //////////////////////////////////////////////////////////////////////////////////////////
+				$('.wfa-hucZoom').unbind().on('click',function(c){
+					var id = c.currentTarget.id.split('-')[1];
+					t.currentWet = 'null'; // reset this tracker
+					// reset viz layers on zoom click 
+					if(id == 0){
+						$('#' + t.id +'fullExt-selText').slideUp();
+						$('#' + t.id + 'mainFuncWrapper').slideUp();
+						$('#' + t.id + 'wfa-findASite').slideDown();
+						t.currentHuc = 'WHUC4'
+						t.obj.visibleLayers = [0,1]
+					}else if (id == 1){
+						t.currentHuc = 'WHUC6'
+						t.obj.visibleLayers = [0,2,11]
+					}else if(id == 2){
+						t.currentHuc = 'WHUC8'
+						t.obj.visibleLayers = [0,3,12]
+					}else if(id == 3){
+						t.currentHuc = 'WHUC10'
+						t.obj.visibleLayers = [0,4,13]
+					}
+					// slide up attribute wrapper when any zoom button is clicked.
+					$('#' + t.id + 'mainAttributeWrap').slideUp();
+					// set map extent on back button click
+					if(id<1){
+						t.map.setExtent(t.obj.dynamicLyrExt, true);
+						t.where = "OBJECTID > 0";
+						t.clicks.hoverGraphic(t,1,t.where)
+					}else{
+						t.map.setExtent(t.hucExtents[id], true);
+						// set huc exp on back button click
+						t.clicks.hoverGraphic(t,t.obj.visibleLayers[1], t.hucExps[id]);
+					}
+					// reset maskwhere tracker
+					t.obj.maskWhere = t.maskExps[id]
+					// control viz function
+					t.clicks.controlVizLayers(t,t.obj.maskWhere);
+					// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
+					$.each($('#' + c.currentTarget.id).parent().parent().nextAll().children(),function(i,v){
+						$('#' + v.id).slideUp();
 					});
 				});
 			},
 			wetlandClick: function(t){
-
+				// wetland query 
+				var wq = new Query();
+				var wetQ = new QueryTask(t.url + "/" + 48);
+				wq.geometry = t.pnt;
+				wq.returnGeometry = true;
+				wq.outFields = ["*"];
+				wq.where = "OBJECTID > 0"
+				wetQ.execute(wq, function(evt){
+					if (evt.features.length > 0 && t.currentWet == 'wetland'){
+						var curColors  = ['#F0F0F0', '#BFD690','#AACC66', '#70A800'];
+						var potColors = ['#FFEBD6', '#EBA988', '#D65D45', '#C40A0A'];
+						// $("[data-wfa=FA_RANK]").css("color", "red");
+						var atts = evt.features[0].attributes;
+						$('#' + t.id + 'mainAttributeWrap').slideDown();
+						// update the attribute colors for wetlands
+						var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
+						var htmlVal;
+						$.each(title, function(i,v){
+							let attVal = atts[$(v).data('wfa')];
+							if(attVal == 0){
+								htmlVal = 'N/A'
+							}else if(attVal == 1){
+								htmlVal = 'Low'
+							}else if(attVal == 2){
+								htmlVal = 'Medium'
+							}else if(attVal == 3){
+								htmlVal = 'High'
+							}
+							let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
+							if(atts.WETLAND_TYPE == 'WWI'){
+								$(v).parent().css('background-color', curColors[attVal])
+							}else{
+								$(v).parent().css('background-color', potColors[attVal])
+							}
+						});
+						// set the wetland where clause
+						t.wetlandID = atts.OBJECTID;
+						t.wetlandWhere = "OBJECTID = " + t.wetlandID;
+					}else{
+						
+						$('#' + t.id + 'mainAttributeWrap').slideUp();
+					}
+					// call the control viz layers function ////////////////////////////////////
+					t.clicks.controlVizLayers(t,t.obj.maskWhere);
+				});
 			},
 // control visible layers function /////////////////////////////////////////////////////////////////////////////
 			controlVizLayers :function(t, maskWhere){
@@ -313,15 +297,13 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
 					var curWetLyrName = 'Wetlands - Current - ' + t.obj.funcTracker;
 					var potWetLyrName = 'Wetlands - Potential - ' + t.obj.funcTracker;
+					var wetlandSelected = 'Wetlands - Selected'
 					// loop through layers array and see if any layer name matches 
 					$.each($(t.layersArray),function(i,v){
 						if(lyrName == v.name){
-							var id = v.id
 							t.obj.visibleLayers.pop();
-
 							t.obj.visibleLayers.push(v.id)
 							if(t.currentHuc == "WHUC12"){
-								
 								$.each($(t.layersArray),function(i,v){
 									if(curWetLyrName == v.name){
 										t.obj.visibleLayers.pop()
@@ -331,17 +313,27 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									if(potWetLyrName == v.name){
 										t.obj.visibleLayers.push(v.id)
 									}
-
 								});
 							}
 							// handle wetland clicks
-							if(t.currentHuc == "wetland"){
+							if(t.currentWet == "wetland"){
+								// remove wetland layers and wetland selected layers before readding them
+								var numArray = [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+								$.each(numArray, function(i,v){
+									var index = t.obj.visibleLayers.indexOf(v)
+									if(index > -1){
+										t.obj.visibleLayers.splice(index,1)
+									}
+								});
 								$.each($(t.layersArray),function(i,v){
 									if(curWetLyrName == v.name){
-										t.obj.visibleLayers.pop()
 										t.obj.visibleLayers.push(v.id)
 									}
 									if(potWetLyrName == v.name){
+										t.obj.visibleLayers.push(v.id)
+									}
+									// add the wetland selected layer
+									if(wetlandSelected == v.name) {
 										t.obj.visibleLayers.push(v.id)
 									}
 								});
@@ -352,9 +344,9 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				// set layer defs and update the mask layer /////////////////////
 				t.layerDefinitions = [];
 				t.layerDefinitions[0] =  maskWhere
+				t.layerDefinitions[5] = t.wetlandWhere
 				t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
 				// update the visible layers ///////////////////////////
-				console.log(t.obj.visibleLayers)
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 			},
 			

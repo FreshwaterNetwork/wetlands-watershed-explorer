@@ -8,16 +8,16 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 <!-- <div style="display:flex; justify-content:center; margin-bottom:6px;">
 	</div> -->
-<div class="wfa-app">
+<div class="wfa-app hide">
 	<section id="selComReminder" style="margin-top:0px; width: 420px;">
 		<h3 style="margin-left:8px;">What would you like to do?</h3>
 	</section>
 
-	<div id="tabBtns" class="toggle-btn tabBtns" style="width:429px;">
+	<div id="tabBtns" class="toggle-btn tabBtns hide" style="width:429px;">
 		<input checked type="radio" id="dfe1" name="crs-dfe" value="wfa-findASite"/>
 		<label for="dfe1">Find a Site</label>
-		<input type="radio" id="dfe2" name="crs-dfe" value="wfa-evalASite"/>
-		<label for="dfe2">Evaluate a Site</label>
+		<!-- <input type="radio" id="dfe2" name="crs-dfe" value="wfa-evalASite"/>
+		<label for="dfe2">Evaluate a Site</label> -->
 		<input type="radio" id="dfe3" name="crs-dfe" value="wfa-downloadData"/>
 		<label for="dfe3">Download Data</label>
 		<input type="radio" id="dfe4" name="crs-dfe" value="wfa-showInfo"/>
@@ -77,10 +77,16 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				<span class="form-text">Fish and Aquatic Habitat</span>
 			</label>
 			<br>
-			<label class="form-component wfa-funcLabel" for="sed-option">
-				<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment/Phosphorous">
+			<label class="form-component wfa-funcLabel" for="phos-option">
+				<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous">
 				<div class="check"></div>
-				<span class="form-text">Sediment/Phosphorous</span>
+				<span class="form-text">Phosphorous</span>
+			</label>
+			<br>
+			<label class="form-component wfa-funcLabel" for="sed-option">
+				<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment">
+				<div class="check"></div>
+				<span class="form-text">Sediment</span>
 			</label>
 			<br>
 			<label class="form-component wfa-funcLabel" for="nitro-option">
@@ -90,9 +96,9 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			</label>
 			<br>
 			<label class="form-component wfa-funcLabel" for="water-option">
-				<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Maintenance">
+				<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Waters Supply">
 				<div class="check"></div>
-				<span class="form-text">Surface Water Maintenance</span>
+				<span class="form-text">Surface Waters Supply</span>
 			</label>
 		</div>
 	</div>
