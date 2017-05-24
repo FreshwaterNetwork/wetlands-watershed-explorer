@@ -298,6 +298,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					var curWetLyrName = 'Wetlands - Current - ' + t.obj.funcTracker;
 					var potWetLyrName = 'Wetlands - Potential - ' + t.obj.funcTracker;
 					var wetlandSelected = 'Wetlands - Selected'
+					console.log(curWetLyrName)
 					// loop through layers array and see if any layer name matches 
 					$.each($(t.layersArray),function(i,v){
 						if(lyrName == v.name){
@@ -326,7 +327,9 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									}
 								});
 								$.each($(t.layersArray),function(i,v){
+									console.log(v.name)
 									if(curWetLyrName == v.name){
+										console.log('made it', curWetLyrName)
 										t.obj.visibleLayers.push(v.id)
 									}
 									if(potWetLyrName == v.name){

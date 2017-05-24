@@ -83,7 +83,7 @@
 	margin-top: 20px; display: flex; flex-wrap: wrap; padding-bottom: 20px;
 }
 .wfa-fas_AttributeWrap div{
-	padding: 3px;
+	padding: 3px; height: 30px; line-height: 19px;
 }
 .wfa-sum-wrap {
     width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
