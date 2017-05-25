@@ -118,7 +118,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.maskClick = 'no';
 							}
 						});
-
 						// query for for the hucs /////////////////////////////////////						
 						var q1 = new Query();
 						var qt1 = new QueryTask(t.url + "/" + t.obj.visibleLayers[1]);
@@ -174,7 +173,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 										$('#' + t.id + t.currentHuc + '-selText').parent().prev().children().slideDown();
 										$('#' + t.id + 'mainFuncWrapper').slideDown();
 										$('#' + t.id + 'hucSelWrap').slideDown();
-										
+
 										$('#' + t.id + 'wfa-findASite').slideUp();
 									}
 									$('#' + t.id + t.currentHuc + '-selText').parent().children().slideDown();
@@ -189,8 +188,11 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.where)
 								// call the wetland click function ////////////////////////////
 								t.clicks.wetlandClick(t);
+								// call the radio attribute controller function
+								t.clicks.radioAttDisplay(t);
 							}
 						})
+						
 					}
 				});
 // zoom buttons click //////////////////////////////////////////////////////////////////////////////////////////
@@ -231,11 +233,29 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					t.obj.maskWhere = t.maskExps[id]
 					// control viz function
 					t.clicks.controlVizLayers(t,t.obj.maskWhere);
+					// call the radio attribute controller function
+					t.clicks.radioAttDisplay(t);
 					// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
 					$.each($('#' + c.currentTarget.id).parent().parent().nextAll().children(),function(i,v){
 						$('#' + v.id).slideUp();
 					});
 				});
+
+			},
+			radioAttDisplay: function(t){
+				var radioBtns = $('#' + t.id + 'funcWrapper').find('label');
+				if (t.currentHuc != 'WHUC12'){
+					t.radAttVal = 'wet' // value should be what you want to slide up
+				}else{
+					t.radAttVal = 'huc' // value should be what you want to slide up
+				}
+				$.each(radioBtns,function(i,v){
+					if($(v).data().wfaMode == t.radAttVal){
+						$(v).slideUp();
+					}else{
+						$(v).slideDown();
+					}
+				});	
 			},
 			wetlandClick: function(t){
 				// wetland query 
@@ -330,9 +350,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									}
 								});
 								$.each($(t.layersArray),function(i,v){
-									console.log(v.name)
 									if(curWetLyrName == v.name){
-										console.log('made it', curWetLyrName)
 										t.obj.visibleLayers.push(v.id)
 									}
 									if(potWetLyrName == v.name){

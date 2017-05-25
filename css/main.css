@@ -3,6 +3,12 @@
 .infoIcon{
 	margin-bottom:-2px; margin-left:3px; cursor:pointer; position: absolute; right: 10px; top: 7px;
 }
+hr{
+	border-bottom: 1px solid #cdd5d5; width: 400px; margin-right: 8px;
+}
+.form-component{
+	display: block;
+}
 .flex-center{
 	display:flex; align-items:center;
 }
@@ -80,7 +86,7 @@
 }
 /* Attribute wrap styling for select a site /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 .wfa-fas_AttributeWrap{
-	margin-top: 20px; display: flex; flex-wrap: wrap; padding-bottom: 20px;
+	margin-top: 0px; display: flex; flex-wrap: wrap; padding-bottom: 20px;
 }
 .wfa-fas_AttributeWrap div{
 	padding: 3px; height: 30px; line-height: 19px;
@@ -105,13 +111,13 @@
 	cursor: pointer;
 }
 .wfa-funcLabel{
-	margin-bottom: 7px !important;
+	margin-bottom: 7px !important; display: block;
 }
 .tabBtns{
 	margin-right:-6px; margin-bottom:0 !important; background:#f3f3f3; border-bottom: 1px solid #cdd5d5 !important; border-top: 1px solid #cdd5d5 !important;
 }
 .wfa-funcWrapper{
-	margin-top: 20px;
+	margin-top: 20px; position: relative;
 }
 .wfa-app{
 	background: #fff; position: absolute; z-index: 1000; width: 420;

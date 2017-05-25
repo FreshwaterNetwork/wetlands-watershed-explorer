@@ -6,8 +6,6 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!--Add class accord to the accordion's parent div-->
 <!-- Main Content accordian window -->
 
-<!-- <div style="display:flex; justify-content:center; margin-bottom:6px;">
-	</div> -->
 <div class="wfa-app hide">
 	<section id="selComReminder" style="margin-top:0px; width: 420px;">
 		<h3 style="margin-left:8px;">What would you like to do?</h3>
@@ -24,8 +22,6 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<label for="dfe4">Info</label>
 	</div>
 </div>
-
-
 
 <!-- Find A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <div id="wfa-findASite" class="wfa-fasWrap wfa-sections">
@@ -60,60 +56,74 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 <!-- Function of Interest find/eval wrapper ///////////////////////////////////////////////////////////////////////////////////////// -->
 	<div class="hide" id="mainFuncWrapper">
-			<h3 style="margin-top: 15px;">Choose Function of Interest:</h3>
-			<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
-				<label class="form-component wfa-funcLabel" for="all-option">
-					<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
-					<div class="check"></div>
-					<span class="form-text">All</span>
-				</label>
-				<br>
-				<label class="form-component wfa-funcLabel" for="flood-option">
-					<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
-					<div class="check"></div>
-					<span class="form-text">Flood Abatement</span>
-				</label>
-				<br>
-				<label class="form-component wfa-funcLabel" for="fish-option">
-					<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
-					<div class="check"></div>
-					<span class="form-text">Fish and Aquatic Habitat</span>
-				</label>
-				<br>
-				<label class="form-component wfa-funcLabel" for="phos-option">
-					<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous">
-					<div class="check"></div>
-					<span class="form-text">Phosphorous</span>
-				</label>
-				<br>
-				<label class="form-component wfa-funcLabel" for="sed-option">
-					<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment">
-					<div class="check"></div>
-					<span class="form-text">Sediment</span>
-				</label>
-				<br>
-				<label class="form-component wfa-funcLabel" for="nitro-option">
-					<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
-					<div class="check"></div>
-					<span class="form-text">Nitrogen</span>
-				</label>
-				<br>
-				<label class="form-component wfa-funcLabel" for="water-option">
-					<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Waters Supply">
-					<div class="check"></div>
-					<span class="form-text">Surface Waters Supply</span>
-				</label>
-			</div>
-			
+		<h3 style="margin-top: 15px;">Choose Function of Interest:</h3>
+		<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
+			<label data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="all-option">
+				<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
+				<div class="check"></div>
+				<span class="form-text">All</span>
+			</label>
+			<label data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="flood-option">
+				<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
+				<div class="check"></div>
+				<span class="form-text">Flood Abatement</span>
+			</label>
+			<label data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="fish-option">
+				<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
+				<div class="check"></div>
+				<span class="form-text">Fish and Aquatic Habitat</span>
+			</label>
+			<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: block;" for="phos-option">
+				<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous">
+				<div class="check"></div>
+				<span class="form-text">Phosphorous</span>
+			</label>
+			<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: block;" for="sed-option">
+				<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment">
+				<div class="check"></div>
+				<span class="form-text">Sediment</span>
+			</label>
+			<label  data-wfa-mode='huc' class="form-component wfa-funcLabel" style="display: block;" for="sedPhos-option">
+				<input type="radio" id="sedPhos-option" name="func" class="rb_cb" value="Sediment/Phosphorous">
+				<div class="check"></div>
+				<span class="form-text">Sediment/Phosphorous</span>
+			</label>
+			<label data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="nitro-option">
+				<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
+				<div class="check"></div>
+				<span class="form-text">Nitrogen</span>
+			</label>
+			<label  data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="water-option">
+				<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Waters Supply">
+				<div class="check"></div>
+				<span class="form-text">Surface Waters Supply</span>
+			</label>
+			<label  data-wfa-mode='wet' class="form-component wfa-funcLabel" style="display: block;" for="shore-option">
+				<input type="radio" id="shore-option" name="func" class="rb_cb" value="Shoreline Protection">
+				<div class="check"></div>
+				<span class="form-text">Shoreline Protection</span>
+			</label>
+			<label  data-wfa-mode='wet' class="form-component wfa-funcLabel" style="display: block;" for="carbon-option">
+				<input type="radio" id="carbon-option" name="func" class="rb_cb" value="Carbon Storage">
+				<div class="check"></div>
+				<span class="form-text">Carbon Storage</span>
+			</label>
+			<label  data-wfa-mode='wet' class="form-component wfa-funcLabel" style="display: block;" for="floristic-option">
+				<input type="radio" id="floristic-option" name="func" class="rb_cb" value="Floristic Integrity">
+				<div class="check"></div>
+				<span class="form-text">Floristic Integrity</span>
+			</label>
+		</div>
 	</div>
 
 <!-- Find/eval a site attribute wrap //////////////////////////////////////////////////////////////////////////////////////////////////-->
 	<div class="hide" id="mainAttributeWrap">
-		<hr>   
+		<hr>
+		<h3 style="margin-top: 15px;">Attributes:</h3>
 		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap ">
 			<div class="blueFont" style="font-weight: normal; margin-bottom: 40px;">Attribute Description Placeholder text ---- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 			<div class="wfa-sum-wrap">	
-				<div data-wfa='WETLAND_ID' class="elm-title">Current Wetland ID:</div>
+				<div data-wfa='WETLAND_ID' data-wfa-mode='wet' class="elm-title">Current Wetland ID:</div>
 				<div class="elm-results">
 					<span id="s2-SUM_NFOS_cac" class="s2Atts">8156475236</span>
 					<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
