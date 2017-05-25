@@ -173,6 +173,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									if(t.currentHuc == "WHUC6"){
 										$('#' + t.id + t.currentHuc + '-selText').parent().prev().children().slideDown();
 										$('#' + t.id + 'mainFuncWrapper').slideDown();
+										$('#' + t.id + 'hucSelWrap').slideDown();
+										
 										$('#' + t.id + 'wfa-findASite').slideUp();
 									}
 									$('#' + t.id + t.currentHuc + '-selText').parent().children().slideDown();
@@ -199,6 +201,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					if(id == 0){
 						$('#' + t.id +'fullExt-selText').slideUp();
 						$('#' + t.id + 'mainFuncWrapper').slideUp();
+						$('#' + t.id + 'hucSelWrap').slideUp();
 						$('#' + t.id + 'wfa-findASite').slideDown();
 						t.currentHuc = 'WHUC4'
 						t.obj.visibleLayers = [0,1]

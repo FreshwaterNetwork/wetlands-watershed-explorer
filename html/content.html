@@ -32,13 +32,14 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<div class="blueFont" style="font-weight: normal; margin-top: 20px;">Description Placeholder text of the app ---- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
 	<h3>Please Click on Map to Explore Wetlands</h3>
 </div>
+
 <!-- Evaluate A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <div id="wfa-evalASite" class="wfa-easWrap wfa-sections hide">
 	test text eval a site wrap
 </div>
 <!-- Main Content Wrap area ///////////////////////////////////////////////////////////////////////////////////// -->
 <div id="wfa-mainContentWrap" class="wfa-mainContentWrap">
-	<div id="hucSelWrap">
+	<div id="hucSelWrap" class="hide">
 		<div class="wfa-hucSelWrap">
 			<div id="fullExt-selText" class="hide">Full Extent<span id="zoom-0" class="wfa-hucZoom">Zoom</span></div>
 		</div>
@@ -54,63 +55,63 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<div class="wfa-hucSelWrap">
 			<div id="WHUC12-selText" class="hide">HUC 12 Watershed: <span id="huc12Sel" class="blueFont">test text</span></div>
 		</div>
+		<hr>
 	</div>
 
 <!-- Function of Interest find/eval wrapper ///////////////////////////////////////////////////////////////////////////////////////// -->
 	<div class="hide" id="mainFuncWrapper">
-		<h3 style="margin-top: 15px;">Choose Function of Interest:</h3>
-		<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
-			<label class="form-component wfa-funcLabel" for="all-option">
-				<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
-				<div class="check"></div>
-				<span class="form-text">All</span>
-			</label>
-			<br>
-			<label class="form-component wfa-funcLabel" for="flood-option">
-				<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
-				<div class="check"></div>
-				<span class="form-text">Flood Abatement</span>
-			</label>
-			<br>
-			<label class="form-component wfa-funcLabel" for="fish-option">
-				<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
-				<div class="check"></div>
-				<span class="form-text">Fish and Aquatic Habitat</span>
-			</label>
-			<br>
-			<label class="form-component wfa-funcLabel" for="phos-option">
-				<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous">
-				<div class="check"></div>
-				<span class="form-text">Phosphorous</span>
-			</label>
-			<br>
-			<label class="form-component wfa-funcLabel" for="sed-option">
-				<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment">
-				<div class="check"></div>
-				<span class="form-text">Sediment</span>
-			</label>
-			<br>
-			<label class="form-component wfa-funcLabel" for="nitro-option">
-				<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
-				<div class="check"></div>
-				<span class="form-text">Nitrogen</span>
-			</label>
-			<br>
-			<label class="form-component wfa-funcLabel" for="water-option">
-				<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Waters Supply">
-				<div class="check"></div>
-				<span class="form-text">Surface Waters Supply</span>
-			</label>
-		</div>
+			<h3 style="margin-top: 15px;">Choose Function of Interest:</h3>
+			<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
+				<label class="form-component wfa-funcLabel" for="all-option">
+					<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
+					<div class="check"></div>
+					<span class="form-text">All</span>
+				</label>
+				<br>
+				<label class="form-component wfa-funcLabel" for="flood-option">
+					<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
+					<div class="check"></div>
+					<span class="form-text">Flood Abatement</span>
+				</label>
+				<br>
+				<label class="form-component wfa-funcLabel" for="fish-option">
+					<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
+					<div class="check"></div>
+					<span class="form-text">Fish and Aquatic Habitat</span>
+				</label>
+				<br>
+				<label class="form-component wfa-funcLabel" for="phos-option">
+					<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous">
+					<div class="check"></div>
+					<span class="form-text">Phosphorous</span>
+				</label>
+				<br>
+				<label class="form-component wfa-funcLabel" for="sed-option">
+					<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment">
+					<div class="check"></div>
+					<span class="form-text">Sediment</span>
+				</label>
+				<br>
+				<label class="form-component wfa-funcLabel" for="nitro-option">
+					<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
+					<div class="check"></div>
+					<span class="form-text">Nitrogen</span>
+				</label>
+				<br>
+				<label class="form-component wfa-funcLabel" for="water-option">
+					<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Waters Supply">
+					<div class="check"></div>
+					<span class="form-text">Surface Waters Supply</span>
+				</label>
+			</div>
+			
 	</div>
-	
 
 <!-- Find/eval a site attribute wrap //////////////////////////////////////////////////////////////////////////////////////////////////-->
 	<div class="hide" id="mainAttributeWrap">
+		<hr>   
 		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap ">
-
 			<div class="blueFont" style="font-weight: normal; margin-bottom: 40px;">Attribute Description Placeholder text ---- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-			
 			<div class="wfa-sum-wrap">	
 				<div data-wfa='WETLAND_ID' class="elm-title">Current Wetland ID:</div>
 				<div class="elm-results">
