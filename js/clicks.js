@@ -199,7 +199,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				$('.wfa-hucZoom').unbind().on('click',function(c){
 					var id = c.currentTarget.id.split('-')[1];
 					t.currentWet = 'null'; // reset this tracker
-					t.obj.wetlandWhere = "OBJECTID < 0"
+					t.obj.wetlandWhere = "OBJECTID < 0" // reset wetland where tracker
 					// reset viz layers on zoom click 
 					if(id == 0){
 						$('#' + t.id +'fullExt-selText').slideUp();
@@ -307,7 +307,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // control visible layers function /////////////////////////////////////////////////////////////////////////////
 			controlVizLayers :function(t, maskWhere){
-				console.log(t.obj.visibleLayers, '1111111111111111111111')
 				if (t.currentHuc != 'WHUC4') {
 					// manipulate string to the proper format, use the same tracker as for the queries but add 2 unless it is a huc 12
 					var curHucNum = t.currentHuc.slice(-1);
@@ -319,14 +318,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}
 					var newHuc = curHucNum2 + curHucNum3;
 					newHuc =  newHuc.substring(1);
-					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
 
-					// if(t.currentHuc == 'wetland'){
-					// 	if(lyrName == newHuc + ' - ' + 'Sediment'){
-					// 		console.log('yes look here');
-					// 	}
-						
-					// }
+					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
 					var curWetLyrName = 'Wetlands - Current - ' + t.obj.funcTracker;
 					var potWetLyrName = 'Wetlands - Potential - ' + t.obj.funcTracker;
 					var wetlandSelected = 'Wetlands - Selected'
@@ -377,7 +370,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					});
 				}
 				// set layer defs and update the mask layer /////////////////////
-				console.log(t.obj.visibleLayers, t.obj.wetlandWhere);
 				t.layerDefinitions = [];
 				t.layerDefinitions[0] =  maskWhere
 				t.layerDefinitions[5] = t.obj.wetlandWhere
