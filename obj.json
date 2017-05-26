@@ -4,6 +4,7 @@
 	"selHuc": 11,
 	"funcTracker": "All",
 	"maskWhere": "OBJECTID < 0",
+	"wetlandWhere": "OBJECTID < 0",
 	"dynamicLyrExt": "",
 	"mngmtAction": "cons",
 	"floodFreq": "1 in 100",

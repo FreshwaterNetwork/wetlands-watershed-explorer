@@ -147,7 +147,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								}else if(t.obj.visibleLayers[1] == 4 ){
 									t.obj.selHuc = 19;
 									t.currentHuc = 'WHUC12';
-									//t.currentWet = 'wetland'
+									// t.currentWet = 'wetland'
 									t.hucVal  = evt.features[0].attributes.WHUC12
 									t.obj.visibleLayers = [0,4,6,16]
 								}
@@ -199,6 +199,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				$('.wfa-hucZoom').unbind().on('click',function(c){
 					var id = c.currentTarget.id.split('-')[1];
 					t.currentWet = 'null'; // reset this tracker
+					t.obj.wetlandWhere = "OBJECTID < 0"
 					// reset viz layers on zoom click 
 					if(id == 0){
 						$('#' + t.id +'fullExt-selText').slideUp();
@@ -209,13 +210,13 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.obj.visibleLayers = [0,1]
 					}else if (id == 1){
 						t.currentHuc = 'WHUC6'
-						t.obj.visibleLayers = [0,2,11]
+						t.obj.visibleLayers = [0,2,30]
 					}else if(id == 2){
 						t.currentHuc = 'WHUC8'
-						t.obj.visibleLayers = [0,3,12]
+						t.obj.visibleLayers = [0,3,31]
 					}else if(id == 3){
 						t.currentHuc = 'WHUC10'
-						t.obj.visibleLayers = [0,4,13]
+						t.obj.visibleLayers = [0,4,32]
 					}
 					// slide up attribute wrapper when any zoom button is clicked.
 					$('#' + t.id + 'mainAttributeWrap').slideUp();
@@ -295,7 +296,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						});
 						// set the wetland where clause
 						t.wetlandID = atts.OBJECTID;
-						t.wetlandWhere = "OBJECTID = " + t.wetlandID;
+						t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
 					}else{
 						
 						$('#' + t.id + 'mainAttributeWrap').slideUp();
@@ -306,6 +307,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // control visible layers function /////////////////////////////////////////////////////////////////////////////
 			controlVizLayers :function(t, maskWhere){
+				console.log(t.obj.visibleLayers, '1111111111111111111111')
 				if (t.currentHuc != 'WHUC4') {
 					// manipulate string to the proper format, use the same tracker as for the queries but add 2 unless it is a huc 12
 					var curHucNum = t.currentHuc.slice(-1);
@@ -318,15 +320,22 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					var newHuc = curHucNum2 + curHucNum3;
 					newHuc =  newHuc.substring(1);
 					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
+
+					// if(t.currentHuc == 'wetland'){
+					// 	if(lyrName == newHuc + ' - ' + 'Sediment'){
+					// 		console.log('yes look here');
+					// 	}
+						
+					// }
 					var curWetLyrName = 'Wetlands - Current - ' + t.obj.funcTracker;
 					var potWetLyrName = 'Wetlands - Potential - ' + t.obj.funcTracker;
 					var wetlandSelected = 'Wetlands - Selected'
-					console.log(curWetLyrName)
+
 					// loop through layers array and see if any layer name matches 
 					$.each($(t.layersArray),function(i,v){
 						if(lyrName == v.name){
 							t.obj.visibleLayers.pop();
-							t.obj.visibleLayers.push(v.id)
+							t.obj.visibleLayers.push(v.id);
 							if(t.currentHuc == "WHUC12"){
 								$.each($(t.layersArray),function(i,v){
 									if(curWetLyrName == v.name){
@@ -339,36 +348,39 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									}
 								});
 							}
-							// handle wetland clicks
-							if(t.currentWet == "wetland"){
-								// remove wetland layers and wetland selected layers before readding them
-								var numArray = [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
-								$.each(numArray, function(i,v){
-									var index = t.obj.visibleLayers.indexOf(v)
-									if(index > -1){
-										t.obj.visibleLayers.splice(index,1)
-									}
-								});
-								$.each($(t.layersArray),function(i,v){
-									if(curWetLyrName == v.name){
-										t.obj.visibleLayers.push(v.id)
-									}
-									if(potWetLyrName == v.name){
-										t.obj.visibleLayers.push(v.id)
-									}
-									// add the wetland selected layer
+						}
+						// handle adding the wetland layers and the wetland selected layer.
+						if(t.currentHuc == "WHUC12"){
+							// remove wetland layers and wetland selected layers before readding them
+							var numArray = [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+							$.each(numArray, function(i,v){
+								var index = t.obj.visibleLayers.indexOf(v)
+								if(index > -1){
+									t.obj.visibleLayers.splice(index,1)
+								}
+							});
+							$.each($(t.layersArray),function(i,v){
+								if(curWetLyrName == v.name){
+									t.obj.visibleLayers.push(v.id)
+								}
+								if(potWetLyrName == v.name){
+									t.obj.visibleLayers.push(v.id)
+								}
+								// add the wetland selected layer
+								if(t.obj.wetlandWhere != "OBJECTID < 0"){
 									if(wetlandSelected == v.name) {
 										t.obj.visibleLayers.push(v.id)
 									}
-								});
-							}
+								}
+							});
 						}
 					});
 				}
 				// set layer defs and update the mask layer /////////////////////
+				console.log(t.obj.visibleLayers, t.obj.wetlandWhere);
 				t.layerDefinitions = [];
 				t.layerDefinitions[0] =  maskWhere
-				t.layerDefinitions[5] = t.wetlandWhere
+				t.layerDefinitions[5] = t.obj.wetlandWhere
 				t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
 				// update the visible layers ///////////////////////////
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
