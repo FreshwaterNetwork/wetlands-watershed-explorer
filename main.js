@@ -29,6 +29,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			}
 			this.open = "no";
 		},
+
 		// Called after hibernate at app startup. Calls the render function which builds the plugins elements and functions.   
 		activate: function (showHelpOnStart) {
 			if (this.rendered == false) {

@@ -1,7 +1,8 @@
 define([
-	"dojo/_base/declare", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer", "esri/dijit/Search", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color","esri/layers/GraphicsLayer"
+	"dojo/_base/declare", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer", "esri/dijit/Search", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
+	"esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color","esri/layers/GraphicsLayer","esri/renderers/SimpleRenderer",'dojo/_base/lang'
 ],
-function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color, GraphicsLayer) {
+function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color, GraphicsLayer, SimpleRenderer,lang) {
         "use strict";
 
         return declare(null, {
@@ -99,10 +100,15 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				t.open = 'yes';
 				// handle map clicks
 				t.map.setMapCursor("pointer")
+				// t.map.trigger('click');
 				t.map.on('click',function(c){
 					if (t.open == "yes"){
 						// map click point ////////////////////////////////////////
 						t.pnt = c.mapPoint;
+						// i think the object below might be the right format for a map point click
+						// t.pnt= {type:'point', x:-9811591.693385411 ,y: 5364399.610102563, 
+						// spatialReference: {latestWkid:3857, wkid:102100}}
+						console.log(t.pnt);
 						// mask query //////////////////
 						t.mq = new Query();
 						t.maskQ = new QueryTask(t.url + "/" + 0);
@@ -204,10 +210,13 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					if(id == 0){
 						$('#' + t.id +'fullExt-selText').slideUp();
 						$('#' + t.id + 'mainFuncWrapper').slideUp();
-						$('#' + t.id + 'hucSelWrap').slideUp();
+						$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
+							t.clicks.hoverGraphic(t,1,t.where)
+						});
 						$('#' + t.id + 'wfa-findASite').slideDown();
 						t.currentHuc = 'WHUC4'
 						t.obj.visibleLayers = [0,1]
+						console.log(1)
 					}else if (id == 1){
 						t.currentHuc = 'WHUC6'
 						t.obj.visibleLayers = [0,2,30]
@@ -218,13 +227,15 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.currentHuc = 'WHUC10'
 						t.obj.visibleLayers = [0,4,32]
 					}
+					console.log(2)
 					// slide up attribute wrapper when any zoom button is clicked.
 					$('#' + t.id + 'mainAttributeWrap').slideUp();
 					// set map extent on back button click
 					if(id<1){
+						console.log(3)
 						t.map.setExtent(t.obj.dynamicLyrExt, true);
 						t.where = "OBJECTID > 0";
-						t.clicks.hoverGraphic(t,1,t.where)
+						//t.clicks.hoverGraphic(t,1,t.where)
 					}else{
 						t.map.setExtent(t.hucExtents[id], true);
 						// set huc exp on back button click
@@ -244,6 +255,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 
 			},
 			radioAttDisplay: function(t){
+
+				// radio buttons controls //////////////////////////////
 				var radioBtns = $('#' + t.id + 'funcWrapper').find('label');
 				if (t.currentHuc != 'WHUC12'){
 					t.radAttVal = 'wet' // value should be what you want to slide up
@@ -257,6 +270,9 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$(v).slideDown();
 					}
 				});	
+				// attribute control //////////////////////////////
+				var attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.wfa-sum-wrap');
+				console.log(attributes);
 			},
 			wetlandClick: function(t){
 				// wetland query 
@@ -387,16 +403,50 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				catch(err) {
 				    console.log('there is no layer to remove on the first iteration')
 				}
+// Feature layer hover code below ////////////////////////////////////////////////////////////////////////////////////////////////
+// this code still causes a flicker when the user hovers //////////
+				// var featLyr = new FeatureLayer(t.url + "/" + lyrNum, {mode: FeatureLayer.MODE_SNAPSHOT, outFields:["OBJECTID","WHUC6", "name"]});
+				// featLyr.setDefinitionExpression(where);
+				// t.map.graphics.enableMouseEvents();
+
+				// var symbol = new SimpleFillSymbol(
+		  //         SimpleFillSymbol.STYLE_SOLID,
+		  //         new SimpleLineSymbol(
+		  //           SimpleLineSymbol.STYLE_SOLID,
+		  //           new Color([255,0,255,0.35]),
+		  //           1
+		  //         ),
+		  //         new Color([125,0,125,0.0])
+		  //       );
+		  //       var highlightSymbol = new SimpleFillSymbol(
+		  //         SimpleFillSymbol.STYLE_SOLID,
+		  //         new SimpleLineSymbol(
+		  //           SimpleLineSymbol.STYLE_SOLID,
+		  //           new Color([255,0,0]), 3
+		  //         ),
+		  //         new Color([125,125,125,0.35])
+		  //       );
+		  //       featLyr.setRenderer(new SimpleRenderer(symbol));
+		  //        console.log(featLyr);
+		  //       featLyr.on("mouse-over",lang.hitch(t,function(evt){
+		  //       	console.log('mouse over ', evt);
+		  //       	var highlightGraphic = new Graphic(evt.graphic.geometry,highlightSymbol);
+    //       			t.map.graphics.add(highlightGraphic);
+
+		  //       }));
+		  //       featLyr.on("mouse-out", function(){
+		  //       	t.map.graphics.clear();
+		  //       })
+		  //       t.map.addLayer(featLyr);
+
+// graphics layer hover code below ////////////////////////////////////////////////////////////////////////////////////////////////
 				//and add it to the maps graphics layer
 				var graphicQuery = new QueryTask(t.url + "/" + lyrNum);
 				var gQ = new Query();
 				gQ.returnGeometry = true;
 				gQ.outFields = ["OBJECTID","WHUC6", "name"];
-				gQ.where =  where
+				gQ.where =  where;
 				graphicQuery.execute(gQ, function(evt){
-
-				});
-				graphicQuery.on("complete", function(event){
 					t.map.graphics.clear();
 		            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
 		                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
@@ -405,7 +455,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 		            var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
 		                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
 		                  new Color([255, 255, 255, 0]), 1), new Color([125, 125, 125, 0]));
-		            var features = event.featureSet.features;
+		            var features = evt.features;
 		            t.countiesGraphicsLayer = new GraphicsLayer();
 		            //QueryTask returns a featureSet.
 		            //Loop through features in the featureSet and add them to the map.
