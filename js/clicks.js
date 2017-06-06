@@ -213,10 +213,10 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						
 					}
 				});
+				
 // zoom buttons click //////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-hucZoom').unbind().on('click',function(c){
 					var id = c.currentTarget.id.split('-')[1];
-					t.currentWet = 'null'; // reset this tracker
 					t.obj.wetlandWhere = "OBJECTID < 0" // reset wetland where tracker
 					// reset viz layers on zoom click 
 					if(id == 0){
@@ -243,25 +243,34 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					// reset maskwhere tracker
 					t.obj.maskWhere = t.maskExps[id]
 					// set map extent on back button click
+					// below code is for if the user clicks on the full extent zoom //////////////////////////
 					if(id<1){
+						t.currentWet = 'null'; // reset this tracker
 						t.map.setExtent(t.obj.dynamicLyrExt, true);
 						t.where = "OBJECTID > 0";
+						// control viz function
+						t.clicks.controlVizLayers(t,t.obj.maskWhere);
 						//t.clicks.hoverGraphic(t,1,t.where)
+					// below code is for if the user clicks on the huc 12 zoom //////////////////////////////
 					}else if(id == 4){ // set extent back to huc 12 when the go to button is clicked
+						t.currentWet = 'wetland'; // reset this tracker
 						t.map.setExtent(t.huc12Ext, true);
 						t.obj.maskWhere = "WHUC12 <> '" + t.hucVal + "'";
-
+					// below code is for if the user clicks on the huc 6, 8 , 10 zoom /////////////////////////
 					}else{
+						t.currentWet = 'null'; // reset this tracker
 						t.map.setExtent(t.hucExtents[id], true);
 						// set huc exp on back button click
 						t.clicks.hoverGraphic(t,t.obj.visibleLayers[1], t.hucExps[id]);
+						// control viz function
+						t.clicks.controlVizLayers(t,t.obj.maskWhere);
 					}
-					// control viz function
-					t.clicks.controlVizLayers(t,t.obj.maskWhere);
+					
 					// call the radio attribute controller function
 					t.clicks.radioAttDisplay(t);
 					// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
-					$.each($('#' + c.currentTarget.id).parent().parent().nextAll().children(),function(i,v){
+					console.log(c.currentTarget.id);
+					$.each($('#' + c.currentTarget.id).nextAll().children(),function(i,v){
 						$('#' + v.id).slideUp();
 					});
 				});
@@ -271,6 +280,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			radioAttDisplay: function(t){
 				// radio buttons controls //////////////////////////////
 				var radioBtns = $('#' + t.id + 'funcWrapper').find('label');
+				console.log(t.currentWet);
 				if (t.currentWet != 'wetland'){
 					t.radAttVal = 'wet' // value should be what you want to slide up
 				}else{

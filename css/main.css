@@ -102,13 +102,16 @@ hr{
 	font-size: 14px; color: #2f6384; font-weight: bold;
 }
 .wfa-hucSelWrap{
-	font-size: 15px;
+	font-size: 15px; margin-right: 8px; border-radius: 5px; padding-left: 3px;
+}
+.wfa-hucSelWrap:hover{
+	background-color: #e6e6e6; cursor: pointer;
 }
 .wfa-hucZoom{
 	color: blue; right: 7px; margin-right: 8px;
 }
-.wfa-hucZoom:hover {
-	cursor: pointer;
+.wfa-textZoom{
+	color: black;
 }
 .wfa-funcLabel{
 	margin-bottom: 7px !important; display: block;
@@ -123,7 +126,7 @@ hr{
 	background: #fff; position: absolute; z-index: 1000; width: 420;
 }
 .wfa-mainContentWrap{
-	position: relative; top: 25px; padding-left: 7px;
+	position: relative; top: 10px; padding-left: 7px;
 }
 .wfa-dlwrap a {
 	color: blue !important; cursor: pointer !important;
