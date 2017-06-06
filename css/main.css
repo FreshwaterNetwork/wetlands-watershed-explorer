@@ -92,7 +92,7 @@ hr{
 	padding: 3px; height: 30px; line-height: 19px;
 }
 .wfa-sum-wrap {
-    width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
+    width: 340px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
 }
 .wfa-huc-wrap{
 	width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative;
@@ -105,7 +105,7 @@ hr{
 	font-size: 15px;
 }
 .wfa-hucZoom{
-	color: blue; position: absolute; right: 7px;
+	color: blue; right: 7px; margin-right: 8px;
 }
 .wfa-hucZoom:hover {
 	cursor: pointer;

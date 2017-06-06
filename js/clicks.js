@@ -87,7 +87,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			featureLayerListeners: function(t){
 				// set initial array vars, these will be populated later. 
 				t.hucExps = ['','','',''];
-				t.hucExtents = [t.obj.dynamicLyrExt,'','',''];
+				t.hucExtents = [t.obj.dynamicLyrExt,'','','', ''];
 				t.maskExps = ['OBJECTID < 0','','',''];
 				t.layerDefinitions = [];	
 				// set the def query for the huc mask /////////////////////	
@@ -108,7 +108,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						// i think the object below might be the right format for a map point click
 						// t.pnt= {type:'point', x:-9811591.693385411 ,y: 5364399.610102563, 
 						// spatialReference: {latestWkid:3857, wkid:102100}}
-						console.log(t.pnt);
 						// mask query //////////////////
 						t.mq = new Query();
 						t.maskQ = new QueryTask(t.url + "/" + 0);
@@ -132,6 +131,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						q1.outFields = ["*"];
 						qt1.execute(q1, function(evt){
 							if (evt.features.length > 0 && t.maskClick == 'no'){
+								// retrieve huc attributes on map click to be used in the huc Attribute functions.
+								t.hucAttributes = evt.features[0].attributes; 
 								t.fExt = evt.features[0].geometry.getExtent().expand(1);
 								if(t.obj.visibleLayers[1] == 1 ){
 									t.obj.selHuc = 17;
@@ -151,6 +152,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.hucVal  = evt.features[0].attributes.WHUC10
 									t.obj.visibleLayers = [0,4,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 4 ){
+									t.huc12Ext = evt.features[0].geometry.getExtent().expand(1);
+									console.log('in huc 12')
 									t.obj.selHuc = 19;
 									t.currentHuc = 'WHUC12';
 									// t.currentWet = 'wetland'
@@ -158,6 +161,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.obj.visibleLayers = [0,4,6,16]
 								}
 								// set the def query for the huc mask /////////////////////	
+								console.log(t.currentHuc, 'currentHuc')
 								if(t.currentHuc != 'WHUC12'){
 									t.where = t.currentHuc + " = '" + t.hucVal + "'";
 								}else{
@@ -170,6 +174,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								if(t.currentWet != 'wetland'){
 									t.map.setExtent(t.fExt, true); // only change the extent if the wetlands are not displayed
 								}
+								console.log(t.obj.visibleLayers[1])
+								
 								if(t.currentHuc != 'WHUC12'){
 									t.hucExps[(t.obj.visibleLayers[1]-1)] = t.where;
 									t.maskExps[(t.obj.visibleLayers[1]-1)] = t.obj.maskWhere;
@@ -182,20 +188,26 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 
 										$('#' + t.id + 'wfa-findASite').slideUp();
 									}
+									// slide down the huc selected text area and populate
 									$('#' + t.id + t.currentHuc + '-selText').parent().children().slideDown();
-									$('#' + t.id + t.currentHuc + '-selText').parent().find('span').first().html(name);
+									$('#' + t.id + t.currentHuc + '-selText').parent().find('span').last().html(name);
 								}else{
+									// slide up the huc selected text area and populate
 									$('#' + t.id + t.currentHuc + '-selText').parent().prev().children().slideDown();
-									$('#' + t.id + t.currentHuc + '-selText').parent().find('span').first().html(name);
+									$('#' + t.id + t.currentHuc + '-selText').parent().find('span').last().html(name);
 									$('#' + t.id + t.currentHuc + '-selText').slideDown();
 								}
+								$('#' + t.id + 'mainAttributeWrap').slideDown();
 // Call the functions at the end of map click /////////////////////////////////////////////////////////////////
 								// call the hover graphic function ////////////////////////////
 								t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.where)
 								// call the wetland click function ////////////////////////////
 								t.clicks.wetlandClick(t);
+								// call the huc attribute controller function
+								t.clicks.hucClick(t);
 								// call the radio attribute controller function
 								t.clicks.radioAttDisplay(t);
+
 							}
 						})
 						
@@ -216,7 +228,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$('#' + t.id + 'wfa-findASite').slideDown();
 						t.currentHuc = 'WHUC4'
 						t.obj.visibleLayers = [0,1]
-						console.log(1)
+						// slide up attribute wrapper when any zoom button is clicked.
+						$('#' + t.id + 'mainAttributeWrap').slideUp();
 					}else if (id == 1){
 						t.currentHuc = 'WHUC6'
 						t.obj.visibleLayers = [0,2,30]
@@ -227,22 +240,22 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.currentHuc = 'WHUC10'
 						t.obj.visibleLayers = [0,4,32]
 					}
-					console.log(2)
-					// slide up attribute wrapper when any zoom button is clicked.
-					$('#' + t.id + 'mainAttributeWrap').slideUp();
+					// reset maskwhere tracker
+					t.obj.maskWhere = t.maskExps[id]
 					// set map extent on back button click
 					if(id<1){
-						console.log(3)
 						t.map.setExtent(t.obj.dynamicLyrExt, true);
 						t.where = "OBJECTID > 0";
 						//t.clicks.hoverGraphic(t,1,t.where)
+					}else if(id == 4){ // set extent back to huc 12 when the go to button is clicked
+						t.map.setExtent(t.huc12Ext, true);
+						t.obj.maskWhere = "WHUC12 <> '" + t.hucVal + "'";
+
 					}else{
 						t.map.setExtent(t.hucExtents[id], true);
 						// set huc exp on back button click
 						t.clicks.hoverGraphic(t,t.obj.visibleLayers[1], t.hucExps[id]);
 					}
-					// reset maskwhere tracker
-					t.obj.maskWhere = t.maskExps[id]
 					// control viz function
 					t.clicks.controlVizLayers(t,t.obj.maskWhere);
 					// call the radio attribute controller function
@@ -254,11 +267,11 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				});
 
 			},
+// Radio/attribute display function //////////////////////////////////////////////////////////////////////////////////////
 			radioAttDisplay: function(t){
-
 				// radio buttons controls //////////////////////////////
 				var radioBtns = $('#' + t.id + 'funcWrapper').find('label');
-				if (t.currentHuc != 'WHUC12'){
+				if (t.currentWet != 'wetland'){
 					t.radAttVal = 'wet' // value should be what you want to slide up
 				}else{
 					t.radAttVal = 'huc' // value should be what you want to slide up
@@ -269,11 +282,47 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}else{
 						$(v).slideDown();
 					}
-				});	
+				});
 				// attribute control //////////////////////////////
 				var attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.wfa-sum-wrap');
-				console.log(attributes);
+				$.each(attributes,function(i,v){
+					if($(v).data().wfaMode == t.radAttVal){
+						$(v).slideUp();
+					}else{
+						$(v).slideDown();
+					}
+				});
 			},
+// Huc click function //////////////////////////////////////////////////////////////////////////////////////////////////////
+			hucClick: function(t){
+				// console.log(t.hucAttributes);
+				let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
+				// var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
+				let htmlVal;
+				let huc8Colors  = ['rgb(112,168,0)','rgb(170,204,102)', 'rgb(240,240,240)'];
+				let huc10Colors  = ['rgb(196,10,10)','rgb(224,132,101)', 'rgb(255,235,214)'];
+				let huc12Colors  = ['rgb(0,57,148)','rgb(85,108,201)', 'rgb(214,214,255)'];
+				$.each(attributes, function(i,v){
+					let attVal = t.hucAttributes[$(v).data('wfa')];
+					if(attVal == 1){
+						htmlVal = 'Most'
+					}else if(attVal == 2){
+						htmlVal = 'Moderate'
+					}else if(attVal == 3){
+						htmlVal = 'Least'
+					}
+					let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
+					if(t.currentHuc == 'WHUC8'){
+						$(v).parent().css('background-color', huc8Colors[(attVal-1)])
+					}else if(t.currentHuc == 'WHUC10'){
+						$(v).parent().css('background-color', huc10Colors[(attVal-1)])
+					}else if(t.currentHuc == 'WHUC12'){
+						$(v).parent().css('background-color', huc12Colors[(attVal-1)])
+					}
+				});
+
+			},
+// Wetland click function /////////////////////////////////////////////////////////////////////////////////////////////////
 			wetlandClick: function(t){
 				// wetland query 
 				var wq = new Query();
@@ -288,7 +337,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						var potColors = ['#FFEBD6', '#EBA988', '#D65D45', '#C40A0A'];
 						// $("[data-wfa=FA_RANK]").css("color", "red");
 						var atts = evt.features[0].attributes;
-						$('#' + t.id + 'mainAttributeWrap').slideDown();
+						// $('#' + t.id + 'mainAttributeWrap').slideDown();
 						// update the attribute colors for wetlands
 						var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
 						var htmlVal;
@@ -315,7 +364,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
 					}else{
 						
-						$('#' + t.id + 'mainAttributeWrap').slideUp();
+						//$('#' + t.id + 'mainAttributeWrap').slideUp();
 					}
 					// call the control viz layers function ////////////////////////////////////
 					t.clicks.controlVizLayers(t,t.obj.maskWhere);
@@ -403,42 +452,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				catch(err) {
 				    console.log('there is no layer to remove on the first iteration')
 				}
-// Feature layer hover code below ////////////////////////////////////////////////////////////////////////////////////////////////
-// this code still causes a flicker when the user hovers //////////
-				// var featLyr = new FeatureLayer(t.url + "/" + lyrNum, {mode: FeatureLayer.MODE_SNAPSHOT, outFields:["OBJECTID","WHUC6", "name"]});
-				// featLyr.setDefinitionExpression(where);
-				// t.map.graphics.enableMouseEvents();
-
-				// var symbol = new SimpleFillSymbol(
-		  //         SimpleFillSymbol.STYLE_SOLID,
-		  //         new SimpleLineSymbol(
-		  //           SimpleLineSymbol.STYLE_SOLID,
-		  //           new Color([255,0,255,0.35]),
-		  //           1
-		  //         ),
-		  //         new Color([125,0,125,0.0])
-		  //       );
-		  //       var highlightSymbol = new SimpleFillSymbol(
-		  //         SimpleFillSymbol.STYLE_SOLID,
-		  //         new SimpleLineSymbol(
-		  //           SimpleLineSymbol.STYLE_SOLID,
-		  //           new Color([255,0,0]), 3
-		  //         ),
-		  //         new Color([125,125,125,0.35])
-		  //       );
-		  //       featLyr.setRenderer(new SimpleRenderer(symbol));
-		  //        console.log(featLyr);
-		  //       featLyr.on("mouse-over",lang.hitch(t,function(evt){
-		  //       	console.log('mouse over ', evt);
-		  //       	var highlightGraphic = new Graphic(evt.graphic.geometry,highlightSymbol);
-    //       			t.map.graphics.add(highlightGraphic);
-
-		  //       }));
-		  //       featLyr.on("mouse-out", function(){
-		  //       	t.map.graphics.clear();
-		  //       })
-		  //       t.map.addLayer(featLyr);
-
+				console.log(where, 'where')
 // graphics layer hover code below ////////////////////////////////////////////////////////////////////////////////////////////////
 				//and add it to the maps graphics layer
 				var graphicQuery = new QueryTask(t.url + "/" + lyrNum);
