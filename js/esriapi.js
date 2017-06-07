@@ -54,6 +54,26 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 							$('#' + v.id).trigger('click');	
 						}	
 					});
+					// work with Opacity sliders /////////////////////////////////////////////
+					$("#" + t.id +"sldr").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
+					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100);
+					$("#" + t.id +"sldr").on( "slide", function(c,ui){
+						console.log(c, ui, 'chnge')
+						console.log(ui.value);
+						console.log(1 - ui.value/100)
+						t.dynamicLayer.setOpacity(1 - ui.value/100);
+						// update attributes opacity on slide
+						// let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
+						// $.each(attributes, function(i,v){
+						// 	$(v).parent().css("opacity", t.obj.opacityVal/100);
+						// });
+					})
+					// $('#' + t.id + 'slider').on( "slidechange",function( e, ui ) {
+					// 	t.obj.sliderVal = ui.value;
+					// 	t.dynamicLayer.setOpacity(1 - ui.value/10);
+					// 	// t.land.setOpacity(1 - ui.value/10);
+					// 	// t.soils.setOpacity(1 - ui.value/10);
+					// });
 				});					
 			}
 		});

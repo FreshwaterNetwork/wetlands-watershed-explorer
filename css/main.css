@@ -4,11 +4,11 @@
 	margin-bottom:-2px; margin-left:3px; cursor:pointer; position: absolute; right: 10px; top: 7px;
 }
 hr{
-	border-bottom: 1px solid #cdd5d5; width: 400px; margin-right: 8px;
+	border-bottom: 1px solid #cdd5d5; width: 400px; margin-right: 14px;
 }
-.form-component{
+/*.form-component{
 	display: block;
-}
+}*/
 .flex-center{
 	display:flex; align-items:center;
 }
@@ -89,7 +89,7 @@ hr{
 	margin-top: 0px; display: flex; flex-wrap: wrap; padding-bottom: 20px;
 }
 .wfa-fas_AttributeWrap div{
-	padding: 3px; height: 30px; line-height: 19px;
+	padding: 3px; line-height: 19px;
 }
 .wfa-sum-wrap {
     width: 340px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
@@ -105,7 +105,7 @@ hr{
 	font-size: 15px; margin-right: 8px; border-radius: 5px; padding-left: 3px;
 }
 .wfa-hucSelWrap:hover{
-	background-color: #e6e6e6; cursor: pointer;
+	background-color: #F3F3F3; cursor: pointer;
 }
 .wfa-hucZoom{
 	color: blue; right: 7px; margin-right: 8px;
@@ -114,13 +114,16 @@ hr{
 	color: black;
 }
 .wfa-funcLabel{
-	margin-bottom: 7px !important; display: block;
+	margin-bottom: 7px !important;
 }
 .tabBtns{
 	margin-right:-6px; margin-bottom:0 !important; background:#f3f3f3; border-bottom: 1px solid #cdd5d5 !important; border-top: 1px solid #cdd5d5 !important;
 }
 .wfa-funcWrapper{
-	margin-top: 20px; position: relative;
+	margin-top: 20px; position: relative; display: flex; width:375px;
+}
+.wfa-func_radioGroups{
+	flex: 1;
 }
 .wfa-app{
 	background: #fff; position: absolute; z-index: 1000; width: 420;
@@ -133,4 +136,33 @@ hr{
 }
 .wfa_basinText{
 	color:#FFF; background-color:#21658c; font-size: 23px; width: 66px;
+}
+
+
+/* Bottom Bar Opacity slider Elements  ///////////////////////////////////////////////////////////////////////////////////////*/
+/*.bottomDiv{
+	position:absolute; bottom:0px; left:0px; width:100%; border-top-style:groove !important; height:30px !important; 
+	background-color:#F3F3F3 !important; padding-top:3px !important; display:none;
+}*/
+.bottomDiv{
+	width: 100%; position: relative; height: 80px;
+}
+.slider-container{
+	display: flex; align-items: center; margin: 0px !important; background-color: #F3F3F3 !important; border-radius: 5px;
+	width: 100%; margin-right: 8px !important; margin-bottom: 7px !important; justify-content: center;
+}
+.sliderDiv{
+	width:252px; margin:0 auto; text-align:center; 
+}
+.ui-slider-horizontal {
+ 	height: 0.6em !important;   
+ }
+.leftSliderLabel{
+	display:inline-block; margin-right:9px; font-size:10pt;
+}	
+.slider{
+	width:100px; display:inline-block; width: 250px; margin-right: 5px; margin-left: 5px;
+}
+.rightSliderLabel{
+	display:inline-block; margin-left:5px; font-size:10pt;
 }

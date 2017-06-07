@@ -74,15 +74,14 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$( '#' + t.id + 'wfa-find_WetlandWrap').slideUp()
 					}
 				});
-
-				
 // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				$('.wfa-radio-indent input').on('click',function(c){
+				$('.wfa-radio-indent input').on('click',function(c, x){
 					t.obj.funcTracker = c.target.value.split("-")[0];
+					// change the function site services text when radio buttons are clicked.
+					$( '#' + t.id + 'siteServices_span').html('(' + c.target.value + ')');
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
 				});
 			},
-			
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
 				// set initial array vars, these will be populated later. 
@@ -309,6 +308,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
 				// var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
 				let htmlVal;
+				// let huc8Colors  = ['rgba(112,168,0,${t.obj.opacityVal})','rgb(170,204,102)', 'rgb(240,240,240)'];
 				let huc8Colors  = ['rgb(112,168,0)','rgb(170,204,102)', 'rgb(240,240,240)'];
 				let huc10Colors  = ['rgb(196,10,10)','rgb(224,132,101)', 'rgb(255,235,214)'];
 				let huc12Colors  = ['rgb(0,57,148)','rgb(85,108,201)', 'rgb(214,214,255)'];
