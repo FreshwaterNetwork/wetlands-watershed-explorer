@@ -1,15 +1,15 @@
 {
 	"visibleLayers": [0,1],
+	"visibleLayers2": [],
 	"hucClickTracker": "huc6",
 	"selHuc": 11,
 	"funcTracker": "All",
 	"maskWhere": "OBJECTID < 0",
 	"wetlandWhere": "OBJECTID < 0",
 	"opacityVal": 15,
+	"wildlifeCheck": "null",
+	"wildTracker": "Forest Interior Birds Guild",
 	"dynamicLyrExt": "",
-	"mngmtAction": "cons",
-	"floodFreq": "1 in 100",
-	"ffDef": "",
 	"huc": "HUC 10",
 	"extent": "",
 	"stateSet": "no"

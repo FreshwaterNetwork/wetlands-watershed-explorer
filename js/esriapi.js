@@ -8,12 +8,19 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 
         return declare(null, {
 			esriApiFunctions: function(t){	
+				// Add dynamic map service layer number 2
+				t.dynamicLayer2 = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.7});
+				t.map.addLayer(t.dynamicLayer2);
+				if (t.obj.visibleLayers.length > 0){	
+					t.dynamicLayer2.setVisibleLayers(t.obj.visibleLayers2);
+				}
 				// Add dynamic map service
 				t.dynamicLayer = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.7});
 				t.map.addLayer(t.dynamicLayer);
 				if (t.obj.visibleLayers.length > 0){	
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				}
+				
 		
 
 // Dynamic layer on load ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,7 +29,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent;
 					t.clicks.featureLayerListeners(t);
 					if (t.obj.stateSet == "no"){
-						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1.2), true)
+						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1.0), true)
 					}
 // Save and Share ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					// Save and Share Handler					
@@ -56,25 +63,23 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					});
 					// work with Opacity sliders /////////////////////////////////////////////
 					$("#" + t.id +"sldr").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
-					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100);
+					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
 					$("#" + t.id +"sldr").on( "slide", function(c,ui){
-						console.log(c, ui, 'chnge')
-						console.log(ui.value);
-						console.log(1 - ui.value/100)
-						t.dynamicLayer.setOpacity(1 - ui.value/100);
-						// update attributes opacity on slide
-						// let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
-						// $.each(attributes, function(i,v){
-						// 	$(v).parent().css("opacity", t.obj.opacityVal/100);
-						// });
+						t.obj.opacityVal = 1 - ui.value/100;
+						t.dynamicLayer.setOpacity(t.obj.opacityVal);
 					})
-					// $('#' + t.id + 'slider').on( "slidechange",function( e, ui ) {
-					// 	t.obj.sliderVal = ui.value;
-					// 	t.dynamicLayer.setOpacity(1 - ui.value/10);
+					$("#" + t.id +"sldr1").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
+					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
+					$("#" + t.id +"sldr1").on( "slide", function(c,ui){
+						t.obj.opacityVal = 1 - ui.value/100;
+						t.dynamicLayer2.setOpacity(t.obj.opacityVal);
+					})
 					// 	// t.land.setOpacity(1 - ui.value/10);
 					// 	// t.soils.setOpacity(1 - ui.value/10);
-					// });
-				});					
+				});
+				t.dynamicLayer2.on("load", function () {	
+					t.layersArray2 = t.dynamicLayer.layerInfos;
+				});				
 			}
 		});
     }

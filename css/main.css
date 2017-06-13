@@ -138,18 +138,21 @@ hr{
 	color:#FFF; background-color:#21658c; font-size: 23px; width: 66px;
 }
 
+/* wildlife check/radio button section */
+.wfa-wildlifeCheck{
+	font-size: 15px; margin-top: 16px; font-weight: 900;
+}
+.wfa-wildlifeRadioButtons{
+	display: flex; margin-left: 24px;
+}
 
 /* Bottom Bar Opacity slider Elements  ///////////////////////////////////////////////////////////////////////////////////////*/
-/*.bottomDiv{
-	position:absolute; bottom:0px; left:0px; width:100%; border-top-style:groove !important; height:30px !important; 
-	background-color:#F3F3F3 !important; padding-top:3px !important; display:none;
-}*/
 .bottomDiv{
 	width: 100%; position: relative; height: 80px;
 }
 .slider-container{
-	display: flex; align-items: center; margin: 0px !important; background-color: #F3F3F3 !important; border-radius: 5px;
-	width: 100%; margin-right: 8px !important; margin-bottom: 7px !important; justify-content: center;
+	display: flex; align-items: center; margin: 0px !important; border-radius: 5px;
+	width: 100%; justify-content: center;
 }
 .sliderDiv{
 	width:252px; margin:0 auto; text-align:center; 

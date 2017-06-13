@@ -78,7 +78,32 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				$('.wfa-radio-indent input').on('click',function(c, x){
 					t.obj.funcTracker = c.target.value.split("-")[0];
 					// change the function site services text when radio buttons are clicked.
-					$( '#' + t.id + 'siteServices_span').html('(' + c.target.value + ')');
+					$( '#' + t.id + 'siteServices_span').html('(Currently selected: ' + c.target.value + ')');
+					t.clicks.controlVizLayers(t, t.obj.maskWhere);
+				});
+// wildlife checkbox show and hide ///////////////////////////////////////////////////////////////////////////////////////////////////
+				// wildlife checkboxes /////////////
+				$('#' + t.id + 'wildlifeCheck input').on('click',function(c, x){
+					let isChecked = c.currentTarget.checked;
+					if(isChecked){
+						console.log('is checked')
+						//t.map.addLayer(t.dynamicLayer2);
+						$('#' + t.id + 'wildlifeRadioButtons').slideDown();
+						t.obj.wildlifeCheck = 'wildlife'
+						t.clicks.controlVizLayers(t, t.obj.maskWhere);
+					}else{
+						console.log('not checked')
+						// t.map.removeLayer(t.dynamicLayer2);
+						$('#' + t.id + 'wildlifeRadioButtons').slideUp();
+						t.obj.wildlifeCheck = 'null'
+						t.obj.visibleLayers2 = []; // empty list of rasters
+						t.clicks.controlVizLayers(t, t.obj.maskWhere);
+					}
+					
+				});
+				// wildlife radio buttons /////////////////
+				$("#" + t.id + 'wildlifeRadioButtons input').on('click',function(c, x){
+					t.obj.wildTracker = c.target.value.split("-")[0];
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
 				});
 			},
@@ -152,7 +177,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.obj.visibleLayers = [0,4,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 4 ){
 									t.huc12Ext = evt.features[0].geometry.getExtent().expand(1);
-									console.log('in huc 12')
 									t.obj.selHuc = 19;
 									t.currentHuc = 'WHUC12';
 									// t.currentWet = 'wetland'
@@ -160,7 +184,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.obj.visibleLayers = [0,4,6,16]
 								}
 								// set the def query for the huc mask /////////////////////	
-								console.log(t.currentHuc, 'currentHuc')
 								if(t.currentHuc != 'WHUC12'){
 									t.where = t.currentHuc + " = '" + t.hucVal + "'";
 								}else{
@@ -173,19 +196,18 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								if(t.currentWet != 'wetland'){
 									t.map.setExtent(t.fExt, true); // only change the extent if the wetlands are not displayed
 								}
-								console.log(t.obj.visibleLayers[1])
-								
 								if(t.currentHuc != 'WHUC12'){
 									t.hucExps[(t.obj.visibleLayers[1]-1)] = t.where;
 									t.maskExps[(t.obj.visibleLayers[1]-1)] = t.obj.maskWhere;
 									t.hucExtents[(t.obj.visibleLayers[1]-1)] = t.fExt;
-									
 									if(t.currentHuc == "WHUC6"){
 										$('#' + t.id + t.currentHuc + '-selText').parent().prev().children().slideDown();
 										$('#' + t.id + 'mainFuncWrapper').slideDown();
 										$('#' + t.id + 'hucSelWrap').slideDown();
-
 										$('#' + t.id + 'wfa-findASite').slideUp();
+									}else{
+										// only slide down if its beyond the huc 6 level
+										$('#' + t.id + 'mainAttributeWrap').slideDown();
 									}
 									// slide down the huc selected text area and populate
 									$('#' + t.id + t.currentHuc + '-selText').parent().children().slideDown();
@@ -196,7 +218,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									$('#' + t.id + t.currentHuc + '-selText').parent().find('span').last().html(name);
 									$('#' + t.id + t.currentHuc + '-selText').slideDown();
 								}
-								$('#' + t.id + 'mainAttributeWrap').slideDown();
+								
 // Call the functions at the end of map click /////////////////////////////////////////////////////////////////
 								// call the hover graphic function ////////////////////////////
 								t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.where)
@@ -285,13 +307,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				}else{
 					t.radAttVal = 'huc' // value should be what you want to slide up
 				}
-				$.each(radioBtns,function(i,v){
-					if($(v).data().wfaMode == t.radAttVal){
-						$(v).slideUp();
-					}else{
-						$(v).slideDown();
-					}
-				});
 				// attribute control //////////////////////////////
 				var attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.wfa-sum-wrap');
 				$.each(attributes,function(i,v){
@@ -301,6 +316,19 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$(v).slideDown();
 					}
 				});
+				$.each(radioBtns,function(i,v){
+					if(t.currentHuc == 'WHUC12'){
+						t.radAttVal = 'huc'
+					}
+					console.log(t.radAttVal);
+					console.log(t.currentWet);
+					if($(v).data().wfaMode == t.radAttVal){
+						$(v).slideUp();
+					}else{
+						$(v).slideDown();
+					}
+				});
+				
 			},
 // Huc click function //////////////////////////////////////////////////////////////////////////////////////////////////////
 			hucClick: function(t){
@@ -395,8 +423,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					newHuc =  newHuc.substring(1);
 
 					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
-					var curWetLyrName = 'Wetlands - Current - ' + t.obj.funcTracker;
-					var potWetLyrName = 'Wetlands - Potential - ' + t.obj.funcTracker;
+					var curWetLyrName = 'Current Wetlands - ' + t.obj.funcTracker;
+					var potWetLyrName = 'Potentially Restorable Wetlands - ' + t.obj.funcTracker;
 					var wetlandSelected = 'Wetlands - Selected'
 
 					// loop through layers array and see if any layer name matches 
@@ -407,6 +435,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							if(t.currentHuc == "WHUC12"){
 								$.each($(t.layersArray),function(i,v){
 									if(curWetLyrName == v.name){
+										console.log('found a match')
 										t.obj.visibleLayers.pop()
 										t.obj.visibleLayers.pop()
 										t.obj.visibleLayers.push(v.id)
@@ -451,6 +480,28 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
 				// update the visible layers ///////////////////////////
 				t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+				
+// show hide the raster wildlife layers if checkbox toggled on THIS IS IN VIZ LAYERS FUNCTION ///////////////////////////////////////////////////////////////////
+				if (t.obj.wildlifeCheck == 'wildlife'){
+					if(t.obj.visibleLayers2.length > 0){
+						t.obj.visibleLayers2.pop();
+						$.each($(t.layersArray),function(i,v){
+							if(t.obj.wildTracker == v.name){
+								t.obj.visibleLayers2.push(v.id);
+							}
+						});
+					}else{
+						$.each($(t.layersArray),function(i,v){
+							if(t.obj.wildTracker == v.name){
+								t.obj.visibleLayers2.push(v.id);
+							}
+						});
+					}
+				}
+				t.dynamicLayer2.setVisibleLayers(t.obj.visibleLayers2);
+				// re add layers to control draw order.
+				t.map.addLayer(t.dynamicLayer2);
+				t.map.addLayer(t.dynamicLayer);
 			},
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////

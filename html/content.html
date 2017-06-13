@@ -26,7 +26,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!-- Find A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <div id="wfa-findASite" class="wfa-fasWrap wfa-sections">
 	<div class="blueFont" style="font-weight: normal; margin-top: 20px;">Description Placeholder text of the app ---- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-	<h3>Please Click on Map to Explore Wetlands</h3>
+	<h3>Click on Map to Explore Wetlands</h3>
 </div>
 
 <!-- Evaluate A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -119,76 +119,70 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					<span class="form-text">Floristic Integrity</span>
 				</label>
 			</div>
-			<!-- <label data-wfa-mode='both' class="form-component wfa-funcLabel"  for="all-option">
-				<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
-				<div class="check"></div>
-				<span class="form-text">All</span>
-			</label>
-			<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="flood-option">
-				<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
-				<div class="check"></div>
-				<span class="form-text">Flood Abatement</span>
-			</label>
-			<label data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="fish-option">
-				<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
-				<div class="check"></div>
-				<span class="form-text">Fish and Aquatic Habitat</span>
-			</label> -->
-			<!-- <label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: block;" for="phos-option">
-				<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous">
-				<div class="check"></div>
-				<span class="form-text">Phosphorous</span>
-			</label>
-			<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: block;" for="sed-option">
-				<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment">
-				<div class="check"></div>
-				<span class="form-text">Sediment</span>
-			</label>
-			<label  data-wfa-mode='huc' class="form-component wfa-funcLabel" style="display: block;" for="sedPhos-option">
-				<input type="radio" id="sedPhos-option" name="func" class="rb_cb" value="Sediment/Phosphorous">
-				<div class="check"></div>
-				<span class="form-text">Sediment/Phosphorous</span>
-			</label>
-			<label data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="nitro-option">
-				<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
-				<div class="check"></div>
-				<span class="form-text">Nitrogen</span>
-			</label>
-			<label  data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="water-option">
-				<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Waters Supply">
-				<div class="check"></div>
-				<span class="form-text">Surface Waters Supply</span>
-			</label> -->
-			<!-- <label  data-wfa-mode='wet' class="form-component wfa-funcLabel" style="display: block;" for="shore-option">
-				<input type="radio" id="shore-option" name="func" class="rb_cb" value="Shoreline Protection">
-				<div class="check"></div>
-				<span class="form-text">Shoreline Protection</span>
-			</label>
-			<label  data-wfa-mode='wet' class="form-component wfa-funcLabel" style="display: block;" for="carbon-option">
-				<input type="radio" id="carbon-option" name="func" class="rb_cb" value="Carbon Storage">
-				<div class="check"></div>
-				<span class="form-text">Carbon Storage</span>
-			</label>
-			<label  data-wfa-mode='wet' class="form-component wfa-funcLabel" style="display: block;" for="floristic-option">
-				<input type="radio" id="floristic-option" name="func" class="rb_cb" value="Floristic Integrity">
-				<div class="check"></div>
-				<span class="form-text">Floristic Integrity</span>
-			</label> -->
+			
+		</div>
+		<!-- Vector opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
+		<div class="wfa-sum-wrap" style="height: 33.6px; margin: auto; margin-top: 7px;">	
+			<div class="slider-container">
+				<div>Opaque</div>
+				<div id="sldr" class="slider"></div>	
+				<div>Transparent</div>
+			</div>
+		</div>
+		<!-- View wildlife data checkbox -->
+		<label class="form-component wfa-wildlifeCheck" for="a-option" id="wildlifeCheck">
+			<input type="checkbox" id="a-option" name="wildlifeCheck">
+			<div class="check"></div>
+			<span class="form-text">View Wildlife Data</span>
+		</label>
+		<!-- Wildlife radio buttons -->
+		<div id="wildlifeRadioButtons" class=" hide">
+			<div class="wfa-wildlifeRadioButtons">
+				<div>
+					<label  data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="forest-option">
+						<input checked type="radio" id="forest-option" name="wild" class="rb_cb" value="Forest Interior Birds Guild">
+						<div class="check"></div>
+						<span class="form-text">Forest Interior Birds Guild</span>
+					</label>
+					<label  data-wfa-mode='wet' class="form-component wfa-funcLabel" style="display: block;" for="swamp-option">
+						<input type="radio" id="swamp-option" name="wild" class="rb_cb" value="Wet Shrub Birds Guild">
+						<div class="check"></div>
+						<span class="form-text">Wet Shrub Birds Guild</span>
+					</label>
+				</div>
+				<div style="margin-left: 29px;">
+					<label  data-wfa-mode='wet' class="form-component wfa-funcLabel" style="display: block;" for="marsh-option">
+						<input type="radio" id="marsh-option" name="wild" class="rb_cb" value="Shallow Marsh Birds Guild">
+						<div class="check"></div>
+						<span class="form-text">Shallow Marsh Birds Guild</span>
+					</label>
+					<label  data-wfa-mode='wet' class="form-component wfa-funcLabel" style="display: block;" for="openWater-option">
+						<input type="radio" id="openWater-option" name="wild" class="rb_cb" value="Open Water Birds Guild">
+						<div class="check"></div>
+						<span class="form-text">Open Water Birds Guild</span>
+					</label>
+				</div>
+			</div>
+			<!-- wildlife opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
+			<div class="wfa-sum-wrap" style="height: 33.6px; margin: auto; margin-top: 7px;">	
+				<div class="slider-container">
+					<div>Opaque</div>
+					<div id="sldr1" class="slider"></div>	
+					<div>Transparent</div>
+				</div>
+			</div>
+			
+			
+			
 		</div>
 	</div>
 
 <!-- Find/eval a site attribute wrap //////////////////////////////////////////////////////////////////////////////////////////////////-->
 	<div class="hide" id="mainAttributeWrap">
 		<hr>
-		<h3 style="margin-top: 15px;">Range of Site Services: <span id="siteServices_span">(All)</span></h3>
+		<h3 style="margin-top: 15px;">Range of Services: <span id="siteServices_span">(Currently selected: All)</span></h3>
 		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap ">
-			<div class="blueFont" style="font-weight: normal; margin-bottom: 10px;">Attribute Description Placeholder text ---- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-			<!-- Vector opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
-				<div class="slider-container">
-					<div>Opaque</div>
-					<div id="sldr" class="slider"></div>	
-					<div>Transparent</div>
-				</div>
+			<div class="blueFont" style="font-weight: normal; margin-bottom: 10px;">Click on individual sites to see how they compare to others in this watershed.</div>
 			<div style="position: relative;">
 				<!-- WET attributes ///////////////////////////////////////////////////////////////////////////////////////////////// -->
 				<div class="wfa-sum-wrap" data-wfa-mode='wet'>	
@@ -199,7 +193,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					</div>	
 				</div>
 				<div class="wfa-sum-wrap" data-wfa-mode='wet'>	
-					<div data-wfa='ALL_RANK'  class="elm-title">Composite All Services:</div>
+					<div data-wfa='ALL_RANK'  class="elm-title">All Services:</div>
 					<div class="elm-results">
 						<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
 						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
@@ -274,7 +268,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<!-- HUC attributes ///////////////////////////////////////////////////////////////////////////////////////////////// -->
 				
 				<div class="wfa-sum-wrap" data-wfa-mode='huc'>	
-					<div data-wfa='AllNeeds'  class="elm-title">Composite All Services:</div>
+					<div data-wfa='AllNeeds'  class="elm-title">All Services:</div>
 					<div class="elm-results">
 						<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
 						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
@@ -319,20 +313,6 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			
 		</div>
 	</div>
-
-	<!--Bottom bar with slider and print/csv buttons-->
-	<!-- <div id='bottomDiv' class='bottomDiv'>
-		<div id='sliderDiv' class='sliderDiv'>
-			<div class='leftSliderLabel'>
-				Opaque
-			</div>
-			<div id='slider' class='slider'>
-			</div>
-			<div class='rightSliderLabel'>
-				Transparent
-			</div>
-		</div>
-	</div>	 -->
 </div>
 
 
@@ -366,566 +346,4 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</div>
 	</section>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
-<!--  Find a wetland site //////////////////////////////////////////////////////////////////////////////////// -->
-			<!-- <div id="wfa-funcAttWrap">
-				<div class="wfa-huc-wrap">	
-					<div class="elm-title">HUC 6 Watershed:</div>	
-					<div class="wfa-attZoom">Zoom</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> Test Current Watershed <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-					</div>	
-				</div>
-
-				<div class="wfa-huc-wrap">	
-					<div class="elm-title">HUC 8 Watershed:</div>
-					<div class="wfa-attZoom">Zoom</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-					</div>	
-				</div> -->
-				<!-- <div id="wfa-huc6Text" class="wfa-huc6Text wfa-hucSelText"><b>Selected HUC 6:</b><span></span> <span id="wfa-huc6back" class="wfa-backBtn"><b>Back</b></span></div>
-				<div id="wfa-huc8Text" class="wfa-huc8Text wfa-hucSelText"><b>Selected HUC 8:</b><span></span> <span id="wfa-huc8back" class="wfa-backBtn"><b>Back</b></span></div>
-				<div id="wfa-huc10Text" class="wfa-huc10Text wfa-hucSelText"><b>Selected HUC 10:</b><span></span> <span id="wfa-huc10back" class="wfa-backBtn"><b>Back</b></span></div>
-				<div id="wfa-huc12Text" class="wfa-huc12Text wfa-hucSelText"><b>Selected HUC 12:</b><span></span> <span id="wfa-huc12back" class="wfa-backBtn"><b>Back</b></span></div> -->
-<!--  Choose a function of interest radio buttons //////////////////////////////////////////////////////////////// -->
-				<!-- <h3>Choose Function of Interest:</h3>
-				<div id="funcWrapper" class="funcWrapper wfa-radio-indent">
-					<label class="form-component wfa-funcLabel" for="all-option">
-						<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
-						<div class="check"></div>
-						<span class="form-text">All</span>
-					</label>
-					<br>
-					<label class="form-component wfa-funcLabel" for="flood-option">
-						<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
-						<div class="check"></div>
-						<span class="form-text">Flood Abatement</span>
-					</label>
-					<br>
-					<label class="form-component wfa-funcLabel" for="fish-option">
-						<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
-						<div class="check"></div>
-						<span class="form-text">Fish and Aquatic Habitat</span>
-					</label>
-					<br>
-					<label class="form-component wfa-funcLabel" for="sed-option">
-						<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment/Phosphorous">
-						<div class="check"></div>
-						<span class="form-text">Sediment/Phosphorous</span>
-					</label>
-					<br>
-					<label class="form-component wfa-funcLabel" for="nitro-option">
-						<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen">
-						<div class="check"></div>
-						<span class="form-text">Nitrogen</span>
-					</label>
-					<br>
-					<label class="form-component wfa-funcLabel" for="water-option">
-						<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Maintenance">
-						<div class="check"></div>
-						<span class="form-text">Surface Water Maintenance</span>
-					</label>
-				</div>
-				<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap">
-
-					<div class="wfa-sum-wrap">	
-						<div class="elm-title">Current Watershed:</div>	
-						<div class="elm-results">
-							<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> Test Current Watershed <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-						</div>	
-						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
-					</div>
-
-					<div class="wfa-sum-wrap">	
-						<div class="elm-title">Current Wetland ID:</div>
-						<div class="elm-results">
-							<span id="s2-SUM_NFOS_cac" class="s2Atts"></span> 8156475236 <span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-						</div>	
-						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
-					</div>
-					<div class="wfa-sum-wrap" style="background-color: #F0F0F0">	
-						<div class="elm-title">Fish & Aquatic Habitat:</div>
-						<div class="elm-results">
-							<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>High<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-						</div>	
-						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
-					</div>
-					<div class="wfa-sum-wrap" style="background-color: #AACC66">	
-						<div class="elm-title">Sediment Stabilization:</div>
-						<div class="elm-results">
-							<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>Moderate<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-						</div>	
-						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
-					</div>
-					<div class="wfa-sum-wrap" style="background-color: #70A800">	
-						<div class="elm-title">Flood Abatement:</div>
-						<div class="elm-results">
-							<span id="s2-SUM_NFOS_cac" class="s2Atts"></span>Low<span id="s2-SUM_NFOS_cpts" class="s2Atts"></span>
-						</div>	
-						<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo">
-					</div>
-				</div>
-			</div> -->
-<!-- Evalute watershed section ////////////////////////////////////////////////////////////////////////// -->
-			<!-- <div class="contentWrap" id="wfa-eval_WetlandWrap" style="display: none;">
-				<h3>If you know your wetland location search below: </h3>
-				<div style="height: 50px; width: 200px; border-style: solid; border-color: red;">Placeholder for search box??</div>
-				
-			</div> -->
-		<!-- </div>  -->
-
-
-
-
-<!-- Evalute watershed section ////////////////////////////////////////////////////////////////////////// -->
-		<!-- <h3 class="wfaC2">Evaluate a Wetland Site</h3> -->
-		
-		
-
-
-<!-- Download Data section ////////////////////////////////////////////////////////////////////////// -->
-		<!-- <h3 class="wfaC3">Download Data</h3>
-		<div class="contentWrap">
-			<p>Download Data Placeholder</p>
-		</div> -->
-
-<!-- Report section ////////////////////////////////////////////////////////////////////////// -->
-		<!-- <h3 class="wfaC4">Build a report</h3>
-		<div class="contentWrap">
-			<p>Build a report placeholder</p>
-		</div> -->
-
-	<!-- </div> -->
-<!-- </div> -->
-<!-- Help button -->
-<!-- <div class="wfa-help">
-	<div id="getHelpBtnWrap" class="getHelpBtnWrap">
-		<button id="getHelpBtn" class="button button-default">Start WAWFA Explorer</button>
-	</div>
-	<h2 style="margin-left:7px;">Documentation</h2>
-	<div class="wfa-shosu">
-		<label class="form-component" for="-shosu">
-				<input type="checkbox" id="-shosu" name="-shosu"><span class="check"></span>
-				<span class="form-text">Don't show at startup</span>
-		</label>
-	</div>	
-</div> -->
-<!-- Help accordian window -->
-<!-- <div id="infoAccord" class="flex1 wfa-help hide">
-	<h3 class="wfaH1">Identify Floodplain Units</h3>
-	<div class="explainWrap" style="display:block;">
-		<p>Maybe a few intro sentences here</p>
-		<h4>Flood Frequency</h4>
-		<p>explain</p>
-		<h4>Floodplains By Watershed</h4>
-		<p>explain</p>		
-		<h4>Management Actions</h4>
-		<p>explain</p>
-	</div> 
-	<h3 class="wfaH2">Conservation of existing natural lands</h3>
-	<div class="explainWrap">
-		<h4>Land Use Characteristics</h4>
-		<p>explain</p>
-		<h4>Water Quality Benefits</h4>
-		<p>explain</p>
-		<h4>Flood Related Benefits</h4>
-		<p>explain</p>
-		<h4>Habitat and Biodiversity Benefits</h4>
-		<p>explain</p>
-	</div>
-	<h3 class="wfaH3">Restoration of agricultural lands at risk from flooding</h3>
-	<div class="explainWrap">
-		<h4>Land Use Characteristics</h4>
-		<p>explain</p>
-		<h4>Water Quality Benefits</h4>
-		<p>explain</p>
-		<h4>Flood Related Benefits</h4>
-		<p>explain</p>
-		<h4>Habitat and Biodiversity Benefits</h4>
-		<p>explain</p>
-	</div>
-	<h3 class="wfaH4">Reconnection of lands disconnected by levees</h3>
-	<div class="explainWrap">
-		<h4>Land Use Characteristics</h4>
-		<p>explain</p>
-		<h4>Water Quality Benefits</h4>
-		<p>explain</p>
-		<h4>Flood Related Benefits</h4>
-		<p>explain</p>
-		<h4>Habitat and Biodiversity Benefits</h4>
-		<p>explain</p>
-	</div>
-</div> -->
-
-
-<!-- <div id="wfa-wrap" class="flex1 wfa-wrap accord" style="padding:0.5em; color: #5d6165; height:1000px; width:350px; margin-bottom:10px;">
-	<h3 class="wfaH1">Select a Wetland Site</h3>
-	<div class="explainWrap" style="display:block;">
-		<p>Maybe a few intro sentences here</p>
-		<h4>Flood Frequency</h4>
-		<p>explain</p>
-		<h4>Floodplains By Watershed</h4>
-		<p>explain</p>		
-		<h4>Management Actions</h4>
-		<p>explain</p>
-	</div> 
-	<h3 class="wfaH2">Evaluate a Wetland Site</h3>
-	<div class="explainWrap">
-		<h4>Land Use Characteristics</h4>
-		<p>explain</p>
-		<h4>Water Quality Benefits</h4>
-		<p>explain</p>
-		<h4>Flood Related Benefits</h4>
-		<p>explain</p>
-		<h4>Habitat and Biodiversity Benefits</h4>
-		<p>explain</p>
-	</div>
-	<h3 class="wfaH3">Download Data</h3>
-	<div class="explainWrap">
-		<h4>Land Use Characteristics</h4>
-		<p>explain</p>
-		<h4>Water Quality Benefits</h4>
-		<p>explain</p>
-		<h4>Flood Related Benefits</h4>
-		<p>explain</p>
-		<h4>Habitat and Biodiversity Benefits</h4>
-		<p>explain</p>
-	</div>
-	<h3 class="wfaH4">Build a report</h3>
-	<div class="explainWrap">
-		<h4>Land Use Characteristics</h4>
-		<p>explain</p>
-		<h4>Water Quality Benefits</h4>
-		<p>explain</p>
-		<h4>Flood Related Benefits</h4>
-		<p>explain</p>
-		<h4>Habitat and Biodiversity Benefits</h4>
-		<p>explain</p>
-	</div>
-</div> -->
-
-
-<!-- </div> -->
-	<!-- <div class="accord" style="height:440px; width:350px; margin-bottom:10px;">
-		<h3 class="wfaH1">Identify Floodplain Units TEST</h3>
-		<div class="explainWrap" style="display:block;">
-			<p>Maybe a few intro sentences here</p>
-			<h4>Flood Frequency</h4>
-			<p>explain</p>
-			<h4>Floodplains By Watershed</h4>
-			<p>explain</p>		
-			<h4>Management Actions</h4>
-			<p>explain</p>
-		</div> 
-		<h3 class="wfaH2">Conservation of existing natural lands</h3>
-		<div class="explainWrap">
-			<h4>Land Use Characteristics</h4>
-			<p>explain</p>
-			<h4>Water Quality Benefits</h4>
-			<p>explain</p>
-			<h4>Flood Related Benefits</h4>
-			<p>explain</p>
-			<h4>Habitat and Biodiversity Benefits</h4>
-			<p>explain</p>
-		</div>
-	</div> -->
-	
-	<!-- <section class="wfa-first-section wfa-main">
-		<h3>Identify Floodplain Units<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-wfaH1"></h3>
-		<div id="top-controls">
-			<h4>Select Flood Frequency</h4>
-			<div class="toggle-btn" style="width:210px;">
-				<input type="radio" id="ff-1" name="floodFreq" value="1 in 100"/>
-				<label for="ff-1">1% (100 year)</label>
-				<input type="radio" id="ff-20" name="floodFreq" value="1 in 5"/>
-				<label for="ff-20">20% (5 year)</label>
-			</div>	
-			<h4>View Floodplains By Watershed</h4>
-			<div class="toggle-btn" style="width:210px;">
-				<input type="radio" id="h10" name="huc" value="HUC 10"/>
-				<label for="h10">HUC-10</label>
-				<input type="radio" id="h12" name="huc" value="HUC 12"/>
-				<label for="h12">HUC-12</label>
-			</div>
-			<h4>Select Management Action</h4>
-			<div class="toggle-btn" style="width:306px;">
-				<input type="radio" id="mact-1" name="mngmtAction" value="cons"/>
-				<label for="mact-1">Conservation</label>
-				<input type="radio" id="mact-2" name="mngmtAction" value="restor"/>
-				<label for="mact-2">Restoration</label>
-				<input type="radio" id="mact-3" name="mngmtAction" value="recon"/>
-				<label for="mact-3">Reconnection</label>
-			</div>
-		</div>
-	</section> -->
-	<!-- <section class="hide mng-act-wrap wfa-main" id="mng-act-wrap">
-		<div class="cons mng-act-toggle">
-			<h3>Conservation of existing natural lands<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-wfaH2"></h3>
-			<h4 class="wfa-count-font"><span class="fuCount"></span> Floodplain Units Selected By Filters</h4>
-			<h4>Land Use Characteristics</h4>
-			<div class="h10">	
-				<label class="form-component" for="-slCb1">
-					<input type="checkbox" class="-slCb" id="-slCb1" name="-slCb1"><span class="check"></span>
-					<span class="form-text under">Natural land not behind levees</span>
-				</label>
-				<span class="wfa-slider-label">: <span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span><span class="blueFont">y</span> acres</span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-10-NatNotProt" class="slider"></div>
-				</div>
-			</div>
-			<div class="h12">
-				<label class="form-component" for="-slCb2">
-					<input type="checkbox" class="-slCb" id="-slCb2" name="-slCb2"><span class="check"></span>
-					<span class="form-text under">Natural land not behind levees</span>
-				</label>
-				<span class="wfa-slider-label">: <span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span><span class="blueFont">y</span> acres</span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-12-NatNotProt" class="slider"></div>
-				</div>
-			</div>	 
-		</div>
-		<div class="restor mng-act-toggle">
-			<h3>Restoration of agricultural lands at risk from flooding<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-wfaH3"></h3>
-			<h4 class="wfa-count-font"><span class="fuCount"></span> Floodplain Units Selected By Filters</h4>
-			<h4>Land Use Characteristics</h4>
-			<div class="h10">
-				<label class="form-component" for="-slCb3">
-					<input type="checkbox" class="-slCb" id="-slCb3" name="-slCb3"><span class="check"></span>
-					<span class="form-text under">Agricultural land not behind levees</span>
-				</label>				
-				<span class="wfa-slider-label">: <span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span><span class="blueFont">y</span> acres</span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-10-RowAgNotProt" class="slider"></div>
-				</div>
-			</div>
-			<div class="h12">
-				<label class="form-component" for="-slCb4">
-					<input type="checkbox" class="-slCb" id="-slCb4" name="-slCb4"><span class="check"></span>
-					<span class="form-text under">Agricultural land not behind levees</span>
-				</label>
-				<span class="wfa-slider-label">: <span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span><span class="blueFont">y</span> acres</span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-12-RowAgNotProt" class="slider"></div>
-				</div>
-			</div>	
-		</div>
-		<div class="recon mng-act-toggle">
-			<h3>Reconnection of lands disconnected by levees<img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-wfaH4"></h3>
-			<h4 class="wfa-count-font"><span class="fuCount"></span> Floodplain Units Selected By Filters</h4>
-			<h4>Land Use Characteristics</h4>
-			<div class="h10">
-				<label class="form-component" for="-slCb5">
-					<input type="checkbox" class="-slCb" id="-slCb5" name="-slCb5"><span class="check"></span>
-					<span class="form-text under">Agricultural land use behind levees</span>
-				</label>
-				<span class="wfa-slider-label">: <span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span><span class="blueFont">y</span> acres</span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-10-RowAgProt" class="slider"></div>
-				</div>
-			</div>
-			<div class="h12">
-				<label class="form-component" for="-slCb6">
-					<input type="checkbox" class="-slCb" id="-slCb6" name="-slCb6"><span class="check"></span>
-					<span class="form-text under">Agricultural land use behind levees</span>
-				</label>
-				<span class="wfa-slider-label">: <span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span><span class="blueFont">y</span> acres</span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-12-RowAgProt" class="slider"></div>
-				</div>
-			</div>
-			<div class="h10">
-				<label class="form-component" for="-slCb7">
-					<input type="checkbox" class="-slCb" id="-slCb7" name="-slCb7"><span class="check"></span>
-					<span class="form-text under">Developed land behind levees</span>
-				</label>	
-				<span class="wfa-slider-label">: <span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span><span class="blueFont">y</span> acres</span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-10-DevProt" class="slider"></div>
-				</div>
-			</div>
-			<div class="h12">	
-				<label class="form-component" for="-slCb8">
-					<input type="checkbox" class="-slCb" id="-slCb8" name="-slCb8"><span class="check"></span>
-					<span class="form-text under">Developed land behind levees</span>
-				</label>
-				<span class="wfa-slider-label">: <span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span><span class="blueFont">y</span> acres</span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-12-DevProt" class="slider"></div>
-				</div>
-			</div>
-		</div>
-		<div class="cons restor recon mng-act-toggle">
-			<h4>Water Quality Benefits</h4>
-			<label class="form-component" for="-rb_cb1">
-					<input type="checkbox" class="rb_cb" id="-rb_cb1" name="-rb_cb1"><span class="check"></span>
-					<span class="form-text under">Upland nutrient retention</span>
-			</label>
-			<div class="wfa-radio-indent">
-				<label class="form-component" for="-rb1a">
-					<input checked type="radio" id="-rb1a" name="-rb1" value="NDelRet-High" disabled>
-					<span class="check"></span><span class="form-text">High</span>
-				</label>
-				<label class="form-component" for="-rb1b">
-					<input type="radio" id="-rb1b" name="-rb1" value="NDelRet-Medium" disabled>
-					<span class="check"></span><span class="form-text">Medium</span>
-				</label>
-				<label class="form-component" for="-rb1c">
-					<input type="radio" id="-rb1c" name="-rb1" value="NDelRet-Low" disabled>
-					<span class="check"></span><span class="form-text">Low</span>
-				</label>
-			</div>
-			<label class="form-component" for="-rb_cb2">
-					<input type="checkbox" class="rb_cb" id="-rb_cb2" name="-rb_cb2"><span class="check"></span>
-					<span class="form-text under">Denitrification Potential</span>
-			</label>
-			<div class="wfa-radio-indent">
-				<label class="form-component" for="-rb2a">
-					<input checked type="radio" id="-rb2a" name="-rb2" value="Denitrification-Well Above Average" disabled>
-					<span class="check"></span><span class="form-text">Well above average</span>
-				</label>
-				<label class="form-component" for="-rb2b">
-					<input type="radio" id="-rb2b" name="-rb2" value="Denitrification-Above Average" disabled>
-					<span class="check"></span><span class="form-text">Above average</span>
-				</label>
-			</div>	
-			<h4>Flood Related Benefits</h4>
-		</div>		
-		<div class="recon mng-act-toggle">
-			<label class="form-component" for="-rb_cb3">
-					<input type="checkbox" class="rb_cb" id="-rb_cb3" name="-rb_cb3"><span class="check"></span>
-					<span class="form-text under">Reconnection Potential</span>
-			</label>
-			<div class="wfa-radio-indent">
-				<label class="form-component" for="-rb3a">
-					<input checked type="radio" id="-rb3a" name="-rb3" value="Reconnection-High" disabled>
-					<span class="check"></span><span class="form-text">High</span>
-				</label>
-				<label class="form-component" for="-rb3b">
-					<input type="radio" id="-rb3b" name="-rb3" value="Reconnection-Medium" disabled>
-					<span class="check"></span><span class="form-text">Medium</span>
-				</label>
-				<label class="form-component" for="-rb3c">
-					<input type="radio" id="-rb3c" name="-rb3" value="Reconnection-Low" disabled>
-					<span class="check"></span><span class="form-text">Low</span>
-				</label>
-			</div>	
-		</div>	
-		<div class="cons restor recon mng-act-toggle">
-			<div class="h10">
-				<label class="form-component" for="-slCb9">
-					<input type="checkbox" class="-slCb" id="-slCb9" name="-slCb9"><span class="check"></span>
-					<span class="form-text under">Structural Losses</span>
-				</label>
-				<span class="wfa-slider-label">: $<span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span>$<span class="blueFont">y</span></span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-10-FRStruct_TotLoss" class="slider"></div>
-				</div>
-			</div>
-			<div class="h12">
-				<label class="form-component" for="-slCb10">
-					<input type="checkbox" class="-slCb" id="-slCb10" name="-slCb10"><span class="check"></span>
-					<span class="form-text under">Structural Losses</span>
-				</label>
-				<span class="wfa-slider-label">: $<span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span>$<span class="blueFont">y</span></span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-12-FRStruct_TotLoss" class="slider"></div>
-				</div>
-			</div>
-			<div class="h10">
-				<label class="form-component" for="-slCb11">
-					<input type="checkbox" class="-slCb" id="-slCb11" name="-slCb11"><span class="check"></span>
-					<span class="form-text under">Agricultural Losses</span>
-				</label>	
-				<span class="wfa-slider-label">: $<span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span>$<span class="blueFont">y</span></span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-10-AGLoss_7" class="slider"></div>
-				</div>
-			</div>	
-			<div class="h12">
-				<label class="form-component" for="-slCb12">
-					<input type="checkbox" class="-slCb" id="-slCb12" name="-slCb12"><span class="check"></span>
-					<span class="form-text under">Agricultural Losses</span>
-				</label>
-				<span class="wfa-slider-label">: $<span class="blueFont">x</span> to <span class="wfa-grth">&gt;</span>$<span class="blueFont">y</span></span>
-				<div class="slider-container range-slider" style="width:275px;">
-					<div id="-12-AGLoss_7" class="slider"></div>
-				</div>
-			</div>	
-			<h4>Habitat and Biodiversity Benefits</h4>
-		</div>	
-		<div class="cons mng-act-toggle">
-			<label class="form-component" for="-rb_cb4">
-					<input type="checkbox" class="rb_cb" id="-rb_cb4" name="-rb_cb4"><span class="check"></span>
-					<span class="form-text under">Existing floodplain forest area</span>
-			</label>
-			<div class="wfa-radio-indent">
-				<label class="form-component" for="-rb4a">
-					<input checked type="radio" id="-rb4a" name="-rb4" value="BF_Existing-High" disabled>
-					<span class="check"></span><span class="form-text">High</span>
-				</label>
-				<label class="form-component" for="-rb4b">
-					<input type="radio" id="-rb4b" name="-rb4" value="BF_Existing-Medium" disabled>
-					<span class="check"></span><span class="form-text">Medium</span>
-				</label>
-				<label class="form-component" for="-rb4c">
-					<input type="radio" id="-rb4c" name="-rb4" value="BF_Existing-Low" disabled>
-					<span class="check"></span><span class="form-text">Low</span>
-				</label>
-			</div>	
-		</div>
-		<div class="restor recon mng-act-toggle">
-			<label class="form-component" for="-rb_cb5">
-					<input type="checkbox" class="rb_cb" id="-rb_cb5" name="-rb_cb5"><span class="check"></span>
-					<span class="form-text under">Floodplain forest restoration priority</span>
-			</label>
-			<div class="wfa-radio-indent">
-				<label class="form-component" for="-rb5a">
-					<input checked type="radio" id="-rb5a" name="-rb5" value="BF_Priority-High" disabled>
-					<span class="check"></span><span class="form-text">High</span>
-				</label>
-				<label class="form-component" for="-rb5b">
-					<input type="radio" id="-rb5b" name="-rb5" value="BF_Priority-Medium" disabled>
-					<span class="check"></span><span class="form-text">Medium</span>
-				</label>
-			</div>
-		</div>
-		<div class="cons restor recon mng-act-toggle">
-			<label class="form-component" for="-rb_cb6">
-					<input type="checkbox" class="rb_cb" id="-rb_cb6" name="-rb_cb6"><span class="check"></span>
-					<span class="form-text under">Bird species habitat</span>
-			</label>
-			<div class="wfa-radio-indent">
-				<label class="form-component" for="-rb6a">
-					<input checked type="radio" id="-rb6a" name="-rb6" value="SDM-2" disabled>
-					<span class="check"></span><span class="form-text">2</span>
-				</label>
-				<label class="form-component" for="-rb6b">
-					<input type="radio" id="-rb6b" name="-rb6" value="SDM-1" disabled>
-					<span class="check"></span><span class="form-text">1</span>
-				</label>
-				<label class="form-component" for="-rb6c">
-					<input type="radio" id="-rb6c" name="-rb6" value="SDM-0" disabled>
-					<span class="check"></span><span class="form-text">0</span>
-				</label>
-			</div>	
-		</div>			
-	</section> -->
-
-
-
-
 
