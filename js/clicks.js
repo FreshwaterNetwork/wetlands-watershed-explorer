@@ -364,11 +364,11 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}
 					let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
 					if(t.obj.currentHuc == 'WHUC8'){
-						$(v).parent().css('background-color', huc8Colors[(attVal-1)])
+						$(v).parent().find('.wfa-attributePatch').css('background-color', huc8Colors[(attVal-1)])
 					}else if(t.obj.currentHuc == 'WHUC10'){
-						$(v).parent().css('background-color', huc10Colors[(attVal-1)])
+						$(v).parent().find('.wfa-attributePatch').css('background-color', huc10Colors[(attVal-1)])
 					}else if(t.obj.currentHuc == 'WHUC12'){
-						$(v).parent().css('background-color', huc12Colors[(attVal-1)])
+						$(v).parent().find('.wfa-attributePatch').css('background-color', huc12Colors[(attVal-1)])
 					}
 				});
 
@@ -406,9 +406,9 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							}
 							let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
 							if(atts.WETLAND_TYPE == 'WWI'){
-								$(v).parent().css('background-color', curColors[attVal])
+								$(v).parent().find('.wfa-attributePatch').css('background-color', curColors[attVal])
 							}else{
-								$(v).parent().css('background-color', potColors[attVal])
+								$(v).parent().find('.wfa-attributePatch').css('background-color', potColors[attVal])
 							}
 						});
 						// set the wetland where clause
