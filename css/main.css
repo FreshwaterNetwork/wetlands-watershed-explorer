@@ -89,7 +89,7 @@ hr{
 	margin-top: 0px; display: flex; flex-wrap: wrap; padding-bottom: 20px;
 }
 .wfa-fas_AttributeWrap div{
-	padding: 3px; line-height: 19px;
+	padding: 3px; line-height: 22px;
 }
 .wfa-sum-wrap {
     width: 340px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
@@ -98,7 +98,7 @@ hr{
 	width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative;
 }
 .wfa-attributePatch{
-	height: 28px; width: 28px; background-color: red; margin-right: 10px; border: 1pt solid #cdd5d5; box-shadow: 0 1px 1px rgba(16,22,26,.2);
+	height: 28px; width: 28px; background-color: red; margin-right: 5px; border: 1pt solid #cdd5d5; box-shadow: 0 1px 1px rgba(16,22,26,.2);
 }
 .s2Atts{
 	font-size: 14px; color: #2f6384; font-weight: bold;
