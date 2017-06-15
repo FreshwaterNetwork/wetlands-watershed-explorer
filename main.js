@@ -80,26 +80,26 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 					}
 				}));	
 				// Git ids of checked checkboxes above sliders
-				$.each( $('#' + this.id + 'wfa-wrap .-slCb'),lang.hitch(this,function(i,v){
-					if (v.checked == true){
-						var id = "-" + v.id.split('-').pop();
-						this.obj.slCbIds.push(id)
-					}
-				}))
-				// Get ids of checked radio buttons
-				$.each( $('#' + this.id + ' .wfa-radio-indent input'),lang.hitch(this,function(i,v){
-					if (v.checked == true){
-						var id = "-" + v.id.split('-').pop();
-						this.obj.rbIds.push(id)
-					}
-				}));	
-				// Get ids of checked checkboxes above radio buttons
-				$.each( $('#' + this.id + 'wfa-wrap .rb_cb'),lang.hitch(this,function(i,v){
-					if (v.checked == true){
-						var id = "-" + v.id.split('-').pop();
-						this.obj.rbCbIds.push(id)
-					}
-				}));	
+				// $.each( $('#' + this.id + 'wfa-wrap .-slCb'),lang.hitch(this,function(i,v){
+				// 	if (v.checked == true){
+				// 		var id = "-" + v.id.split('-').pop();
+				// 		this.obj.slCbIds.push(id)
+				// 	}
+				// }))
+				// // Get ids of checked radio buttons
+				// $.each( $('#' + this.id + ' .wfa-radio-indent input'),lang.hitch(this,function(i,v){
+				// 	if (v.checked == true){
+				// 		var id = "-" + v.id.split('-').pop();
+				// 		this.obj.rbIds.push(id)
+				// 	}
+				// }));	
+				// // Get ids of checked checkboxes above radio buttons
+				// $.each( $('#' + this.id + 'wfa-wrap .rb_cb'),lang.hitch(this,function(i,v){
+				// 	if (v.checked == true){
+				// 		var id = "-" + v.id.split('-').pop();
+				// 		this.obj.rbCbIds.push(id)
+				// 	}
+				// }));	
 				//extent
 				this.obj.extent = this.map.geographicExtent;
 				this.obj.stateSet = "yes";	

@@ -123,7 +123,7 @@ hr{
 	margin-top: 20px; position: relative; display: flex; width:375px;
 }
 .wfa-func_radioGroups{
-	flex: 1;
+	flex: 1; width: 190px;
 }
 .wfa-app{
 	background: #fff; position: absolute; z-index: 1000; width: 420;
