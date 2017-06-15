@@ -86,14 +86,10 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				$('#' + t.id + 'wildlifeCheck input').on('click',function(c, x){
 					let isChecked = c.currentTarget.checked;
 					if(isChecked){
-						console.log('is checked')
-						//t.map.addLayer(t.dynamicLayer2);
 						$('#' + t.id + 'wildlifeRadioButtons').slideDown();
 						t.obj.wildlifeCheck = 'wildlife'
 						t.clicks.controlVizLayers(t, t.obj.maskWhere);
 					}else{
-						console.log('not checked')
-						// t.map.removeLayer(t.dynamicLayer2);
 						$('#' + t.id + 'wildlifeRadioButtons').slideUp();
 						t.obj.wildlifeCheck = 'null'
 						t.obj.visibleLayers2 = []; // empty list of rasters
@@ -113,6 +109,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				t.hucExps = ['','','',''];
 				t.hucExtents = [t.obj.dynamicLyrExt,'','','', ''];
 				t.maskExps = ['OBJECTID < 0','','',''];
+				t.hucAttributesList = [];
 				t.layerDefinitions = [];	
 				// set the def query for the huc mask /////////////////////	
 				t.layerDefinitions[0] =  "WHUC6 < 0";
@@ -156,7 +153,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						qt1.execute(q1, function(evt){
 							if (evt.features.length > 0 && t.maskClick == 'no'){
 								// retrieve huc attributes on map click to be used in the huc Attribute functions.
-								t.hucAttributes = evt.features[0].attributes; 
+								t.hucAttributes = evt.features[0].attributes;
 								t.fExt = evt.features[0].geometry.getExtent().expand(1);
 								if(t.obj.visibleLayers[1] == 1 ){
 									t.obj.selHuc = 17;
@@ -166,20 +163,26 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26){
 									t.obj.currentWet = 'wetland' // this is a wetland click
 								}else if(t.obj.visibleLayers[1] == 2 ){
+									console.log('click here')
+									// slide down wildlife checkbox
+									$('#' + t.id + 'wildlifeCheckWrap').slideDown();
+									t.obj.wildlifeOpenTracker = 'open';
+									t.hucAttributesList[0] = t.hucAttributes;
 									t.obj.selHuc = 18;
 									t.obj.currentHuc = 'WHUC8' 
 									t.hucVal  = evt.features[0].attributes.WHUC8
 									t.obj.visibleLayers = [0,3,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 3 ){
+									t.hucAttributesList[1] = t.hucAttributes;
 									t.obj.selHuc = 19;
 									t.obj.currentHuc = 'WHUC10'
 									t.hucVal  = evt.features[0].attributes.WHUC10
 									t.obj.visibleLayers = [0,4,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 4 ){
+									t.hucAttributesList[2] = t.hucAttributes;
 									t.huc12Ext = evt.features[0].geometry.getExtent().expand(1);
 									t.obj.selHuc = 19;
 									t.obj.currentHuc = 'WHUC12';
-									// t.obj.currentWet = 'wetland'
 									t.hucVal  = evt.features[0].attributes.WHUC12
 									t.obj.visibleLayers = [0,4,6,16]
 								}
@@ -253,9 +256,14 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.obj.visibleLayers = [0,1]
 						// slide up attribute wrapper when any zoom button is clicked.
 						$('#' + t.id + 'mainAttributeWrap').slideUp();
+						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
+						t.obj.wildlifeOpenTracker = 'null'
 					}else if (id == 1){
 						t.obj.currentHuc = 'WHUC6'
-						t.obj.visibleLayers = [0,2,30]
+						t.obj.visibleLayers = [0,2,30];
+						$('#' + t.id + 'mainAttributeWrap').slideUp();
+						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
+						t.obj.wildlifeOpenTracker = 'null'
 					}else if(id == 2){
 						t.obj.currentHuc = 'WHUC8'
 						t.obj.visibleLayers = [0,3,31]
@@ -288,11 +296,11 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						// control viz function
 						t.clicks.controlVizLayers(t,t.obj.maskWhere);
 					}
-					
 					// call the radio attribute controller function
 					t.clicks.radioAttDisplay(t);
+					// call the huc click function
+					t.clicks.hucClick(t);
 					// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
-					console.log(c.currentTarget.id);
 					$.each($('#' + c.currentTarget.id).nextAll().children(),function(i,v){
 						$('#' + v.id).slideUp();
 					});
@@ -309,18 +317,11 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				// attribute control //////////////////////////////
 				var attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.wfa-sum-wrap');
 				$.each(attributes,function(i,v){
-					
-					// if(t.obj.currentHuc == 'WHUC12'){
-					// 	t.radAttVal = 'wet'
-					// }
-					// console
 					if(t.obj.wetlandClick == 'yes'){
-						console.log('yes wetland click')
 						t.radAttVal = 'huc';
 					}else{
 						t.radAttVal = 'wet';
 					}
-					console.log(t.radAttVal, t.obj.currentWet, t.obj.currentHuc, 'look here //////////////');
 					if($(v).data().wfaMode == t.radAttVal){
 						$(v).slideUp();
 					}else{
@@ -333,8 +334,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					if(t.obj.currentHuc == 'WHUC12'){
 						t.radAttVal = 'huc'
 					}
-					// console.log(t.radAttVal);
-					// console.log(t.obj.currentWet);
 					if($(v).data().wfaMode == t.radAttVal){
 						$(v).slideUp();
 					}else{
@@ -345,22 +344,33 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // Huc click function //////////////////////////////////////////////////////////////////////////////////////////////////////
 			hucClick: function(t){
-				// console.log(t.hucAttributes);
 				let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
-				// var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
 				let htmlVal;
-				// let huc8Colors  = ['rgba(112,168,0,${t.obj.opacityVal})','rgb(170,204,102)', 'rgb(240,240,240)'];
 				let huc8Colors  = ['rgb(112,168,0)','rgb(170,204,102)', 'rgb(240,240,240)'];
 				let huc10Colors  = ['rgb(196,10,10)','rgb(224,132,101)', 'rgb(255,235,214)'];
 				let huc12Colors  = ['rgb(0,57,148)','rgb(85,108,201)', 'rgb(214,214,255)'];
 				$.each(attributes, function(i,v){
-					let attVal = t.hucAttributes[$(v).data('wfa')];
+					let attTracker;
+					if (t.obj.currentHuc == 'WHUC8' ) {
+						attTracker = 0;
+					}else if (t.obj.currentHuc == 'WHUC10') {
+						attTracker = 1;
+					}else if (t.obj.currentHuc == 'WHUC12'){
+						attTracker = 2;
+					}
+					// the try catch statement below is used to remove the graphic layer. 
+					let attVal;
+	 				try {
+	   				    attVal = t.hucAttributesList[attTracker][$(v).data('wfa')];
+	   				} catch(err) {
+					    '';
+					}
 					if(attVal == 1){
-						htmlVal = 'Most'
+						htmlVal = 'Most Opportunity'
 					}else if(attVal == 2){
-						htmlVal = 'Moderate'
+						htmlVal = 'Moderate Opportunity'
 					}else if(attVal == 3){
-						htmlVal = 'Least'
+						htmlVal = 'Least Opportunity'
 					}
 					let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
 					if(t.obj.currentHuc == 'WHUC8'){
@@ -371,7 +381,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$(v).parent().find('.wfa-attributePatch').css('background-color', huc12Colors[(attVal-1)])
 					}
 				});
-
 			},
 // Wetland click function /////////////////////////////////////////////////////////////////////////////////////////////////
 			wetlandClick: function(t){
@@ -387,9 +396,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.obj.wetlandClick = 'yes'
 						var curColors  = ['#F0F0F0', '#BFD690','#AACC66', '#70A800'];
 						var potColors = ['#FFEBD6', '#EBA988', '#D65D45', '#C40A0A'];
-						// $("[data-wfa=FA_RANK]").css("color", "red");
 						var atts = evt.features[0].attributes;
-						// $('#' + t.id + 'mainAttributeWrap').slideDown();
 						// update the attribute colors for wetlands
 						var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
 						var htmlVal;
@@ -415,7 +422,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.wetlandID = atts.OBJECTID;
 						t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
 					}else{
-						//$('#' + t.id + 'mainAttributeWrap').slideUp();
 						t.obj.wetlandClick = 'no'
 					}
 					// call the control viz layers function ////////////////////////////////////
@@ -451,7 +457,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							if(t.obj.currentHuc == "WHUC12"){
 								$.each($(t.layersArray),function(i,v){
 									if(curWetLyrName == v.name){
-										console.log('found a match')
 										t.obj.visibleLayers.pop()
 										t.obj.visibleLayers.pop()
 										t.obj.visibleLayers.push(v.id)
@@ -521,6 +526,10 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						});
 					}
 				}
+				if(t.obj.wildlifeOpenTracker != 'open'){
+					t.obj.visibleLayers2 = [];
+				}
+
 				t.dynamicLayer2.setVisibleLayers(t.obj.visibleLayers2);
 				// re add layers to control draw order.
 				t.map.addLayer(t.dynamicLayer2);
@@ -536,7 +545,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				catch(err) {
 				    console.log('there is no layer to remove on the first iteration')
 				}
-				console.log(where, 'where')
 // graphics layer hover code below ////////////////////////////////////////////////////////////////////////////////////////////////
 				//and add it to the maps graphics layer
 				var graphicQuery = new QueryTask(t.url + "/" + lyrNum);
