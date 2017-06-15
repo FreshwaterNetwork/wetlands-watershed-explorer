@@ -140,7 +140,7 @@ hr{
 
 /* wildlife check/radio button section */
 .wfa-wildlifeCheck{
-	font-size: 15px; margin-top: 16px; font-weight: 900;
+	font-size: 13px; margin-top: 16px; font-weight: 900; margin-left: 14px;
 }
 .wfa-wildlifeRadioButtons{
 	display: flex; margin-left: 24px;
