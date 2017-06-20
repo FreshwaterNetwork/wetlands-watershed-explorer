@@ -147,6 +147,9 @@ hr{
 .wfa-wildlifeRadioButtons{
 	display: flex; margin-left: 24px;
 }
+.wfa-prwCheck{
+	margin-left: 24px;
+}
 
 /* Bottom Bar Opacity slider Elements  ///////////////////////////////////////////////////////////////////////////////////////*/
 .bottomDiv{

@@ -100,7 +100,15 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				});
 				// wildlife radio buttons /////////////////
 				$("#" + t.id + 'wildlifeRadioButtons input').on('click',function(c, x){
-					t.obj.wildTracker = c.target.value.split("-")[0];
+					if(c.currentTarget.type == 'checkbox'){
+						if(c.currentTarget.checked == true){
+							t.obj.prwTracker = c.currentTarget.value;
+						}else{
+							t.obj.prwTracker = 'null';
+						}
+					}else{
+						t.obj.wildTracker = c.currentTarget.value;
+					}
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
 				});
 			},
@@ -164,7 +172,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26){
 									t.obj.currentWet = 'wetland' // this is a wetland click
 								}else if(t.obj.visibleLayers[1] == 2 ){
-									console.log('click here')
 									// slide down wildlife checkbox
 									$('#' + t.id + 'wildlifeCheckWrap').slideDown();
 									t.obj.wildlifeOpenTracker = 'open';
@@ -186,7 +193,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.obj.currentHuc = 'WHUC12';
 									t.hucVal  = evt.features[0].attributes.WHUC12
 									t.obj.visibleLayers = [0,4,6,16]
-									console.log('reset layers')
 								}
 								// set the def query for the huc mask /////////////////////	
 								if(t.obj.currentHuc != 'WHUC12'){
@@ -452,9 +458,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
 					var curWetLyrName = 'Current Wetlands - ' + t.obj.funcTracker;
 					var potWetLyrName = 'Potentially Restorable Wetlands - ' + t.obj.funcTracker;
-					// console.log(potWetLyrName, curWetLyrName)
 					var wetlandSelected = 'Wetlands - Selected'
-					console.log(t.obj.funcTracker, '///////////////////////////////')
 					// loop through layers array and see if any layer name matches 
 					$.each($(t.layersArray),function(i,v){
 						if(lyrName == v.name){
@@ -475,7 +479,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						}
 						// handle adding the wetland layers and the wetland selected layer.
 						if(t.obj.currentHuc == "WHUC12"){
-							console.log(t.obj.visibleLayers, 1)
 							// remove wetland layers and wetland selected layers before readding them
 							var numArray = [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
 							$.each(numArray, function(i,v){
@@ -488,22 +491,18 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								if(curWetLyrName == v.name){
 									t.obj.visibleLayers.push(v.id)
 									t.obj.currentWetTrack = v.id;
-									console.log(t.obj.visibleLayers, 2)
 								}
 								if(potWetLyrName == v.name){
 									t.obj.potWetTrack = v.id;
 									t.obj.visibleLayers.push(v.id)
-									console.log(t.obj.visibleLayers, 3)
 								}
 								// add the wetland selected layer
 								if(t.obj.wetlandWhere != "OBJECTID < 0"){
 									if(wetlandSelected == v.name) {
 										t.obj.visibleLayers.push(v.id)
-										console.log(t.obj.visibleLayers, 4)
 									}
 								}
 							});
-							console.log(t.obj.visibleLayers, 5)
 						}
 					});
 				}
@@ -527,7 +526,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 // show hide the raster wildlife layers if checkbox toggled on THIS IS IN VIZ LAYERS FUNCTION ///////////////////////////////////////////////////////////////////
 				if (t.obj.wildlifeCheck == 'wildlife'){
 					if(t.obj.visibleLayers2.length > 0){
-						t.obj.visibleLayers2.pop();
+						t.obj.visibleLayers2 = [];
 						$.each($(t.layersArray),function(i,v){
 							if(t.obj.wildTracker == v.name){
 								t.obj.visibleLayers2.push(v.id);
@@ -540,11 +539,24 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							}
 						});
 					}
+					if(t.obj.prwTracker != 'null'){
+						// add prw layer
+						$.each($(t.layersArray),function(i,v){
+							if (t.obj.prwTracker == v.name) {
+								t.obj.visibleLayers2.push(v.id);
+							}
+						});
+					}else{
+						// remove prw layer
+						var index = t.obj.visibleLayers.indexOf(54)
+						if(index > -1){
+							t.obj.visibleLayers2.splice(index,1)
+						}
+					}
 				}
 				if(t.obj.wildlifeOpenTracker != 'open'){
 					t.obj.visibleLayers2 = [];
 				}
-
 				t.dynamicLayer2.setVisibleLayers(t.obj.visibleLayers2);
 				// re add layers to control draw order.
 				t.map.addLayer(t.dynamicLayer2);
@@ -553,7 +565,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // radio button tester function, this decides if the radio buttons exist between clicks of HUCs and wetlands	
 			radioSelector: function(t){
-				// console.log(t.obj.visibleLayers);
 				// radio buttons controls //////////////////////////////
 				var radioBtns = $('#' + t.id + 'funcWrapper').find('input');
 				$.each(radioBtns,function(i,v){
@@ -579,15 +590,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.wetRadioTracker = v.id
 							}
 						}
-						// recheck the wet radio tracker. display the correct layers as well. /////////////////////////////////////
-						// if(t.obj.currentHuc == 'WHUC12'){
-						// 	$('#' + t.wetRadioTracker).prop("checked", true);
-						// 	t.obj.funcTracker = 'Carbon Storage'
-						// 	// t.obj.potWetTrack = v.id;
-						// 	// t.obj.currentWetTrack = v.id;
-						// 	console.log(t.obj.potWetTrack, t.obj.currentWetTrack);
-
-						// }
 					}
 				});
 			},
