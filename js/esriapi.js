@@ -68,14 +68,12 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						t.obj.opacityVal = 1 - ui.value/100;
 						t.dynamicLayer.setOpacity(t.obj.opacityVal);
 					})
-					$("#" + t.id +"sldr1").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
+					$("#" + t.id +"sldr1").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal2] })
 					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
 					$("#" + t.id +"sldr1").on( "slide", function(c,ui){
-						t.obj.opacityVal = 1 - ui.value/100;
-						t.dynamicLayer2.setOpacity(t.obj.opacityVal);
-					})
-					// 	// t.land.setOpacity(1 - ui.value/10);
-					// 	// t.soils.setOpacity(1 - ui.value/10);
+						t.obj.opacityVal2 = 1 - ui.value/100;
+						t.dynamicLayer2.setOpacity(t.obj.opacityVal2);
+					})	
 				});
 				t.dynamicLayer2.on("load", function () {	
 					t.layersArray2 = t.dynamicLayer.layerInfos;

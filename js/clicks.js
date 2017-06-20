@@ -77,6 +77,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-radio-indent input').on('click',function(c, x){
 					t.obj.funcTracker = c.target.value.split("-")[0];
+					t.obj.wetTracker = c.target.value.split("-")[0];
 					// change the function site services text when radio buttons are clicked.
 					$( '#' + t.id + 'siteServices_span').html('(Currently selected: ' + c.target.value + ')');
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
@@ -185,6 +186,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.obj.currentHuc = 'WHUC12';
 									t.hucVal  = evt.features[0].attributes.WHUC12
 									t.obj.visibleLayers = [0,4,6,16]
+									console.log('reset layers')
 								}
 								// set the def query for the huc mask /////////////////////	
 								if(t.obj.currentHuc != 'WHUC12'){
@@ -229,6 +231,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.clicks.wetlandClick(t);
 								// call the huc attribute controller function
 								t.clicks.hucClick(t);
+
 								// // call the radio attribute controller function
 								// t.clicks.radioAttDisplay(t);
 								// // call the control viz layers function ////////////////////////////////////
@@ -246,18 +249,20 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					t.obj.wetlandWhere = "OBJECTID < 0" // reset wetland where tracker
 					// reset viz layers on zoom click 
 					if(id == 0){
+						t.obj.currentHuc = 'WHUC4'
+						t.obj.visibleLayers = [0,1]
 						$('#' + t.id +'fullExt-selText').slideUp();
 						$('#' + t.id + 'mainFuncWrapper').slideUp();
 						$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
 							t.clicks.hoverGraphic(t,1,t.where)
 						});
 						$('#' + t.id + 'wfa-findASite').slideDown();
-						t.obj.currentHuc = 'WHUC4'
-						t.obj.visibleLayers = [0,1]
 						// slide up attribute wrapper when any zoom button is clicked.
 						$('#' + t.id + 'mainAttributeWrap').slideUp();
 						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
 						t.obj.wildlifeOpenTracker = 'null'
+						// reset opacity values.
+						t.clicks.opacityReset(t);
 					}else if (id == 1){
 						t.obj.currentHuc = 'WHUC6'
 						t.obj.visibleLayers = [0,2,30];
@@ -353,7 +358,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					let attTracker;
 					if (t.obj.currentHuc == 'WHUC8' ) {
 						attTracker = 0;
-					}else if (t.obj.currentHuc == 'WHUC10') {
+					}else if (t.obj.currentHuc == 'WHUC10'){
 						attTracker = 1;
 					}else if (t.obj.currentHuc == 'WHUC12'){
 						attTracker = 2;
@@ -447,8 +452,9 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
 					var curWetLyrName = 'Current Wetlands - ' + t.obj.funcTracker;
 					var potWetLyrName = 'Potentially Restorable Wetlands - ' + t.obj.funcTracker;
+					// console.log(potWetLyrName, curWetLyrName)
 					var wetlandSelected = 'Wetlands - Selected'
-
+					console.log(t.obj.funcTracker, '///////////////////////////////')
 					// loop through layers array and see if any layer name matches 
 					$.each($(t.layersArray),function(i,v){
 						if(lyrName == v.name){
@@ -469,6 +475,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						}
 						// handle adding the wetland layers and the wetland selected layer.
 						if(t.obj.currentHuc == "WHUC12"){
+							console.log(t.obj.visibleLayers, 1)
 							// remove wetland layers and wetland selected layers before readding them
 							var numArray = [5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
 							$.each(numArray, function(i,v){
@@ -480,20 +487,28 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							$.each($(t.layersArray),function(i,v){
 								if(curWetLyrName == v.name){
 									t.obj.visibleLayers.push(v.id)
+									t.obj.currentWetTrack = v.id;
+									console.log(t.obj.visibleLayers, 2)
 								}
 								if(potWetLyrName == v.name){
+									t.obj.potWetTrack = v.id;
 									t.obj.visibleLayers.push(v.id)
+									console.log(t.obj.visibleLayers, 3)
 								}
 								// add the wetland selected layer
 								if(t.obj.wetlandWhere != "OBJECTID < 0"){
 									if(wetlandSelected == v.name) {
 										t.obj.visibleLayers.push(v.id)
+										console.log(t.obj.visibleLayers, 4)
 									}
 								}
 							});
+							console.log(t.obj.visibleLayers, 5)
 						}
 					});
 				}
+				// call the radio button selector function ////////////////////
+				t.clicks.radioSelector(t);
 				// set layer defs and update the mask layer /////////////////////
 				t.layerDefinitions = [];
 				t.layerDefinitions[0] =  maskWhere
@@ -534,6 +549,47 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				// re add layers to control draw order.
 				t.map.addLayer(t.dynamicLayer2);
 				t.map.addLayer(t.dynamicLayer);
+				
+			},
+// radio button tester function, this decides if the radio buttons exist between clicks of HUCs and wetlands	
+			radioSelector: function(t){
+				// console.log(t.obj.visibleLayers);
+				// radio buttons controls //////////////////////////////
+				var radioBtns = $('#' + t.id + 'funcWrapper').find('input');
+				$.each(radioBtns,function(i,v){
+					if(v.checked){
+						let data = $(v).parent().data().wfaMode
+						if(data == 'both'){
+							'do nothing'
+						}else if(data == 'huc'){
+							if(t.obj.currentHuc != 'WHUC12'){
+								'do nothing'
+							}else{
+								$('#' + t.id + 'all-option').prop("checked", true);
+								t.obj.funcTracker = 'All'
+								t.obj.visibleLayers = [0,4,6,16];
+
+							}
+						}else if(data == 'wet'){
+							if(t.obj.currentHuc != 'WHUC12'){
+								$('#' + t.id + 'all-option').prop("checked", true);
+								t.obj.funcTracker = 'All'
+							}else{
+								let wetVizLyrs = t.obj.visibleLayers;
+								t.wetRadioTracker = v.id
+							}
+						}
+						// recheck the wet radio tracker. display the correct layers as well. /////////////////////////////////////
+						// if(t.obj.currentHuc == 'WHUC12'){
+						// 	$('#' + t.wetRadioTracker).prop("checked", true);
+						// 	t.obj.funcTracker = 'Carbon Storage'
+						// 	// t.obj.potWetTrack = v.id;
+						// 	// t.obj.currentWetTrack = v.id;
+						// 	console.log(t.obj.potWetTrack, t.obj.currentWetTrack);
+
+						// }
+					}
+				});
 			},
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -588,6 +644,33 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$('#' + t.basinId).hide()
 		            });
 				});
+			},
+// reset opacity values /////////////////////////////////////////////////////////////////////////////////////
+			opacityReset: function(t){
+				if(t.obj.currentHuc == 'WHUC4'){
+					// reset opacity for vector layer
+					t.obj.opacityVal = 20;
+					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // reset init opacity
+					// reset opacity for raster layer
+					t.obj.opacityVal2 = 20;
+					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal2/100); // reset init opacity
+					// reset slider bar to the approriate place //////////////////
+					// $("#slider").slider('value',50);
+					// $("#" + t.id +"sldr").slider('value',50)
+					// console.log($("#" + t.id +"sldr"));
+					// $("#" + t.id +"sldr").val(50)
+					// $("#" + t.id +"sldr").trigger('change')
+				}
+				if(t.obj.currentHuc == 'WHUC6'){
+					// reset opacity for vector layer
+					t.obj.opacityVal = 20;
+					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // reset init opacity
+					// reset opacity for raster layer
+					t.obj.opacityVal2 = 20;
+					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal2/100); // reset init opacity
+					// reset slider bar to the approriate place //////////////////
+
+				}
 			},
 // Make vars //////////////////////////////////////////////////////////////////////////////////////////////////
 			makeVariables: function(t){

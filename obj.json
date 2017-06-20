@@ -6,7 +6,6 @@
 	"funcTracker": "All",
 	"maskWhere": "OBJECTID < 0",
 	"wetlandWhere": "OBJECTID < 0",
-	"opacityVal": 15,
 	"wildlifeCheck": "null",
 	"wildTracker": "Forest Interior Birds Guild",
 	"wildlifeOpenTracker": "null",
@@ -14,6 +13,8 @@
 	"currentHuc": "",
 	"currentWet": "",
 	"dynamicLyrExt": "",
+	"opacityVal": 25,
+	"opacityVal2": 25,
 	"huc": "HUC 10",
 	"extent": "",
 	"stateSet": "no"
