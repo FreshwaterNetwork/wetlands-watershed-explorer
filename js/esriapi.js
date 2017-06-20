@@ -29,7 +29,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent;
 					t.clicks.featureLayerListeners(t);
 					if (t.obj.stateSet == "no"){
-						t.map.setExtent(t.dynamicLayer.fullExtent.expand(1.0), true)
+						t.map.setExtent(t.dynamicLayer.fullExtent.expand(.6), true)
 					}
 // Save and Share ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					// Save and Share Handler					
