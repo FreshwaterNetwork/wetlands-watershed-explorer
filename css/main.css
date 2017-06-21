@@ -95,7 +95,7 @@ hr{
 	font-size: 15px; font-weight: 900; color: #101d28; margin-top: 40px; text-align: center;
 }
 .wfa-sum-wrap {
-    width: 340px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
+    width: 360px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
 }
 .wfa-huc-wrap{
 	width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative;
