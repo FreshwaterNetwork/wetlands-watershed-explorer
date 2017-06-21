@@ -118,7 +118,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				t.hucExps = ['','','',''];
 				t.hucExtents = [t.obj.dynamicLyrExt,'','','', ''];
 				t.maskExps = ['OBJECTID < 0','','',''];
-				t.hucAttributesList = [];
+				//t.hucAttributesList = [];
 				t.layerDefinitions = [];	
 				// set the def query for the huc mask /////////////////////	
 				t.layerDefinitions[0] =  "WHUC6 < 0";
@@ -169,30 +169,34 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									t.obj.currentHuc = 'WHUC6' 
 									t.hucVal  = evt.features[0].attributes.WHUC6
 									t.obj.visibleLayers = [0,2,t.obj.selHuc]
+									$('#' + t.id + 'watershedHoverText').show();
 								}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26){
 									t.obj.currentWet = 'wetland' // this is a wetland click
+									$('#' + t.id + 'mainAttributeWrap').slideDown();
+									$('#' + t.id + 'watershedHoverText').hide();
 								}else if(t.obj.visibleLayers[1] == 2 ){
+									t.obj.selHuc = 18;
+									t.obj.currentHuc = 'WHUC8';
+									t.hucVal  = evt.features[0].attributes.WHUC8
+									t.obj.wildlifeOpenTracker = 'open';
+									t.obj.visibleLayers = [0,3,t.obj.selHuc]
 									// slide down wildlife checkbox
 									$('#' + t.id + 'wildlifeCheckWrap').slideDown();
-									t.obj.wildlifeOpenTracker = 'open';
-									t.hucAttributesList[0] = t.hucAttributes;
-									t.obj.selHuc = 18;
-									t.obj.currentHuc = 'WHUC8' 
-									t.hucVal  = evt.features[0].attributes.WHUC8
-									t.obj.visibleLayers = [0,3,t.obj.selHuc]
+									//t.hucAttributesList[0] = t.hucAttributes;
 								}else if(t.obj.visibleLayers[1] == 3 ){
-									t.hucAttributesList[1] = t.hucAttributes;
+									//t.hucAttributesList[1] = t.hucAttributes;
 									t.obj.selHuc = 19;
 									t.obj.currentHuc = 'WHUC10'
 									t.hucVal  = evt.features[0].attributes.WHUC10
 									t.obj.visibleLayers = [0,4,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 4 ){
-									t.hucAttributesList[2] = t.hucAttributes;
-									t.huc12Ext = evt.features[0].geometry.getExtent().expand(1);
 									t.obj.selHuc = 19;
 									t.obj.currentHuc = 'WHUC12';
 									t.hucVal  = evt.features[0].attributes.WHUC12
 									t.obj.visibleLayers = [0,4,6,16]
+									t.huc12Ext = evt.features[0].geometry.getExtent().expand(1);
+									$('#' + t.id + 'mainAttributeWrap').slideUp();
+									//t.hucAttributesList[2] = t.hucAttributes;
 								}
 								// set the def query for the huc mask /////////////////////	
 								if(t.obj.currentHuc != 'WHUC12'){
@@ -236,7 +240,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								// call the wetland click function ////////////////////////////
 								t.clicks.wetlandClick(t);
 								// call the huc attribute controller function
-								t.clicks.hucClick(t);
+								// t.clicks.hucClick(t);
 
 								// // call the radio attribute controller function
 								// t.clicks.radioAttDisplay(t);
@@ -264,23 +268,28 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						});
 						$('#' + t.id + 'wfa-findASite').slideDown();
 						// slide up attribute wrapper when any zoom button is clicked.
-						$('#' + t.id + 'mainAttributeWrap').slideUp();
+						// $('#' + t.id + 'mainAttributeWrap').slideUp();
 						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
+						$('#' + t.id + 'watershedHoverText').slideUp();
 						t.obj.wildlifeOpenTracker = 'null'
+						t.obj.wetlandClick = 'no';
 						// reset opacity values.
 						t.clicks.opacityReset(t);
 					}else if (id == 1){
 						t.obj.currentHuc = 'WHUC6'
 						t.obj.visibleLayers = [0,2,30];
-						$('#' + t.id + 'mainAttributeWrap').slideUp();
+						// $('#' + t.id + 'mainAttributeWrap').slideUp();
 						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
 						t.obj.wildlifeOpenTracker = 'null'
+						t.obj.wetlandClick = 'no';
 					}else if(id == 2){
 						t.obj.currentHuc = 'WHUC8'
-						t.obj.visibleLayers = [0,3,31]
+						t.obj.visibleLayers = [0,3,31];
+						t.obj.wetlandClick = 'no';
 					}else if(id == 3){
 						t.obj.currentHuc = 'WHUC10'
-						t.obj.visibleLayers = [0,4,32]
+						t.obj.visibleLayers = [0,4,32];
+						t.obj.wetlandClick = 'no';
 					}
 					// reset maskwhere tracker
 					t.obj.maskWhere = t.maskExps[id]
@@ -310,7 +319,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					// call the radio attribute controller function
 					t.clicks.radioAttDisplay(t);
 					// call the huc click function
-					t.clicks.hucClick(t);
+					// t.clicks.hucClick(t);
 					// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
 					$.each($('#' + c.currentTarget.id).nextAll().children(),function(i,v){
 						$('#' + v.id).slideUp();
@@ -320,10 +329,11 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // Radio/attribute display function //////////////////////////////////////////////////////////////////////////////////////
 			radioAttDisplay: function(t){
+				console.log(t.obj.currentWet);
 				if (t.obj.currentWet != 'wetland'){
-					t.radAttVal = 'wet' // value should be what you want to slide up
-				}else{
 					t.radAttVal = 'huc' // value should be what you want to slide up
+				}else{
+					t.radAttVal = 'wet' // value should be what you want to slide up
 				}
 				// attribute control //////////////////////////////
 				var attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.wfa-sum-wrap');
@@ -333,10 +343,17 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}else{
 						t.radAttVal = 'wet';
 					}
+					console.log(t.radAttVal, $(v).data().wfaMode, t.obj.wetlandClick);
 					if($(v).data().wfaMode == t.radAttVal){
+						console.log('huc slide up')
 						$(v).slideUp();
 					}else{
 						$(v).slideDown();
+						console.log('huc slide down')
+					}
+					if (t.radAttVal == 'wet') {
+						$('#' + t.id + 'mainAttributeWrap').slideUp();
+						
 					}
 				});
 				// radio buttons controls //////////////////////////////
@@ -351,48 +368,90 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$(v).slideDown();
 					}
 				});
-				
 			},
 // Huc click function //////////////////////////////////////////////////////////////////////////////////////////////////////
-			hucClick: function(t){
-				let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
-				let htmlVal;
-				let huc8Colors  = ['rgb(112,168,0)','rgb(170,204,102)', 'rgb(240,240,240)'];
-				let huc10Colors  = ['rgb(196,10,10)','rgb(224,132,101)', 'rgb(255,235,214)'];
-				let huc12Colors  = ['rgb(0,57,148)','rgb(85,108,201)', 'rgb(214,214,255)'];
-				$.each(attributes, function(i,v){
-					let attTracker;
-					if (t.obj.currentHuc == 'WHUC8' ) {
-						attTracker = 0;
-					}else if (t.obj.currentHuc == 'WHUC10'){
-						attTracker = 1;
-					}else if (t.obj.currentHuc == 'WHUC12'){
-						attTracker = 2;
+			hucClick: function(t ,atts, mousePos){
+				if(mousePos == 'over'){
+					if(t.obj.currentHuc != 'WHUC4'){
+						$('#' + t.id + 'mainAttributeWrap').show();
+						$('#' + t.id + 'watershedHoverText').hide();
 					}
-					// the try catch statement below is used to remove the graphic layer. 
-					let attVal;
-	 				try {
-	   				    attVal = t.hucAttributesList[attTracker][$(v).data('wfa')];
-	   				} catch(err) {
-					    '';
+					let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
+					let htmlVal;
+					let huc8Colors  = ['rgb(112,168,0)','rgb(170,204,102)', 'rgb(240,240,240)'];
+					let huc10Colors  = ['rgb(196,10,10)','rgb(224,132,101)', 'rgb(255,235,214)'];
+					let huc12Colors  = ['rgb(0,57,148)','rgb(85,108,201)', 'rgb(214,214,255)'];
+					$.each(attributes, function(i,v){
+						let attVal;
+						try {
+		   				    attVal = atts[$(v).data('wfa')];
+		   				} catch(err) {
+						    '';
+						}
+						if(attVal == 1){
+							htmlVal = 'Most Opportunity'
+						}else if(attVal == 2){
+							htmlVal = 'Moderate Opportunity'
+						}else if(attVal == 3){
+							htmlVal = 'Least Opportunity'
+						}
+						let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
+						if(t.obj.currentHuc == 'WHUC6'){
+							$(v).parent().find('.wfa-attributePatch').css('background-color', huc8Colors[(attVal-1)])
+						}else if(t.obj.currentHuc == 'WHUC8'){
+							$(v).parent().find('.wfa-attributePatch').css('background-color', huc10Colors[(attVal-1)])
+						}else if(t.obj.currentHuc == 'WHUC10'){
+							$(v).parent().find('.wfa-attributePatch').css('background-color', huc12Colors[(attVal-1)])
+						}
+					});
+				}else{
+					if(atts ==  undefined){
+						if(t.obj.currentHuc != 'WHUC4'){
+							$('#' + t.id + 'watershedHoverText').show();
+						}
+						$('#' + t.id + 'mainAttributeWrap').hide();
 					}
-					if(attVal == 1){
-						htmlVal = 'Most Opportunity'
-					}else if(attVal == 2){
-						htmlVal = 'Moderate Opportunity'
-					}else if(attVal == 3){
-						htmlVal = 'Least Opportunity'
-					}
-					let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
-					if(t.obj.currentHuc == 'WHUC8'){
-						$(v).parent().find('.wfa-attributePatch').css('background-color', huc8Colors[(attVal-1)])
-					}else if(t.obj.currentHuc == 'WHUC10'){
-						$(v).parent().find('.wfa-attributePatch').css('background-color', huc10Colors[(attVal-1)])
-					}else if(t.obj.currentHuc == 'WHUC12'){
-						$(v).parent().find('.wfa-attributePatch').css('background-color', huc12Colors[(attVal-1)])
-					}
-				});
+				}
 			},
+// keep the code below for now if we want to revert from hover attribute populate back to click. //////////////////////////////////////////////
+				// let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
+				// let htmlVal;
+				// let huc8Colors  = ['rgb(112,168,0)','rgb(170,204,102)', 'rgb(240,240,240)'];
+				// let huc10Colors  = ['rgb(196,10,10)','rgb(224,132,101)', 'rgb(255,235,214)'];
+				// let huc12Colors  = ['rgb(0,57,148)','rgb(85,108,201)', 'rgb(214,214,255)'];
+				// $.each(attributes, function(i,v){
+				// 	let attTracker;
+				// 	if (t.obj.currentHuc == 'WHUC8' ) {
+				// 		attTracker = 0;
+				// 	}else if (t.obj.currentHuc == 'WHUC10'){
+				// 		attTracker = 1;
+				// 	}else if (t.obj.currentHuc == 'WHUC12'){
+				// 		attTracker = 2;
+				// 	}
+				// 	// the try catch statement below is used to remove the graphic layer. 
+				// 	let attVal;
+	 		// 		try {
+	   // 				    attVal = t.hucAttributesList[attTracker][$(v).data('wfa')];
+	   // 				} catch(err) {
+				// 	    '';
+				// 	}
+				// 	if(attVal == 1){
+				// 		htmlVal = 'Most Opportunity'
+				// 	}else if(attVal == 2){
+				// 		htmlVal = 'Moderate Opportunity'
+				// 	}else if(attVal == 3){
+				// 		htmlVal = 'Least Opportunity'
+				// 	}
+				// 	let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
+				// 	if(t.obj.currentHuc == 'WHUC8'){
+				// 		$(v).parent().find('.wfa-attributePatch').css('background-color', huc8Colors[(attVal-1)])
+				// 	}else if(t.obj.currentHuc == 'WHUC10'){
+				// 		$(v).parent().find('.wfa-attributePatch').css('background-color', huc10Colors[(attVal-1)])
+				// 	}else if(t.obj.currentHuc == 'WHUC12'){
+				// 		$(v).parent().find('.wfa-attributePatch').css('background-color', huc12Colors[(attVal-1)])
+				// 	}
+				// });
+			
 // Wetland click function /////////////////////////////////////////////////////////////////////////////////////////////////
 			wetlandClick: function(t){
 				// wetland query 
@@ -608,7 +667,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				var graphicQuery = new QueryTask(t.url + "/" + lyrNum);
 				var gQ = new Query();
 				gQ.returnGeometry = true;
-				gQ.outFields = ["OBJECTID","WHUC6", "name"];
+				gQ.outFields = ['*'];
 				gQ.where =  where;
 				graphicQuery.execute(gQ, function(evt){
 					t.map.graphics.clear();
@@ -638,13 +697,22 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
                 		t.map.graphics.add(highlightGraphic);
                 		$('#' + t.basinId).html(event.graphic.attributes.name);
 						$('#' + t.basinId).show();
+						let atts = event.graphic.attributes;
+						t.mousePos = 'over'
+						t.clicks.hucClick(t, atts, t.mousePos); // call the huc click atts function to populate attribute box
 		            });
 		            //listen for when map.graphics mouse-out event is fired
 		            //and then clear the highlight graphic
-		            t.map.graphics.on("mouse-out", function () {
+		            t.map.graphics.on("mouse-out", function (test) {
+		            	let atts;
+		            	let array = [];
 		                t.map.graphics.clear();
 						$('#' + t.basinId).hide()
+						t.mousePos = 'out'
+						array.push(t.map.graphics.graphics);
+						t.clicks.hucClick(t, atts, t.mousePos); // call the huc click atts function to populate attribute box
 		            });
+		            // t.clicks.hucClick(t, t.atts, t.mousePos); // call the huc click atts function to populate attribute box
 				});
 			},
 // reset opacity values /////////////////////////////////////////////////////////////////////////////////////
