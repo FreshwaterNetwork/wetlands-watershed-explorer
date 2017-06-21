@@ -330,11 +330,11 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 // Radio/attribute display function //////////////////////////////////////////////////////////////////////////////////////
 			radioAttDisplay: function(t){
 				console.log(t.obj.currentWet);
-				if (t.obj.currentWet != 'wetland'){
-					t.radAttVal = 'huc' // value should be what you want to slide up
-				}else{
-					t.radAttVal = 'wet' // value should be what you want to slide up
-				}
+				// if (t.obj.currentWet != 'wetland'){
+				// 	t.radAttVal = 'huc' // value should be what you want to slide up
+				// }else{
+				// 	t.radAttVal = 'wet' // value should be what you want to slide up
+				// }
 				// attribute control //////////////////////////////
 				var attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.wfa-sum-wrap');
 				$.each(attributes,function(i,v){
