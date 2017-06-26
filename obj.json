@@ -7,7 +7,7 @@
 	"maskWhere": "OBJECTID < 0",
 	"wetlandWhere": "OBJECTID < 0",
 	"wildlifeCheck": "null",
-	"wildTracker": "Forest Interior Birds Guild",
+	"wildTracker": "All Guilds",
 	"wildlifeOpenTracker": "null",
 	"wetlandClick": "no",
 	"currentHuc": "",

@@ -60,10 +60,15 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<h3 style="margin-top: 15px;">Choose Service of Interest:</h3>
 		<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
 			<div class="wfa-func_radioGroups">
-				<label data-wfa-mode='both' class="form-component wfa-funcLabel"  for="all-option">
-					<input checked type="radio" id="all-option" name="func" class="rb_cb" value="All">
+				<label data-wfa-mode='huc' class="form-component wfa-funcLabel"  for="combined-option">
+					<input checked type="radio" id="combined-option" name="func" class="rb_cb" value="Combined Services">
 					<div class="check"></div>
-					<span class="form-text">All Services</span>
+					<span class="form-text">Combined Services</span>
+				</label>
+				<label data-wfa-mode='wet' class="form-component wfa-funcLabel"  for="count-option">
+					<input checked type="radio" id="count-option" name="func" class="rb_cb" value="Count of Service ≥ High">
+					<div class="check"></div>
+					<span class="form-text">Count of Service ≥ High</span>
 				</label>
 				<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="flood-option">
 					<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
@@ -143,8 +148,13 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<div id="wildlifeRadioButtons" class="hide">
 				<div class="wfa-wildlifeRadioButtons">
 					<div>
+						<label class="form-component wfa-funcLabel" style="display: block;" for="total-option">
+							<input checked type="radio" id="total-option" name="wild" class="rb_cb" value="All Guilds">
+							<div class="check"></div>
+							<span class="form-text">All Guilds</span>
+						</label>
 						<label class="form-component wfa-funcLabel" style="display: block;" for="forest-option">
-							<input checked type="radio" id="forest-option" name="wild" class="rb_cb" value="Forest Interior Birds Guild">
+							<input  type="radio" id="forest-option" name="wild" class="rb_cb" value="Forest Interior Birds Guild">
 							<div class="check"></div>
 							<span class="form-text">Forest Interior Guild</span>
 						</label>
@@ -153,30 +163,25 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 							<div class="check"></div>
 							<span class="form-text">Shrub Swamp Guild</span>
 						</label>
+					</div>
+					<div style="margin-left: 45px;">
 						<label class="form-component wfa-funcLabel" style="display: block;" for="marsh-option">
 							<input type="radio" id="marsh-option" name="wild" class="rb_cb" value="Shallow Marsh Birds Guild">
 							<div class="check"></div>
 							<span class="form-text">Shallow Marsh Guild</span>
 						</label>
-					</div>
-					<div style="margin-left: 45px;">
 						<label class="form-component wfa-funcLabel" style="display: block;" for="openWater-option">
 							<input type="radio" id="openWater-option" name="wild" class="rb_cb" value="Open Water Birds Guild">
 							<div class="check"></div>
 							<span class="form-text">Open Waters Guild</span>
 						</label>
-						<label class="form-component wfa-funcLabel" style="display: block;" for="total-option">
-							<input type="radio" id="total-option" name="wild" class="rb_cb" value="Total Habitat Guilds">
-							<div class="check"></div>
-							<span class="form-text">Total Habitat Guilds</span>
-						</label>
 					</div>
 				</div>
 				<!-- Wildlife PRW checkbox //////////////////////////////////////////////////////// -->
 				<label class="hide form-component wfa-prwCheck" for="prw-option" id="prwCheck">
-					<input type="checkbox" id="prw-option" name="prwCheck" value="Habitat PRW">
+					<input type="checkbox" id="prw-option" name="prwCheck" value="All-Guild Restoration Opportunities">
 					<div class="check"></div>
-					<span class="form-text" style="margin-left: 4px;">Toggle PRW layer</span>
+					<span class="form-text" style="margin-left: 4px;">All-Guild Restoration Opportunities</span>
 				</label>
 				<!-- wildlife opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
 				<div class="wfa-sum-wrap" style="height: 33.6px; margin: auto; margin-top: 7px;">	
@@ -209,7 +214,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				</div>
 				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
 					<div class="wfa-attributePatch"></div>	
-					<div data-wfa='ALL_RANK'  class="elm-title">All Services:</div>
+					<div data-wfa='ALL_RANK'  class="elm-title">Count of Service ≥ High:</div>
 					<div class="elm-results">
 						<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
 						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
@@ -294,7 +299,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				
 				<div class="wfa-sum-wrap" data-wfa-mode='huc'>
 					<div class="wfa-attributePatch"></div>
-					<div data-wfa='AllNeeds'  class="elm-title">All Services:</div>
+					<div data-wfa='AllNeeds'  class="elm-title">Combined Services:</div>
 					<div class="elm-results">
 						<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
 						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->

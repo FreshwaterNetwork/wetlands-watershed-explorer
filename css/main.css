@@ -151,7 +151,7 @@ hr{
 	display: flex; margin-left: 24px;
 }
 .wfa-prwCheck{
-	margin-left: 24px;
+	margin-left: 24px; font-weight: 700;
 }
 
 /* Bottom Bar Opacity slider Elements  ///////////////////////////////////////////////////////////////////////////////////////*/

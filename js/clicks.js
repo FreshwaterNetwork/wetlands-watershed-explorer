@@ -165,7 +165,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 								t.hucAttributes = evt.features[0].attributes;
 								t.fExt = evt.features[0].geometry.getExtent().expand(1);
 								if(t.obj.visibleLayers[1] == 1 ){
-									t.obj.selHuc = 17;
+									t.obj.selHuc = 30;
 									t.obj.currentHuc = 'WHUC6' 
 									t.hucVal  = evt.features[0].attributes.WHUC6
 									t.obj.visibleLayers = [0,2,t.obj.selHuc]
@@ -175,7 +175,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									$('#' + t.id + 'mainAttributeWrap').slideDown();
 									$('#' + t.id + 'watershedHoverText').hide();
 								}else if(t.obj.visibleLayers[1] == 2 ){
-									t.obj.selHuc = 18;
+									t.obj.selHuc = 31;
 									t.obj.currentHuc = 'WHUC8';
 									t.hucVal  = evt.features[0].attributes.WHUC8
 									t.obj.wildlifeOpenTracker = 'open';
@@ -185,12 +185,12 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 									//t.hucAttributesList[0] = t.hucAttributes;
 								}else if(t.obj.visibleLayers[1] == 3 ){
 									//t.hucAttributesList[1] = t.hucAttributes;
-									t.obj.selHuc = 19;
+									t.obj.selHuc = 32;
 									t.obj.currentHuc = 'WHUC10'
 									t.hucVal  = evt.features[0].attributes.WHUC10
 									t.obj.visibleLayers = [0,4,t.obj.selHuc]
 								}else if(t.obj.visibleLayers[1] == 4 ){
-									t.obj.selHuc = 19;
+									t.obj.selHuc = 33;
 									t.obj.currentHuc = 'WHUC12';
 									t.hucVal  = evt.features[0].attributes.WHUC12
 									t.obj.visibleLayers = [0,4,6,16]
@@ -252,6 +252,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						
 					}
 				});
+				console.log(t.obj.visibleLayers, 3)
 				
 // zoom buttons click //////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-hucZoom').unbind().on('click',function(c){
@@ -318,6 +319,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}
 					// call the radio attribute controller function
 					t.clicks.radioAttDisplay(t);
+
 					// call the huc click function
 					// t.clicks.hucClick(t);
 					// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
@@ -329,7 +331,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // Radio/attribute display function //////////////////////////////////////////////////////////////////////////////////////
 			radioAttDisplay: function(t){
-				console.log(t.obj.currentWet);
 				// if (t.obj.currentWet != 'wetland'){
 				// 	t.radAttVal = 'huc' // value should be what you want to slide up
 				// }else{
@@ -343,13 +344,10 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}else{
 						t.radAttVal = 'wet';
 					}
-					console.log(t.radAttVal, $(v).data().wfaMode, t.obj.wetlandClick);
 					if($(v).data().wfaMode == t.radAttVal){
-						console.log('huc slide up')
 						$(v).slideUp();
 					}else{
 						$(v).slideDown();
-						console.log('huc slide down')
 					}
 					if (t.radAttVal == 'wet') {
 						$('#' + t.id + 'mainAttributeWrap').slideUp();
@@ -374,6 +372,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				if(mousePos == 'over'){
 					if(t.obj.currentHuc != 'WHUC4'){
 						$('#' + t.id + 'mainAttributeWrap').show();
+						$('#' + t.id).scrollTop(500) // force a scroll on hover so the user can see the attribute table on small screens
 						$('#' + t.id + 'watershedHoverText').hide();
 					}
 					let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
@@ -502,6 +501,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // control visible layers function /////////////////////////////////////////////////////////////////////////////
 			controlVizLayers :function(t, maskWhere){
+				console.log(t.obj.visibleLayers, 1)
 				if (t.obj.currentHuc != 'WHUC4') {
 					// manipulate string to the proper format, use the same tracker as for the queries but add 2 unless it is a huc 12
 					var curHucNum = t.obj.currentHuc.slice(-1);
@@ -565,6 +565,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						}
 					});
 				}
+				console.log(t.obj.visibleLayers, 2)
 				// call the radio button selector function ////////////////////
 				t.clicks.radioSelector(t);
 				// set layer defs and update the mask layer /////////////////////
@@ -584,6 +585,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				
 // show hide the raster wildlife layers if checkbox toggled on THIS IS IN VIZ LAYERS FUNCTION ///////////////////////////////////////////////////////////////////
 				if (t.obj.wildlifeCheck == 'wildlife'){
+					console.log(t.obj.visibleLayers2);
 					if(t.obj.visibleLayers2.length > 0){
 						t.obj.visibleLayers2 = [];
 						$.each($(t.layersArray),function(i,v){
@@ -613,6 +615,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						}
 					}
 				}
+				console.log(t.obj.visibleLayers2);
 				if(t.obj.wildlifeOpenTracker != 'open'){
 					t.obj.visibleLayers2 = [];
 				}
@@ -635,15 +638,17 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							if(t.obj.currentHuc != 'WHUC12'){
 								'do nothing'
 							}else{
-								$('#' + t.id + 'all-option').prop("checked", true);
-								t.obj.funcTracker = 'All'
+								console.log('look here 1')
+								$('#' + t.id + 'count-option').prop("checked", true);
+								t.obj.funcTracker = 'Count of Service ≥ High'
 								t.obj.visibleLayers = [0,4,6,16];
 
 							}
 						}else if(data == 'wet'){
 							if(t.obj.currentHuc != 'WHUC12'){
-								$('#' + t.id + 'all-option').prop("checked", true);
-								t.obj.funcTracker = 'All'
+								console.log('look here 2')
+								$('#' + t.id + 'combined-option').prop("checked", true);
+								t.obj.funcTracker = 'Combined Services'
 							}else{
 								let wetVizLyrs = t.obj.visibleLayers;
 								t.wetRadioTracker = v.id
