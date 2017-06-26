@@ -377,9 +377,9 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}
 					let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
 					let htmlVal;
-					let huc8Colors  = ['rgb(112,168,0)','rgb(170,204,102)', 'rgb(240,240,240)'];
-					let huc10Colors  = ['rgb(196,10,10)','rgb(224,132,101)', 'rgb(255,235,214)'];
-					let huc12Colors  = ['rgb(0,57,148)','rgb(85,108,201)', 'rgb(214,214,255)'];
+					let huc8Colors  = ['rgb(0,109,44)','rgb(44,162,95)', 'rgb(102,194,164)'];
+					let huc10Colors  = ['rgb(165,15,21)','rgb(222,45,38)', 'rgb(251,106,74)'];
+					let huc12Colors  = ['rgb(37,52,148)','rgb(44,127,184)', 'rgb(65,182,196)'];
 					$.each(attributes, function(i,v){
 						let attVal;
 						try {
@@ -463,8 +463,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				wetQ.execute(wq, function(evt){
 					if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
 						t.obj.wetlandClick = 'yes'
-						var curColors  = ['#F0F0F0', '#BFD690','#AACC66', '#70A800'];
-						var potColors = ['#FFEBD6', '#EBA988', '#D65D45', '#C40A0A'];
+						var curColors  = ['rgb(237,248,233)', 'rgb(116,196,118)','rgb(49,163,84)', 'rgb(0,109,44)'];
+						var potColors = ['rgb(254,229,217)', 'rgb(251,106,74)','rgb(222,45,38)', 'rgb(165,15,21)'];
 						var atts = evt.features[0].attributes;
 						// update the attribute colors for wetlands
 						var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
@@ -472,13 +472,13 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$.each(title, function(i,v){
 							let attVal = atts[$(v).data('wfa')];
 							if(attVal == 0){
-								htmlVal = 'N/A'
+								htmlVal = 'Not Applicable'
 							}else if(attVal == 1){
-								htmlVal = 'Low'
+								htmlVal = 'Moderate'
 							}else if(attVal == 2){
-								htmlVal = 'Medium'
-							}else if(attVal == 3){
 								htmlVal = 'High'
+							}else if(attVal == 3){
+								htmlVal = 'Very High'
 							}
 							let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
 							if(atts.WETLAND_TYPE == 'WWI'){
