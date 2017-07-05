@@ -252,7 +252,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						
 					}
 				});
-				console.log(t.obj.visibleLayers, 3)
 				
 // zoom buttons click //////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-hucZoom').unbind().on('click',function(c){
@@ -501,7 +500,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // control visible layers function /////////////////////////////////////////////////////////////////////////////
 			controlVizLayers :function(t, maskWhere){
-				console.log(t.obj.visibleLayers, 1)
 				if (t.obj.currentHuc != 'WHUC4') {
 					// manipulate string to the proper format, use the same tracker as for the queries but add 2 unless it is a huc 12
 					var curHucNum = t.obj.currentHuc.slice(-1);
@@ -565,7 +563,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						}
 					});
 				}
-				console.log(t.obj.visibleLayers, 2)
 				// call the radio button selector function ////////////////////
 				t.clicks.radioSelector(t);
 				// set layer defs and update the mask layer /////////////////////
@@ -585,7 +582,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				
 // show hide the raster wildlife layers if checkbox toggled on THIS IS IN VIZ LAYERS FUNCTION ///////////////////////////////////////////////////////////////////
 				if (t.obj.wildlifeCheck == 'wildlife'){
-					console.log(t.obj.visibleLayers2);
 					if(t.obj.visibleLayers2.length > 0){
 						t.obj.visibleLayers2 = [];
 						$.each($(t.layersArray),function(i,v){
@@ -615,7 +611,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						}
 					}
 				}
-				console.log(t.obj.visibleLayers2);
 				if(t.obj.wildlifeOpenTracker != 'open'){
 					t.obj.visibleLayers2 = [];
 				}
@@ -638,7 +633,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							if(t.obj.currentHuc != 'WHUC12'){
 								'do nothing'
 							}else{
-								console.log('look here 1')
 								$('#' + t.id + 'count-option').prop("checked", true);
 								t.obj.funcTracker = 'Count of Service ≥ High'
 								t.obj.visibleLayers = [0,4,6,16];
@@ -646,7 +640,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							}
 						}else if(data == 'wet'){
 							if(t.obj.currentHuc != 'WHUC12'){
-								console.log('look here 2')
 								$('#' + t.id + 'combined-option').prop("checked", true);
 								t.obj.funcTracker = 'Combined Services'
 							}else{
