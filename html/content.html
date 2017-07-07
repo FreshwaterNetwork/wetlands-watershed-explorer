@@ -35,6 +35,14 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<p style="font-style: italic;">-	Single-click through basins, watersheds, and subwatersheds to   see potentially restorable and current wetlands.</p>
 	<p style="font-style: italic;">-	An important step after using this tool is to visit sites in the field   to verify results and determine next steps.</p>
 
+	<h3>Or search a known location below</h3>
+	<p style="font-style: italic;">-	Use dropdpown arrow on left to search by specific data.</p>
+	<!-- Search box wrapper -->
+	<div class="wfa-searchWrapper">
+		
+		<div class="wfa-searchWidget" id="search1"></div>
+	</div>
+	
 
 </div>
 
@@ -47,7 +55,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<div id="hucSelWrap" class="hide">
 		<h3 style="margin-top: 0px; margin-bottom: 5px; ">Selected Watersheds:</h3>
 		<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-0">
-			<div id="fullExt-selText" class="hide"><span >Go to: </span><span class="wfa-textZoom">Full Extent</span></div>
+			<div id="fullExt-selText" class="hide"><span >Go to: </span><span class="wfa-textZoom">Full Extent or back to Search</span></div>
 		</div>
 		<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-1" >
 			<div id="WHUC6-selText" class="hide"><span  >Go to: </span><span class="wfa-textZoom">HUC 6 Watershed:</span> <span id="huc6Sel" class="blueFont wfa-textZoom">test text</span></div>
@@ -141,9 +149,9 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<!-- Vector opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
 		<div class="wfa-sum-wrap" style="height: 33.6px; margin: auto; margin-top: 7px;">	
 			<div class="slider-container">
-				<div>Opaque</div>
+				<div class="wfa-sliderLabels">Opaque</div>
 				<div id="sldr" class="slider"></div>	
-				<div>Transparent</div>
+				<div class="wfa-sliderLabels">Transparent</div>
 			</div>
 		</div>
 		<!-- View wildlife data checkbox -->
@@ -195,9 +203,9 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				<!-- wildlife opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
 				<div class="wfa-sum-wrap" style="height: 33.6px; margin: auto; margin-top: 7px;">	
 					<div class="slider-container">
-						<div>Opaque</div>
+						<div class="wfa-sliderLabels">Opaque</div>
 						<div id="sldr1" class="slider"></div>	
-						<div>Transparent</div>
+						<div class="wfa-sliderLabels">Transparent</div>
 					</div>
 				</div>
 			</div>

@@ -1,8 +1,8 @@
 define([
 	"dojo/_base/declare", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer", "esri/dijit/Search", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
-	"esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color","esri/layers/GraphicsLayer","esri/renderers/SimpleRenderer",'dojo/_base/lang'
+	"esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color","esri/layers/GraphicsLayer","esri/renderers/SimpleRenderer",'dojo/_base/lang',"dojo/on",'dojo/domReady!'
 ],
-function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color, GraphicsLayer, SimpleRenderer,lang) {
+function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color, GraphicsLayer, SimpleRenderer,lang,on, domReady) {
         "use strict";
 
         return declare(null, {
@@ -114,6 +114,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
+				t.clicks.searchFunction(t);
 				// set initial array vars, these will be populated later. 
 				t.hucExps = ['','','',''];
 				t.hucExtents = [t.obj.dynamicLyrExt,'','','', ''];
@@ -293,6 +294,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}
 					// reset maskwhere tracker
 					t.obj.maskWhere = t.maskExps[id]
+					console.log(t.maskExps);
 					// set map extent on back button click
 					// below code is for if the user clicks on the full extent zoom //////////////////////////
 					if(id<1){
@@ -312,6 +314,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.obj.currentWet = 'null'; // reset this tracker
 						t.map.setExtent(t.hucExtents[id], true);
 						// set huc exp on back button click
+						console.log(t.hucExps, 'huc exp', t.obj.visibleLayers[1]);
 						t.clicks.hoverGraphic(t,t.obj.visibleLayers[1], t.hucExps[id]);
 						// control viz function
 						t.clicks.controlVizLayers(t,t.obj.maskWhere);
@@ -449,7 +452,153 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				// 		$(v).parent().find('.wfa-attributePatch').css('background-color', huc12Colors[(attVal-1)])
 				// 	}
 				// });
-			
+// search box function for main search area /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			searchFunction: function(t){
+				// search box init //////////////
+				var s = t.id +'search1';
+				t.search1 = new Search({
+					enableButtonMode: false, //this enables the search widget to display as a single button
+		            enableLabel: false,
+		            enableInfoWindow: false,
+		            showInfoWindowOnSelect: false,
+		            map: t.map
+		        }, s);
+		        // initi sources for search 1
+		        var sources = t.search1.get("sources");
+				// Add the wetlands source 
+				sources.push({
+		            featureLayer: new FeatureLayer("http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/48"),
+		            searchFields: ["wetlandIdString"],
+		            displayField: "wetlandIdString",
+		            exactMatch: false,
+		            outFields: ["wetlandIdString"],
+		            name: "Wetlands",
+		            placeholder: "ex: 4522416546",
+		            maxResults: 6,
+		            maxSuggestions: 6,
+		            enableSuggestions: true,
+		            minCharacters: 0,
+		            minScale: 250000
+		         });
+				// add the huc 12 source
+				sources.push({
+		            featureLayer: new FeatureLayer("http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/4"),
+		            searchFields: ["name"],
+		            displayField: "name",
+		            exactMatch: false,
+		            outFields: ["name"],
+		            name: "WHUC 12",
+		            placeholder: "ex: Lower Fox",
+		            maxResults: 6,
+		            maxSuggestions: 6,
+		            enableSuggestions: true,
+		            minCharacters: 0
+		         });
+				//Set the sources above to the search widget
+         		t.search1.set("sources", sources);
+		        // search startup //////////
+		        t.search1.startup();
+		        // call search populate function
+		        t.clicks.searchPopulate(t);
+		        
+			},
+			searchPopulate: function(t){
+				// on search complete function ///////////////
+				on(t.search1, 'select-result', function (e) {
+	                let sourceName  = e.source.name;
+	                let searchValue = e.result.name;
+	                if(sourceName == 'Wetlands'){
+						console.log('wetlands were searched')
+						// need to select a wetland here
+					// if not a wetland work with the huc 12 layer //////////////////////////////
+					}else{
+						// populate the viz layers and all the same attributes as if the user had clicked the huc 12 here
+						t.obj.funcTracker = 'Combined Services'
+						t.obj.currentHuc = 'WHUC6'
+						console.log(t.obj.maskWhere);
+						// query for for the huc 12 /////////////////////////////////////						
+						var q1 = new Query();
+						var qt1 = new QueryTask(t.url + "/" + 4);
+						q1.geometry = e.result.feature.geometry;
+						q1.returnGeometry = true;
+						q1.outFields = ["*"];
+						qt1.execute(q1, function(evt){
+							if (evt.features.length > 0){
+								if(sourceName == 'WHUC 12'){
+									$.each($(evt.features),function(i,v){
+										// make sure the values match the search value
+										if(v.attributes.name == searchValue){
+											console.log(v.attributes, '////////////////////////')
+											t.huc6Val = evt.features[0].attributes.WHUC6
+											t.huc8Val = evt.features[0].attributes.WHUC8;
+											t.huc10Val = evt.features[0].attributes.WHUC10;
+											t.huc12Val = evt.features[0].attributes.WHUC12;
+										}
+									});
+								}else{
+									console.log('look here', evt)
+									t.huc6Val = evt.features[0].attributes.WHUC6
+									t.huc8Val = evt.features[0].attributes.WHUC8;
+									t.huc10Val = evt.features[0].attributes.WHUC10;
+									t.huc12Val = evt.features[0].attributes.WHUC12;
+									t.hucValArray = [t.huc6Val, t.huc8Val, t.huc10Val, t.huc12Val]
+								}
+							}else{
+								console.log('no results were returned from the search');
+								// send warning to user that they are outside the scope of the area
+		                		// maybe have text flash for 5 seconds then go away
+							}
+							// use loop to populate the huc extent array for zoom out button use
+							$.each([1,2,3,4],function(i,v){
+								let q1 = new Query();
+								let qt1 = new QueryTask(t.url + "/" + i);
+								q1.geometry = e.result.feature.geometry;
+								q1.returnGeometry = true;
+								q1.outFields = ["*"];
+								qt1.execute(q1, function(evt){
+									console.log(evt);
+									t.hucExtents[i] = evt.features[0].geometry.getExtent();
+								});
+							});
+							// populate the mask exp array
+							t.maskExps = ["OBJECTID < 0", "WHUC6 <>'" + t.huc6Val + "'", "WHUC8 <>'" + t.huc8Val + "'", "WHUC10 <>'" + t.huc10Val + "'", "WHUC12 <>'" + t.huc12Val + "'"];
+							// populate the huc exp array 
+							t.hucExps = [ "WHUC6 ='" + t.huc6Val + "'", "WHUC6 ='" + t.huc6Val + "'", "WHUC8 ='" + t.huc8Val + "'", "WHUC10 ='" + t.huc10Val + "'"] 
+							// populate the huc 12 extent array ////////////////////////////////////////////////////
+							t.hucExtents[4] = evt.features[0].geometry.getExtent();
+							t.huc12Ext =  evt.features[0].geometry.getExtent();
+							// slide down all the zoom buttons on search
+							let i = 0;
+							while (i < 5){
+								// console.log($('#' + t.id + 'zoom-' + i))
+								$('#' + t.id + 'zoom-' + i).children().slideDown();
+								i++
+							}
+							// show and hide various other elements that we need for search.
+							$('#' + t.id + 'mainFuncWrapper').slideDown();
+							$('#' + t.id + 'hucSelWrap').slideDown();
+							$('#' + t.id + 'wfa-findASite').slideUp();
+							$('#' + t.id + 'mainAttributeWrap').slideDown();
+
+// keep code below ///////////////////////////////////////////////////////////////////////////////////////
+							let curHucArray = ['WHUC6', 'WHUC8', 'WHUC10', 'WHUC12'];
+							$.each(curHucArray,function(i,v){
+								t.obj.currentHuc = v;
+								// t.obj.maskWhere = t.obj.currentHuc <> + huvVal;
+								t.obj.maskWhere = t.obj.currentHuc + " <> '" + t.hucValArray[i] + "'";
+								t.searchWhere = t.obj.currentHuc + " = '" + t.hucValArray[i] + "'";
+								console.log(t.obj.maskWhere)
+								t.clicks.controlVizLayers(t, t.obj.maskWhere)
+								t.clicks.hoverGraphic(t, (i+1), t.searchWhere)
+
+							})
+						});
+					}
+					console.log(t.hucExtents);
+
+
+	            });
+			},
 // Wetland click function /////////////////////////////////////////////////////////////////////////////////////////////////
 			wetlandClick: function(t){
 				// wetland query 
@@ -500,6 +649,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // control visible layers function /////////////////////////////////////////////////////////////////////////////
 			controlVizLayers :function(t, maskWhere){
+				console.log('1', t.obj.currentHuc)
 				if (t.obj.currentHuc != 'WHUC4') {
 					// manipulate string to the proper format, use the same tracker as for the queries but add 2 unless it is a huc 12
 					var curHucNum = t.obj.currentHuc.slice(-1);
@@ -511,7 +661,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 					}
 					var newHuc = curHucNum2 + curHucNum3;
 					newHuc =  newHuc.substring(1);
-
+					console.log('2', newHuc)
 					var lyrName  = newHuc + ' - ' + t.obj.funcTracker;
 					var curWetLyrName = 'Current Wetlands - ' + t.obj.funcTracker;
 					var potWetLyrName = 'Potentially Restorable Wetlands - ' + t.obj.funcTracker;

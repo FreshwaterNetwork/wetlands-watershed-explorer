@@ -5,9 +5,9 @@
 // Bring in dojo and javascript api classes as well as varObject.json, js files, and content.html
 define([
 	"dojo/_base/declare", "framework/PluginBase", "dijit/layout/ContentPane", "dojo/dom", "dojo/dom-style", "dojo/dom-geometry", "dojo/text!./obj.json", 
-	"dojo/text!./html/content.html", './js/esriapi', './js/clicks', 'dojo/_base/lang'	
+	"dojo/text!./html/content.html", './js/esriapi', './js/clicks', 'dojo/_base/lang',"esri/dijit/Search", 'esri/map', "dojo/on", 'dojo/domReady!'
 ],
-function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, esriapi, clicks, lang ) {
+function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, esriapi, clicks, lang, Search, Map, on) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName: "Wetlands and Watersheds Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
@@ -119,6 +119,9 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		},	
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
+			
+
+
 			this.obj.extent = this.map.geographicExtent;
 			//this.oid = -1;
 			//$('.basemap-selector').trigger('change', 3);
@@ -146,6 +149,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.basinId = this.basinDiv.id;
 			dom.byId('map-0').appendChild(this.basinDiv.domNode);
 			$('#' + this.basinId).html('<div class="wfa_basinText" id="basinMapText"></div>');
+
 			// Set up variables
 			// Create ESRI objects and event listeners	
 			this.esriapi.esriApiFunctions(this);

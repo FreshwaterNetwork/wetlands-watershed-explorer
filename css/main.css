@@ -162,6 +162,9 @@ hr{
 	display: flex; align-items: center; margin: 0px !important; border-radius: 5px;
 	width: 100%; justify-content: center;
 }
+.wfa-sliderLabels{
+	padding: 5px;
+}
 .sliderDiv{
 	width:252px; margin:0 auto; text-align:center; 
 }
@@ -177,3 +180,19 @@ hr{
 .rightSliderLabel{
 	display:inline-block; margin-left:5px; font-size:10pt;
 }
+
+/* search widget styling ////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.wfa-searchWidget{
+	position: absolute; display: block; z-index: 1000; top:100px; left: 50px; background-color: grey !important;
+}
+/*.arcgisSearch{
+	color: red; background-color: grey !important;
+}*/
+#dijit_layout_ContentPane_0search1 .arcgisSearch .searchBtn { 
+	margin-top: 15px;
+}
+.wfa-searchWrapper{
+	background-color: #457545; height: 50px; width: 350px; padding: 10px; margin: auto;
+}
+
+
