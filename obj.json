@@ -17,5 +17,6 @@
 	"opacityVal2": 25,
 	"huc": "HUC 10",
 	"extent": "",
-	"stateSet": "no"
+	"stateSet": "no",
+	"search": "no"
 }

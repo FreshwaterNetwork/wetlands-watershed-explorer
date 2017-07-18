@@ -114,7 +114,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
-				t.clicks.searchFunction(t);
 				// set initial array vars, these will be populated later. 
 				t.hucExps = ['','','',''];
 				t.hucExtents = [t.obj.dynamicLyrExt,'','','', ''];
@@ -131,205 +130,153 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				t.open = 'yes';
 				// handle map clicks
 				t.map.setMapCursor("pointer")
-				// t.map.trigger('click');
+				// call map click function ////////////////////////////////////////////////////////////////////////////////////////
 				t.map.on('click',function(c){
+					t.obj.search = 'no';
 					if (t.open == "yes"){
 						// map click point ////////////////////////////////////////
 						t.pnt = c.mapPoint;
-						// i think the object below might be the right format for a map point click
-						// t.pnt= {type:'point', x:-9811591.693385411 ,y: 5364399.610102563, 
-						// spatialReference: {latestWkid:3857, wkid:102100}}
-						// mask query //////////////////
-						t.mq = new Query();
-						t.maskQ = new QueryTask(t.url + "/" + 0);
-						t.mq.geometry = t.pnt;
-						t.mq.returnGeometry = true;
-						t.mq.outFields = ["*"];
-						t.mq.where = t.obj.maskWhere
-						// execute mask function
-						t.maskQ.execute(t.mq, function(evt){
-							if (evt.features.length > 0){
-								t.maskClick = 'yes';
-							}else{
-								t.maskClick = 'no';
-							}
-						});
-						// query for for the hucs /////////////////////////////////////						
-						var q1 = new Query();
-						var qt1 = new QueryTask(t.url + "/" + t.obj.visibleLayers[1]);
-						q1.geometry = t.pnt;
-						q1.returnGeometry = true;
-						q1.outFields = ["*"];
-						qt1.execute(q1, function(evt){
-							if (evt.features.length > 0 && t.maskClick == 'no'){
-								// retrieve huc attributes on map click to be used in the huc Attribute functions.
-								t.hucAttributes = evt.features[0].attributes;
-								t.fExt = evt.features[0].geometry.getExtent().expand(1);
-								if(t.obj.visibleLayers[1] == 1 ){
-									t.obj.selHuc = 30;
-									t.obj.currentHuc = 'WHUC6' 
-									t.hucVal  = evt.features[0].attributes.WHUC6
-									t.obj.visibleLayers = [0,2,t.obj.selHuc]
-									$('#' + t.id + 'watershedHoverText').show();
-								}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26){
-									t.obj.currentWet = 'wetland' // this is a wetland click
-									$('#' + t.id + 'mainAttributeWrap').slideDown();
-									$('#' + t.id + 'watershedHoverText').hide();
-								}else if(t.obj.visibleLayers[1] == 2 ){
-									t.obj.selHuc = 31;
-									t.obj.currentHuc = 'WHUC8';
-									t.hucVal  = evt.features[0].attributes.WHUC8
-									t.obj.wildlifeOpenTracker = 'open';
-									t.obj.visibleLayers = [0,3,t.obj.selHuc]
-									// slide down wildlife checkbox
-									$('#' + t.id + 'wildlifeCheckWrap').slideDown();
-									//t.hucAttributesList[0] = t.hucAttributes;
-								}else if(t.obj.visibleLayers[1] == 3 ){
-									//t.hucAttributesList[1] = t.hucAttributes;
-									t.obj.selHuc = 32;
-									t.obj.currentHuc = 'WHUC10'
-									t.hucVal  = evt.features[0].attributes.WHUC10
-									t.obj.visibleLayers = [0,4,t.obj.selHuc]
-								}else if(t.obj.visibleLayers[1] == 4 ){
-									t.obj.selHuc = 33;
-									t.obj.currentHuc = 'WHUC12';
-									t.hucVal  = evt.features[0].attributes.WHUC12
-									t.obj.visibleLayers = [0,4,6,16]
-									t.huc12Ext = evt.features[0].geometry.getExtent().expand(1);
-									$('#' + t.id + 'mainAttributeWrap').slideUp();
-									//t.hucAttributesList[2] = t.hucAttributes;
-								}
-								// set the def query for the huc mask /////////////////////	
-								if(t.obj.currentHuc != 'WHUC12'){
-									t.where = t.obj.currentHuc + " = '" + t.hucVal + "'";
-								}else{
-									t.where = t.obj.currentHuc + " = '" + 9999 + "'";
-								}				
-								t.obj.maskWhere = t.obj.currentHuc + " <> '" + t.hucVal + "'";
-								// add the expression and extents in the approriate location in the huc expression tracker array. 
-								var name = evt.features[0].attributes.name;
-								// change the extent if current wet does not = wetland
-								if(t.obj.currentWet != 'wetland'){
-									t.map.setExtent(t.fExt, true); // only change the extent if the wetlands are not displayed
-								}
-								if(t.obj.currentHuc != 'WHUC12'){
-									t.hucExps[(t.obj.visibleLayers[1]-1)] = t.where;
-									t.maskExps[(t.obj.visibleLayers[1]-1)] = t.obj.maskWhere;
-									t.hucExtents[(t.obj.visibleLayers[1]-1)] = t.fExt;
-									if(t.obj.currentHuc == "WHUC6"){
-										$('#' + t.id + t.obj.currentHuc + '-selText').parent().prev().children().slideDown();
-										$('#' + t.id + 'mainFuncWrapper').slideDown();
-										$('#' + t.id + 'hucSelWrap').slideDown();
-										$('#' + t.id + 'wfa-findASite').slideUp();
-									}else{
-										// only slide down if its beyond the huc 6 level
-										$('#' + t.id + 'mainAttributeWrap').slideDown();
-									}
-									// slide down the huc selected text area and populate
-									$('#' + t.id + t.obj.currentHuc + '-selText').parent().children().slideDown();
-									$('#' + t.id + t.obj.currentHuc + '-selText').parent().find('span').last().html(name);
-								}else{
-									// slide up the huc selected text area and populate
-									$('#' + t.id + t.obj.currentHuc + '-selText').parent().prev().children().slideDown();
-									$('#' + t.id + t.obj.currentHuc + '-selText').parent().find('span').last().html(name);
-									$('#' + t.id + t.obj.currentHuc + '-selText').slideDown();
-								}
-								
-// Call the functions at the end of map click /////////////////////////////////////////////////////////////////
-								// call the hover graphic function ////////////////////////////
-								t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.where)
-								// call the wetland click function ////////////////////////////
-								t.clicks.wetlandClick(t);
-								// call the huc attribute controller function
-								// t.clicks.hucClick(t);
-
-								// // call the radio attribute controller function
-								// t.clicks.radioAttDisplay(t);
-								// // call the control viz layers function ////////////////////////////////////
-								// t.clicks.controlVizLayers(t,t.obj.maskWhere);
-
-							}
-						})
-						
+						t.clicks.mapClickQuery(t,t.pnt); // call t.mapClickQuery function
 					}
 				});
-				
-// zoom buttons click //////////////////////////////////////////////////////////////////////////////////////////
-				$('.wfa-hucZoom').unbind().on('click',function(c){
-					var id = c.currentTarget.id.split('-')[1];
-					t.obj.wetlandWhere = "OBJECTID < 0" // reset wetland where tracker
-					// reset viz layers on zoom click 
-					if(id == 0){
-						t.obj.currentHuc = 'WHUC4'
-						t.obj.visibleLayers = [0,1]
-						$('#' + t.id +'fullExt-selText').slideUp();
-						$('#' + t.id + 'mainFuncWrapper').slideUp();
-						$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
-							t.clicks.hoverGraphic(t,1,t.where)
-						});
-						$('#' + t.id + 'wfa-findASite').slideDown();
-						// slide up attribute wrapper when any zoom button is clicked.
-						// $('#' + t.id + 'mainAttributeWrap').slideUp();
-						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
-						$('#' + t.id + 'watershedHoverText').slideUp();
-						t.obj.wildlifeOpenTracker = 'null'
-						t.obj.wetlandClick = 'no';
-						// reset opacity values.
-						t.clicks.opacityReset(t);
-					}else if (id == 1){
-						t.obj.currentHuc = 'WHUC6'
-						t.obj.visibleLayers = [0,2,30];
-						// $('#' + t.id + 'mainAttributeWrap').slideUp();
-						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
-						t.obj.wildlifeOpenTracker = 'null'
-						t.obj.wetlandClick = 'no';
-					}else if(id == 2){
-						t.obj.currentHuc = 'WHUC8'
-						t.obj.visibleLayers = [0,3,31];
-						t.obj.wetlandClick = 'no';
-					}else if(id == 3){
-						t.obj.currentHuc = 'WHUC10'
-						t.obj.visibleLayers = [0,4,32];
-						t.obj.wetlandClick = 'no';
-					}
-					// reset maskwhere tracker
-					t.obj.maskWhere = t.maskExps[id]
-					console.log(t.maskExps);
-					// set map extent on back button click
-					// below code is for if the user clicks on the full extent zoom //////////////////////////
-					if(id<1){
-						t.obj.currentWet = 'null'; // reset this tracker
-						t.map.setExtent(t.obj.dynamicLyrExt, true);
-						t.where = "OBJECTID > 0";
-						// control viz function
-						t.clicks.controlVizLayers(t,t.obj.maskWhere);
-						//t.clicks.hoverGraphic(t,1,t.where)
-					// below code is for if the user clicks on the huc 12 zoom //////////////////////////////
-					}else if(id == 4){ // set extent back to huc 12 when the go to button is clicked
-						t.obj.currentWet = 'null'; // reset this tracker
-						t.map.setExtent(t.huc12Ext, true); // zoom back to huc 12
-						t.obj.maskWhere = "WHUC12 <> '" + t.hucVal + "'";
-					// below code is for if the user clicks on the huc 6, 8 , 10 zoom /////////////////////////
+				t.clicks.searchFunction(t); // call the searchbox init function ///////
+				t.clicks.hucZoom(t); // call the huc zoom function
+				// on search complete function ///////////////
+				on(t.search1, 'select-result', function (e) {
+					t.obj.search =  'yes';
+					t.pnt = e.result.feature.geometry;
+					t.clicks.mapClickQuery(t,t.pnt); // call t.mapClickQuery function
+				});
+			},
+// map click query ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+			mapClickQuery: function(t,p){
+				console.log(p);
+				// mask query ////////////////////////
+				t.mq = new Query();
+				t.maskQ = new QueryTask(t.url + "/" + 0);
+				t.mq.geometry = p;
+				t.mq.returnGeometry = true;
+				t.mq.outFields = ["*"];
+				t.mq.where = t.obj.maskWhere
+				// execute mask function
+				t.maskQ.execute(t.mq, function(evt){
+					if (evt.features.length > 0){
+						t.maskClick = 'yes';
 					}else{
-						t.obj.currentWet = 'null'; // reset this tracker
-						t.map.setExtent(t.hucExtents[id], true);
-						// set huc exp on back button click
-						console.log(t.hucExps, 'huc exp', t.obj.visibleLayers[1]);
-						t.clicks.hoverGraphic(t,t.obj.visibleLayers[1], t.hucExps[id]);
-						// control viz function
-						t.clicks.controlVizLayers(t,t.obj.maskWhere);
+						t.maskClick = 'no';
 					}
-					// call the radio attribute controller function
-					t.clicks.radioAttDisplay(t);
-
-					// call the huc click function
-					// t.clicks.hucClick(t);
-					// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
-					$.each($('#' + c.currentTarget.id).nextAll().children(),function(i,v){
-						$('#' + v.id).slideUp();
-					});
 				});
+				// query for for the hucs /////////////////////////////////////////////////////////				
+				// start of main query ////////////////////////////////////////////
+				console.log(t.obj.search);
+				if(t.obj.search == 'yes'){
+					var qt1 = new QueryTask(t.url + "/" + 4);
+					t.obj.visibleLayers = [0,4,6,16]
+					console.log('search')
+				}else{
+					var qt1 = new QueryTask(t.url + "/" + t.obj.visibleLayers[1]);
+				}
+				//var qt1 = new QueryTask(t.url + "/" + t.obj.visibleLayers[1]);
 
+				var q1 = new Query();
+				q1.geometry = p;
+				q1.returnGeometry = true;
+				q1.outFields = ["*"];
+				qt1.execute(q1, function(evt){
+					if (evt.features.length > 0 && t.maskClick == 'no'){
+						console.log(evt, 'look here for evt')
+						// retrieve huc attributes on map click to be used in the huc Attribute functions.
+						t.hucAttributes = evt.features[0].attributes;
+						t.fExt = evt.features[0].geometry.getExtent().expand(1);
+						console.log(t.obj.visibleLayers);
+						if(t.obj.visibleLayers[1] == 1 ){
+							t.obj.selHuc = 30;
+							t.obj.currentHuc = 'WHUC6' 
+							t.hucVal  = evt.features[0].attributes.WHUC6
+							t.obj.visibleLayers = [0,2,t.obj.selHuc]
+							$('#' + t.id + 'watershedHoverText').show();
+						}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26){
+							t.obj.currentWet = 'wetland' // this is a wetland click
+							$('#' + t.id + 'mainAttributeWrap').slideDown();
+							$('#' + t.id + 'watershedHoverText').hide();
+						}else if(t.obj.visibleLayers[1] == 2 ){
+							t.obj.selHuc = 31;
+							t.obj.currentHuc = 'WHUC8';
+							t.hucVal  = evt.features[0].attributes.WHUC8
+							t.obj.wildlifeOpenTracker = 'open';
+							t.obj.visibleLayers = [0,3,t.obj.selHuc]
+							// slide down wildlife checkbox
+							$('#' + t.id + 'wildlifeCheckWrap').slideDown();
+							//t.hucAttributesList[0] = t.hucAttributes;
+						}else if(t.obj.visibleLayers[1] == 3 ){
+							//t.hucAttributesList[1] = t.hucAttributes;
+							t.obj.selHuc = 32;
+							t.obj.currentHuc = 'WHUC10'
+							t.hucVal  = evt.features[0].attributes.WHUC10
+							t.obj.visibleLayers = [0,4,t.obj.selHuc]
+						}else if(t.obj.visibleLayers[1] == 4 ){
+							console.log('look here ///////////')
+							t.obj.selHuc = 33;
+							t.obj.currentHuc = 'WHUC12';
+							t.hucVal  = evt.features[0].attributes.WHUC12
+							t.obj.visibleLayers = [0,4,6,16]
+							t.huc12Ext = evt.features[0].geometry.getExtent().expand(1);
+							$('#' + t.id + 'mainAttributeWrap').slideUp();
+							//t.hucAttributesList[2] = t.hucAttributes;
+						}
+						console.log(t.obj.currentHuc, '///////////////')
+						// set the def query for the huc mask /////////////////////	
+						if(t.obj.currentHuc != 'WHUC12'){
+							t.where = t.obj.currentHuc + " = '" + t.hucVal + "'";
+						}else{
+							t.where = t.obj.currentHuc + " = '" + 9999 + "'";
+						}				
+						t.obj.maskWhere = t.obj.currentHuc + " <> '" + t.hucVal + "'";
+						// add the expression and extents in the approriate location in the huc expression tracker array. 
+						var name = evt.features[0].attributes.name;
+						// change the extent if current wet does not = wetland
+						if(t.obj.currentWet != 'wetland'){
+							t.map.setExtent(t.fExt, true); // only change the extent if the wetlands are not displayed
+						}
+						if(t.obj.currentHuc != 'WHUC12'){
+							t.hucExps[(t.obj.visibleLayers[1]-1)] = t.where;
+							t.maskExps[(t.obj.visibleLayers[1]-1)] = t.obj.maskWhere;
+							t.hucExtents[(t.obj.visibleLayers[1]-1)] = t.fExt;
+							if(t.obj.currentHuc == "WHUC6"){
+								$('#' + t.id + t.obj.currentHuc + '-selText').parent().prev().children().slideDown();
+								$('#' + t.id + 'mainFuncWrapper').slideDown();
+								$('#' + t.id + 'hucSelWrap').slideDown();
+								$('#' + t.id + 'wfa-findASite').slideUp();
+							}else{
+								// only slide down if its beyond the huc 6 level
+								$('#' + t.id + 'mainAttributeWrap').slideDown();
+							}
+							// slide down the huc selected text area and populate
+							$('#' + t.id + t.obj.currentHuc + '-selText').parent().children().slideDown();
+							$('#' + t.id + t.obj.currentHuc + '-selText').parent().find('span').last().html(name);
+						}else{
+							// slide up the huc selected text area and populate
+							$('#' + t.id + t.obj.currentHuc + '-selText').parent().prev().children().slideDown();
+							$('#' + t.id + t.obj.currentHuc + '-selText').parent().find('span').last().html(name);
+							$('#' + t.id + t.obj.currentHuc + '-selText').slideDown();
+						}
+						
+// Call the functions at the end of map click /////////////////////////////////////////////////////////////////
+						// call the hover graphic function ////////////////////////////
+						console.log(t, t.obj.visibleLayers[1], t.where)
+						t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.where)
+						// call the wetland click function ////////////////////////////
+						t.clicks.wetlandClick(t);
+						// call the huc attribute controller function
+						// t.clicks.hucClick(t);
+
+						// // call the radio attribute controller function
+						// t.clicks.radioAttDisplay(t);
+						// // call the control viz layers function ////////////////////////////////////
+						// t.clicks.controlVizLayers(t,t.obj.maskWhere);
+
+					}
+				}) // end of main map click query
 			},
 // Radio/attribute display function //////////////////////////////////////////////////////////////////////////////////////
 			radioAttDisplay: function(t){
@@ -413,6 +360,82 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						$('#' + t.id + 'mainAttributeWrap').hide();
 					}
 				}
+			},
+			hucZoom: function(t){
+				// zoom buttons click //////////////////////////////////////////////////////////////////////////////////////////
+				$('.wfa-hucZoom').unbind().on('click',function(c){
+					var id = c.currentTarget.id.split('-')[1];
+					t.obj.wetlandWhere = "OBJECTID < 0" // reset wetland where tracker
+					// reset viz layers on zoom click 
+					if(id == 0){
+						t.obj.currentHuc = 'WHUC4'
+						t.obj.visibleLayers = [0,1]
+						$('#' + t.id +'fullExt-selText').slideUp();
+						$('#' + t.id + 'mainFuncWrapper').slideUp();
+						$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
+							t.clicks.hoverGraphic(t,1,t.where)
+						});
+						$('#' + t.id + 'wfa-findASite').slideDown();
+						// slide up attribute wrapper when any zoom button is clicked.
+						// $('#' + t.id + 'mainAttributeWrap').slideUp();
+						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
+						$('#' + t.id + 'watershedHoverText').slideUp();
+						t.obj.wildlifeOpenTracker = 'null'
+						t.obj.wetlandClick = 'no';
+						// reset opacity values.
+						t.clicks.opacityReset(t);
+					}else if (id == 1){
+						t.obj.currentHuc = 'WHUC6'
+						t.obj.visibleLayers = [0,2,30];
+						// $('#' + t.id + 'mainAttributeWrap').slideUp();
+						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
+						t.obj.wildlifeOpenTracker = 'null'
+						t.obj.wetlandClick = 'no';
+					}else if(id == 2){
+						t.obj.currentHuc = 'WHUC8'
+						t.obj.visibleLayers = [0,3,31];
+						t.obj.wetlandClick = 'no';
+					}else if(id == 3){
+						t.obj.currentHuc = 'WHUC10'
+						t.obj.visibleLayers = [0,4,32];
+						t.obj.wetlandClick = 'no';
+					}
+					// reset maskwhere tracker
+					t.obj.maskWhere = t.maskExps[id]
+					console.log(t.maskExps);
+					// set map extent on back button click
+					// below code is for if the user clicks on the full extent zoom //////////////////////////
+					if(id<1){
+						t.obj.currentWet = 'null'; // reset this tracker
+						t.map.setExtent(t.obj.dynamicLyrExt, true);
+						t.where = "OBJECTID > 0";
+						// control viz function
+						t.clicks.controlVizLayers(t,t.obj.maskWhere);
+						//t.clicks.hoverGraphic(t,1,t.where)
+					// below code is for if the user clicks on the huc 12 zoom //////////////////////////////
+					}else if(id == 4){ // set extent back to huc 12 when the go to button is clicked
+						t.obj.currentWet = 'null'; // reset this tracker
+						t.map.setExtent(t.huc12Ext, true); // zoom back to huc 12
+						t.obj.maskWhere = "WHUC12 <> '" + t.hucVal + "'";
+					// below code is for if the user clicks on the huc 6, 8 , 10 zoom /////////////////////////
+					}else{
+						t.obj.currentWet = 'null'; // reset this tracker
+						t.map.setExtent(t.hucExtents[id], true);
+						// set huc exp on back button click
+						t.clicks.hoverGraphic(t,t.obj.visibleLayers[1], t.hucExps[id]);
+						// control viz function
+						t.clicks.controlVizLayers(t,t.obj.maskWhere);
+					}
+					// call the radio attribute controller function
+					t.clicks.radioAttDisplay(t);
+
+					// call the huc click function
+					// t.clicks.hucClick(t);
+					// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
+					$.each($('#' + c.currentTarget.id).nextAll().children(),function(i,v){
+						$('#' + v.id).slideUp();
+					});
+				});
 			},
 // keep the code below for now if we want to revert from hover attribute populate back to click. //////////////////////////////////////////////
 				// let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
@@ -499,105 +522,97 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 		        // search startup //////////
 		        t.search1.startup();
 		        // call search populate function
-		        t.clicks.searchPopulate(t);
+		        //t.clicks.searchPopulate(t);
 		        
 			},
 			searchPopulate: function(t){
-				// on search complete function ///////////////
-				on(t.search1, 'select-result', function (e) {
-	                let sourceName  = e.source.name;
-	                let searchValue = e.result.name;
-	                if(sourceName == 'Wetlands'){
-						console.log('wetlands were searched')
-						// need to select a wetland here
-					// if not a wetland work with the huc 12 layer //////////////////////////////
-					}else{
-						// populate the viz layers and all the same attributes as if the user had clicked the huc 12 here
-						t.obj.funcTracker = 'Combined Services'
-						t.obj.currentHuc = 'WHUC6'
-						console.log(t.obj.maskWhere);
-						// query for for the huc 12 /////////////////////////////////////						
-						var q1 = new Query();
-						var qt1 = new QueryTask(t.url + "/" + 4);
-						q1.geometry = e.result.feature.geometry;
-						q1.returnGeometry = true;
-						q1.outFields = ["*"];
-						qt1.execute(q1, function(evt){
-							if (evt.features.length > 0){
-								if(sourceName == 'WHUC 12'){
-									$.each($(evt.features),function(i,v){
-										// make sure the values match the search value
-										if(v.attributes.name == searchValue){
-											console.log(v.attributes, '////////////////////////')
-											t.huc6Val = evt.features[0].attributes.WHUC6
-											t.huc8Val = evt.features[0].attributes.WHUC8;
-											t.huc10Val = evt.features[0].attributes.WHUC10;
-											t.huc12Val = evt.features[0].attributes.WHUC12;
-										}
-									});
-								}else{
-									console.log('look here', evt)
-									t.huc6Val = evt.features[0].attributes.WHUC6
-									t.huc8Val = evt.features[0].attributes.WHUC8;
-									t.huc10Val = evt.features[0].attributes.WHUC10;
-									t.huc12Val = evt.features[0].attributes.WHUC12;
-									t.hucValArray = [t.huc6Val, t.huc8Val, t.huc10Val, t.huc12Val]
-								}
-							}else{
-								console.log('no results were returned from the search');
-								// send warning to user that they are outside the scope of the area
-		                		// maybe have text flash for 5 seconds then go away
-							}
-							// use loop to populate the huc extent array for zoom out button use
-							$.each([1,2,3,4],function(i,v){
-								let q1 = new Query();
-								let qt1 = new QueryTask(t.url + "/" + i);
-								q1.geometry = e.result.feature.geometry;
-								q1.returnGeometry = true;
-								q1.outFields = ["*"];
-								qt1.execute(q1, function(evt){
-									console.log(evt);
-									t.hucExtents[i] = evt.features[0].geometry.getExtent();
-								});
-							});
-							// populate the mask exp array
-							t.maskExps = ["OBJECTID < 0", "WHUC6 <>'" + t.huc6Val + "'", "WHUC8 <>'" + t.huc8Val + "'", "WHUC10 <>'" + t.huc10Val + "'", "WHUC12 <>'" + t.huc12Val + "'"];
-							// populate the huc exp array 
-							t.hucExps = [ "WHUC6 ='" + t.huc6Val + "'", "WHUC6 ='" + t.huc6Val + "'", "WHUC8 ='" + t.huc8Val + "'", "WHUC10 ='" + t.huc10Val + "'"] 
-							// populate the huc 12 extent array ////////////////////////////////////////////////////
-							t.hucExtents[4] = evt.features[0].geometry.getExtent();
-							t.huc12Ext =  evt.features[0].geometry.getExtent();
-							// slide down all the zoom buttons on search
-							let i = 0;
-							while (i < 5){
-								// console.log($('#' + t.id + 'zoom-' + i))
-								$('#' + t.id + 'zoom-' + i).children().slideDown();
-								i++
-							}
-							// show and hide various other elements that we need for search.
-							$('#' + t.id + 'mainFuncWrapper').slideDown();
-							$('#' + t.id + 'hucSelWrap').slideDown();
-							$('#' + t.id + 'wfa-findASite').slideUp();
-							$('#' + t.id + 'mainAttributeWrap').slideDown();
+// 				// on search complete function ///////////////
+// 				on(t.search1, 'select-result', function (e) {
+// 	                let sourceName  = e.source.name;
+// 	                let searchValue = e.result.name;
+// 	                if(sourceName == 'Wetlands'){
+// 						// need to select a wetland here
+// 					// if not a wetland work with the huc 12 layer //////////////////////////////
+// 					}else{
+// 						// populate the viz layers and all the same attributes as if the user had clicked the huc 12 here
+// 						t.obj.funcTracker = 'Combined Services'
+// 						t.obj.currentHuc = 'WHUC6'
+// 						// query for for the huc 12 /////////////////////////////////////						
+// 						var q1 = new Query();
+// 						var qt1 = new QueryTask(t.url + "/" + 4);
+// 						q1.geometry = e.result.feature.geometry;
+// 						q1.returnGeometry = true;
+// 						q1.outFields = ["*"];
+// 						qt1.execute(q1, function(evt){
+// 							if (evt.features.length > 0){
+// 								if(sourceName == 'WHUC 12'){
+// 									$.each($(evt.features),function(i,v){
+// 										// make sure the values match the search value
+// 										if(v.attributes.name == searchValue){
+// 											console.log(v.attributes, '////////////////////////')
+// 											t.huc6Val = evt.features[0].attributes.WHUC6
+// 											t.huc8Val = evt.features[0].attributes.WHUC8;
+// 											t.huc10Val = evt.features[0].attributes.WHUC10;
+// 											t.huc12Val = evt.features[0].attributes.WHUC12;
+// 										}
+// 									});
+// 								}else{
+// 									t.huc6Val = evt.features[0].attributes.WHUC6
+// 									t.huc8Val = evt.features[0].attributes.WHUC8;
+// 									t.huc10Val = evt.features[0].attributes.WHUC10;
+// 									t.huc12Val = evt.features[0].attributes.WHUC12;
+// 									t.hucValArray = [t.huc6Val, t.huc8Val, t.huc10Val, t.huc12Val]
+// 								}
+// 							}else{
+// 								console.log('no results were returned from the search');
+// 								// send warning to user that they are outside the scope of the area
+// 		                		// maybe have text flash for 5 seconds then go away
+// 							}
+// 							// use loop to populate the huc extent array for zoom out button use
+// 							$.each([1,2,3,4],function(i,v){
+// 								let q1 = new Query();
+// 								let qt1 = new QueryTask(t.url + "/" + i);
+// 								q1.geometry = e.result.feature.geometry;
+// 								q1.returnGeometry = true;
+// 								q1.outFields = ["*"];
+// 								qt1.execute(q1, function(evt){
+// 									t.hucExtents[i] = evt.features[0].geometry.getExtent();
+// 								});
+// 							});
+// 							// populate the mask exp array
+// 							t.maskExps = ["OBJECTID < 0", "WHUC6 <>'" + t.huc6Val + "'", "WHUC8 <>'" + t.huc8Val + "'", "WHUC10 <>'" + t.huc10Val + "'", "WHUC12 <>'" + t.huc12Val + "'"];
+// 							// populate the huc exp array 
+// 							t.hucExps = [ "WHUC6 ='" + t.huc6Val + "'", "WHUC6 ='" + t.huc6Val + "'", "WHUC8 ='" + t.huc8Val + "'", "WHUC10 ='" + t.huc10Val + "'"] 
+// 							// populate the huc 12 extent array ////////////////////////////////////////////////////
+// 							t.hucExtents[4] = evt.features[0].geometry.getExtent();
+// 							t.huc12Ext =  evt.features[0].geometry.getExtent();
+// 							// slide down all the zoom buttons on search
+// 							let i = 0;
+// 							while (i < 5){
+// 								// console.log($('#' + t.id + 'zoom-' + i))
+// 								$('#' + t.id + 'zoom-' + i).children().slideDown();
+// 								i++
+// 							}
+// 							// show and hide various other elements that we need for search.
+// 							$('#' + t.id + 'mainFuncWrapper').slideDown();
+// 							$('#' + t.id + 'hucSelWrap').slideDown();
+// 							$('#' + t.id + 'wfa-findASite').slideUp();
+// 							$('#' + t.id + 'mainAttributeWrap').slideDown();
 
-// keep code below ///////////////////////////////////////////////////////////////////////////////////////
-							let curHucArray = ['WHUC6', 'WHUC8', 'WHUC10', 'WHUC12'];
-							$.each(curHucArray,function(i,v){
-								t.obj.currentHuc = v;
-								// t.obj.maskWhere = t.obj.currentHuc <> + huvVal;
-								t.obj.maskWhere = t.obj.currentHuc + " <> '" + t.hucValArray[i] + "'";
-								t.searchWhere = t.obj.currentHuc + " = '" + t.hucValArray[i] + "'";
-								console.log(t.obj.maskWhere)
-								t.clicks.controlVizLayers(t, t.obj.maskWhere)
-								t.clicks.hoverGraphic(t, (i+1), t.searchWhere)
+// // keep code below ///////////////////////////////////////////////////////////////////////////////////////
+// 							let curHucArray = ['WHUC6', 'WHUC8', 'WHUC10', 'WHUC12'];
+// 							$.each(curHucArray,function(i,v){
+// 								t.obj.currentHuc = v;
+// 								// t.obj.maskWhere = t.obj.currentHuc <> + huvVal;
+// 								t.obj.maskWhere = t.obj.currentHuc + " <> '" + t.hucValArray[i] + "'";
+// 								t.searchWhere = t.obj.currentHuc + " = '" + t.hucValArray[i] + "'";
+// 								t.clicks.controlVizLayers(t, t.obj.maskWhere)
+// 								t.clicks.hoverGraphic(t, (i+1), t.searchWhere)
 
-							})
-						});
-					}
-					console.log(t.hucExtents);
-
-
-	            });
+// 							})
+// 						});
+// 					}
+// 	            });
 			},
 // Wetland click function /////////////////////////////////////////////////////////////////////////////////////////////////
 			wetlandClick: function(t){
@@ -611,8 +626,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				wetQ.execute(wq, function(evt){
 					if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
 						t.obj.wetlandClick = 'yes'
-						var curColors  = ['rgb(237,248,233)', 'rgb(116,196,118)','rgb(49,163,84)', 'rgb(0,109,44)'];
-						var potColors = ['rgb(254,229,217)', 'rgb(251,106,74)','rgb(222,45,38)', 'rgb(165,15,21)'];
+						var curColors  = ['rgb(237,248,233)', 'rgb(0,109,44)','rgb(49,163,84)', 'rgb(116,196,118)'];
+						var potColors = ['rgb(254,229,217)', 'rgb(165,15,21)','rgb(222,45,38)','rgb(251,106,74)'];
 						var atts = evt.features[0].attributes;
 						// update the attribute colors for wetlands
 						var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
@@ -621,14 +636,21 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 							let attVal = atts[$(v).data('wfa')];
 							if(attVal == 0){
 								htmlVal = 'Not Applicable'
+								t.countVal = '0';
 							}else if(attVal == 1){
-								htmlVal = 'Moderate'
+								htmlVal = 'Very High'
+								t.countVal = '7-9'
 							}else if(attVal == 2){
 								htmlVal = 'High'
+								t.countVal = '4-6'
 							}else if(attVal == 3){
-								htmlVal = 'Very High'
+								htmlVal = 'Moderate'
+								t.countVal = '1-3'
 							}
 							let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
+							if(v.innerHTML == 'Count of Service ≥ High:'){
+								t.countValue = $('#' + t.id + 'countOptionText').html(t.countVal);
+							}
 							if(atts.WETLAND_TYPE == 'WWI'){
 								$(v).parent().find('.wfa-attributePatch').css('background-color', curColors[attVal])
 							}else{
@@ -892,18 +914,10 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 			},
 // Make vars //////////////////////////////////////////////////////////////////////////////////////////////////
 			makeVariables: function(t){
-				t.NatNotProt = "";
-				t.RowAgNotProt = "";
-				t.RowAgProt = "";
-				t.DevProt = "";
-				t.FRStruct_TotLoss = "";
-				t.AGLoss_7 = "";
-				t.NDelRet = "";
-				t.Denitrification = "";
-				t.Reconnection = "";
-				t.BF_Existing = "";
-				t.BF_Priority = "";
-				t.SDM = "";
+				t.wetEnd = 26;
+				t.wetStart = 4;
+				
+			
 			},
 			updateAccord: function(t){
 				var ia = $( "#" + t.id + "infoAccord" ).accordion( "option", "active" );

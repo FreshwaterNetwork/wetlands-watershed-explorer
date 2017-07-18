@@ -75,6 +75,30 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						t.dynamicLayer2.setOpacity(t.obj.opacityVal2);
 					})	
 				});
+// the code below may be useful. we used it to hide a legend item but it is clunky.
+				// t.map.on("update-end", function (e) {
+				// 	let span = $(".layer-legends").find('span');
+				// 	// console.log(span);
+				// 	$.each(span,function(i,v){
+				// 		// console.log(v);
+				// 		if($(v).html() == 'HUC - Mask'){
+				// 			console.log(v)
+				// 			$(v).parent().parent().hide()
+				// 		}
+				// 	});
+				// })	
+				// t.map.on("update-start", function (e) {
+				// 	let span = $(".layer-legends").find('span');
+				// 	// console.log(span);
+				// 	$.each(span,function(i,v){
+				// 		// console.log(v);
+				// 		if($(v).html() == 'HUC - Mask'){
+				// 			console.log(v)
+				// 			$(v).parent().parent().hide()
+				// 		}
+				// 	});
+				// })
+
 				t.dynamicLayer2.on("load", function () {	
 					t.layersArray2 = t.dynamicLayer.layerInfos;
 				});				
