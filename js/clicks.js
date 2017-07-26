@@ -96,7 +96,6 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 						t.obj.visibleLayers2 = []; // empty list of rasters
 						t.clicks.controlVizLayers(t, t.obj.maskWhere);
 					}
-					
 				});
 				// wildlife radio buttons /////////////////
 				$("#" + t.id + 'wildlifeRadioButtons input').on('click',function(c, x){
