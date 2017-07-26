@@ -7,6 +7,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 
         return declare(null, {
 			eventListeners: function(t){
+				t.addShapefile.testFunction(t);
 				//info accord
 				$( function() {
 					$( "#" + t.id + "infoAccord" ).accordion({heightStyle: "fill"});

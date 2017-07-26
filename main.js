@@ -5,9 +5,9 @@
 // Bring in dojo and javascript api classes as well as varObject.json, js files, and content.html
 define([
 	"dojo/_base/declare", "framework/PluginBase", "dijit/layout/ContentPane", "dojo/dom", "dojo/dom-style", "dojo/dom-geometry", "dojo/text!./obj.json", 
-	"dojo/text!./html/content.html", './js/esriapi', './js/clicks', 'dojo/_base/lang',"esri/dijit/Search", 'esri/map', "dojo/on", 'dojo/domReady!'
+	"dojo/text!./html/content.html", './js/esriapi', './js/clicks','./js/addShapefile', 'dojo/_base/lang',"esri/dijit/Search", 'esri/map', "dojo/on", 'dojo/domReady!'
 ],
-function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, esriapi, clicks, lang, Search, Map, on) {
+function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content, esriapi, clicks, addShapefile, lang, Search, Map, on) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName: "Wetlands and Watersheds Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
@@ -129,6 +129,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			// BRING IN OTHER JS FILES
 			this.esriapi = new esriapi();
 			this.clicks = new clicks();
+			this.addShapefile = new addShapefile();
 			// ADD HTML TO APP
 			// Define Content Pane as HTML parent		
 			this.appDiv = new ContentPane({style:'padding:0; color:#000; flex:1; display:flex; flex-direction:column;}'});
