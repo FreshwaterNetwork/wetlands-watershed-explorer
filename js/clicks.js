@@ -7,7 +7,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 
         return declare(null, {
 			eventListeners: function(t){
-				t.addShapefile.testFunction(t);
+				//t.addShapefile.testFunction(t);
+				//t.addShapefile.uploadShapefile(t);
 				//info accord
 				$( function() {
 					$( "#" + t.id + "infoAccord" ).accordion({heightStyle: "fill"});
@@ -35,11 +36,13 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				})
 				// info icon clicks
 				$('#' + t.id + ' .infoIcon').on('click',function(c){
-					t.showHelp();
-					var ben = c.target.id.split("-").pop();
-					$('#' + t.id + 'getHelpBtn').html('Back to wfa Floodplain Explorer');
-					t.clicks.updateAccord(t);	
-					$('#' + t.id + 'infoAccord .' + ben).trigger('click');
+					let helpText = $('#' + c.currentTarget.id).parent().next();
+					// let helpText = $('#' + c.currentTarget.id).parent().find('.wfa-helpText');
+					if(helpText.is(":visible")){
+						helpText.slideUp();
+					}else{
+						helpText.slideDown();
+					}
 				});
 				// suppress help on startup click
 				$('#' + t.id + '-shosu').on('click',function(c){
@@ -100,6 +103,8 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				});
 				// wildlife radio buttons /////////////////
 				$("#" + t.id + 'wildlifeRadioButtons input').on('click',function(c, x){
+					// console.log(wfa-wildlifeRadioButtons)
+					console.log($("#" + t.id + '.wfa-wildlifeRadioButtons input'))
 					if(c.currentTarget.type == 'checkbox'){
 						if(c.currentTarget.checked == true){
 							t.obj.prwTracker = c.currentTarget.value;

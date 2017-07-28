@@ -42,6 +42,29 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		
 		<div class="wfa-searchWidget" id="search1"></div>
 	</div>
+	<!-- <form enctype="multipart/form-data" method="post" id="uploadShapefileBtn">
+	 <div class="field">
+	      <label class="file-upload">
+	          <span><strong>Add File</strong></span>
+	          <input type="file" name="file" id="inFile" />
+	      </label>
+	  </div> -->
+	   <!--  <div style='padding-left:4px;'>
+          <p>
+            Add a zipped shapefile to the map.</p><p>Visit the
+            <a target='_blank' href="https://doc.arcgis.com/en/arcgis-online/reference/shapefiles.htm">Shapefiles</a> help topic for information and limitations.</p>
+              <form enctype="multipart/form-data" method="post" id="uploadForm">
+              <div class="field">
+                  <label class="file-upload">
+                      <span><strong>Add File</strong></span>
+                      <input type="file" name="file" id="inFile" />
+                  </label>
+              </div>
+              </form>
+              <span class="file-upload-status" style="opacity:1;" id="upload-status"></span>
+              <div id="fileInfo"> </div>
+        </div> -->
+	<!-- <button class="button button-primary" id="uploadShapefileBtn" style="margin-top: 30px;" >Upload Shapefile</button> -->
 	
 
 </div>
@@ -53,7 +76,15 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!-- Main Content Wrap area ///////////////////////////////////////////////////////////////////////////////////// -->
 <div id="wfa-mainContentWrap" class="wfa-mainContentWrap">
 	<div id="hucSelWrap" class="hide">
-		<h3 style="margin-top: 0px; margin-bottom: 5px; ">Selected Watersheds:</h3>
+		<div class="wfa-headerInfoWrap">
+			<h3 style="margin: 0px;">Selected Watersheds:</h3>
+			<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="infoIcon" id="helpText1">
+		</div>
+		<!-- help text -->
+		<div class="wfa-helpText hide blueFont">
+			test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
+		</div>
+		
 		<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-0">
 			<div id="fullExt-selText" class="hide"><span >Go to: </span><span class="wfa-textZoom">Full Extent or back to Search</span></div>
 		</div>
@@ -74,7 +105,15 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 <!-- Function of Interest find/eval wrapper ///////////////////////////////////////////////////////////////////////////////////////// --> 
 	<div class="hide" id="mainFuncWrapper" style="margin-bottom: 15px;">
-		<h3 style="margin-top: 15px;">Choose Service of Interest:</h3>
+		<div class="wfa-headerInfoWrap">
+			<h3 style="margin: 0px;">Choose Service of Interest:</h3>
+			<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="infoIcon" id="helpText2">
+		</div>
+		<!-- help text -->
+		<div class="wfa-helpText hide blueFont">
+			test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
+		</div>
+		
 		<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
 			<div class="wfa-func_radioGroups">
 				<label data-wfa-mode='huc' class="form-component wfa-funcLabel"  for="combined-option">
@@ -166,29 +205,29 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				<div class="wfa-wildlifeRadioButtons">
 					<div>
 						<label class="form-component wfa-funcLabel" style="display: block;" for="total-option">
-							<input checked type="radio" id="total-option" name="wild" class="rb_cb" value="All Guilds">
+							<input checked type="checkbox" id="total-option" name="wild" class="rb_cb" value="All Guilds">
 							<div class="check"></div>
 							<span class="form-text">All Guilds</span>
 						</label>
 						<label class="form-component wfa-funcLabel" style="display: block;" for="forest-option">
-							<input  type="radio" id="forest-option" name="wild" class="rb_cb" value="Forest Interior Birds Guild">
+							<input  type="checkbox" id="forest-option" name="wild" class="rb_cb" value="Forest Interior Birds Guild">
 							<div class="check"></div>
 							<span class="form-text">Forest Interior Guild</span>
 						</label>
 						<label  class="form-component wfa-funcLabel" style="display: block;" for="swamp-option">
-							<input type="radio" id="swamp-option" name="wild" class="rb_cb" value="Wet Shrub Birds Guild">
+							<input type="checkbox" id="swamp-option" name="wild" class="rb_cb" value="Wet Shrub Birds Guild">
 							<div class="check"></div>
 							<span class="form-text">Shrub Swamp Guild</span>
 						</label>
 					</div>
 					<div style="margin-left: 45px;">
 						<label class="form-component wfa-funcLabel" style="display: block;" for="marsh-option">
-							<input type="radio" id="marsh-option" name="wild" class="rb_cb" value="Shallow Marsh Birds Guild">
+							<input type="checkbox" id="marsh-option" name="wild" class="rb_cb" value="Shallow Marsh Birds Guild">
 							<div class="check"></div>
 							<span class="form-text">Shallow Marsh Guild</span>
 						</label>
 						<label class="form-component wfa-funcLabel" style="display: block;" for="openWater-option">
-							<input type="radio" id="openWater-option" name="wild" class="rb_cb" value="Open Water Birds Guild">
+							<input type="checkbox" id="openWater-option" name="wild" class="rb_cb" value="Open Water Birds Guild">
 							<div class="check"></div>
 							<span class="form-text">Open Waters Guild</span>
 						</label>
@@ -214,10 +253,17 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 <!-- Find/eval a site attribute wrap //////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-	<div id="watershedHoverText" class="wfa-watershedHoverText hide">Hover over subwatersheds to see how they compare within their larger watershed.</div>
+	<div id="watershedHoverText" class="wfa-watershedHoverText hide">Hover over subwatersheds to see how they compare within their larger watershed.
+		<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="infoIcon" id="helpText3">
+	</div>
+	<!-- help text -->
+	<div class="wfa-helpText hide blueFont">
+		test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
+	</div>
 	<div class="hide" id="mainAttributeWrap">
 		<hr>
 		<h3 style="margin-top: 15px;">Range of Services: <span id="siteServices_span">(Currently selected: All)</span></h3>
+
 		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap ">
 			<div class="blueFont" style="font-weight: normal; margin-bottom: 10px;">Click on individual sites to see how they compare to others in this watershed.</div>
 			<div style="position: relative;">

@@ -1,7 +1,13 @@
 /*  Main CSS Styling for WI apps //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 .infoIcon{
-	margin-bottom:-2px; margin-left:3px; cursor:pointer; position: absolute; right: 10px; top: 7px;
+	margin-left:4px; cursor:pointer; height: 16px;
+}
+.wfa-headerInfoWrap{
+	display: flex; align-items: center; margin-top: 15px; margin-bottom: 10px;
+}
+.wfa-helpText{
+	font-weight: 100 !important;
 }
 hr{
 	border-bottom: 1px solid #cdd5d5; width: 400px; margin-right: 14px;
@@ -134,7 +140,7 @@ hr{
 	background: #fff; position: absolute; z-index: 1000; width: 420;
 }
 .wfa-mainContentWrap{
-	position: relative; top: 10px; padding-left: 7px;
+	position: relative; padding-left: 7px;
 }
 .wfa-dlwrap a {
 	color: blue !important; cursor: pointer !important;
