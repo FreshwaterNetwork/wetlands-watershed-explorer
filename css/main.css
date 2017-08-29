@@ -3,9 +3,7 @@
 .infoIcon{
 	margin-left:4px; cursor:pointer; height: 16px;
 }
-.wfa-headerInfoWrap{
-	display: flex; align-items: center; margin-top: 15px; margin-bottom: 10px;
-}
+
 .wfa-helpText{
 	font-weight: 100 !important;
 }
@@ -14,6 +12,9 @@ hr{
 }
 /*.form-component{
 	display: block;
+}*/
+/*.wfa-headerInfoWrap{
+	margin-bottom: 4px;
 }*/
 .flex-center{
 	display:flex; align-items:center;
