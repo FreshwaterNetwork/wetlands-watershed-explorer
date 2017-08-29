@@ -10,7 +10,7 @@
 	"wildTracker": "All Guilds",
 	"wildlifeOpenTracker": "null",
 	"wetlandClick": "no",
-	"currentHuc": "",
+	"currentHuc": "WHUC4",
 	"currentWet": "",
 	"dynamicLyrExt": "",
 	"opacityVal": 25,
@@ -18,5 +18,14 @@
 	"huc": "HUC 10",
 	"extent": "",
 	"stateSet": "no",
-	"search": "no"
+	"search": "no",
+	"buildReport": "no",
+	"wetlandListArray": [],
+	"pnt": "",
+	"where": "OBJECTID > 0",
+	"maskClick": "",
+	"maskExps": ["OBJECTID < 0","","",""],
+	"hucExtents": ["","","",""],
+	"hucExps": ["","","",""],
+	"hucNames": []
 }

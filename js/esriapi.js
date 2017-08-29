@@ -1,9 +1,9 @@
 define([
 	"esri/layers/ArcGISDynamicMapServiceLayer", "esri/geometry/Extent", "esri/SpatialReference", "esri/tasks/query" ,"esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", 
-	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color"
+	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color", 
 ],
 function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, QueryTask, declare, FeatureLayer, 
-			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color ) {
+			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color) {
         "use strict";
 
         return declare(null, {
@@ -20,10 +20,14 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				if (t.obj.visibleLayers.length > 0){	
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
 				}
+				
 // Dynamic layer on load ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				t.dynamicLayer.on("load", function () { 			
+				t.dynamicLayer.on("load", function () { 
+
+					
+
 					t.layersArray = t.dynamicLayer.layerInfos;
-					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent.expand(.6);
+					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent.expand(1);
 					t.clicks.featureLayerListeners(t);
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(.6), true)
@@ -72,6 +76,17 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						t.dynamicLayer2.setOpacity(t.obj.opacityVal2);
 					})	
 				});
+				// Work with the explain each choice buttons
+				$('.wfa-helpLinkText').unbind().on('click',function(c){
+					// console.log(c.currentTarget.id);
+					if(c.currentTarget.id == 'dijit_layout_ContentPane_0explainButton'){
+						console.log('show help')
+					}else{
+						console.log('open report')
+					}
+				})
+
+
 // the code below may be useful. we used it to hide a legend item but it is clunky.
 				// t.map.on("update-end", function (e) {
 				// 	let span = $(".layer-legends").find('span');

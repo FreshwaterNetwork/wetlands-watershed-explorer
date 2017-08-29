@@ -42,30 +42,29 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		
 		<div class="wfa-searchWidget" id="search1"></div>
 	</div>
-	<!-- <form enctype="multipart/form-data" method="post" id="uploadShapefileBtn">
-	 <div class="field">
-	      <label class="file-upload">
-	          <span><strong>Add File</strong></span>
-	          <input type="file" name="file" id="inFile" />
-	      </label>
-	  </div> -->
-	   <!--  <div style='padding-left:4px;'>
-          <p>
-            Add a zipped shapefile to the map.</p><p>Visit the
-            <a target='_blank' href="https://doc.arcgis.com/en/arcgis-online/reference/shapefiles.htm">Shapefiles</a> help topic for information and limitations.</p>
-              <form enctype="multipart/form-data" method="post" id="uploadForm">
-              <div class="field">
-                  <label class="file-upload">
-                      <span><strong>Add File</strong></span>
-                      <input type="file" name="file" id="inFile" />
-                  </label>
-              </div>
-              </form>
-              <span class="file-upload-status" style="opacity:1;" id="upload-status"></span>
-              <div id="fileInfo"> </div>
-        </div> -->
-	<!-- <button class="button button-primary" id="uploadShapefileBtn" style="margin-top: 30px;" >Upload Shapefile</button> -->
+	<div id="printButton">
+		
+
+	</div>
+	<!-- <button class="button button-primary" id="viewReport">Create Report</button> -->
+
 	
+	<!-- upload shapefile code -->
+    <!-- <div style='padding-left:4px;'>
+      <p>
+        Add a zipped shapefile to the map.</p><p>Visit the
+        <a target='_blank' href="https://doc.arcgis.com/en/arcgis-online/reference/shapefiles.htm">Shapefiles</a> help topic for information and limitations.</p>
+          <form enctype="multipart/form-data" method="post" id="uploadForm">
+          <div class="field">
+              <label class="file-upload">
+                  <span><strong>Add File</strong></span>
+                  <input type="file" name="file" id="inFile" />
+              </label>
+          </div>
+          </form>
+          <span class="file-upload-status" style="opacity:1;" id="upload-status">Status</span>
+          <div id="fileInfo"> </div>
+    </div> -->
 
 </div>
 
@@ -76,9 +75,13 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!-- Main Content Wrap area ///////////////////////////////////////////////////////////////////////////////////// -->
 <div id="wfa-mainContentWrap" class="wfa-mainContentWrap">
 	<div id="hucSelWrap" class="hide">
+		<div id="helpLinkWrapper" class="wfa-helpLinkWrapper">
+			<div class="wfa-helpLinkText" id="explainButton">Explain Each Section</div>
+			<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;">View Report</div>
+		</div>
+		
 		<div class="wfa-headerInfoWrap">
 			<h3 style="margin: 0px;">Selected Watersheds:</h3>
-			<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="infoIcon" id="helpText1">
 		</div>
 		<!-- help text -->
 		<div class="wfa-helpText hide blueFont">
@@ -102,12 +105,12 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</div>
 		<hr>
 	</div>
+	<div id="legend-div"></div>
 
 <!-- Function of Interest find/eval wrapper ///////////////////////////////////////////////////////////////////////////////////////// --> 
-	<div class="hide" id="mainFuncWrapper" style="margin-bottom: 15px;">
+	<div class="hide" id="mainFuncWrapper">
 		<div class="wfa-headerInfoWrap">
 			<h3 style="margin: 0px;">Choose Service of Interest:</h3>
-			<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="infoIcon" id="helpText2">
 		</div>
 		<!-- help text -->
 		<div class="wfa-helpText hide blueFont">
@@ -186,10 +189,10 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			</div>
 		</div>
 		<!-- Vector opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
-		<div class="wfa-sum-wrap" style="height: 33.6px; margin: auto; margin-top: 7px;">	
+		<div class="wfa-transOpSlider">	
 			<div class="slider-container">
 				<div class="wfa-sliderLabels">Opaque</div>
-				<div id="sldr" class="slider"></div>	
+				<div id="sldr" class="slider" style="width: 160px"></div>	
 				<div class="wfa-sliderLabels">Transparent</div>
 			</div>
 		</div>
@@ -198,11 +201,11 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<label class="hide form-component wfa-wildlifeCheck" for="a-option" id="wildlifeCheck">
 				<input type="checkbox" id="a-option" name="wildlifeCheck">
 				<div class="check"></div>
-				<span class="form-text" style="margin-left: 4px;">View Wetland Wildlife Habitat</span>
+				<span class="form-text">View Wetland Wildlife Habitat</span>
 			</label>
 			<!-- Wildlife radio buttons ///////////////////////////////////////////////////////////////////////-->
 			<div id="wildlifeRadioButtons" class="hide">
-				<div class="wfa-wildlifeRadioButtons">
+				<div class="wfa-wildlifeRadioButtons" id="wildlife-only">
 					<div>
 						<label class="form-component wfa-funcLabel" style="display: block;" for="total-option">
 							<input checked type="checkbox" id="total-option" name="wild" class="rb_cb" value="All Guilds">
@@ -237,34 +240,42 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				<label class="hide form-component wfa-prwCheck" for="prw-option" id="prwCheck">
 					<input type="checkbox" id="prw-option" name="prwCheck" value="All-Guild Restoration Opportunities">
 					<div class="check"></div>
-					<span class="form-text" style="margin-left: 4px;">All-Guild Restoration Opportunities</span>
+					<span class="form-text">All-Guild Restoration Opportunities</span>
 				</label>
 				<!-- wildlife opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
-				<div class="wfa-sum-wrap" style="height: 33.6px; margin: auto; margin-top: 7px;">	
+				<div class="wfa-transOpSlider">	
 					<div class="slider-container">
 						<div class="wfa-sliderLabels">Opaque</div>
-						<div id="sldr1" class="slider"></div>	
+						<div id="sldr1" class="slider" style="width: 160px"></div>	
 						<div class="wfa-sliderLabels">Transparent</div>
 					</div>
 				</div>
 			</div>
+			</div>
+		</div>
+<!-- Create report Wrapper section /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		<!-- <div id="createReportWrapper" class="hide">
+			<button class="button button-primary wfa-buildReportText" id="buildReport">Build Wetland Report</button>
+		</div> -->
+		<!-- Report help text -->
+		<div class="wfa-helpText hide blueFont">
+			test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
 		</div>
 	</div>
 
 <!-- Find/eval a site attribute wrap //////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-	<div id="watershedHoverText" class="wfa-watershedHoverText hide">Hover over subwatersheds to see how they compare within their larger watershed.
-		<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="infoIcon" id="helpText3">
+	<div id="watershedHoverText" class="wfa-watershedHoverText hide">Hover over subwatersheds to compare range of services.
 	</div>
 	<!-- help text -->
 	<div class="wfa-helpText hide blueFont">
 		test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
 	</div>
-	<div class="hide" id="mainAttributeWrap">
+	<div class="hide" id="mainAttributeWrap" style="padding-left: 7px">
 		<hr>
 		<h3 style="margin-top: 15px;">Range of Services: <span id="siteServices_span">(Currently selected: All)</span></h3>
 
-		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap ">
+		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap">
 			<div class="blueFont" style="font-weight: normal; margin-bottom: 10px;">Click on individual sites to see how they compare to others in this watershed.</div>
 			<div style="position: relative;">
 				<!-- WET attributes ///////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -413,6 +424,34 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</div>
 	</div>
 </div>
+
+<!-- Report Section ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<div id="reportWrapper" class="hide">
+	<button class="button button-primary wfa-buildReportBack" id="buildReportBack">Back</button>
+	<h3 style="margin-left: 10px;">This is the main title for the report section</h3>
+	<div class="wfa-reportIntText">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+	<div class="wfa-reportIntText">Choose up to 5 wetlands by clicking on map</div>
+	<div id="wetlandSelCounter" class="wetlandSelCounter"><span style="font-weight: bold;">0</span><span style="font-weight: bold;"> of 5</span> wetlands selected</div>
+	<div id="wetlandSelectedList"></div>
+	<div id="viewReportWrapper" class=" hide">
+		<!-- <button class="button button-primary" id="viewReport">Create Report</button> -->
+	</div>
+	
+	<!-- For Chosen options visit https://harvesthq.github.io/chosen/ -->
+	<!-- Multiple select is turned on in the select tag (multiple="true") -->
+	<!-- Add class chosen-wrap to select's parent -->
+	<!-- <div class="chosen-wrap" style="margin-bottom:10px;">
+		<select data-placeholder="Pick Multiple Numbers" id="chosenMultiple" multiple="true" class="chosen">
+			<option value="one">One</option>
+			<option value="two">Two</option>
+			<option value="three">Three</option>
+			<option value="four">Four</option>
+			<option value="five">Five</option>
+		</select>
+	</div>
+	<p>Array of selected values: <span class="blueFont">[]</span></p> -->
+</div>
+
 
 
 <!-- Download data Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
