@@ -237,4 +237,7 @@ hr{
 .wfa-helpLinkText:hover{
 	color: #2795b6; cursor: pointer; 
 }
+.wfa-helpText{
+	margin: 5px 0 5px 0; font-weight: normal !important;
+}
 
