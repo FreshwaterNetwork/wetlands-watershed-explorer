@@ -109,18 +109,20 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$("input:checkbox[name='" + checkname + "']").not(this).removeAttr("checked");
 					}
 					if(c.currentTarget.type == 'checkbox'){
-						console.log(c.currentTarget);
 						if(c.currentTarget.checked == true){
-							
-							t.obj.wildTracker = c.currentTarget.value;
 							if(c.currentTarget.name == 'prwCheck'){
 								t.obj.prwTracker = c.currentTarget.value;
 							}else{
+								// t.obj.prwTracker = 'null';
+								t.obj.wildTracker = c.currentTarget.value;
+							}
+						}else{
+							if(c.currentTarget.name == 'prwCheck'){
 								t.obj.prwTracker = 'null';
+							}else{
+								t.obj.wildTracker = 'null';
 							}
 						}
-					}else{
-						// t.obj.wildTracker = c.currentTarget.value;
 					}
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
 				});
@@ -168,14 +170,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(t.obj.stateSet == "yes"){
-					// console.log(t.obj.extent)
-					// console.log(t.obj.visibleLayers)
-					// console.log(t.obj.visibleLayers2)
-					// console.log(t.obj.currentHuc)
-					// console.log(t.obj.maskWhere)
-					// console.log(t.obj.hucNames)
-					console.log(t.obj.hucExtents);
-
 					// loop through huc name list and populate the zoom buttons
 					$.each(t.obj.hucNames,function(i,v){
 						let count = i +=1
@@ -825,66 +819,24 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 // show hide the raster wildlife layers if checkbox toggled on THIS IS IN VIZ LAYERS FUNCTION ///////////////////////////////////////////////////////////////////
 				if (t.obj.wildlifeCheck == 'wildlife'){
 					t.obj.visibleLayers2 = [];
-					console.log(t.obj.visibleLayers2)
-					console.log(t.obj.prwTracker)
-					console.log(t.obj.wildTracker)
-					
-					let wildRad = $('#' + t.id + 'wildlife-only').find('input');
-					$.each(wildRad,function(i,v){
-						console.log(i,v);
-						if(v.checked == true){
-							console.log(v.value);
-							$.each($(t.layersArray),function(i,v){
-								if(t.obj.wildTracker == v.name){
-									t.obj.visibleLayers2.push(v.id);
-								}
-								// if(t.obj.prwTracker != 'null'){
-								// 	if (t.obj.prwTracker == v.name) {
-								// 		t.obj.visibleLayers2.push(v.id);
-								// 	}
-								// }
-							});
-
-						}
-					})
-
-
-
-					// if(t.obj.visibleLayers2.length > 0){
-					// 	t.obj.visibleLayers2 = [];
-					// 	$.each($(t.layersArray),function(i,v){
-					// 		if(t.obj.wildTracker == v.name){
-					// 			t.obj.visibleLayers2.push(v.id);
-					// 		}
-					// 	});
-					// }else{
-					// 	$.each($(t.layersArray),function(i,v){
-					// 		if(t.obj.wildTracker == v.name){
-					// 			t.obj.visibleLayers2.push(v.id);
-					// 		}
-					// 	});
-					// }
-
-
-					// if(t.obj.prwTracker != 'null'){
-					// 	// add prw layer
-					// 	$.each($(t.layersArray),function(i,v){
-					// 		if (t.obj.prwTracker == v.name) {
-					// 			t.obj.visibleLayers2.push(v.id);
-					// 		}
-					// 	});
-					// }else{
-					// 	// remove prw layer
-					// 	var index = t.obj.visibleLayers.indexOf(54)
-					// 	if(index > -1){
-					// 		t.obj.visibleLayers2.splice(index,1)
-					// 	}
-					// }
+					if(t.obj.wildTracker != 'null'){
+						$.each($(t.layersArray),function(i,v){
+							if(t.obj.wildTracker == v.name){
+								t.obj.visibleLayers2.push(v.id);
+							}
+						});
+					}
+					if(t.obj.prwTracker != 'null'){
+						$.each($(t.layersArray),function(i,v){
+							if(t.obj.prwTracker == v.name){
+								t.obj.visibleLayers2.push(v.id);
+							}
+						});
+					}
 				}
 				if(t.obj.wildlifeOpenTracker != 'open'){
 					t.obj.visibleLayers2 = [];
 				}
-				console.log(t.obj.visibleLayers2)
 				t.dynamicLayer2.setVisibleLayers(t.obj.visibleLayers2);
 				// re add layers to control draw order.
 				t.map.addLayer(t.dynamicLayer2);
