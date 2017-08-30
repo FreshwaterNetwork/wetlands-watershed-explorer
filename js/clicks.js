@@ -67,6 +67,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$("#"+ t.id + 'wfa-mainContentWrap').slideUp();
 					}
 				});
+// Download HUC 12 data click //////////////////////////////////////////////////////////////////////////////////////////////
+				// Data download click
+				$('#' + t.id + 'dlBtn').on('click',  function(){
+					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + t.obj.huc12Name + "_data.zip", "_parent");
+				});	
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// Set selected value text for button clicks
 				$( '#' + t.id + 'wfa-findEvalSiteToggle input' ).click(function(c){
@@ -353,13 +358,17 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.hucVal  = evt.features[0].attributes.WHUC10
 							t.obj.visibleLayers = [0,4,t.obj.selHuc]
 							$('#' + t.id + 'createReportWrapper').slideUp(); // slide up report button
+							$('#' + t.id + 'downloadDataWrapper').slideUp(); // slide down report button
 						}else if(t.obj.visibleLayers[1] == 4 ){
 							t.obj.selHuc = 33;
 							t.obj.currentHuc = 'WHUC12';
 							t.hucVal  = evt.features[0].attributes.WHUC12
+							t.obj.huc12Name = evt.features[0].attributes.name
 							t.obj.visibleLayers = [0,4,6,16]
 							$('#' + t.id + 'mainAttributeWrap').slideUp();
-							$('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
+							// $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
+							$('#' + t.id + 'downloadDataWrapper').slideDown(); // slide down report button
+
 						}
 						// set the def query for the huc mask /////////////////////	
 						if(t.obj.currentHuc != 'WHUC12'){
@@ -543,6 +552,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						// control viz function
 						t.clicks.controlVizLayers(t,t.obj.maskWhere);
 						$('#' + t.id + 'createReportWrapper').slideUp(); // slide up report button
+						$('#' + t.id + 'downloadDataWrapper').slideUp(); // slide down report button
 						//t.clicks.hoverGraphic(t,1,t.obj.where)
 					// below code is for if the user clicks on the huc 12 zoom //////////////////////////////
 					}else if(id == 4){ // set extent back to huc 12 when the go to button is clicked
@@ -561,6 +571,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						// control viz function
 						t.clicks.controlVizLayers(t,t.obj.maskWhere);
 						$('#' + t.id + 'createReportWrapper').slideUp(); // slide up report button
+						$('#' + t.id + 'downloadDataWrapper').slideUp(); // slide down report button
 					}
 					// call the radio attribute controller function
 					t.clicks.radioAttDisplay(t);

@@ -12,6 +12,7 @@
 	"wildlifeOpenTracker": "null",
 	"wetlandClick": "no",
 	"currentHuc": "WHUC4",
+	"huc12Name": "",
 	"currentWet": "",
 	"dynamicLyrExt": "",
 	"opacityVal": 25,
