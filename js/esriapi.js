@@ -78,35 +78,21 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				});
 				// Work with the explain each choice buttons
 				$('.wfa-helpLinkText').unbind().on('click',function(c){
-					// console.log(c.currentTarget.id);
 					if(c.currentTarget.id == 'dijit_layout_ContentPane_0explainButton'){
-						console.log('show help')
 						let helpText = $('.wfa-helpText');
-						console.log(helpText);
-						// console.log(helpText[0].is(":visible"))
 						$.each(helpText,function(i,v){
-
-							console.log($(v).is(":visible"));
-
-							// console.log($(v).hidden)
 							if($(v).is(":visible") == false){
 								$(v).slideDown();
-								console.log(c)
 								$(c.currentTarget).html('Hide Explanations')
 								$(c.currentTarget).css('color', 'rgb(140, 33, 48)')
 							}else{
 								$(v).slideUp();
 								$(c.currentTarget).html('Explain Each Section')
 								$(c.currentTarget).css('color', 'blue')
-
 							}
-							
 						})
-					}else{
-						// console.log('open report')
 					}
 				})
-
 
 // the code below may be useful. we used it to hide a legend item but it is clunky.
 				// t.map.on("update-end", function (e) {

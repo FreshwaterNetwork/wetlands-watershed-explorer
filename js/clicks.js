@@ -326,7 +326,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						// retrieve huc attributes on map click to be used in the huc Attribute functions.
 						t.hucAttributes = evt.features[0].attributes;
 						t.obj.hucNames.push(t.hucAttributes.name);
-						console.log(t.obj.hucNames);
 						t.fExt = evt.features[0].geometry.getExtent().expand(1);
 						if(t.obj.visibleLayers[1] == 1 ){
 							t.obj.selHuc = 30;
@@ -336,7 +335,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$('#' + t.id + 'watershedHoverText').show();
 							$('#' + t.id + 'wetlandHoverText').hide();
 						}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26){
-							console.log('currentWet is wetland')
 							t.obj.currentWet = 'wetland' // this is a wetland click
 							if(t.obj.search == 'yes'){
 								t.obj.currentHuc = 'WHUC12';
@@ -686,7 +684,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				// wetland query 
 				var wq = new Query();
 				var wetQ = new QueryTask(t.url + "/" + 48);
-				console.log('wetland click')
 				wq.geometry = t.obj.pnt;
 				wq.returnGeometry = true;
 				wq.outFields = ["*"];
@@ -762,7 +759,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 // control visible layers function /////////////////////////////////////////////////////////////////////////////
 			controlVizLayers :function(t, maskWhere){
 				if (t.obj.currentHuc != 'WHUC4') {
-					console.log('inside control viz')
 					// manipulate string to the proper format, use the same tracker as for the queries but add 2 unless it is a huc 12
 					var curHucNum = t.obj.currentHuc.slice(-1);
 					var curHucNum2 = t.obj.currentHuc.slice(0,-1);

@@ -69,8 +69,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		// Called when user hits 'Save and Share' button. This creates the url that builds the app at a given state using JSON. 
 		// Write anything to you varObject.json file you have tracked during user activity.		
 		getState: function () {
-			console.log('get state')
-			console.log(this.obj.visibleLayers);
 			// remove this conditional statement when minimize is added
 			if ( $('#' + this.id ).is(":visible") ){
 				// Get slider ids and values when values do not equal min or max
@@ -124,7 +122,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		},	
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
-			console.log(this.obj.visibleLayers)
 			$('#search').hide() // hide main search bar when app is open.
 			this.obj.extent = this.map.geographicExtent;
 			//this.oid = -1;
