@@ -70,6 +70,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 // Download HUC 12 data click //////////////////////////////////////////////////////////////////////////////////////////////
 				// Data download click
 				$('#' + t.id + 'dlBtn').on('click',  function(){
+	
+					$('#' + t.id + 'dlBtn').find('span').html(t.obj.huc12Name);
 					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + t.obj.huc12Name + "_data.zip", "_parent");
 				});	
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -332,6 +334,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.hucVal  = evt.features[0].attributes.WHUC6
 							t.obj.visibleLayers = [0,2,t.obj.selHuc]
 							$('#' + t.id + 'watershedHoverText').show();
+							$('#' + t.id + 'wetlandHoverText').hide();
 						}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26){
 							console.log('currentWet is wetland')
 							t.obj.currentWet = 'wetland' // this is a wetland click
@@ -342,6 +345,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$('#' + t.id + 'mainAttributeWrap').slideDown();
 							// $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
 							$('#' + t.id + 'watershedHoverText').hide();
+							
 						}else if(t.obj.visibleLayers[1] == 2 ){
 							t.obj.selHuc = 31;
 							t.obj.currentHuc = 'WHUC8';
@@ -366,8 +370,10 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.obj.huc12Name = evt.features[0].attributes.name
 							t.obj.visibleLayers = [0,4,6,16]
 							$('#' + t.id + 'mainAttributeWrap').slideUp();
+							$('#' + t.id + 'wetlandHoverText').show();
 							// $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
 							$('#' + t.id + 'downloadDataWrapper').slideDown(); // slide down report button
+							$('#' + t.id + 'dlBtn').find('span').html(t.obj.huc12Name);
 
 						}
 						// set the def query for the huc mask /////////////////////	
@@ -521,6 +527,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						// $('#' + t.id + 'mainAttributeWrap').slideUp();
 						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
 						$('#' + t.id + 'watershedHoverText').slideUp();
+						$('#' + t.id + 'wetlandHoverText').slideUp();
 						t.obj.wildlifeOpenTracker = 'null'
 						t.obj.wetlandClick = 'no';
 						// reset opacity values.
@@ -553,6 +560,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						t.clicks.controlVizLayers(t,t.obj.maskWhere);
 						$('#' + t.id + 'createReportWrapper').slideUp(); // slide up report button
 						$('#' + t.id + 'downloadDataWrapper').slideUp(); // slide down report button
+						$('#' + t.id + 'wetlandHoverText').hide();
 						//t.clicks.hoverGraphic(t,1,t.obj.where)
 					// below code is for if the user clicks on the huc 12 zoom //////////////////////////////
 					}else if(id == 4){ // set extent back to huc 12 when the go to button is clicked
@@ -572,6 +580,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						t.clicks.controlVizLayers(t,t.obj.maskWhere);
 						$('#' + t.id + 'createReportWrapper').slideUp(); // slide up report button
 						$('#' + t.id + 'downloadDataWrapper').slideUp(); // slide down report button
+						$('#' + t.id + 'wetlandHoverText').slideUp();
 					}
 					// call the radio attribute controller function
 					t.clicks.radioAttDisplay(t);
@@ -684,6 +693,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				wq.where = "OBJECTID > 0"
 				wetQ.execute(wq, function(evt){
 					if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
+						$('#' + t.id + 'wetlandHoverText').hide();
 						if(t.obj.buildReport != 'yes'){
 							t.obj.wetlandClick = 'yes'
 							var curColors  = ['rgb(237,248,233)', 'rgb(0,109,44)','rgb(49,163,84)', 'rgb(116,196,118)'];
@@ -739,6 +749,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 					}else{
 						t.obj.wetlandClick = 'no'
+						if(t.obj.currentWet == 'wetland'){
+							$('#' + t.id + 'wetlandHoverText').show();
+						}
 					}
 					// call the control viz layers function ////////////////////////////////////
 					t.clicks.controlVizLayers(t,t.obj.maskWhere);

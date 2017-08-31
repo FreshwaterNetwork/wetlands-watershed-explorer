@@ -170,13 +170,6 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			// Click listeners
 			this.clicks.eventListeners(this);
 			this.report.createReport(this);
-
-			// console.log(dom.byId(this.id + "legend-div"))
-			// var legend = new Legend({
-			//     map: this.map
-			//   }, dom.byId(this.id + "legend-div"));
-			// console.log(legend);
-			//   legend.startup();
 			  
 			//this.clicks.featureLayerListeners(this);
 			

@@ -254,7 +254,8 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</div>
 		<!-- Dowload HUC 12 data button -->
 		<div id="downloadDataWrapper" class="hide">
-			<button class="button button-primary" id="dlBtn">Download Data</button>
+			<!-- <button class="button button-primary" id="dlBtn">Download Data</button> -->
+			<div id="dlBtn" class="wfa-helpLinkText" style="color: blue;">Download Wetland Data<!-- <span></span> watershed --></div>
 		</div>
 		
 	</div>
@@ -270,18 +271,18 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 <!-- Find/eval a site attribute wrap //////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-	<div id="watershedHoverText" class="wfa-watershedHoverText hide">Hover over subwatersheds to compare range of services.
-	</div>
+	<div id="watershedHoverText" class="wfa-watershedHoverText hide blueFont">Hover over subwatersheds to compare range of services.</div>
 	<!-- help text -->
 	<!-- <div class="wfa-helpText hide blueFont">
 		test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
 	</div> -->
+	<div id="wetlandHoverText" class="wfa-wetlandHoverText blueFont hide">Click on individual wetland sites to see how they compare to others in this watershed.</div>
 	<div class="hide" id="mainAttributeWrap" style="padding-left: 7px">
 		<hr>
 		<h3 style="margin-top: 15px;">Range of Services: <span id="siteServices_span">(Currently selected: All)</span></h3>
 
 		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap">
-			<div class="blueFont" style="font-weight: normal; margin-bottom: 10px;">Click on individual sites to see how they compare to others in this watershed.</div>
+			
 			<div style="position: relative;">
 				<!-- WET attributes ///////////////////////////////////////////////////////////////////////////////////////////////// -->
 				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
@@ -441,52 +442,4 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<div id="viewReportWrapper" class=" hide">
 		<!-- <button class="button button-primary" id="viewReport">Create Report</button> -->
 	</div>
-	
-	<!-- For Chosen options visit https://harvesthq.github.io/chosen/ -->
-	<!-- Multiple select is turned on in the select tag (multiple="true") -->
-	<!-- Add class chosen-wrap to select's parent -->
-	<!-- <div class="chosen-wrap" style="margin-bottom:10px;">
-		<select data-placeholder="Pick Multiple Numbers" id="chosenMultiple" multiple="true" class="chosen">
-			<option value="one">One</option>
-			<option value="two">Two</option>
-			<option value="three">Three</option>
-			<option value="four">Four</option>
-			<option value="five">Five</option>
-		</select>
-	</div>
-	<p>Array of selected values: <span class="blueFont">[]</span></p> -->
 </div>
-
-
-
-<!-- Download data Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- <div id="wfa-downloadData" class="wfa-easWrap wfa-sections hide">
-	<div id="wfa-downloadDiv" class="wfa-dlwrap">
-		<h4>The download package contains:</h4>
-		<p id="allParLink">&#8226; Report (<a id="-_AllParcels.pdf" target="_blank">preview</a>)</p>
-		<p id="sbLinksbLink">&#8226; Map of selected wetlands (<a id="-_Setbacks.pdf" target="_blank">preview</a>)</p>
-		<p id="ceosLink">&#8226; All Geospatial Data (Ranked HUCs) </p>
-		<p id="larParLink">&#8226; Map(s) of the 10 largest OSP eligible parcels (<a id="-_Parcels_Large.pdf" target="_blank">preview</a>)</p>
-		<p id="csvDesc">&#8226; CSV file of OSP eligible parcel attributes</p>
-		<div style="margin-top:12px;"><button class="button button-primary" id="dlBtn">Download</button></div>
-	</div>
-</div> -->
-
-<!-- Info Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- <div id="wfa-showInfo" class="wfa-sections hide">
-	<section style="height: 250px;">
-		<h2>Documentation</h2>
-		<h3 class="elemInfo">Wetland Atrribute Descriptions</h3>
-		<div id="exwrap" class="explainWrap">
-			<h4 class="ccInfo">Fish and aquatic habitat</h4>
-			<p id="ccInfo" class="ccInfo">Fish and aquatic habitat text placeholder Lorem ipsum dolor sit amet, leo et nunc ac. Nunc tincidunt vivamus, in suscipit lectus est quia magnis diam. Et non rutrum elit eget leo tempus, mauris pellentesque fringilla ante sed vestibulum vel, consequat morbi tincidunt aliquam, at duis possimus nulla. Netus diam et phasellus ut adipiscing, duis in vel</p>
-			<h4 class="cndInfo">Flood Abatement</h4> 
-			<p id="cndInfo" class="cndInfo">Flood abatement help text placeholder Lorem ipsum dolor sit amet, leo et nunc ac. Nunc tincidunt vivamus, in suscipit lectus est quia magnis diam. Et non rutrum elit eget leo tempus, mauris pellentesque fringilla ante sed vestibulum vel, consequat morbi tincidunt aliquam, at duis possimus nulla. Netus diam et phasellus ut adipiscing, duis in vel</p>
-			<h4 class="iasInfo">Nitrogen</h4>
-			<p id="iasInfo" class="iasInfo">Nitrogen placeholder text Lorem ipsum dolor sit amet, leo et nunc ac. Nunc tincidunt vivamus, in suscipit lectus est quia magnis diam. Et non rutrum elit eget leo tempus, mauris pellentesque fringilla ante sed vestibulum vel, consequat morbi tincidunt aliquam, at duis possimus nulla. Netus diam et phasellus ut adipiscing, duis in vel</p>
-			<h4 class="ospInfo">Sediment and Phosphorous</h4>
-			<p class="ospInfo">Sediment and Phosphorous text placeholder Lorem ipsum dolor sit amet, leo et nunc ac. Nunc tincidunt vivamus, in suscipit lectus est quia magnis diam. Et non rutrum elit eget leo tempus, mauris pellentesque fringilla ante sed vestibulum vel, consequat morbi tincidunt aliquam, at duis possimus nulla. Netus diam et phasellus ut adipiscing, duis in vel</p>
-		</div>
-	</section>
-</div> -->
-
