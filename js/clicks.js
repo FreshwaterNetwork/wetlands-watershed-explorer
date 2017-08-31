@@ -167,9 +167,15 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				
 				// on search complete function ///////////////
 				on(t.search1, 'select-result', function (e) {
+					console.log(e.result);
+					t.scale = t.map.getScale();
 					if(e.source.name == "Wetlands"){
 						t.obj.wetlandClick = 'yes';
-						// t.obj.funcTracker = 'Count of Services ≥ High';
+						if(t.scale < 24000){
+							t.map.setScale(t.scale*2)
+						}
+					}else{
+						// t.map.setScale(t.scale*1.3)
 					}
 					t.obj.search =  'yes';
 					t.obj.pnt = e.result.feature.geometry;
@@ -278,11 +284,19 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						q1.returnGeometry = true;
 						q1.outFields = ["*"];
 						qt1.execute(q1, function(evt){
-							t.obj.hucExtents[(i+1)] = evt.features[0].geometry.getExtent();
+							console.log(evt.features.length);
+							if(evt.features.length > 0){
+								t.obj.hucExtents[(i+1)] = evt.features[0].geometry.getExtent();
+								$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
+							}else{
+								$('#' + t.id + 'fullExt-selText').trigger('click');	
+								$('#' + t.id + 'searchOutsideStudy').slideDown(); // slide down warning text
+							}
 						});
 					});
 
 				}else{
+					$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
 					t.q1 = new Query();
 					t.qt1 = new QueryTask(t.url + "/" + t.obj.visibleLayers[1]);
 				}
@@ -894,6 +908,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
+				// console.log(where, lyrNum);
 				// the try catch statement below is used to remove the graphic layer. 
 				try {
 				    t.map.removeLayer(t.countiesGraphicsLayer);
