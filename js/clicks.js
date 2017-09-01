@@ -208,8 +208,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}catch(err){
 
 					}
-					t.clicks.controlVizLayers(t, t.obj.maskWhere);
 					t.clicks.radioAttDisplay(t);
+					t.clicks.controlVizLayers(t, t.obj.maskWhere);
+					
 					// t.clicks.wetlandClick(t);
 					// slide and show various elements based on what huc we are in.
 					$('#' + t.id + 'watershedHoverText').show()
@@ -221,7 +222,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}
 					
 					// $('#' + t.id + 'createReportWrapper').slideDown();
-
 					// instantiate the slider bars here ####################
 					// work with Opacity sliders /////////////////////////////////////////////
 					$("#" + t.id +"sldr").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
