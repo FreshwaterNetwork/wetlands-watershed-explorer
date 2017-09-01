@@ -167,7 +167,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				
 				// on search complete function ///////////////
 				on(t.search1, 'select-result', function (e) {
-					console.log(e.result);
 					t.scale = t.map.getScale();
 					if(e.source.name == "Wetlands"){
 						t.obj.wetlandClick = 'yes';
@@ -183,6 +182,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(t.obj.stateSet == "yes"){
+					if(t.obj.funcTracker == 'Count of Services    High'){
+						t.obj.funcTracker = 'Count of Services ≥ High'
+					}
 					// loop through huc name list and populate the zoom buttons
 					$.each(t.obj.hucNames,function(i,v){
 						let count = i +=1
@@ -201,12 +203,14 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							})
 						}
 					});
-					// call functions with inputs from the obj
-					t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where);
+					try{
+						t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where);
+					}catch(err){
+
+					}
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
 					t.clicks.radioAttDisplay(t);
 					// t.clicks.wetlandClick(t);
-
 					// slide and show various elements based on what huc we are in.
 					$('#' + t.id + 'watershedHoverText').show()
 					$('#' + t.id + 'wfa-findASite').slideUp();
@@ -284,7 +288,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						q1.returnGeometry = true;
 						q1.outFields = ["*"];
 						qt1.execute(q1, function(evt){
-							console.log(evt.features.length);
 							if(evt.features.length > 0){
 								t.obj.hucExtents[(i+1)] = evt.features[0].geometry.getExtent();
 								$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
@@ -344,7 +347,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						if(t.obj.visibleLayers[1] == 1 ){
 							t.obj.selHuc = 30;
 							t.obj.currentHuc = 'WHUC6' 
-							t.hucVal  = evt.features[0].attributes.WHUC6
+							t.obj.hucVal  = evt.features[0].attributes.WHUC6
 							t.obj.visibleLayers = [0,2,t.obj.selHuc]
 							$('#' + t.id + 'watershedHoverText').show();
 							$('#' + t.id + 'wetlandHoverText').hide();
@@ -352,7 +355,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.obj.currentWet = 'wetland' // this is a wetland click
 							if(t.obj.search == 'yes'){
 								t.obj.currentHuc = 'WHUC12';
-								t.hucVal  = evt.features[0].attributes.WHUC12
+								t.obj.hucVal  = evt.features[0].attributes.WHUC12
 							}
 							$('#' + t.id + 'mainAttributeWrap').slideDown();
 							// $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
@@ -361,7 +364,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}else if(t.obj.visibleLayers[1] == 2 ){
 							t.obj.selHuc = 31;
 							t.obj.currentHuc = 'WHUC8';
-							t.hucVal  = evt.features[0].attributes.WHUC8
+							t.obj.hucVal  = evt.features[0].attributes.WHUC8
 							t.obj.wildlifeOpenTracker = 'open';
 							t.obj.visibleLayers = [0,3,t.obj.selHuc]
 							// slide down wildlife checkbox
@@ -371,14 +374,14 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							//t.hucAttributesList[1] = t.hucAttributes;
 							t.obj.selHuc = 32;
 							t.obj.currentHuc = 'WHUC10'
-							t.hucVal  = evt.features[0].attributes.WHUC10
+							t.obj.hucVal  = evt.features[0].attributes.WHUC10
 							t.obj.visibleLayers = [0,4,t.obj.selHuc]
 							$('#' + t.id + 'createReportWrapper').slideUp(); // slide up report button
 							$('#' + t.id + 'downloadDataWrapper').slideUp(); // slide down report button
 						}else if(t.obj.visibleLayers[1] == 4 ){
 							t.obj.selHuc = 33;
 							t.obj.currentHuc = 'WHUC12';
-							t.hucVal  = evt.features[0].attributes.WHUC12
+							t.obj.hucVal  = evt.features[0].attributes.WHUC12
 							t.obj.huc12Name = evt.features[0].attributes.name
 							t.obj.visibleLayers = [0,4,6,16]
 							$('#' + t.id + 'mainAttributeWrap').slideUp();
@@ -390,11 +393,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 						// set the def query for the huc mask /////////////////////	
 						if(t.obj.currentHuc != 'WHUC12'){
-							t.obj.where = t.obj.currentHuc + " = '" + t.hucVal + "'";
+							t.obj.where = t.obj.currentHuc + " = '" + t.obj.hucVal + "'";
 						}else{
 							t.obj.where = t.obj.currentHuc + " = '" + 9999 + "'";
-						}				
-						t.obj.maskWhere = t.obj.currentHuc + " <> '" + t.hucVal + "'";
+						}			
+						t.obj.maskWhere = t.obj.currentHuc + " <> '" + t.obj.hucVal + "'";
 						// add the expression and extents in the approriate location in the huc expression tracker array. 
 						var name = evt.features[0].attributes.name;
 						// change the extent if current wet does not = wetland
@@ -578,7 +581,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}else if(id == 4){ // set extent back to huc 12 when the go to button is clicked
 						t.obj.currentWet = 'null'; // reset this tracker
 						t.map.setExtent(t.obj.hucExtents[4], true); // zoom back to huc 12
-						t.obj.maskWhere = "WHUC12 <> '" + t.hucVal + "'";
+						t.obj.maskWhere = "WHUC12 <> '" + t.obj.hucVal + "'";
 					// below code is for if the user clicks on the huc 6, 8 , 10 zoom /////////////////////////
 					}else{
 						t.obj.currentWet = 'null'; // reset this tracker
