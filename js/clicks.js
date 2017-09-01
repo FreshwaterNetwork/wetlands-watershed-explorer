@@ -71,7 +71,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				// Data download click
 				$('#' + t.id + 'dlBtn').on('click',  function(){
 	
-					$('#' + t.id + 'dlBtn').find('span').html(t.obj.huc12Name);
+					// $('#' + t.id + 'dlBtn').find('span').html(t.obj.huc12Name);
 					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + t.obj.huc12Name + "_data.zip", "_parent");
 				});	
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -388,7 +388,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$('#' + t.id + 'wetlandHoverText').show();
 							// $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
 							$('#' + t.id + 'downloadDataWrapper').slideDown(); // slide down report button
-							$('#' + t.id + 'dlBtn').find('span').html(t.obj.huc12Name);
+							// $('#' + t.id + 'dlBtn').find('span').html(t.obj.huc12Name);
 
 						}
 						// set the def query for the huc mask /////////////////////	
