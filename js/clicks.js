@@ -1030,8 +1030,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			makeVariables: function(t){
 				t.wetEnd = 26;
 				t.wetStart = 4;
-				
-			
 			},
 			updateAccord: function(t){
 				var ia = $( "#" + t.id + "infoAccord" ).accordion( "option", "active" );
