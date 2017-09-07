@@ -23,12 +23,12 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				
 // Dynamic layer on load ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				t.dynamicLayer.on("load", function () { 
-
-					
-
+					// add tooltip to info icon.
+					$('#' + t.id + 'funcInfoGraphicWrapper').tooltip();
+					// set layers array 
 					t.layersArray = t.dynamicLayer.layerInfos;
 					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent.expand(1);
-					
+					// call feature layer function
 					t.clicks.featureLayerListeners(t);
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(.6), true)

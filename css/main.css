@@ -14,8 +14,9 @@ hr{
 	display: block;
 }*/
 /*.wfa-headerInfoWrap{
-	margin-bottom: 4px;
+	display: flex;
 }*/
+
 .flex-center{
 	display:flex; align-items:center;
 }
@@ -246,5 +247,8 @@ hr{
 }
 .wfa-helpText{
 	margin: 5px 0 5px 0; font-weight: normal !important; color: rgb(140, 33, 48) !important;
+}
+.wfa-ig-icon{
+    padding:3px !important; height:31px; z-index:2600; position: absolute; right: 7px;
 }
 

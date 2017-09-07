@@ -70,10 +70,26 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 // Download HUC 12 data click //////////////////////////////////////////////////////////////////////////////////////////////
 				// Data download click
 				$('#' + t.id + 'dlBtn').on('click',  function(){
-	
-					// $('#' + t.id + 'dlBtn').find('span').html(t.obj.huc12Name);
 					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + t.obj.huc12Name + "_data.zip", "_parent");
 				});	
+// INfo graphic buttons code ////////////////////////////////////////////////////////////////////////////////////////
+				$('#' + t.id + 'funcInfoGraphicWrapper').mouseover(function(e){
+					$(e.currentTarget).children().children()[0].title = 'Click to View Infographic for ' + t.obj.funcTracker;
+				});
+				$('#' + t.id + 'funcInfoGraphicWrapper').on('click', function(e){
+					console.log('open infographic', t.obj.funcTracker, t.obj.currentHuc);
+					let value;
+					if(t.obj.currentHuc == 'WHUC12'){
+						value = t.obj.funcTracker + "_wet"
+					}else{
+						value = t.obj.funcTracker
+					}
+					console.log(value)
+					TINY.box.show({
+						animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
+						fixed: true, width: 660, height: 570
+					});		
+				});
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// Set selected value text for button clicks
 				$( '#' + t.id + 'wfa-findEvalSiteToggle input' ).click(function(c){
@@ -138,17 +154,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			featureLayerListeners: function(t){
 				t.clickCounter = 1;
 				// set initial array vars, these will be populated later. 
-				// t.obj.hucExps = ['','','',''];
 				t.obj.hucExtents[0] = t.obj.dynamicLyrExt
-				// t.obj.maskExps = ['OBJECTID < 0','','',''];
-				//t.hucAttributesList = [];
 				t.layerDefinitions = [];	
 				// set the def query for the huc mask /////////////////////	
 				t.layerDefinitions[0] =  "WHUC6 < 0";
-				//t.maskWhere = "OBJECTID < 0";
 				t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
-				// t.obj.currentHuc = '' 
-				
 				t.open = 'yes';
 				// handle map clicks
 				t.map.setMapCursor("pointer")
@@ -182,6 +192,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(t.obj.stateSet == "yes"){
+					// force the func tracker back to the coirrect value because save and share does not like '>' symbol
 					if(t.obj.funcTracker == 'Count of Services    High'){
 						t.obj.funcTracker = 'Count of Services ≥ High'
 					}
@@ -203,25 +214,30 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							})
 						}
 					});
+					// try and catch the hover graphic function. throws error in certain circumstances that we want to avoid
 					try{
 						t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where);
 					}catch(err){
 
 					}
+					// call functions here on save and share
 					t.clicks.radioAttDisplay(t);
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
-					
-					// t.clicks.wetlandClick(t);
+					t.clicks.wetlandAttributePopulate(t);
 					// slide and show various elements based on what huc we are in.
 					$('#' + t.id + 'watershedHoverText').show()
 					$('#' + t.id + 'wfa-findASite').slideUp();
 					$('#' + t.id + 'mainFuncWrapper').slideDown();
 					$('#' + t.id + 'hucSelWrap').slideDown();
+					$('#' + t.id + 'mainAttributeWrap').slideDown();
+					// slide down donload button if in huc 12 section
+					if(t.obj.currentHuc == 'WHUC12'){
+						$('#' + t.id + 'downloadDataWrapper').slideDown();
+					}
+					// slide down wildlife check wrapper if in 8, 10, or 12
 					if(t.obj.currentHuc == 'WHUC8' || t.obj.currentHuc == 'WHUC10'||t.obj.currentHuc == 'WHUC12'){
 						$('#' + t.id + 'wildlifeCheckWrap').slideDown();
 					}
-					
-					// $('#' + t.id + 'createReportWrapper').slideDown();
 					// instantiate the slider bars here ####################
 					// work with Opacity sliders /////////////////////////////////////////////
 					$("#" + t.id +"sldr").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
@@ -230,6 +246,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						t.obj.opacityVal = 1 - ui.value/100;
 						t.dynamicLayer.setOpacity(t.obj.opacityVal);
 					})
+					// slider bar number 2
 					$("#" + t.id +"sldr1").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal2] })
 					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
 					$("#" + t.id +"sldr1").on( "slide", function(c,ui){
@@ -239,11 +256,10 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 
 					// set map extent and viz layers
 					t.map.setExtent(t.fExt, true);
+					console.log(t.obj.visibleLayers2)
 					t.dynamicLayer2.setVisibleLayers(t.obj.visibleLayers2);
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
-
 					t.obj.stateSet = 'no'; // reset state set back to no
-
 				}
 			},
 // map click query ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -527,6 +543,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				// zoom buttons click //////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-hucZoom').unbind().on('click',function(c){
 					var id = c.currentTarget.id.split('-')[1];
+					t.obj.hucNames = t.obj.hucNames.slice(0, id); // remove huc names out of array when zooming out
+					t.obj.where = t.obj.hucExps[id] // reset where clause with id and hucExps
 					t.obj.wetlandWhere = "OBJECTID < 0" // reset wetland where tracker
 					// reset viz layers on zoom click 
 					if(id == 0){
@@ -538,8 +556,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.clicks.hoverGraphic(t,1,t.obj.where)
 						});
 						$('#' + t.id + 'wfa-findASite').slideDown();
-						// slide up attribute wrapper when any zoom button is clicked.
-						// $('#' + t.id + 'mainAttributeWrap').slideUp();
 						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
 						$('#' + t.id + 'watershedHoverText').slideUp();
 						$('#' + t.id + 'wetlandHoverText').slideUp();
@@ -706,60 +722,21 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				wq.outFields = ["*"];
 				wq.where = "OBJECTID > 0"
 				wetQ.execute(wq, function(evt){
+					console.log('wetland click')
 					if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
+						console.log('made it through')
 						$('#' + t.id + 'wetlandHoverText').hide();
 						if(t.obj.buildReport != 'yes'){
 							t.obj.wetlandClick = 'yes'
-							var curColors  = ['rgb(237,248,233)', 'rgb(0,109,44)','rgb(49,163,84)', 'rgb(116,196,118)'];
-							var potColors = ['rgb(254,229,217)', 'rgb(165,15,21)','rgb(222,45,38)','rgb(251,106,74)'];
-							var atts = evt.features[0].attributes;
-							// update the attribute colors for wetlands
-							var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
-							var htmlVal;
-							$.each(title, function(i,v){
-								let attVal = atts[$(v).data('wfa')];
-								if(attVal == 0){
-									htmlVal = 'Not Applicable'
-									t.countVal = '0';
-								}else if(attVal == 1){
-									htmlVal = 'Very High'
-									t.countVal = '7-9'
-								}else if(attVal == 2){
-									htmlVal = 'High'
-									t.countVal = '4-6'
-								}else if(attVal == 3){
-									htmlVal = 'Moderate'
-									t.countVal = '1-3'
-								}
-								// set the wetland id 
-								if($(v).data('wfa') == 'WETLAND_ID'){
-									let wetlandVal;
-									htmlVal = attVal;
-									if(atts.WETLAND_TYPE == 'WWI'){
-										wetlandVal = 'Curremt Wetland ID: '
-									}else{
-										wetlandVal = 'Potentially Restorable Wetland ID: '
-									}
-									$(v).html(wetlandVal);
-								}
-								let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
-								if(v.innerHTML == 'Count of Services ≥ High:'){
-									t.countValue = $('#' + t.id + 'countOptionText').html(t.countVal);
-								}
-								if(atts.WETLAND_TYPE == 'WWI'){
-									$(v).parent().find('.wfa-attributePatch').css('background-color', curColors[attVal])
-								}else{
-									$(v).parent().find('.wfa-attributePatch').css('background-color', potColors[attVal])
-								}
-							});
+							t.obj.wetlandAtts = evt.features[0].attributes;
 							// set the wetland where clause
-							t.wetlandID = atts.OBJECTID;
+							t.wetlandID = t.obj.wetlandAtts.OBJECTID;
 							t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
+							t.clicks.wetlandAttributePopulate(t);
 						}else{
 							t.obj.wetlandClick = 'yes'
 							// call the function to build the report wetland list
 							t.report.populateWetlandList(t, evt);
-							
 						}
 					}else{
 						t.obj.wetlandClick = 'no'
@@ -771,6 +748,48 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					t.clicks.controlVizLayers(t,t.obj.maskWhere);
 					// call the radio attribute controller function
 					t.clicks.radioAttDisplay(t);
+				});
+			},
+			wetlandAttributePopulate: function(t){
+				var curColors  = ['rgb(237,248,233)', 'rgb(0,109,44)','rgb(49,163,84)', 'rgb(116,196,118)'];
+				var potColors = ['rgb(254,229,217)', 'rgb(165,15,21)','rgb(222,45,38)','rgb(251,106,74)'];
+				var title = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
+				var htmlVal;
+				$.each(title, function(i,v){
+					let attVal = t.obj.wetlandAtts[$(v).data('wfa')];
+					if(attVal == 0){
+						htmlVal = 'Not Applicable'
+						t.countVal = '0';
+					}else if(attVal == 1){
+						htmlVal = 'Very High'
+						t.countVal = '7-9'
+					}else if(attVal == 2){
+						htmlVal = 'High'
+						t.countVal = '4-6'
+					}else if(attVal == 3){
+						htmlVal = 'Moderate'
+						t.countVal = '1-3'
+					}
+					// set the wetland id 
+					if($(v).data('wfa') == 'WETLAND_ID'){
+						let wetlandVal;
+						htmlVal = attVal;
+						if(t.obj.wetlandAtts.WETLAND_TYPE == 'WWI'){
+							wetlandVal = 'Curremt Wetland ID: '
+						}else{
+							wetlandVal = 'Potentially Restorable Wetland ID: '
+						}
+						$(v).html(wetlandVal);
+					}
+					let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
+					if(v.innerHTML == 'Count of Services ≥ High:'){
+						t.countValue = $('#' + t.id + 'countOptionText').html(t.countVal);
+					}
+					if(t.obj.wetlandAtts.WETLAND_TYPE == 'WWI'){
+						$(v).parent().find('.wfa-attributePatch').css('background-color', curColors[attVal])
+					}else{
+						$(v).parent().find('.wfa-attributePatch').css('background-color', potColors[attVal])
+					}
 				});
 			},
 // control visible layers function /////////////////////////////////////////////////////////////////////////////
@@ -911,7 +930,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
-				// console.log(where, lyrNum);
+				console.log(where, lyrNum);
 				// the try catch statement below is used to remove the graphic layer. 
 				try {
 				    t.map.removeLayer(t.countiesGraphicsLayer);

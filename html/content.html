@@ -72,10 +72,10 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!-- Main Content Wrap area ///////////////////////////////////////////////////////////////////////////////////// -->
 <div id="wfa-mainContentWrap" class="wfa-mainContentWrap">
 	<div id="hucSelWrap" class="hide">
-		<!-- <div id="helpLinkWrapper" class="wfa-helpLinkWrapper">
+		<div id="helpLinkWrapper" class="wfa-helpLinkWrapper">
 			<div class="wfa-helpLinkText" id="explainButton">Explain Each Section</div>
 			<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandByDesignReport_Beta.pdf" target="_blank">View Report</a></div>
-		</div> -->
+		</div>
 		
 		<div class="wfa-headerInfoWrap">
 			<h3 style="margin: 6px 0 4px 0">Selected Watersheds:</h3>
@@ -106,8 +106,13 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 <!-- Function of Interest find/eval wrapper ///////////////////////////////////////////////////////////////////////////////////////// --> 
 	<div class="hide" id="mainFuncWrapper">
-		<div class="wfa-headerInfoWrap">
+		<div class="wfa-headerInfoWrap" style="display: flex;">
 			<h3 style="margin: 0 0 4px 0">Choose Service of Interest:</h3>
+			<!-- <div>View Choosen Service Graphic</div> -->
+			<div id="funcInfoGraphicWrapper">
+				<button id="viewCrsInfoGraphicIcon" class="button wfa-ig-icon"><img src="plugins/wetlands-watershed-explorer/images/InfographicIcon_v1_23x23.png" alt="show overview graphic" title="test"></button>
+			</div>
+			
 		</div>
 		<!-- help text -->
 		<div class="wfa-helpText hide blueFont">
