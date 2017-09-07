@@ -77,6 +77,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					$(e.currentTarget).children().children()[0].title = 'Click to View Infographic for ' + t.obj.funcTracker;
 				});
 				$('#' + t.id + 'funcInfoGraphicWrapper').on('click', function(e){
+
 					console.log('open infographic', t.obj.funcTracker, t.obj.currentHuc);
 					let value;
 					if(t.obj.currentHuc == 'WHUC12'){
@@ -367,6 +368,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.obj.visibleLayers = [0,2,t.obj.selHuc]
 							$('#' + t.id + 'watershedHoverText').show();
 							$('#' + t.id + 'wetlandHoverText').hide();
+							t.clicks.animateColor(t, 'viewCrsInfoGraphicIcon'); // call the animate color function
 						}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26){
 							t.obj.currentWet = 'wetland' // this is a wetland click
 							if(t.obj.search == 'yes'){
@@ -376,7 +378,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$('#' + t.id + 'mainAttributeWrap').slideDown();
 							// $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
 							$('#' + t.id + 'watershedHoverText').hide();
-							
 						}else if(t.obj.visibleLayers[1] == 2 ){
 							t.obj.selHuc = 31;
 							t.obj.currentHuc = 'WHUC8';
@@ -385,7 +386,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.obj.visibleLayers = [0,3,t.obj.selHuc]
 							// slide down wildlife checkbox
 							$('#' + t.id + 'wildlifeCheckWrap').slideDown();
-							//t.hucAttributesList[0] = t.hucAttributes;
 						}else if(t.obj.visibleLayers[1] == 3 ){
 							//t.hucAttributesList[1] = t.hucAttributes;
 							t.obj.selHuc = 32;
@@ -1016,6 +1016,15 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					// reset slider bar to the approriate place //////////////////
 
 				}
+			},
+			animateColor: function(t,id){
+				$('#' + t.id + id).delay(2000).animate({backgroundColor:"rgba(243,243,21,0.3)"}, 1050, function(){
+					$('#' + t.id + id).animate({backgroundColor:"#ffffff"}, 1050, function(){
+						$('#' + t.id + id).animate({backgroundColor:"rgba(243,243,21,0.3)"}, 1050, function(){
+							$('#' + t.id + id).animate({backgroundColor:"#ffffff"}, 1000)
+						});
+					});
+				});
 			},
 // Make vars //////////////////////////////////////////////////////////////////////////////////////////////////
 			makeVariables: function(t){
