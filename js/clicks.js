@@ -85,6 +85,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}else{
 						value = t.obj.funcTracker
 					}
+					if(value == 'Count of Services ≥ High_wet'){
+						value = 'Count of Services High_wet'
+					}
 					console.log(value)
 					TINY.box.show({
 						animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
