@@ -25,6 +25,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				t.dynamicLayer.on("load", function () { 
 					// add tooltip to info icon.
 					$('#' + t.id + 'funcInfoGraphicWrapper').tooltip();
+					$('#' + t.id + 'wildlifeGraphicWrapper').tooltip();
 					// set layers array 
 					t.layersArray = t.dynamicLayer.layerInfos;
 					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent.expand(1);

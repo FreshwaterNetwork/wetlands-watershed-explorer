@@ -120,10 +120,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					let isChecked = c.currentTarget.checked;
 					if(isChecked){
 						$('#' + t.id + 'wildlifeRadioButtons').slideDown();
+						$('#' + t.id + 'wildlifeGraphicWrapper').slideDown();
+						t.clicks.animateColor(t, 'viewWildlifeInfoGraphicIcon');
 						t.obj.wildlifeCheck = 'wildlife'
 						t.clicks.controlVizLayers(t, t.obj.maskWhere);
 					}else{
 						$('#' + t.id + 'wildlifeRadioButtons').slideUp();
+						$('#' + t.id + 'wildlifeGraphicWrapper').slideUp();
 						t.obj.wildlifeCheck = 'null'
 						t.obj.visibleLayers2 = []; // empty list of rasters
 						t.clicks.controlVizLayers(t, t.obj.maskWhere);
@@ -1021,13 +1024,23 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				}
 			},
 			animateColor: function(t,id){
-				$('#' + t.id + id).delay(2000).animate({backgroundColor:"rgba(243,243,21,0.3)"}, 1050, function(){
+				console.log('animate')
+				// yellow more opaque
+				$('#' + t.id + id).delay(2000).animate({backgroundColor:"rgba(243,243,21,0.6)"}, 1050, function(){
 					$('#' + t.id + id).animate({backgroundColor:"#ffffff"}, 1050, function(){
-						$('#' + t.id + id).animate({backgroundColor:"rgba(243,243,21,0.3)"}, 1050, function(){
+						$('#' + t.id + id).animate({backgroundColor:"rgba(243,243,21,0.6)"}, 1050, function(){
 							$('#' + t.id + id).animate({backgroundColor:"#ffffff"}, 1000)
 						});
 					});
 				});
+				// yellow animate
+				// $('#' + t.id + id).delay(2000).animate({backgroundColor:"rgba(243,243,21,0.3)"}, 1050, function(){
+				// 	$('#' + t.id + id).animate({backgroundColor:"#ffffff"}, 1050, function(){
+				// 		$('#' + t.id + id).animate({backgroundColor:"rgba(243,243,21,0.3)"}, 1050, function(){
+				// 			$('#' + t.id + id).animate({backgroundColor:"#ffffff"}, 1000)
+				// 		});
+				// 	});
+				// });
 			},
 // Make vars //////////////////////////////////////////////////////////////////////////////////////////////////
 			makeVariables: function(t){

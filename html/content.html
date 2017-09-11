@@ -200,11 +200,17 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</div>
 		<!-- View wildlife data checkbox -->
 		<div class="hide" id="wildlifeCheckWrap">
-			<label class="hide form-component wfa-wildlifeCheck" for="a-option" id="wildlifeCheck">
-				<input type="checkbox" id="a-option" name="wildlifeCheck">
-				<div class="check"></div>
-				<span class="form-text">View Wetland Wildlife Habitat</span>
-			</label>
+			<div style="display: flex;">
+				<label class="hide form-component wfa-wildlifeCheck" for="a-option" id="wildlifeCheck">
+					<input type="checkbox" id="a-option" name="wildlifeCheck">
+					<div class="check"></div>
+					<span class="form-text">View Wetland Wildlife Habitat</span>
+				</label>
+				<div id="wildlifeGraphicWrapper" class="hide" style="margin-top: 9px;">
+					<button id="viewWildlifeInfoGraphicIcon" class="button wfa-ig-icon"><img src="plugins/wetlands-watershed-explorer/images/InfographicIcon_v1_23x23.png" alt="show overview graphic" title="test"></button>
+				</div>
+			</div>
+			
 			<!-- Wildlife radio buttons ///////////////////////////////////////////////////////////////////////-->
 			<div id="wildlifeRadioButtons" class="hide">
 				<div class="wfa-wildlifeRadioButtons" id="wildlife-only">
