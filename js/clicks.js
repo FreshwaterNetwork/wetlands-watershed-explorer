@@ -778,7 +778,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						let wetlandVal;
 						htmlVal = attVal;
 						if(t.obj.wetlandAtts.WETLAND_TYPE == 'WWI'){
-							wetlandVal = 'Curremt Wetland ID: '
+							wetlandVal = 'Current Wetland ID: '
 						}else{
 							wetlandVal = 'Potentially Restorable Wetland ID: '
 						}
