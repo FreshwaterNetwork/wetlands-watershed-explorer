@@ -154,7 +154,7 @@ hr{
 	margin-right:-6px; margin-bottom:0 !important; background:#f3f3f3; border-bottom: 1px solid #cdd5d5 !important; border-top: 1px solid #cdd5d5 !important;
 }
 .wfa-funcWrapper{
-	margin-top: 0px; position: relative; display: flex; width:400px;
+	margin-top: 0px; position: relative; display: flex; width:410px;
 }
 .wfa-func_radioGroups{
 	flex: 1; width: 200px;
