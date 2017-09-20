@@ -4,11 +4,11 @@
 // });
 // Bring in dojo and javascript api classes as well as varObject.json, js files, and content.html
 define([
-	"dojo/_base/declare", "framework/PluginBase", "dijit/layout/ContentPane", "dojo/dom", "dojo/dom-style", "dojo/dom-geometry", "dojo/text!./obj.json", 
+	"dojo/_base/declare", "framework/PluginBase","esri/toolbars/draw", "dijit/layout/ContentPane", "dojo/dom", "dojo/dom-style", "dojo/dom-geometry", "dojo/text!./obj.json", 
 	"dojo/text!./html/content.html","dojo/text!./html/report.html", './js/esriapi', './js/clicks','./js/addShapefile',
-	'./js/report', 'dojo/_base/lang',"esri/dijit/Search", 'esri/map', "dojo/on","esri/dijit/Legend", 'dojo/domReady!', 
+	'./js/report','./js/printMap', 'dojo/_base/lang',"esri/dijit/Search", 'esri/map', "dojo/on","esri/dijit/Legend", 'dojo/domReady!', 
 ],
-function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, content,reportHtml, esriapi, clicks, addShapefile,report, lang, Search, Map, on, Legend) {
+function ( 	declare, PluginBase,Draw, ContentPane, dom, domStyle, domGeom, obj, content,reportHtml, esriapi, clicks, addShapefile,report, printMap, lang, Search, Map, on, Legend) {
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName: "Wetlands and Watersheds Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
@@ -26,7 +26,9 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		// Called after initialize at plugin startup (why the tests for undefined). Also called after deactivate when user closes app by clicking X. 
 		hibernate: function () {
 			if (this.appDiv != undefined){
+				// set viz layers back to -1 to remove layers from the map screen
 				this.dynamicLayer.setVisibleLayers([-1])
+				this.dynamicLayer2.setVisibleLayers([-1])
 			}
 			this.open = "no";
 		},
@@ -65,6 +67,9 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.open = "no";	
 			this.map.removeLayer(this.countiesGraphicsLayer); //
 			$('#search').show() // show main search bar when app is closed.
+			// show save and share when app is closed
+			$('#map-utils-control').children().find('.dropdown-menu').children().last().show();
+			$('#map-utils-control').children().find('.dropdown-menu').children().last().prev().show();
 		},	
 		// Called when user hits 'Save and Share' button. This creates the url that builds the app at a given state using JSON. 
 		// Write anything to you varObject.json file you have tracked during user activity.		
@@ -103,6 +108,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 				// 		this.obj.rbCbIds.push(id)
 				// 	}
 				// }));	
+				console.log('get state')
 				//extent
 				this.obj.extent = this.map.geographicExtent;
 				this.obj.stateSet = "yes";	
@@ -115,6 +121,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		//It's overwrites the default JSON definfed in initialize with the saved stae JSON.
 		setState: function (state) {
 			this.obj = state;
+			console.log('set state')
 		},
 		// Called when the user hits the print icon
 		beforePrint: function(printDeferred, $printArea, mapObject) {
@@ -122,6 +129,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 		},	
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
+			
 			$('#search').hide() // hide main search bar when app is open.
 			this.obj.extent = this.map.geographicExtent;
 			//this.oid = -1;
@@ -132,6 +140,7 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			this.clicks = new clicks();
 			this.addShapefile = new addShapefile();
 			this.report = new report();
+			this.printMap = new printMap();
 			
 			// ADD HTML TO APP
 			// Define Content Pane as HTML parent		
@@ -167,6 +176,8 @@ function ( 	declare, PluginBase, ContentPane, dom, domStyle, domGeom, obj, conte
 			// Click listeners
 			this.clicks.eventListeners(this);
 			this.report.createReport(this);
+			// this.printMap.testMap(this);
+			// this.printMap.printMap2(this);
 			  
 			//this.clicks.featureLayerListeners(this);
 			

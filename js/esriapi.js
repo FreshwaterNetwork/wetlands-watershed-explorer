@@ -1,8 +1,8 @@
 define([
-	"esri/layers/ArcGISDynamicMapServiceLayer", "esri/geometry/Extent", "esri/SpatialReference", "esri/tasks/query" ,"esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", 
+	"esri/layers/ArcGISDynamicMapServiceLayer", "esri/geometry/Extent","esri/toolbars/draw", "esri/SpatialReference", "esri/tasks/query" ,"esri/tasks/QueryTask", "dojo/_base/declare", "esri/layers/FeatureLayer", 
 	"esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol","esri/symbols/SimpleMarkerSymbol", "esri/graphic", "dojo/_base/Color", 
 ],
-function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, QueryTask, declare, FeatureLayer, 
+function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, QueryTask, declare, FeatureLayer, 
 			SimpleLineSymbol, SimpleFillSymbol, SimpleMarkerSymbol, Graphic, Color) {
         "use strict";
 
@@ -22,18 +22,51 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 				}
 				
 // Dynamic layer on load ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-				t.dynamicLayer.on("load", function () { 
+				t.dynamicLayer.on("load", function () {
+					// t.toolbar = new Draw(t.map);
+        			// t.toolbar.on("draw-end", t.printMap.addToMap(t,evt));
+        			t.map.on("load", function(){
+        				console.log('map load')
+	        			t.toolbar = new Draw(t.map);
+	        			t.toolbar.on("draw-end", t.printMap.addToMap(t, evt));
+	        		})
+					// hide save and share html on app load;
+					$('#map-utils-control').children().find('.dropdown-menu').children().last().hide();
+					// hide the create map tool on app load
+					$('#map-utils-control').children().find('.dropdown-menu').children().last().prev().hide();
+					// console.log($('#map-utils-control').children().find('.dropdown-menu').children()[2].hide())
 					// add tooltip to info icon.
 					$('#' + t.id + 'funcInfoGraphicWrapper').tooltip();
 					$('#' + t.id + 'wildlifeGraphicWrapper').tooltip();
 					// set layers array 
 					t.layersArray = t.dynamicLayer.layerInfos;
 					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent.expand(1);
+					if(t.obj.opacityVal < 1){
+						t.obj.opacityVal = 100- (t.obj.opacityVal*100)
+					}
+					if(t.obj.opacityVal2 < 1){
+						t.obj.opacityVal2 =100- (t.obj.opacityVal2*100)
+					}
+					// work with Opacity sliders /////////////////////////////////////////////
+					$("#" + t.id +"sldr").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
+					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
+					$("#" + t.id +"sldr").on( "slide", function(c,ui){
+						t.obj.opacityVal = 1 - ui.value/100;
+						t.dynamicLayer.setOpacity(t.obj.opacityVal);
+					})
+					$("#" + t.id +"sldr1").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal2] })
+					t.dynamicLayer2.setOpacity(1 - t.obj.opacityVal2/100); // set init opacity
+					$("#" + t.id +"sldr1").on( "slide", function(c,ui){
+						t.obj.opacityVal2 = 1 - ui.value/100;
+						t.dynamicLayer2.setOpacity(t.obj.opacityVal2);
+					})	
+					
 					// call feature layer function
 					t.clicks.featureLayerListeners(t);
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(.6), true)
 					}
+
 // Save and Share ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					// Save and Share Handler					
 					if (t.obj.stateSet == "yes"){
@@ -57,26 +90,18 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent, SpatialReference, Query, Query
 						var extent = new Extent(t.obj.extent.xmin, t.obj.extent.ymin, t.obj.extent.xmax, t.obj.extent.ymax, new SpatialReference({ wkid:4326 }))
 						t.map.setExtent(extent, true);
 						t.obj.stateSet = "no";
-					}	
-					// trigger initial top control clicks
-					$.each($('#' + t.id + 'top-controls input'),function(i,v){
-						if (t.obj[v.name] == v.value){
-							$('#' + v.id).trigger('click');	
-						}	
-					});
-					// work with Opacity sliders /////////////////////////////////////////////
-					$("#" + t.id +"sldr").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
-					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
-					$("#" + t.id +"sldr").on( "slide", function(c,ui){
-						t.obj.opacityVal = 1 - ui.value/100;
-						t.dynamicLayer.setOpacity(t.obj.opacityVal);
-					})
-					$("#" + t.id +"sldr1").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal2] })
-					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
-					$("#" + t.id +"sldr1").on( "slide", function(c,ui){
-						t.obj.opacityVal2 = 1 - ui.value/100;
-						t.dynamicLayer2.setOpacity(t.obj.opacityVal2);
-					})	
+					}
+					// instantiate print button and draw buttons
+					console.log('before print call')
+					t.printMap.printMap2(t);
+					t.printMap.drawOptions(t);
+					// // trigger initial top control clicks
+					// $.each($('#' + t.id + 'top-controls input'),function(i,v){
+					// 	if (t.obj[v.name] == v.value){
+					// 		$('#' + v.id).trigger('click');	
+					// 	}	
+					// });
+				
 				});
 				// Work with the explain each choice buttons
 				$('.wfa-helpLinkText').unbind().on('click',function(c){

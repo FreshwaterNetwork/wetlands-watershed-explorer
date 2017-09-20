@@ -41,6 +41,21 @@ hr{
 .sidebar-content .getHelpBtnWrap .button{
 	margin-bottom:0;
 }
+.wfa-infoIcon{
+	vertical-align:bottom; padding: 2px 2px 2px 2px; height: 20px;
+}
+.wfa-wildInfoIcon{
+	vertical-align:middle; padding: 2px 2px 2px 2px; height: 20px;
+}
+.wfa-infoIcon:hover{
+	cursor: pointer;
+}
+.wfa-wildInfoIcon:hover{
+	cursor: pointer;
+}
+.wfa-wildCheckWrapper{
+	display: flex;
+}
 .wfa-wrap .slider{
 	margin-left:30px;
 }
@@ -139,10 +154,10 @@ hr{
 	margin-right:-6px; margin-bottom:0 !important; background:#f3f3f3; border-bottom: 1px solid #cdd5d5 !important; border-top: 1px solid #cdd5d5 !important;
 }
 .wfa-funcWrapper{
-	margin-top: 0px; position: relative; display: flex; width:375px;
+	margin-top: 0px; position: relative; display: flex; width:400px;
 }
 .wfa-func_radioGroups{
-	flex: 1; width: 190px;
+	flex: 1; width: 200px;
 }
 .wfa-app{
 	background: #fff; position: absolute; z-index: 1000; width: 420;
@@ -250,5 +265,9 @@ hr{
 }
 .wfa-ig-icon{
     padding:3px !important; height:31px; z-index:2600; position: absolute; right: 7px;
+}
+/* styling the srawing tools*/
+.dijitButtonNode{
+	border: none !important;
 }
 

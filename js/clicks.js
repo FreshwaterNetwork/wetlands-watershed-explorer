@@ -67,32 +67,40 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$("#"+ t.id + 'wfa-mainContentWrap').slideUp();
 					}
 				});
+				// save and share code outside the 
+				$('.wfa-saveAndShare').on('click',  function(){
+					let ss = $('#map-utils-control').find('.i18n')[3];
+					ss.click();
+					// t.printMap.testMap(t);
+				});
+				// create pdf map code
+				$('.wfa-mapCreate').on('click',  function(){
+					// let ss = $('#map-utils-control').find('.i18n')[3];
+					// ss.click();
+				});
 // Download HUC 12 data click //////////////////////////////////////////////////////////////////////////////////////////////
 				// Data download click
 				$('#' + t.id + 'dlBtn').on('click',  function(){
 					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + t.obj.huc12Name + "_data.zip", "_parent");
 				});	
 // INfo graphic buttons code ////////////////////////////////////////////////////////////////////////////////////////
-				$('#' + t.id + 'funcInfoGraphicWrapper').mouseover(function(e){
-					$(e.currentTarget).children().children()[0].title = 'Click to View Infographic for ' + t.obj.funcTracker;
-				});
+				// $('#' + t.id + 'funcInfoGraphicWrapper').mouseover(function(e){
+				// 	$(e.currentTarget).children().children()[0].title = 'Click to View Infographic for ' + t.obj.funcTracker;
+				// });
 				$('#' + t.id + 'funcInfoGraphicWrapper').on('click', function(e){
-
-					console.log('open infographic', t.obj.funcTracker, t.obj.currentHuc);
-					let value;
-					if(t.obj.currentHuc == 'WHUC12'){
-						value = t.obj.funcTracker + "_wet"
-					}else{
-						value = t.obj.funcTracker
-					}
-					if(value == 'Count of Services ≥ High_wet'){
-						value = 'Count of Services High_wet'
-					}
-					console.log(value)
-					TINY.box.show({
-						animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
-						fixed: true, width: 660, height: 570
-					});		
+					// let value;
+					// if(t.obj.currentHuc == 'WHUC12'){
+					// 	value = t.obj.funcTracker + "_wet"
+					// }else{
+					// 	value = t.obj.funcTracker
+					// }
+					// if(value == 'Count of Services ≥ High_wet'){
+					// 	value = 'Count of Services High_wet'
+					// }
+					// TINY.box.show({
+					// 	animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
+					// 	fixed: true, width: 660, height: 570
+					// });	
 				});
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// Set selected value text for button clicks
@@ -113,7 +121,30 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					// change the function site services text when radio buttons are clicked.
 					$( '#' + t.id + 'siteServices_span').html('(Currently selected: ' + c.target.value + ')');
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
+					// remove the infographic element from the label
+					$.each($('.wfa-radio-indent').find('label'),function(i,v){
+						if($(v).find('img')){$(v).find('img').remove()}
+					});
+					$(c.currentTarget).parent().append('<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">')
+					// function info icon click, open the appropriate popup window
+					$('.wfa-infoIcon').on('click',function(e){
+						console.log(e);
+						let value;
+						if(t.obj.currentHuc == 'WHUC12'){
+							value = t.obj.funcTracker + "_wet"
+						}else{
+							value = t.obj.funcTracker
+						}
+						if(value == 'Count of Services ≥ High_wet'){
+							value = 'Count of Services High_wet'
+						}
+						TINY.box.show({
+							animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
+							fixed: true, width: 660, height: 570
+						});	
+					});
 				});
+
 // wildlife checkbox show and hide ///////////////////////////////////////////////////////////////////////////////////////////////////
 				// wildlife checkboxes /////////////
 				$('#' + t.id + 'wildlifeCheck input').on('click',function(c, x){
@@ -155,6 +186,33 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 					}
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
+					// add and remove info icons for the wildlife checkboxes.
+					$.each($("#" + t.id + 'wildlifeRadioButtons input'),function(i,v){
+						if(v.checked){
+							$(v).parent().parent().find('img').remove();
+							$(v).parent().parent().append('<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-wildInfoIcon">');
+						}else{
+							$(v).parent().parent().find('img').remove();
+						}
+					});
+					$("#" + t.id + 'wildlifeRadioButtons .wfa-wildInfoIcon').on('click',function(e){
+						let type = $(e.currentTarget).parent().find('input')[0].name
+						let value;
+						if(type == 'wild'){
+							value = "Wildlife_" + t.obj.wildTracker;
+						}else{
+							value = "Wildlife_" + t.obj.prwTracker;
+						}
+						TINY.box.show({
+							animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
+							fixed: true, width: 660, height: 570
+						});	
+					});
+
+				});
+				$("#" + t.id + 'wildlifeRadioButtons .wfa-wildInfoIcon').on('click',function(e){
+					console.log(e);
+					
 				});
 			},
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
@@ -203,6 +261,26 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					if(t.obj.funcTracker == 'Count of Services    High'){
 						t.obj.funcTracker = 'Count of Services ≥ High'
 					}
+					if(t.obj.wildlifeCheck == 'wildlife'){
+						$('#' + t.id + 'a-option').trigger('click');
+						console.log($("#" + t.id + 'wildlifeRadioButtons input'));
+						$.each($("#" + t.id + 'wildlifeRadioButtons input'),function(i,v){
+							if(v.value == t.obj.wildTracker){
+								$(v).prop("checked", true);
+							}
+						});
+						if(t.obj.prwTracker != 'null'){
+							$('#' + t.id + 'prw-option').prop("checked", true);
+						};
+					}
+					// t.dynamicLayer.setOpacity(t.obj.opacityVal);
+					// force a check on the radio button that matches the funcTracker
+					$.each($('.wfa-radio-indent input'),function(i,v){
+						if(v.value == t.obj.funcTracker){
+							$(v).prop("checked", true);
+						}
+					});
+
 					// loop through huc name list and populate the zoom buttons
 					$.each(t.obj.hucNames,function(i,v){
 						let count = i +=1
@@ -221,6 +299,22 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							})
 						}
 					});
+					
+					// slide and show various elements based on what huc we are in.
+					$('#' + t.id + 'watershedHoverText').show()
+					$('#' + t.id + 'wfa-findASite').slideUp();
+					$('#' + t.id + 'mainFuncWrapper').slideDown();
+					$('#' + t.id + 'hucSelWrap').slideDown();
+					
+					// slide down donload button if in huc 12 section
+					if(t.obj.currentHuc == 'WHUC12'){
+						$('#' + t.id + 'downloadDataWrapper').slideDown();
+						$('#' + t.id + 'mainAttributeWrap').slideDown();
+					}
+					// slide down wildlife check wrapper if in 8, 10, or 12
+					if(t.obj.currentHuc == 'WHUC8' || t.obj.currentHuc == 'WHUC10'||t.obj.currentHuc == 'WHUC12'){
+						$('#' + t.id + 'wildlifeCheckWrap').slideDown();
+					}
 					// try and catch the hover graphic function. throws error in certain circumstances that we want to avoid
 					try{
 						t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where);
@@ -231,41 +325,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					t.clicks.radioAttDisplay(t);
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
 					t.clicks.wetlandAttributePopulate(t);
-					// slide and show various elements based on what huc we are in.
-					$('#' + t.id + 'watershedHoverText').show()
-					$('#' + t.id + 'wfa-findASite').slideUp();
-					$('#' + t.id + 'mainFuncWrapper').slideDown();
-					$('#' + t.id + 'hucSelWrap').slideDown();
-					$('#' + t.id + 'mainAttributeWrap').slideDown();
-					// slide down donload button if in huc 12 section
-					if(t.obj.currentHuc == 'WHUC12'){
-						$('#' + t.id + 'downloadDataWrapper').slideDown();
-					}
-					// slide down wildlife check wrapper if in 8, 10, or 12
-					if(t.obj.currentHuc == 'WHUC8' || t.obj.currentHuc == 'WHUC10'||t.obj.currentHuc == 'WHUC12'){
-						$('#' + t.id + 'wildlifeCheckWrap').slideDown();
-					}
-					// instantiate the slider bars here ####################
-					// work with Opacity sliders /////////////////////////////////////////////
-					$("#" + t.id +"sldr").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal] })
-					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
-					$("#" + t.id +"sldr").on( "slide", function(c,ui){
-						t.obj.opacityVal = 1 - ui.value/100;
-						t.dynamicLayer.setOpacity(t.obj.opacityVal);
-					})
-					// slider bar number 2
-					$("#" + t.id +"sldr1").slider({ min: 0, max: 100, range: false, values: [t.obj.opacityVal2] })
-					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal/100); // set init opacity
-					$("#" + t.id +"sldr1").on( "slide", function(c,ui){
-						t.obj.opacityVal2 = 1 - ui.value/100;
-						t.dynamicLayer2.setOpacity(t.obj.opacityVal2);
-					})	
-
 					// set map extent and viz layers
 					t.map.setExtent(t.fExt, true);
-					console.log(t.obj.visibleLayers2)
 					t.dynamicLayer2.setVisibleLayers(t.obj.visibleLayers2);
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+					
 					t.obj.stateSet = 'no'; // reset state set back to no
 				}
 			},
@@ -728,9 +792,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				wq.outFields = ["*"];
 				wq.where = "OBJECTID > 0"
 				wetQ.execute(wq, function(evt){
-					console.log('wetland click')
 					if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
-						console.log('made it through')
 						$('#' + t.id + 'wetlandHoverText').hide();
 						if(t.obj.buildReport != 'yes'){
 							t.obj.wetlandClick = 'yes'
@@ -936,7 +998,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
-				console.log(where, lyrNum);
 				// the try catch statement below is used to remove the graphic layer. 
 				try {
 				    t.map.removeLayer(t.countiesGraphicsLayer);
@@ -974,9 +1035,34 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		            t.map.addLayer(t.countiesGraphicsLayer);
       				t.map.graphics.enableMouseEvents();
       				t.countiesGraphicsLayer.on("mouse-over",function (event) {
+      					// add a new counties graphic layer
+      					// t.countiesGraphicsLayer2 = new GraphicsLayer();
+      					// var featureCount = features.length;
+			        //     for (var i = 0; i < featureCount; i++) {
+			        //         //Get the current feature from the featureSet.
+			        //         var graphic = features[i]; //Feature is a graphic
+			        //         graphic.setSymbol(symbol);
+			        //         t.countiesGraphicsLayer2.add(graphic);
+			        //     }
+			        //     t.map.addLayer(t.countiesGraphicsLayer2);
+			            // console.log()
+      					
+      					// console.log(event.graphic.geometry);
 		                t.map.graphics.clear();  //use the maps graphics layer as the highlight layer
-		                var highlightGraphic = new Graphic(event.graphic.geometry, highlightSymbol);
-                		t.map.graphics.add(highlightGraphic);
+		                t.highlightGraphic = new Graphic(event.graphic.geometry, highlightSymbol);
+		                // console.log(t.highlightGraphic);
+		                // console.log(t.highlightGraphic);
+		                // $.each(t.highlightGraphic ,function(i,v){
+		                // 	console.log(i,v);
+		                // });
+
+		                // console.log(t.map.graphicsLayerIds);
+		                // t.highlightGraphic.id = 'highlight'
+                		t.map.graphics.add(t.highlightGraphic);
+                		// console.log(t.map.graphicsLayerIds);
+
+                		// t.countiesGraphicsLayer.show()
+                		// t.highlightGraphic.show()
                 		$('#' + t.basinId).html(event.graphic.attributes.name);
 						$('#' + t.basinId).show();
 						let atts = event.graphic.attributes;
@@ -988,7 +1074,27 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		            t.map.graphics.on("mouse-out", function (test) {
 		            	let atts;
 		            	let array = [];
+		            	// console.log(t.map.graphics.graphics);
+		            	// if(t.map.graphics.graphics.length > -1){
+		            	// 	console.log('remove graphics with highlight id');
+		            	// 	$.each(t.map.graphics.graphics ,function(i,v){
+		            	// 		console.log(i,v);
+		            	// 		t.map.graphics.remove(v);
+		            	// 		// if(v.id == 'highlight'){
+		            	// 			// t.map.graphics.remove(v);
+		            	// 		// }
+		            	// 	})
+		            	// }
+
+		            	// dojo.forEach(t.map.graphics.graphics, )
+		            	// t.map.graphics.remove(t.highlightGraphic);
+		            	// t.countiesGraphicsLayer.hide();
+		                // t.highlightGraphic.clear()
+		                // t.highlightGraphic.setGeometry({});
+		                // t.highlightGraphic.setGeometry('');
+		                // t.map.removeLayer(t.countiesGraphicsLayer)
 		                t.map.graphics.clear();
+		                
 						$('#' + t.basinId).hide()
 						t.mousePos = 'out'
 						array.push(t.map.graphics.graphics);
@@ -1024,7 +1130,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				}
 			},
 			animateColor: function(t,id){
-				console.log('animate')
 				// yellow more opaque
 				$('#' + t.id + id).delay(2000).animate({backgroundColor:"rgba(243,243,21,0.6)"}, 1050, function(){
 					$('#' + t.id + id).animate({backgroundColor:"#ffffff"}, 1050, function(){
