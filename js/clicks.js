@@ -445,7 +445,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 								t.obj.currentHuc = 'WHUC12';
 								t.obj.hucVal  = evt.features[0].attributes.WHUC12
 							}
-							$('#' + t.id + 'mainAttributeWrap').slideDown();
+							
 							// $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
 							$('#' + t.id + 'watershedHoverText').hide();
 						}else if(t.obj.visibleLayers[1] == 2 ){
@@ -794,6 +794,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				wetQ.execute(wq, function(evt){
 					if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
 						$('#' + t.id + 'wetlandHoverText').hide();
+
 						if(t.obj.buildReport != 'yes'){
 							t.obj.wetlandClick = 'yes'
 							t.obj.wetlandAtts = evt.features[0].attributes;
@@ -806,6 +807,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							// call the function to build the report wetland list
 							t.report.populateWetlandList(t, evt);
 						}
+						$('#' + t.id + 'mainAttributeWrap').slideDown();
 					}else{
 						t.obj.wetlandClick = 'no'
 						if(t.obj.currentWet == 'wetland'){
@@ -816,6 +818,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					t.clicks.controlVizLayers(t,t.obj.maskWhere);
 					// call the radio attribute controller function
 					t.clicks.radioAttDisplay(t);
+
 				});
 			},
 			wetlandAttributePopulate: function(t){
