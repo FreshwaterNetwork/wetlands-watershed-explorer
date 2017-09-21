@@ -474,8 +474,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$('#' + t.id + 'wetlandHoverText').show();
 							// $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
 							$('#' + t.id + 'downloadDataWrapper').slideDown(); // slide down report button
-							// $('#' + t.id + 'dlBtn').find('span').html(t.obj.huc12Name);
-
 						}
 						// set the def query for the huc mask /////////////////////	
 						if(t.obj.currentHuc != 'WHUC12'){
@@ -794,7 +792,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				wetQ.execute(wq, function(evt){
 					if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
 						$('#' + t.id + 'wetlandHoverText').hide();
-
 						if(t.obj.buildReport != 'yes'){
 							t.obj.wetlandClick = 'yes'
 							t.obj.wetlandAtts = evt.features[0].attributes;
@@ -818,7 +815,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					t.clicks.controlVizLayers(t,t.obj.maskWhere);
 					// call the radio attribute controller function
 					t.clicks.radioAttDisplay(t);
-
 				});
 			},
 			wetlandAttributePopulate: function(t){
@@ -852,6 +848,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 						$(v).html(wetlandVal);
 					}
+					// set the wetland acres
+					if($(v).data('wfa') == 'acres'){
+						htmlVal = attVal + ' acres';
+					}
+					// set the span element to the HTML Value
 					let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
 					if(v.innerHTML == 'Count of Services ≥ High:'){
 						t.countValue = $('#' + t.id + 'countOptionText').html(t.countVal);
