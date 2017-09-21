@@ -56,7 +56,6 @@ define([
     				t.printMap.addToMap(t,evt)
     			});
 		        var drawingOptions = new LayerDrawingOptions();
-		        // drawingOptions.renderer = renderer;
 		        // set the drawing options for the relevant layer
 		        // optionsArray index corresponds to layer index in the map service
 		        var optionsArray = [];
