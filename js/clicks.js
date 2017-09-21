@@ -128,7 +128,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					$(c.currentTarget).parent().append('<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">')
 					// function info icon click, open the appropriate popup window
 					$('.wfa-infoIcon').on('click',function(e){
-						console.log(e);
 						let value;
 						if(t.obj.currentHuc == 'WHUC12'){
 							value = t.obj.funcTracker + "_wet"
@@ -210,10 +209,10 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					});
 
 				});
-				$("#" + t.id + 'wildlifeRadioButtons .wfa-wildInfoIcon').on('click',function(e){
-					console.log(e);
+				// $("#" + t.id + 'wildlifeRadioButtons .wfa-wildInfoIcon').on('click',function(e){
+				// 	console.log(e);
 					
-				});
+				// });
 			},
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
@@ -263,7 +262,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}
 					if(t.obj.wildlifeCheck == 'wildlife'){
 						$('#' + t.id + 'a-option').trigger('click');
-						console.log($("#" + t.id + 'wildlifeRadioButtons input'));
 						$.each($("#" + t.id + 'wildlifeRadioButtons input'),function(i,v){
 							if(v.value == t.obj.wildTracker){
 								$(v).prop("checked", true);

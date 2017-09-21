@@ -26,7 +26,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 					// t.toolbar = new Draw(t.map);
         			// t.toolbar.on("draw-end", t.printMap.addToMap(t,evt));
         			t.map.on("load", function(){
-        				console.log('map load')
 	        			t.toolbar = new Draw(t.map);
 	        			t.toolbar.on("draw-end", t.printMap.addToMap(t, evt));
 	        		})
@@ -34,7 +33,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 					$('#map-utils-control').children().find('.dropdown-menu').children().last().hide();
 					// hide the create map tool on app load
 					$('#map-utils-control').children().find('.dropdown-menu').children().last().prev().hide();
-					// console.log($('#map-utils-control').children().find('.dropdown-menu').children()[2].hide())
 					// add tooltip to info icon.
 					$('#' + t.id + 'funcInfoGraphicWrapper').tooltip();
 					$('#' + t.id + 'wildlifeGraphicWrapper').tooltip();
@@ -92,7 +90,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						t.obj.stateSet = "no";
 					}
 					// instantiate print button and draw buttons
-					console.log('before print call')
 					t.printMap.printMap2(t);
 					t.printMap.drawOptions(t);
 					// // trigger initial top control clicks

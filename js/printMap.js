@@ -30,11 +30,9 @@ define([
 
         return declare(null, {
         	printMap2: function(t){
-        		console.log('start of print 2')
         		t.printUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task";
         		parser.parse();
 		        esriConfig.defaults.io.proxyUrl = "/proxy/";
-		        console.log('1')
 		        // get print templates from the export web map task
 		        // var printInfo = esriRequest({
 		        //   "url": t.printUrl,
@@ -49,7 +47,7 @@ define([
 		        // printer.startup();
         	},
         	handlePrintInfo: function(){
-        		console.log('handle print', t)
+
         	},
         	drawOptions: function(t){
         		t.lyrs = []
@@ -57,30 +55,12 @@ define([
     			t.toolbar.on("draw-end", function(evt){
     				t.printMap.addToMap(t,evt)
     			});
-        		
-        		// var renderer = new ClassBreaksRenderer(null, "pop2000");
-		        // var outline = new SimpleLineSymbol("solid", new Color([0,0,0,0.5]), 1);
-		        // var colors = [
-		        //   new Color([255,255,178,0.5]),
-		        //   new Color([254,204,92,0.5]),
-		        //   new Color([253,141,60,0.5]),
-		        //   new Color([240,59,32,0.5]),
-		        //   new Color([189,0,38,0.5])
-		        // ];
-    			// renderer.addBreak(0, 20000, new SimpleFillSymbol("solid", outline, colors[0]));
-		     //    renderer.addBreak(20000, 50000, new SimpleFillSymbol("solid", outline, colors[1]));
-		     //    renderer.addBreak(50000, 100000, new SimpleFillSymbol("solid", outline, colors[2]));
-		     //    renderer.addBreak(10000, 1000000, new SimpleFillSymbol("solid", outline, colors[3]));
-		     //    renderer.addBreak(1000000, 10000000, new SimpleFillSymbol("solid", outline, colors[4]));
 		        var drawingOptions = new LayerDrawingOptions();
 		        // drawingOptions.renderer = renderer;
 		        // set the drawing options for the relevant layer
 		        // optionsArray index corresponds to layer index in the map service
 		        var optionsArray = [];
 		        optionsArray[3] = drawingOptions;
-		        // t.dynamicLayer.setLayerDrawingOptions(optionsArray);
-		        // app.map.addLayer(layer);
-		        
 		        // set up symbols for the various geometry types
 		        t.symbols = {};
 		        t.symbols.point = new SimpleMarkerSymbol("square", 10, new SimpleLineSymbol(), new Color([0, 255, 0, 0.75]));
