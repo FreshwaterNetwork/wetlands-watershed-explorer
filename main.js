@@ -129,7 +129,7 @@ function ( 	declare, PluginBase,Draw, ContentPane, dom, domStyle, domGeom, obj, 
 		},	
 		// Called by activate and builds the plugins elements and functions
 		render: function() {
-			
+			$('#legend-container-0').find('.legend-body').css('height', '99%'); // fix the legend overlap problem
 			$('#search').hide() // hide main search bar when app is open.
 			this.obj.extent = this.map.geographicExtent;
 			//this.oid = -1;
