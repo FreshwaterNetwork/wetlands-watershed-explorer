@@ -116,6 +116,18 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 							}
 						})
 					}
+					// work with the learn more button intro text
+					if(c.currentTarget.id == 'dijit_layout_ContentPane_0learnMoreButton'){
+						let elem = $('#' + t.id + 'wfa-intoText');
+						let elem1 = $('#' + t.id + 'learnMoreButton');
+						if(elem.is(":visible")){
+							elem.slideUp();
+							elem1.html('Learn More about the Explorer')
+						}else{
+							elem.slideDown();
+							elem1.html('Hide Learn More')
+						}
+					}
 				})
 
 // the code below may be useful. we used it to hide a legend item but it is clunky.
