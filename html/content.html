@@ -128,7 +128,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					<span class="form-text">Combined Services</span>
 					<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">
 				</label>
-				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide"  for="count-option">
+				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide"  style="display: none;" for="count-option">
 					<input checked type="radio" id="count-option" name="func" class="rb_cb" value="Count of Services ≥ High">
 					<div class="check"></div>
 					<span class="form-text">Count of Services ≥ High</span>
@@ -138,54 +138,54 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					<div class="check"></div>
 					<span class="form-text">Flood Abatement</span>
 				</label>
-				<label data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="fish-option">
+				<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="fish-option">
 					<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
 					<div class="check"></div>
 					<span class="form-text">Fish and Aquatic Habitat</span>
 				</label>
-				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: block;" for="phos-option">
+				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="phos-option">
 					<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous Retention">
 					<div class="check"></div>
 					<span class="form-text">Phosphorus Retention</span>
 				</label>
-				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: block;" for="sed-option">
+				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="sed-option">
 					<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment Retention">
 					<div class="check"></div>
 					<span class="form-text">Sediment Retention</span>
 				</label>
 			</div>
 			<div class="wfa-func_radioGroups">
-				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: block;" for="nitro-option">
+				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="nitro-option">
 					<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen Reduction">
 					<div class="check"></div>
 					<span class="form-text">Nitrogen Reduction</span>
 				</label>
-				<label  data-wfa-mode='huc' class="form-component wfa-funcLabel" style="display: block;" for="sedPhos-option">
+				<label  data-wfa-mode='huc' class="form-component wfa-funcLabel" for="sedPhos-option">
 					<input type="radio" id="sedPhos-option" name="func" class="rb_cb" value="Sediment Retention">
 					<div class="check"></div>
 					<span class="form-text">Sediment Retention</span>
 				</label>
-				<label data-wfa-mode='huc' class="form-component wfa-funcLabel" style="display: block;" for="nutrient-option">
+				<label data-wfa-mode='huc' class="form-component wfa-funcLabel" for="nutrient-option">
 					<input type="radio" id="nutrient-option" name="func" class="rb_cb" value="Nutrient Transformation">
 					<div class="check"></div>
 					<span class="form-text">Nutrient Transformation</span>
 				</label>
-				<label  data-wfa-mode='both' class="form-component wfa-funcLabel" style="display: block;" for="water-option">
+				<label  data-wfa-mode='both' class="form-component wfa-funcLabel" for="water-option">
 					<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Supply">
 					<div class="check"></div>
 					<span class="form-text">Surface Water Supply</span>
 				</label>
-				<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: block;" for="shore-option">
+				<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="shore-option">
 					<input type="radio" id="shore-option" name="func" class="rb_cb" value="Shoreline Protection">
 					<div class="check"></div>
 					<span class="form-text">Shoreline Protection</span>
 				</label>
-				<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: block;" for="carbon-option">
+				<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="carbon-option">
 					<input type="radio" id="carbon-option" name="func" class="rb_cb" value="Carbon Storage">
 					<div class="check"></div>
 					<span class="form-text">Carbon Storage</span>
 				</label>
-				<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: block;" for="floristic-option">
+				<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="floristic-option">
 					<input type="radio" id="floristic-option" name="func" class="rb_cb" value="Floristic Integrity">
 					<div class="check"></div>
 					<span class="form-text">Floristic Integrity</span>
@@ -218,7 +218,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				<div class="wfa-wildlifeRadioButtons" id="wildlife-only">
 					<div style="width: 184px;">
 						<div class="wfa-wildCheckWrapper">
-							<label class="form-component wfa-funcLabel" style="display: block;" for="total-option">
+							<label class="form-component wfa-funcLabel" for="total-option">
 								<input checked type="checkbox" id="total-option" name="wild" class="rb_cb" value="All Guilds">
 								<div class="check"></div>
 								<span class="form-text">All Guilds</span>
@@ -322,102 +322,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap">
 			
 			<div style="position: relative;">
-				<!-- WET attributes ///////////////////////////////////////////////////////////////////////////////////////////////// -->
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div data-wfa='WETLAND_ID'  class="elm-title">Current Wetland ID:</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts">8156475236</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div data-wfa='acres'  class="elm-title">Wetland Area: </div>
-					<div class="elm-results">
-						<span id="" class="s2Atts">8156475236</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div class="wfa-attributePatch"></div>	
-					<div data-wfa='ALL_RANK'  class="elm-title">Count of Services ≥ High:</div>
-					<div class="elm-results">
-						<span  class="s2Atts" id="countOptionText">Low</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div class="wfa-attributePatch"></div>	
-					<div data-wfa='FA_RANK'  class="elm-title">Flood Abatement:</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts">High</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div class="wfa-attributePatch"></div>
-					<div data-wfa='FAH_RANK'  class="elm-title">Fish and Aquatic Habitat:</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div class="wfa-attributePatch"></div>	
-					<div data-wfa='PR_RANK'  class="elm-title">Phosphorus Reduction:</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div class="wfa-attributePatch"></div>
-					<div data-wfa='SS_RANK'  class="elm-title">Sediment Retention:</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div class="wfa-attributePatch"></div>	
-					<div data-wfa='NR_RANK'  class="elm-title">Nitrogen Reduction:</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div class="wfa-attributePatch"></div>
-					<div data-wfa='SBS_RANK'  class="elm-title">Surface Water Supply:</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div class="wfa-attributePatch"></div>
-					<div data-wfa='SP_RANK'  class="elm-title">Shoreline Protection:</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
 				
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div class="wfa-attributePatch"></div>
-					<div data-wfa='CS_RANK'  class="elm-title">Carbon Storage:</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts">High</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
-				<div class="wfa-sum-wrap" data-wfa-mode='wet'>
-					<div class="wfa-attributePatch"></div>
-					<div data-wfa='FQ_RANK'  class="elm-title">Floristic Integrity:</div>
-					<div class="elm-results">
-						<span id="s2-SUM_NFOS_cac" class="s2Atts">N/A</span>
-						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
-					</div>	
-				</div>
 				
 				
 	<!-- HUC attributes ///////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -470,6 +375,102 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
 					</div>	
 				</div>
+			</div>
+			<!-- WET attributes ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div data-wfa='WETLAND_ID'  class="elm-title">Current Wetland ID:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">8156475236</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div data-wfa='acres'  class="elm-title">Wetland Area: </div>
+				<div class="elm-results">
+					<span id="" class="s2Atts">8156475236</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div class="wfa-attributePatch"></div>	
+				<div data-wfa='ALL_RANK'  class="elm-title">Count of Services ≥ High:</div>
+				<div class="elm-results">
+					<span  class="s2Atts" id="countOptionText">Low</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div class="wfa-attributePatch"></div>	
+				<div data-wfa='FA_RANK'  class="elm-title">Flood Abatement:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">High</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div class="wfa-attributePatch"></div>
+				<div data-wfa='FAH_RANK'  class="elm-title">Fish and Aquatic Habitat:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div class="wfa-attributePatch"></div>	
+				<div data-wfa='PR_RANK'  class="elm-title">Phosphorus Reduction:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div class="wfa-attributePatch"></div>
+				<div data-wfa='SS_RANK'  class="elm-title">Sediment Retention:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div class="wfa-attributePatch"></div>	
+				<div data-wfa='NR_RANK'  class="elm-title">Nitrogen Reduction:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div class="wfa-attributePatch"></div>
+				<div data-wfa='SBS_RANK'  class="elm-title">Surface Water Supply:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Moderate</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div class="wfa-attributePatch"></div>
+				<div data-wfa='SP_RANK'  class="elm-title">Shoreline Protection:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">Low</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div class="wfa-attributePatch"></div>
+				<div data-wfa='CS_RANK'  class="elm-title">Carbon Storage:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">High</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
+			</div>
+			<div class="wfa-sum-wrap" data-wfa-mode='wet'>
+				<div class="wfa-attributePatch"></div>
+				<div data-wfa='FQ_RANK'  class="elm-title">Floristic Integrity:</div>
+				<div class="elm-results">
+					<span id="s2-SUM_NFOS_cac" class="s2Atts">N/A</span>
+					<!-- <img src="plugins/wiApp/images/info.png" alt="show more info in documentation" class="infoIcon" id="-nfosInfo"> -->
+				</div>	
 			</div>
 			
 		</div>
