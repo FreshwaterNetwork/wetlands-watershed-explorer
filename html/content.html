@@ -32,11 +32,15 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<p>The Wetlands and Watersheds Explorer takes these factors into account to help you to identify the top tier of sites that meet your needs.  For further context and details see the report.</p>
 
 	</div>
-	<h3>Find a Site:</h3>
+	<!-- <img src="plugins/wetlands-watershed-explorer/images/plus-icon.png" style="height: 18px;"> -->
+	<h3>Explore a New Site:</h3>
+	<!-- <p style="font-size: 100px;">&#8594;</p> -->
+	
+
 	<h4 style="border-bottom:1pt solid #dbe1e1; padding-bottom: 22px;"> - Single-click on Mapped Watersheds to Explore Opportunities and Find Sites</h4>
 	<!-- <p style="font-style: italic;">-	Single-click through basins, watersheds, and subwatersheds to   see potentially restorable and current wetlands.</p>
 	<p style="font-style: italic;">-	An important step after using this tool is to visit sites in the field   to verify results and determine next steps.</p> -->
-	<h3>Evaluate a Site:</h3>
+	<h3>Evaluate a Known Site:</h3>
 	<h4> - Search a known location below</h4>
 	<!-- <p style="font-style: italic;">-	Use dropdpown arrow on left to search by specific data.</p> -->
 	<div class="hide" id="searchOutsideStudy" style="color: rgb(140, 33, 48); font-weight: bold; margin: auto; text-align: center;">Your search was outside the study area, please try again.</div>
@@ -79,31 +83,36 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandByDesignReport_Beta.pdf" target="_blank">View Report</a></div>
 		</div>
 
-
-		<div class="wfa-headerInfoWrap">
+		<!-- Selected Watershed header -->
+		<div class="wfa-headerInfoWrap" style="display: flex;">
 			<h3 style="margin: 6px 0 4px 0">Selected Watersheds:</h3>
-		</div>
-		<!-- help text -->
-		<div class="wfa-helpText hide blueFont">
-			test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
+			<div class="blueFont wfa-collapseText">Collapse</div>
 		</div>
 		
-		<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-0">
-			<div id="fullExt-selText" class="hide"><span >Go to: </span><span class="wfa-textZoom">Full Extent or back to Search</span></div>
+		<div class="wfa-collapseSection">
+		<!-- help text -->
+			<div class="wfa-helpText hide blueFont">
+				test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
+			</div>
+			<!-- Selected watershed sections -->
+			<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-0">
+				<div id="fullExt-selText" class="hide"><span >Go to: </span><span class="wfa-textZoom">Full Extent or back to Search</span></div>
+			</div>
+			<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-1" >
+				<div id="WHUC6-selText" class="hide"><span  >Go to: </span><span class="wfa-textZoom">HUC 6 Watershed:</span> <span id="huc6Sel" class="blueFont wfa-textZoom">test text</span></div>
+			</div>
+			<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-2">
+				<div id="WHUC8-selText" class="hide"><span>Go to: </span><span class="wfa-textZoom">HUC 8 Watershed: </span><span id="huc8Sel" class="blueFont">test text</span></div>
+			</div>
+			<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-3">
+				<div id="WHUC10-selText" class="hide"><span>Go to: </span><span class="wfa-textZoom">HUC 10 Watershed: </span><span id="huc10Sel" class="blueFont">test text</span></div>
+			</div>
+			<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-4">
+				<div id="WHUC12-selText" class="hide"><span>Go to: </span><span class="wfa-textZoom">HUC 12 Watershed:</span> <span id="huc12Sel" class="blueFont">test text</span></div>
+			</div>
+			<hr>
 		</div>
-		<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-1" >
-			<div id="WHUC6-selText" class="hide"><span  >Go to: </span><span class="wfa-textZoom">HUC 6 Watershed:</span> <span id="huc6Sel" class="blueFont wfa-textZoom">test text</span></div>
-		</div>
-		<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-2">
-			<div id="WHUC8-selText" class="hide"><span>Go to: </span><span class="wfa-textZoom">HUC 8 Watershed: </span><span id="huc8Sel" class="blueFont">test text</span></div>
-		</div>
-		<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-3">
-			<div id="WHUC10-selText" class="hide"><span>Go to: </span><span class="wfa-textZoom">HUC 10 Watershed: </span><span id="huc10Sel" class="blueFont">test text</span></div>
-		</div>
-		<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-4">
-			<div id="WHUC12-selText" class="hide"><span>Go to: </span><span class="wfa-textZoom">HUC 12 Watershed:</span> <span id="huc12Sel" class="blueFont">test text</span></div>
-		</div>
-		<hr>
+		
 	</div>
 	<!-- <div id="legend-div"></div> -->
 
@@ -111,95 +120,93 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<div class="hide" id="mainFuncWrapper">
 		<div class="wfa-headerInfoWrap" style="display: flex;">
 			<h3 style="margin: 0 0 4px 0">Choose Service of Interest:</h3>
-			<!-- <div>View Choosen Service Graphic</div> -->
-			<!-- <div id="funcInfoGraphicWrapper">
-				<button id="viewCrsInfoGraphicIcon" class="button wfa-ig-icon"><img src="plugins/wetlands-watershed-explorer/images/InfographicIcon_v1_23x23.png" alt="show overview graphic" title="test"></button>
-			</div> -->
+			<div class="blueFont wfa-collapseText" style="margin-top: 0px;">Collapse</div>
+		</div>
+		<div class="wfa-collapseSection">
+			<!-- help text -->
+			<div class="wfa-helpText hide blueFont">
+				test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
+			</div>
 			
-		</div>
-		<!-- help text -->
-		<div class="wfa-helpText hide blueFont">
-			test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
-		</div>
-		
-		<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
-			<div class="wfa-func_radioGroups">
-				<label data-wfa-mode='huc' class="form-component wfa-funcLabel"  for="combined-option">
-					<input checked type="radio" id="combined-option" name="func" class="rb_cb" value="Combined Services">
-					<div class="check"></div>
-					<span class="form-text">Combined Services</span>
-					<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">
-				</label>
-				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide"  style="display: none;" for="count-option">
-					<input checked type="radio" id="count-option" name="func" class="rb_cb" value="Count of Services ≥ High">
-					<div class="check"></div>
-					<span class="form-text">Count of Services ≥ High</span>
-				</label>
-				<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="flood-option">
-					<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
-					<div class="check"></div>
-					<span class="form-text">Flood Abatement</span>
-				</label>
-				<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="fish-option">
-					<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
-					<div class="check"></div>
-					<span class="form-text">Fish and Aquatic Habitat</span>
-				</label>
-				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="phos-option">
-					<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous Retention">
-					<div class="check"></div>
-					<span class="form-text">Phosphorus Retention</span>
-				</label>
-				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="sed-option">
-					<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment Retention">
-					<div class="check"></div>
-					<span class="form-text">Sediment Retention</span>
-				</label>
+			<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
+				<div class="wfa-func_radioGroups">
+					<label data-wfa-mode='huc' class="form-component wfa-funcLabel"  for="combined-option">
+						<input checked type="radio" id="combined-option" name="func" class="rb_cb" value="Combined Services">
+						<div class="check"></div>
+						<span class="form-text">Combined Services</span>
+						<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">
+					</label>
+					<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide"  style="display: none;" for="count-option">
+						<input checked type="radio" id="count-option" name="func" class="rb_cb" value="Count of Services ≥ High">
+						<div class="check"></div>
+						<span class="form-text">Count of Services ≥ High</span>
+					</label>
+					<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="flood-option">
+						<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
+						<div class="check"></div>
+						<span class="form-text">Flood Abatement</span>
+					</label>
+					<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="fish-option">
+						<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
+						<div class="check"></div>
+						<span class="form-text">Fish and Aquatic Habitat</span>
+					</label>
+					<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="phos-option">
+						<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous Retention">
+						<div class="check"></div>
+						<span class="form-text">Phosphorus Retention</span>
+					</label>
+					<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="sed-option">
+						<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment Retention">
+						<div class="check"></div>
+						<span class="form-text">Sediment Retention</span>
+					</label>
+				</div>
+				<div class="wfa-func_radioGroups">
+					<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="nitro-option">
+						<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen Reduction">
+						<div class="check"></div>
+						<span class="form-text">Nitrogen Reduction</span>
+					</label>
+					<label  data-wfa-mode='huc' class="form-component wfa-funcLabel" for="sedPhos-option">
+						<input type="radio" id="sedPhos-option" name="func" class="rb_cb" value="Sediment Retention">
+						<div class="check"></div>
+						<span class="form-text">Sediment Retention</span>
+					</label>
+					<label data-wfa-mode='huc' class="form-component wfa-funcLabel" for="nutrient-option">
+						<input type="radio" id="nutrient-option" name="func" class="rb_cb" value="Nutrient Transformation">
+						<div class="check"></div>
+						<span class="form-text">Nutrient Transformation</span>
+					</label>
+					<label  data-wfa-mode='both' class="form-component wfa-funcLabel" for="water-option">
+						<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Supply">
+						<div class="check"></div>
+						<span class="form-text">Surface Water Supply</span>
+					</label>
+					<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="shore-option">
+						<input type="radio" id="shore-option" name="func" class="rb_cb" value="Shoreline Protection">
+						<div class="check"></div>
+						<span class="form-text">Shoreline Protection</span>
+					</label>
+					<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="carbon-option">
+						<input type="radio" id="carbon-option" name="func" class="rb_cb" value="Carbon Storage">
+						<div class="check"></div>
+						<span class="form-text">Carbon Storage</span>
+					</label>
+					<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="floristic-option">
+						<input type="radio" id="floristic-option" name="func" class="rb_cb" value="Floristic Integrity">
+						<div class="check"></div>
+						<span class="form-text">Floristic Integrity</span>
+					</label>
+				</div>
 			</div>
-			<div class="wfa-func_radioGroups">
-				<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="nitro-option">
-					<input type="radio" id="nitro-option" name="func" class="rb_cb" value="Nitrogen Reduction">
-					<div class="check"></div>
-					<span class="form-text">Nitrogen Reduction</span>
-				</label>
-				<label  data-wfa-mode='huc' class="form-component wfa-funcLabel" for="sedPhos-option">
-					<input type="radio" id="sedPhos-option" name="func" class="rb_cb" value="Sediment Retention">
-					<div class="check"></div>
-					<span class="form-text">Sediment Retention</span>
-				</label>
-				<label data-wfa-mode='huc' class="form-component wfa-funcLabel" for="nutrient-option">
-					<input type="radio" id="nutrient-option" name="func" class="rb_cb" value="Nutrient Transformation">
-					<div class="check"></div>
-					<span class="form-text">Nutrient Transformation</span>
-				</label>
-				<label  data-wfa-mode='both' class="form-component wfa-funcLabel" for="water-option">
-					<input type="radio" id="water-option" name="func" class="rb_cb" value="Surface Water Supply">
-					<div class="check"></div>
-					<span class="form-text">Surface Water Supply</span>
-				</label>
-				<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="shore-option">
-					<input type="radio" id="shore-option" name="func" class="rb_cb" value="Shoreline Protection">
-					<div class="check"></div>
-					<span class="form-text">Shoreline Protection</span>
-				</label>
-				<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="carbon-option">
-					<input type="radio" id="carbon-option" name="func" class="rb_cb" value="Carbon Storage">
-					<div class="check"></div>
-					<span class="form-text">Carbon Storage</span>
-				</label>
-				<label  data-wfa-mode='wet' class="form-component wfa-funcLabel hide" style="display: none;" for="floristic-option">
-					<input type="radio" id="floristic-option" name="func" class="rb_cb" value="Floristic Integrity">
-					<div class="check"></div>
-					<span class="form-text">Floristic Integrity</span>
-				</label>
-			</div>
-		</div>
-		<!-- Vector opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
-		<div class="wfa-transOpSlider">	
-			<div class="slider-container">
-				<div class="wfa-sliderLabels">Opaque</div>
-				<div id="sldr" class="slider" style="width: 160px"></div>	
-				<div class="wfa-sliderLabels">Transparent</div>
+			<!-- Vector opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
+			<div class="wfa-transOpSlider">	
+				<div class="slider-container">
+					<div class="wfa-sliderLabels">Opaque</div>
+					<div id="sldr" class="slider" style="width: 160px"></div>	
+					<div class="wfa-sliderLabels">Transparent</div>
+				</div>
 			</div>
 		</div>
 		<!-- View wildlife data checkbox -->
@@ -210,71 +217,70 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					<div class="check"></div>
 					<span class="form-text">View Wetland Wildlife Habitat</span>
 				</label>
-				<!-- <div id="wildlifeGraphicWrapper" class="hide" style="margin-top: 9px;">
-					<button id="viewWildlifeInfoGraphicIcon" class="button wfa-ig-icon"><img src="plugins/wetlands-watershed-explorer/images/InfographicIcon_v1_23x23.png" alt="show overview graphic" title="test"></button>
-				</div> -->
+				<div id="wildlifeCollapseText" class="blueFont wfa-collapseText hide" style="margin-top: 17px;">Collapse</div>
 			</div>
-			
-			<!-- Wildlife radio buttons ///////////////////////////////////////////////////////////////////////-->
-			<div id="wildlifeRadioButtons" class="hide wfa-wildlifeRadioButtonsWrapper">
-				<div class="wfa-wildlifeRadioButtons" id="wildlife-only">
-					<div style="width: 184px;">
-						<div class="wfa-wildCheckWrapper">
-							<label class="form-component wfa-funcLabel" for="total-option">
-								<input checked type="checkbox" id="total-option" name="wild" class="rb_cb" value="All Guilds">
-								<div class="check"></div>
-								<span class="form-text">All Guilds</span>
+			<div class="wfa-collapseSection">
+				<!-- Wildlife radio buttons ///////////////////////////////////////////////////////////////////////-->
+				<div id="wildlifeRadioButtons" class="hide wfa-wildlifeRadioButtonsWrapper">
+					<div class="wfa-wildlifeRadioButtons" id="wildlife-only">
+						<div style="width: 184px;">
+							<div class="wfa-wildCheckWrapper">
+								<label class="form-component wfa-funcLabel" for="total-option">
+									<input checked type="checkbox" id="total-option" name="wild" class="rb_cb" value="All Guilds">
+									<div class="check"></div>
+									<span class="form-text">All Guilds</span>
 
-							</label>
-							<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-wildInfoIcon">
+								</label>
+								<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-wildInfoIcon">
+							</div>
+							<div class="wfa-wildCheckWrapper">
+								<label class="form-component wfa-funcLabel" style="display: block;" for="forest-option">
+									<input  type="checkbox" id="forest-option" name="wild" class="rb_cb" value="Forest Interior Birds Guild">
+									<div class="check"></div>
+									<span class="form-text">Forest Interior Guild</span>
+								</label>
+							</div>
+							<div class="wfa-wildCheckWrapper">
+								<label  class="form-component wfa-funcLabel" style="display: block;" for="swamp-option">
+									<input type="checkbox" id="swamp-option" name="wild" class="rb_cb" value="Wet Shrub Birds Guild">
+									<div class="check"></div>
+									<span class="form-text">Shrub Swamp Guild</span>
+								</label>
+							</div>
 						</div>
-						<div class="wfa-wildCheckWrapper">
-							<label class="form-component wfa-funcLabel" style="display: block;" for="forest-option">
-								<input  type="checkbox" id="forest-option" name="wild" class="rb_cb" value="Forest Interior Birds Guild">
-								<div class="check"></div>
-								<span class="form-text">Forest Interior Guild</span>
-							</label>
-						</div>
-						<div class="wfa-wildCheckWrapper">
-							<label  class="form-component wfa-funcLabel" style="display: block;" for="swamp-option">
-								<input type="checkbox" id="swamp-option" name="wild" class="rb_cb" value="Wet Shrub Birds Guild">
-								<div class="check"></div>
-								<span class="form-text">Shrub Swamp Guild</span>
-							</label>
+						<div>
+							<div class="wfa-wildCheckWrapper">
+								<label class="form-component wfa-funcLabel" style="display: block;" for="marsh-option">
+									<input type="checkbox" id="marsh-option" name="wild" class="rb_cb" value="Shallow Marsh Birds Guild">
+									<div class="check"></div>
+									<span class="form-text">Shallow Marsh Guild</span>
+								</label>
+							</div>
+							<div class="wfa-wildCheckWrapper">
+								<label class="form-component wfa-funcLabel" style="display: block;" for="openWater-option">
+									<input type="checkbox" id="openWater-option" name="wild" class="rb_cb" value="Open Water Birds Guild">
+									<div class="check"></div>
+									<span class="form-text">Open Waters Guild</span>
+								</label>
+							</div>
 						</div>
 					</div>
+					<!-- Wildlife PRW checkbox //////////////////////////////////////////////////////// -->
 					<div>
-						<div class="wfa-wildCheckWrapper">
-							<label class="form-component wfa-funcLabel" style="display: block;" for="marsh-option">
-								<input type="checkbox" id="marsh-option" name="wild" class="rb_cb" value="Shallow Marsh Birds Guild">
-								<div class="check"></div>
-								<span class="form-text">Shallow Marsh Guild</span>
-							</label>
-						</div>
-						<div class="wfa-wildCheckWrapper">
-							<label class="form-component wfa-funcLabel" style="display: block;" for="openWater-option">
-								<input type="checkbox" id="openWater-option" name="wild" class="rb_cb" value="Open Water Birds Guild">
-								<div class="check"></div>
-								<span class="form-text">Open Waters Guild</span>
-							</label>
-						</div>
+						<label class="hide form-component wfa-prwCheck" for="prw-option" id="prwCheck">
+							<input type="checkbox" id="prw-option" name="prwCheck" value="All-Guild Restoration Opportunities">
+							<div class="check"></div>
+							<span class="form-text">All-Guild Restoration Opportunities</span>
+						</label>
 					</div>
-				</div>
-				<!-- Wildlife PRW checkbox //////////////////////////////////////////////////////// -->
-				<div>
-					<label class="hide form-component wfa-prwCheck" for="prw-option" id="prwCheck">
-						<input type="checkbox" id="prw-option" name="prwCheck" value="All-Guild Restoration Opportunities">
-						<div class="check"></div>
-						<span class="form-text">All-Guild Restoration Opportunities</span>
-					</label>
-				</div>
-				
-				<!-- wildlife opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
-				<div class="wfa-transOpSlider">	
-					<div class="slider-container">
-						<div class="wfa-sliderLabels">Opaque</div>
-						<div id="sldr1" class="slider" style="width: 160px"></div>	
-						<div class="wfa-sliderLabels">Transparent</div>
+					
+					<!-- wildlife opacity slider //////////////////////////////////////////////////////////////////////////////////////////// -->
+					<div class="wfa-transOpSlider">	
+						<div class="slider-container">
+							<div class="wfa-sliderLabels">Opaque</div>
+							<div id="sldr1" class="slider" style="width: 160px"></div>	
+							<div class="wfa-sliderLabels">Transparent</div>
+						</div>
 					</div>
 				</div>
 			</div>

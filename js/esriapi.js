@@ -35,7 +35,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 					$('#map-utils-control').children().find('.dropdown-menu').children().last().prev().hide();
 					// add tooltip to info icon.
 					$('#' + t.id + 'funcInfoGraphicWrapper').tooltip();
-					$('#' + t.id + 'wildlifeGraphicWrapper').tooltip();
 					// set layers array 
 					t.layersArray = t.dynamicLayer.layerInfos;
 					t.obj.dynamicLyrExt = t.dynamicLayer.fullExtent.expand(1);
@@ -100,7 +99,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 					// });
 				
 				});
-				// Work with the explain each choice buttons
+				// Work with the explain each choice buttons ////////////////////////////
 				$('.wfa-helpLinkText').unbind().on('click',function(c){
 					if(c.currentTarget.id == 'dijit_layout_ContentPane_0explainButton'){
 						let helpText = $('.wfa-helpText');
@@ -127,6 +126,18 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 							elem.slideDown();
 							elem1.html('Hide Learn More')
 						}
+					}
+				});
+				// collapse sections code ///////////
+				$('.wfa-collapseText').unbind().on('click',function(c){
+					let target = $(c.currentTarget)
+					let elem = $(c.currentTarget).parent().parent().find('.wfa-collapseSection');
+					if(elem.is(":visible")){
+						elem.slideUp();
+						target.html('Show')
+					}else{
+						elem.slideDown();
+						target.html('Collapse')
 					}
 				})
 

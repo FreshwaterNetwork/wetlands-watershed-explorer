@@ -150,13 +150,15 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					let isChecked = c.currentTarget.checked;
 					if(isChecked){
 						$('#' + t.id + 'wildlifeRadioButtons').slideDown();
-						$('#' + t.id + 'wildlifeGraphicWrapper').slideDown();
+						$('#' + t.id + 'wildlifeCollapseText').slideDown();
+						$('#' + t.id + 'wildlifeCollapseText').html('Collapse');
+						$('#' + t.id + 'wildlifeCollapseText').parent().parent().find('.wfa-collapseSection').slideDown();
 						t.clicks.animateColor(t, 'viewWildlifeInfoGraphicIcon');
 						t.obj.wildlifeCheck = 'wildlife'
 						t.clicks.controlVizLayers(t, t.obj.maskWhere);
 					}else{
 						$('#' + t.id + 'wildlifeRadioButtons').slideUp();
-						$('#' + t.id + 'wildlifeGraphicWrapper').slideUp();
+						$('#' + t.id + 'wildlifeCollapseText').slideUp();
 						t.obj.wildlifeCheck = 'null'
 						t.obj.visibleLayers2 = []; // empty list of rasters
 						t.clicks.controlVizLayers(t, t.obj.maskWhere);
