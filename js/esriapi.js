@@ -131,7 +131,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 				// collapse sections code ///////////
 				$('.wfa-collapseText').unbind().on('click',function(c){
 					let target = $(c.currentTarget)
-					let elem = $(c.currentTarget).parent().parent().find('.wfa-collapseSection');
+					let elem = $(c.currentTarget).parent().next();
 					if(elem.is(":visible")){
 						elem.slideUp();
 						target.html('Show')
