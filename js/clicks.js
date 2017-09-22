@@ -851,6 +851,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					// set the wetland acres
 					if($(v).data('wfa') == 'acres'){
 						htmlVal = attVal + ' acres';
+						let areaVal;
+						if(t.obj.wetlandAtts.WETLAND_TYPE == 'WWI'){
+							areaVal = 'Wetland Area: '
+						}else{
+							areaVal = 'Potentially Restorable Area: '
+						}
+						$(v).html(areaVal);
 					}
 					// set the span element to the HTML Value
 					let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
