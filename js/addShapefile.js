@@ -9,6 +9,7 @@ function (declare, esriConfig, InfoTemplate, Map, request, scaleUtils, FeatureLa
 
         return declare(null, {
         	uploadShapefile: function(t){
+        		console.log('upload shapefile')
         	  parser.parse();
 
 	          var portalUrl = "https://www.arcgis.com";
@@ -59,13 +60,13 @@ function (declare, esriConfig, InfoTemplate, Map, request, scaleUtils, FeatureLa
 	            var myContent = {
 	              'filetype': 'shapefile',
 	              'publishParameters': JSON.stringify(params),
-	              'f': 'json',
+	              'f': "json",
 	              'callback.html': 'textarea'
 	            };
 	            console.log(myContent)
 	            console.log('look here 1')
 	            //use the rest generate operation to generate a feature collection from the zipped shapefile
-	            request({
+	            var test = request({
 	              url: portalUrl + '/sharing/rest/content/features/generate',
 	              content: myContent,
 	              form: dom.byId('#' + t.id + 'uploadForm'),
@@ -76,16 +77,20 @@ function (declare, esriConfig, InfoTemplate, Map, request, scaleUtils, FeatureLa
 	                  errorHandler(response.error);
 	                  return;
 	                }
-	                var layerName = response.featureCollection.layers[0].layerDefinition.name;
+	                // var layerName = response.featureCollection.layers[0].layerDefinition.name;
+	                var layerName = 'tets'
+	                console.log(layerName);
 	                dom.byId('#' + t.id + 'upload-status').innerHTML = '<b>Loaded: </b>' + layerName;
 	                addShapefileToMap(response.featureCollection);
 	              }),
 	              error: lang.hitch(this, errorHandler)
 	            });
+	            console.log(test)
 	          }
 	          console.log(request);
 	          console.log('look here 2')
 	          function errorHandler (error) {
+	          	console.log(error)
 	          	console.log('look here 3')
 	            dom.byId(t.id + 'upload-status').innerHTML =
 	            "<p style='color:red'>" + error.message + "</p>";
@@ -99,7 +104,7 @@ function (declare, esriConfig, InfoTemplate, Map, request, scaleUtils, FeatureLa
 	            //for an example of how to work with local storage.
 	            var fullExtent;
 	            var layers = [];
-
+	            console.log(featureCollection, '))))))))))')
 	            arrayUtils.forEach(featureCollection.layers, function (layer) {
 	              var infoTemplate = new InfoTemplate("Details", "${*}");
 	              var featureLayer = new FeatureLayer(layer, {

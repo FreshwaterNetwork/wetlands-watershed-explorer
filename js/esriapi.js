@@ -29,6 +29,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 	        			t.toolbar = new Draw(t.map);
 	        			t.toolbar.on("draw-end", t.printMap.addToMap(t, evt));
 	        		})
+
 					// hide save and share html on app load;
 					$('#map-utils-control').children().find('.dropdown-menu').children().last().hide();
 					// hide the create map tool on app load
@@ -91,6 +92,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 					// instantiate print button and draw buttons
 					t.printMap.printMap2(t);
 					t.printMap.drawOptions(t);
+					t.addShapefile.uploadShapefile(t);
 					// // trigger initial top control clicks
 					// $.each($('#' + t.id + 'top-controls input'),function(i,v){
 					// 	if (t.obj[v.name] == v.value){

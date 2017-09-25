@@ -8,7 +8,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
         return declare(null, {
 			eventListeners: function(t){
 				//t.addShapefile.testFunction(t);
-				// t.addShapefile.uploadShapefile(t);
+				
 				//info accord
 				$( function() {
 					$( "#" + t.id + "infoAccord" ).accordion({heightStyle: "fill"});
