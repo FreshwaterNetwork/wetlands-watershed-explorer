@@ -103,17 +103,15 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 				$('.wfa-helpLinkText').unbind().on('click',function(c){
 					if(c.currentTarget.id == 'dijit_layout_ContentPane_0explainButton'){
 						let helpText = $('.wfa-helpText');
-						$.each(helpText,function(i,v){
-							if($(v).is(":visible") == false){
-								$(v).slideDown();
-								$(c.currentTarget).html('Hide Explanations')
-								$(c.currentTarget).css('color', 'rgb(140, 33, 48)')
-							}else{
-								$(v).slideUp();
-								$(c.currentTarget).html('Explain Each Section')
-								$(c.currentTarget).css('color', 'blue')
-							}
-						})
+						if($(c.currentTarget).html() == 'Explain Each Section'){
+							helpText.slideDown();
+							$(c.currentTarget).html('Hide Explanations')
+							$(c.currentTarget).css('color', 'rgb(140, 33, 48)')
+						}else{
+							helpText.slideUp();
+							$(c.currentTarget).html('Explain Each Section')
+							$(c.currentTarget).css('color', 'blue')
+						}
 					}
 					// work with the learn more button intro text
 					if(c.currentTarget.id == 'dijit_layout_ContentPane_0learnMoreButton'){
@@ -121,10 +119,10 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						let elem1 = $('#' + t.id + 'learnMoreButton');
 						if(elem.is(":visible")){
 							elem.slideUp();
-							elem1.html('Learn More about the Explorer')
+							elem1.html('Learn More about the Explorer');
 						}else{
 							elem.slideDown();
-							elem1.html('Hide Learn More')
+							elem1.html('Hide Learn More');
 						}
 					}
 				});
@@ -142,22 +140,22 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 				})
 
 // the code below may be useful. we used it to hide a legend item but it is clunky.
-				// t.map.on("update-end", function (e) {
-				// 	let span = $(".layer-legends").find('span');
-				// 	$.each(span,function(i,v){
-				// 		if($(v).html() == 'HUC - Mask'){
-				// 			$(v).parent().parent().hide()
-				// 		}
-				// 	});
-				// })	
-				// t.map.on("update-start", function (e) {
-				// 	let span = $(".layer-legends").find('span');
-				// 	$.each(span,function(i,v){
-				// 		if($(v).html() == 'HUC - Mask'){
-				// 			$(v).parent().parent().hide()
-				// 		}
-				// 	});
-				// })
+				t.map.on("update-end", function (e) {
+					let span = $(".layer-legends").find('span');
+					$.each(span,function(i,v){
+						if($(v).html() == 'HUC - Mask'){
+							$(v).parent().parent().hide()
+						}
+					});
+				})	
+				t.map.on("update-start", function (e) {
+					let span = $(".layer-legends").find('span');
+					$.each(span,function(i,v){
+						if($(v).html() == 'HUC - Mask'){
+							$(v).parent().parent().hide()
+						}
+					});
+				})
 
 				t.dynamicLayer2.on("load", function () {	
 					t.layersArray2 = t.dynamicLayer.layerInfos;
