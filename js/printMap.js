@@ -30,23 +30,25 @@ define([
 
         return declare(null, {
         	printMap2: function(t){
-        		t.printUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task";
-        		parser.parse();
-		        esriConfig.defaults.io.proxyUrl = "/proxy/";
-		        // get print templates from the export web map task
+        		// t.printUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task";
+        		// parser.parse();
+		        // esriConfig.defaults.io.proxyUrl = "/proxy/";
+		        // // get print templates from the export web map task
 		        // var printInfo = esriRequest({
 		        //   "url": t.printUrl,
 		        //   "content": { "f": "json" }
 		        // });
-		        // console.log(printInfo);
+		        // // console.log(printInfo);
 		        // printInfo.then(t.printMap.handlePrintInfo(t), handleError);
+
 		        // var printer = new Print({
 		        //   map: t.map,
-		        //   url: "http://cumulus-web-adapter-1827610810.us-west-1.elb.amazonaws.com/arcgis/rest/services/nascience/ny_ExportWebMap/GPServer/Export%20Web%20Map"
+		        //   url: t.printUrl
 		        // }, dom.byId(t.id + "mapBtn2"));
 		        // printer.startup();
         	},
         	handlePrintInfo: function(){
+        		console.log('print info')
 
         	},
         	drawOptions: function(t){

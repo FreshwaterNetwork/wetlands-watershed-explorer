@@ -12,7 +12,7 @@ function ( 	declare, PluginBase,Draw, ContentPane, dom, domStyle, domGeom, obj, 
 	return declare(PluginBase, {
 		// The height and width are set here when an infographic is defined. When the user click Continue it rebuilds the app window with whatever you put in.
 		toolbarName: "Wetlands and Watersheds Explorer", showServiceLayersInLegend: true, allowIdentifyWhenActive: false, rendered: false, resizable: false,
-		hasCustomPrint: false, size:'custom', width:430, hasHelp:true, 
+		hasCustomPrint: true, size:'custom', width:430, hasHelp:true, 
 		
 		// First function called when the user clicks the pluging icon. 
 		initialize: function (frameworkParameters) {
@@ -92,6 +92,7 @@ function ( 	declare, PluginBase,Draw, ContentPane, dom, domStyle, domGeom, obj, 
 		},
 		// Called when the user hits the print icon
 		beforePrint: function(printDeferred, $printArea, mapObject) {
+			console.log('before print', printDeferred, $printArea, mapObject);
 			printDeferred.resolve();
 		},	
 		// Called by activate and builds the plugins elements and functions
