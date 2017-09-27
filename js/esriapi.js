@@ -124,7 +124,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						$('#' + t.id + 'getStartedText').slideUp();
 						$('#' + t.id + 'searchWrapper').slideDown();
 						$('#' + t.id + 'wfa-mainContentWrap').slideUp();
-						$('#' + t.id + 'fullExt-selText').trigger('click');	
+						// $('#' + t.id + 'fullExt-selText').trigger('click');	
 					}
 				})
 
