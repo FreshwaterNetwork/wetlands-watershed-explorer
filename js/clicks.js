@@ -67,7 +67,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$("#"+ t.id + 'wfa-mainContentWrap').slideUp();
 					}
 				});
-				// save and share code outside the 
+				// save and share code outside the toolbox
 				$('.wfa-saveAndShare').on('click',  function(){
 					let ss = $('#map-utils-control').find('.i18n')[3];
 					ss.click();
@@ -75,33 +75,14 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				});
 				// create pdf map code
 				$('.wfa-mapCreate').on('click',  function(){
-					// let ss = $('#map-utils-control').find('.i18n')[3];
-					// ss.click();
+					let ss = $('#map-utils-control').find('.i18n')[2];
+					ss.click();
 				});
 // Download HUC 12 data click //////////////////////////////////////////////////////////////////////////////////////////////
 				// Data download click
 				$('#' + t.id + 'dlBtn').on('click',  function(){
 					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + t.obj.huc12Name + "_data.zip", "_parent");
 				});	
-// INfo graphic buttons code ////////////////////////////////////////////////////////////////////////////////////////
-				// $('#' + t.id + 'funcInfoGraphicWrapper').mouseover(function(e){
-				// 	$(e.currentTarget).children().children()[0].title = 'Click to View Infographic for ' + t.obj.funcTracker;
-				// });
-				$('#' + t.id + 'funcInfoGraphicWrapper').on('click', function(e){
-					// let value;
-					// if(t.obj.currentHuc == 'WHUC12'){
-					// 	value = t.obj.funcTracker + "_wet"
-					// }else{
-					// 	value = t.obj.funcTracker
-					// }
-					// if(value == 'Count of Services ≥ High_wet'){
-					// 	value = 'Count of Services High_wet'
-					// }
-					// TINY.box.show({
-					// 	animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
-					// 	fixed: true, width: 660, height: 570
-					// });	
-				});
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// Set selected value text for button clicks
 				$( '#' + t.id + 'wfa-findEvalSiteToggle input' ).click(function(c){
