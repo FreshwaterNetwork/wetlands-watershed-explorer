@@ -31,9 +31,13 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 	        		})
 
 					// hide save and share html on app load;
-					$('#map-utils-control').children().find('.dropdown-menu').children().last().hide();
+					// $('#map-utils-control').children().find('.dropdown-menu').children().last().hide();
 					// hide the create map tool on app load
 					// $('#map-utils-control').children().find('.dropdown-menu').children().last().prev().hide();
+					// measure tool
+					// $('#map-utils-control').children().find('.dropdown-menu').children().last().prev().prev().prev().hide();
+
+					$('#map-utils-control').hide();
 					// add tooltip to info icon.
 					$('#' + t.id + 'funcInfoGraphicWrapper').tooltip();
 					// set layers array 

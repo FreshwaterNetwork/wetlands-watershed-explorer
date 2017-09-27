@@ -78,6 +78,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					let ss = $('#map-utils-control').find('.i18n')[2];
 					ss.click();
 				});
+				// measure tool code
+				$('.wfa-measure').on('click',  function(){
+					let ss = $('#map-utils-control').find('.i18n')[0];
+					ss.click();
+				});
 // Download HUC 12 data click //////////////////////////////////////////////////////////////////////////////////////////////
 				// Data download click
 				$('#' + t.id + 'dlBtn').on('click',  function(){

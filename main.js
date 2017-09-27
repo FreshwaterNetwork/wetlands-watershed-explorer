@@ -68,8 +68,9 @@ function ( 	declare, PluginBase,Draw, ContentPane, dom, domStyle, domGeom, obj, 
 			this.map.removeLayer(this.countiesGraphicsLayer); //
 			$('#search').show() // show main search bar when app is closed.
 			// show save and share when app is closed
-			$('#map-utils-control').children().find('.dropdown-menu').children().last().show();
-			$('#map-utils-control').children().find('.dropdown-menu').children().last().prev().show();
+			$('#map-utils-control').show()
+			// $('#map-utils-control').children().find('.dropdown-menu').children().last().show();
+			// $('#map-utils-control').children().find('.dropdown-menu').children().last().prev().show();
 		},	
 		// Called when user hits 'Save and Share' button. This creates the url that builds the app at a given state using JSON. 
 		// Write anything to you varObject.json file you have tracked during user activity.		
