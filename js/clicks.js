@@ -8,6 +8,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
         return declare(null, {
 			eventListeners: function(t){
 				//t.addShapefile.testFunction(t);
+				// console.log($("#esri_dijit_InfoWindow_1"))
+				
 				
 				//info accord
 				$( function() {
