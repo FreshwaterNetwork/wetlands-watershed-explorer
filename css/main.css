@@ -135,7 +135,7 @@ hr{
 	font-size: 13px; color: #2f6384; font-weight: bold;
 }
 .wfa-transOpSlider{
-	border-top:1pt solid #dbe1e1; margin: 2px 15px 0px 10px; padding-bottom: 4px;
+	/*border-top:1pt solid #dbe1e1;*/ margin: 2px 15px 0px 10px; padding-bottom: 4px;
 }
 .wfa-hucSelWrap{
 	font-size: 13px; margin-right: 8px; border-radius: 5px; padding-left: 3px;
@@ -166,6 +166,9 @@ hr{
 }
 .wfa-mainContentWrap{
 	position: relative; padding-left: 7px;
+}
+.wfa-headerSectionWrapper{
+	padding-left: 7px;
 }
 .wfa-dlwrap a {
 	color: blue !important; cursor: pointer !important;
@@ -268,14 +271,36 @@ hr{
 /*.wfa-ig-icon{
     padding:3px !important; height:31px; z-index:2600; position: absolute; right: 7px;
 }*/
+/* collapse styling ////////////////////////////////////////////////////////*/
 .wfa-collapseText{
-	margin-left: auto; margin-top: 4px; margin-right: 4px; color: blue;
+	margin-left: auto; margin-top: 4px; margin-right: 4px; color: white;
 }
-.wfa-collapseText:hover{
+/*.wfa-collapseText:hover{
 	cursor: pointer; color: #2795b6;
+}*/
+.wfa-headerInfoWrap:hover{
+	cursor: pointer; background-color: #F3F3F3; border-radius: 5px;
 }
-/* styling the srawing tools*/
+/* styling the drawing tools*/
 .dijitButtonNode{
 	border: none !important;
 }
-
+/* what would you like to do section styling //////////////////////////////*/
+.wfa-openingWrapper{
+	margin-left: 11px;
+}
+.wfa-toolWrapper .button{
+	color: red; padding:2px; 
+}
+.wfa-toolWrapper{
+	text-align: right; margin: 10px 10px 0 auto;
+}
+.dropdown-menu li{
+	float: right;
+}
+.wfa-hamburger{
+	width: 35px; height: 3px; background-color: #2f6384; margin: 4px 0;
+}
+hr{
+	width: 97%; margin-right: 9px;
+}

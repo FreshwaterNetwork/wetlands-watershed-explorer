@@ -24,7 +24,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 </div>  -->
 
 <!-- Find A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<div id="wfa-findASite" class="wfa-fasWrap wfa-sections">
+<div id="wfa-findASite" class="wfa-fasWrap wfa-sections hide">
 	<div class="wfa-helpLinkText" id="learnMoreButton" style="margin-top: 5px; font-size: 14px">Learn more about the Explorer</div>
 	<div id="wfa-intoText" class="blueFont hide" style="font-weight: normal; margin-top: 10px;">
 		<p>Wetlands provide many services for people and wildlife: improving water quality, reducing flood impacts, helping streams flow, supporting fish and wildlife habitat, and others.</p>
@@ -45,37 +45,57 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<!-- <p style="font-style: italic;">-	Use dropdpown arrow on left to search by specific data.</p> -->
 	<div class="hide" id="searchOutsideStudy" style="color: rgb(140, 33, 48); font-weight: bold; margin: auto; text-align: center;">Your search was outside the study area, please try again.</div>
 	<!-- Search box wrapper -->
-	<div class="wfa-searchWrapper">
+	<!-- <div class="wfa-searchWrapper">
 		<div class="wfa-searchWidget" id="search1"></div>
-	</div>
+	</div> -->
 	<div id="printButton"></div>
 	<!-- <button class="button button-primary" id="viewReport">Create Report</button> -->
 
 	
-	<!-- upload shapefile code -->
-    <!-- <div style='padding-left:4px;'>
-      <p>
-        Add a zipped shapefile to the map.</p><p>Visit the
-        <a target='_blank' href="https://doc.arcgis.com/en/arcgis-online/reference/shapefiles.htm">Shapefiles</a> help topic for information and limitations.</p>
-          <form enctype="multipart/form-data" method="post" id="uploadForm">
-          <div class="field">
-              <label class="file-upload">
-                  <span><strong>Add File</strong></span>
-                  <input type="file" name="file" id="inFile" />
-              </label>
-          </div>
-          </form>
-          <span class="file-upload-status" style="opacity:1;" id="upload-status">Status</span>
-          <div id="fileInfo"> </div>
-    </div> -->
+	
 
 </div>
 
-<!-- <div>
-	<h3>What would you like to do?</h3>
-	<button disabled class="button button-default">Default Button</button>
 
-</div> -->
+
+
+
+<div id="headerSectionWrapper" class="wfa-headerSectionWrapper">
+	<div class="wfa-openingWrapper">
+		<div style="display: flex;">
+			<h3>What would you like to do?</h3>
+			<div class="wfa-toolWrapper">
+				<div class="dropdown">
+					<button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						<div class="wfa-hamburger"></div>
+						<div class="wfa-hamburger"></div>
+						<div class="wfa-hamburger"></div>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin-left: -118px;">
+						<li><a href="#">Bookmark and Share</a></li>
+						<li><a href="#">View Report</a></li>
+						<li ><a href="#">Create a PDF Map</a></li>
+						<li><a href="#">Measure</a></li>
+						<li><a href="#">Explain each section</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="toggle-btn" style="width:350px;">
+			<input type="radio" id="num1" name="num" value="one" checked />
+			<label for="num1">Explore a New Site</label>
+			<input type="radio" id="num2" name="num" value="two"/>
+			<label for="num2">Evaluate a Known Site</label>
+		</div>
+		<h4 id="getStartedText" class="" style="margin-left: 77px;">Click on the map to get started</h4>
+		<!-- Search box wrapper -->
+		<div class="wfa-searchWrapper hide" id="searchWrapper">
+			<div class="wfa-searchWidget" id="search1"></div>
+		</div>
+	</div>
+	<hr class="wfa-hr">
+</div>
 
 <!-- Evaluate A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 <!-- <div id="wfa-evalASite" class="wfa-easWrap wfa-sections hide">
@@ -84,15 +104,15 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!-- Main Content Wrap area ///////////////////////////////////////////////////////////////////////////////////// -->
 <div id="wfa-mainContentWrap" class="wfa-mainContentWrap">
 	<div id="hucSelWrap" class="hide">
-		<div id="helpLinkWrapper" class="wfa-helpLinkWrapper">
+		<!-- <div id="helpLinkWrapper" class="wfa-helpLinkWrapper">
 			<div class="wfa-helpLinkText" id="explainButton">Explain Each Section</div>
 			<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandByDesignReport_Beta.pdf" target="_blank">View Report</a></div>
-		</div>
+		</div> -->
 
 		<!-- Selected Watershed header -->
 		<div class="wfa-headerInfoWrap" style="display: flex;">
 			<h3 style="margin: 6px 0 4px 0">Selected Watersheds:</h3>
-			<div class="blueFont wfa-collapseText">Collapse</div>
+			<div class="wfa-collapseText">Collapse</div>
 		</div>
 		
 		<div class="wfa-collapseSection">
@@ -102,7 +122,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			</div>
 			<!-- Selected watershed sections -->
 			<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-0">
-				<div id="fullExt-selText" class="hide"><span >Go to: </span><span class="wfa-textZoom">Full Extent or back to Search</span></div>
+				<div id="fullExt-selText" class="hide"><span >Go to: </span><span class="wfa-textZoom">Full Extent</span></div>
 			</div>
 			<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-1" >
 				<div id="WHUC6-selText" class="hide"><span  >Go to: </span><span class="wfa-textZoom">HUC 6 Watershed:</span> <span id="huc6Sel" class="blueFont wfa-textZoom">test text</span></div>
@@ -116,7 +136,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-4">
 				<div id="WHUC12-selText" class="hide"><span>Go to: </span><span class="wfa-textZoom">HUC 12 Watershed:</span> <span id="huc12Sel" class="blueFont">test text</span></div>
 			</div>
-			<hr>
+			<hr class="wfa-hr">
 		</div>
 		
 	</div>
@@ -126,7 +146,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<div class="hide" id="mainFuncWrapper">
 		<div class="wfa-headerInfoWrap" style="display: flex;">
 			<h3 style="margin: 0 0 4px 0">Choose Service of Interest:</h3>
-			<div class="blueFont wfa-collapseText" style="margin-top: 0px;">Collapse</div>
+			<div class="wfa-collapseText" style="margin-top: 0px;">Collapse</div>
 		</div>
 		<div class="wfa-collapseSection">
 			<!-- help text -->
@@ -214,26 +234,23 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					<div class="wfa-sliderLabels">Transparent</div>
 				</div>
 			</div>
+			<hr>
 		</div>
 		<!-- View wildlife data checkbox -->
 		<div class="hide" id="wildlifeCheckWrap">
-		<h4>View Wetalnd wildlife habittat</h4>
-			<div style="display: flex;">
-				<label class="hide form-component wfa-wildlifeCheck" for="a-option" id="wildlifeCheck">
-					<input type="checkbox" id="a-option" name="wildlifeCheck">
-					<div class="check"></div>
-					<span class="form-text">View Wetland Wildlife Habitat</span>
-				</label>
-				<div id="wildlifeCollapseText" class="blueFont wfa-collapseText hide" style="margin-top: 17px;">Collapse</div>
+			<!-- <h3>View Wetland wildlife habittat</h3> -->
+			<div class="wfa-headerInfoWrap" style="display: flex;">
+				<h3 style="margin: 0 0 4px 0">View Wetland wildlife habittat:</h3>
+				<div class="wfa-collapseText" style="margin-top: 0px;">Collapse</div>
 			</div>
 			<div class="wfa-collapseSection">
 				<!-- Wildlife radio buttons ///////////////////////////////////////////////////////////////////////-->
-				<div id="wildlifeRadioButtons" class="hide wfa-wildlifeRadioButtonsWrapper">
+				<div id="wildlifeRadioButtons" class="wfa-wildlifeRadioButtonsWrapper">
 					<div class="wfa-wildlifeRadioButtons" id="wildlife-only">
 						<div style="width: 184px;">
 							<div class="wfa-wildCheckWrapper">
 								<label class="form-component wfa-funcLabel" for="total-option">
-									<input checked type="checkbox" id="total-option" name="wild" class="rb_cb" value="All Guilds">
+									<input type="checkbox" id="total-option" name="wild" class="rb_cb" value="All Guilds">
 									<div class="check"></div>
 									<span class="form-text">All Guilds</span>
 
@@ -290,11 +307,12 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						</div>
 					</div>
 				</div>
+				<hr>
 			</div>
 		</div>
 <!-- Dowload HUC 12 data button ////////////////////////////////////////////-->
 		<!-- <button class="button button-primary wfa-saveAndShare" id="viewReport">Save and Share</button> -->
-		<div id="bmBtn" class="wfa-helpLinkText wfa-saveAndShare" style="margin: 0 0 0px 13px;">Bookmark and Share<span></span></div>
+		<div id="bmBtn" class="wfa-helpLinkText wfa-saveAndShare hide" style="margin: 0 0 0px 13px;">Bookmark and Share<span></span></div>
 		<div id="mapBtn" class="wfa-helpLinkText wfa-mapCreate hide" style="margin: 0 0 0px 13px;"><div id="mapBtn2">Create PDF Map</div></div>
 		<div id="drawClearWrapper" class="hide">
 			<div id="drawingWrapper">
@@ -331,7 +349,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	</div> -->
 	<div id="wetlandHoverText" class="wfa-wetlandHoverText blueFont hide">Click on individual wetland sites to see how they compare to others in this watershed.</div>
 	<div class="hide" id="mainAttributeWrap" style="padding-left: 7px">
-		<hr>
+		
 		<h3 style="margin:15px 0 2px 0;">Range of Services: <span id="siteServices_span">(Currently selected: All)</span></h3>
 
 		<div id="wfa-fas_AttributeWrap" class="wfa-fas_AttributeWrap">

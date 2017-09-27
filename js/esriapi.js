@@ -58,13 +58,22 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						t.obj.opacityVal2 = 1 - ui.value/100;
 						t.dynamicLayer2.setOpacity(t.obj.opacityVal2);
 					})	
-					
+					//For Chosen options visit https://harvesthq.github.io/chosen/
+					//Single deselect only works if the first option in the select tag is blank
+					$("#" + t.id + "chosenSingle").chosen({allow_single_deselect:true, width:"65px"})
+						.change(function(c){
+							var v = c.target.value;
+							// check for a deselect
+							if (v.length == 0){
+								v = "none";
+							}
+							$('#' + c.target.id ).parent().next().find("span").html(v)
+						});
 					// call feature layer function
 					t.clicks.featureLayerListeners(t);
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(.6), true)
 					}
-
 // Save and Share ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 					// Save and Share Handler					
 					if (t.obj.stateSet == "yes"){
@@ -101,6 +110,25 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 					// });
 				
 				});
+				
+				// main header toggle buttons
+				$('.toggle-btn input').unbind().on('click',function(c){
+					if($(c.currentTarget).next().html() == 'Explore a New Site'){
+						console.log('explore a new site');
+
+						$('#' + t.id + 'getStartedText').slideDown();
+						$('#' + t.id + 'searchWrapper').slideUp();
+
+					}else{
+						console.log('search a new site');
+						$('#' + t.id + 'getStartedText').slideUp();
+						$('#' + t.id + 'searchWrapper').slideDown();
+						$('#' + t.id + 'wfa-mainContentWrap').slideUp();
+						$('#' + t.id + 'fullExt-selText').trigger('click');	
+					}
+				})
+
+
 				// Work with the explain each choice buttons ////////////////////////////
 				$('.wfa-helpLinkText').unbind().on('click',function(c){
 					if(c.currentTarget.id == 'dijit_layout_ContentPane_0explainButton'){
@@ -129,15 +157,21 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 					}
 				});
 				// collapse sections code ///////////
-				$('.wfa-collapseText').unbind().on('click',function(c){
-					let target = $(c.currentTarget)
-					let elem = $(c.currentTarget).parent().next();
-					if(elem.is(":visible")){
-						elem.slideUp();
-						target.html('Show')
+				$('.wfa-headerInfoWrap').on('mouseover',function(c){
+					$(c.currentTarget).children().last().addClass("blueFont");
+					console.log('mouse over')
+				})
+				$('.wfa-headerInfoWrap').on('mouseout',function(c){
+					$(c.currentTarget).children().last().removeClass("blueFont");
+				})
+				// on header click slide up and down content below 				
+				$('.wfa-headerInfoWrap').on('click',function(c){
+					if($(c.currentTarget).next().is(":visible")){
+						$(c.currentTarget).next().slideUp()
+						$(c.currentTarget).children().last().html('Show')
 					}else{
-						elem.slideDown();
-						target.html('Collapse')
+						$(c.currentTarget).next().slideDown();
+						$(c.currentTarget).children().last().html('Collapse')
 					}
 				})
 

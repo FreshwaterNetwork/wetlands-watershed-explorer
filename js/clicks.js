@@ -146,26 +146,28 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 
 // wildlife checkbox show and hide ///////////////////////////////////////////////////////////////////////////////////////////////////
 				// wildlife checkboxes /////////////
-				$('#' + t.id + 'wildlifeCheck input').on('click',function(c, x){
-					let isChecked = c.currentTarget.checked;
-					if(isChecked){
-						$('#' + t.id + 'wildlifeRadioButtons').slideDown();
-						$('#' + t.id + 'wildlifeCollapseText').slideDown();
-						$('#' + t.id + 'wildlifeCollapseText').html('Collapse');
-						$('#' + t.id + 'wildlifeCollapseText').parent().parent().find('.wfa-collapseSection').slideDown();
-						t.clicks.animateColor(t, 'viewWildlifeInfoGraphicIcon');
-						t.obj.wildlifeCheck = 'wildlife'
-						t.clicks.controlVizLayers(t, t.obj.maskWhere);
-					}else{
-						$('#' + t.id + 'wildlifeRadioButtons').slideUp();
-						$('#' + t.id + 'wildlifeCollapseText').slideUp();
-						t.obj.wildlifeCheck = 'null'
-						t.obj.visibleLayers2 = []; // empty list of rasters
-						t.clicks.controlVizLayers(t, t.obj.maskWhere);
-					}
-				});
+				// $('#' + t.id + 'wildlifeCheck input').on('click',function(c, x){
+				// 	let isChecked = c.currentTarget.checked;
+				// 	if(isChecked){
+				// 		$('#' + t.id + 'wildlifeRadioButtons').slideDown();
+				// 		$('#' + t.id + 'wildlifeCollapseText').slideDown();
+				// 		$('#' + t.id + 'wildlifeCollapseText').html('Collapse');
+				// 		$('#' + t.id + 'wildlifeCollapseText').parent().parent().find('.wfa-collapseSection').slideDown();
+				// 		t.clicks.animateColor(t, 'viewWildlifeInfoGraphicIcon');
+				// 		t.obj.wildlifeCheck = 'wildlife'
+				// 		t.clicks.controlVizLayers(t, t.obj.maskWhere);
+				// 	}else{
+				// 		$('#' + t.id + 'wildlifeRadioButtons').slideUp();
+				// 		$('#' + t.id + 'wildlifeCollapseText').slideUp();
+				// 		t.obj.wildlifeCheck = 'null'
+				// 		t.obj.visibleLayers2 = []; // empty list of rasters
+				// 		t.clicks.controlVizLayers(t, t.obj.maskWhere);
+				// 	}
+				// });
 				// wildlife radio buttons /////////////////
 				$("#" + t.id + 'wildlifeRadioButtons input').on('click',function(c, x){
+					console.log(c, x , 'checked');
+					t.obj.wildlifeCheck = 'wildlife'
 					if(this.checked){
 						var checkname = $(this).attr("name");
 						$("input:checkbox[name='" + checkname + "']").not(this).removeAttr("checked");
@@ -398,6 +400,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				t.qt1.execute(t.q1, function(evt){
 					// t.obj.maskClick = 'no';
 					if (evt.features.length > 0 && t.obj.maskClick == 'no'){
+						$('#' + t.id + 'getStartedText').slideUp();
+						$('#' + t.id + 'wfa-mainContentWrap').slideDown();
 						// populate the maskExps and hucExps objects after query has been triggered
 						if(t.obj.search == 'yes'){
 							t.huc6Val = evt.features[0].attributes.WHUC6
@@ -620,10 +624,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						t.obj.visibleLayers = [0,1]
 						$('#' + t.id +'fullExt-selText').slideUp();
 						$('#' + t.id + 'mainFuncWrapper').slideUp();
+						$('#' + t.id + 'getStartedText').slideDown();
 						$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
 							t.clicks.hoverGraphic(t,1,t.obj.where)
 						});
-						$('#' + t.id + 'wfa-findASite').slideDown();
+						// $('#' + t.id + 'wfa-findASite').slideDown();
 						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
 						$('#' + t.id + 'watershedHoverText').slideUp();
 						$('#' + t.id + 'wetlandHoverText').slideUp();
