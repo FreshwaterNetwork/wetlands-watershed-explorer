@@ -530,11 +530,14 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 // Radio/attribute display function //////////////////////////////////////////////////////////////////////////////////////
 			radioAttDisplay: function(t){
-				// if (t.obj.currentWet != 'wetland'){
-				// 	t.radAttVal = 'huc' // value should be what you want to slide up
-				// }else{
-				// 	t.radAttVal = 'wet' // value should be what you want to slide up
-				// }
+				// function help text controls
+				if(t.obj.currentHuc == 'WHUC12'){
+					$("#" + t.id + "serviceOfInterest").html('Choose Service of Interest (wetlands):')
+					$('#' + t.id + 'functionHelpText').html('The map at right ranks sites based on their potential to provide ecosystem services, relative to other sites in the watershed. To choose a different service for comparison, click below.')	
+				}else{
+					$("#" + t.id + "serviceOfInterest").html('Choose Service of Interest:')
+					$('#' + t.id + 'functionHelpText').html('The map at right shows how subwatersheds compare for services lost, due to wetland loss. Loss of services can help with watershed planning—identifying where services may be needed and the relative amount of opportunity to restore and protect them. To choose a different service for comparison, click below.')
+				}
 				// attribute control //////////////////////////////
 				var attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.wfa-sum-wrap');
 				$.each(attributes,function(i,v){

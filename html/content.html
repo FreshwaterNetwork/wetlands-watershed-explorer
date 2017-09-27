@@ -150,12 +150,12 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <!-- Function of Interest find/eval wrapper ///////////////////////////////////////////////////////////////////////////////////////// --> 
 	<div class="hide" id="mainFuncWrapper">
 		<div class="wfa-headerInfoWrap" style="display: flex;">
-			<h3 style="margin: 0 0 4px 0">Choose Service of Interest:</h3>
+			<h3 id="serviceOfInterest" style="margin: 0 0 4px 0">Choose Service of Interest:</h3>
 			<div class="wfa-collapseText" style="margin-top: 0px;">Collapse</div>
 		</div>
 		<div class="wfa-collapseSection">
 			<!-- help text -->
-			<div class="wfa-helpText hide blueFont">
+			<div id="functionHelpText" class="wfa-helpText hide blueFont">
 				The map at right shows how subwatersheds compare for services lost, due to wetland loss. Loss of services can help with watershed planning—identifying where services may be needed and the relative amount of opportunity to restore and protect them. To choose a different service for comparison, click below.
 			</div>
 			<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
