@@ -165,10 +165,10 @@ hr{
 	background: #fff; position: absolute; z-index: 1000; width: 420;
 }
 .wfa-mainContentWrap{
-	position: relative; padding-left: 7px;
+	position: relative; padding-left: 7px; /*margin-top: 112px;*/
 }
 .wfa-headerSectionWrapper{
-	padding-left: 7px;
+	padding-left: 7px; /*position: absolute; z-index: 1000; background-color: white; width: 100%;*/
 }
 .wfa-dlwrap a {
 	color: blue !important; cursor: pointer !important;
@@ -182,10 +182,10 @@ hr{
 	font-size: 13px; margin-top: 16px; margin-left: 14px;
 }
 .wfa-wildlifeRadioButtons{
-	display: flex; margin-left: 30px;
+	display: flex; margin-left: 13px;
 }
 .wfa-prwCheck{
-	margin-left: 30px; color: #2f6384;
+	margin-left: 13px; color: #2f6384;
 }
 
 /* Bottom Bar Opacity slider Elements  ///////////////////////////////////////////////////////////////////////////////////////*/
@@ -257,7 +257,7 @@ hr{
 /* Help section styles*/
 
 .wfa-helpLinkWrapper{
-	display: flex; color: blue; margin: 5px 0 5px 0; font-size: 14px; 
+	display: flex; color: blue; font-size: 12px; 
 }
 .wfa-helpLinkText{
 	color: blue;
@@ -266,14 +266,14 @@ hr{
 	color: #2795b6; cursor: pointer; 
 }
 .wfa-helpText{
-	margin: 8px 0 5px 0; font-weight: normal !important; color: rgb(140, 33, 48) !important;
+	margin: 0px 0 5px 0; font-weight: normal !important; color: rgb(140, 33, 48) !important; width: 98%;
 }
 /*.wfa-ig-icon{
     padding:3px !important; height:31px; z-index:2600; position: absolute; right: 7px;
 }*/
 /* collapse styling ////////////////////////////////////////////////////////*/
 .wfa-collapseText{
-	margin-left: auto; margin-top: 4px; margin-right: 4px; color: white;
+	margin-left: auto; margin-top: 0px; margin-right: 4px; color: white;
 }
 /*.wfa-collapseText:hover{
 	cursor: pointer; color: #2795b6;
@@ -286,9 +286,9 @@ hr{
 	border: none !important;
 }
 /* what would you like to do section styling //////////////////////////////*/
-.wfa-openingWrapper{
+/*.wfa-openingWrapper{
 	margin-left: 11px;
-}
+}*/
 .wfa-toolWrapper .button{
 	color: red; padding:2px; 
 }
@@ -299,7 +299,7 @@ hr{
 	float: right;
 }
 .wfa-hamburger{
-	width: 35px; height: 3px; background-color: #2f6384; margin: 4px 0;
+	width: 20px; margin: 4px; height: 3px; background-color: #2f6384;
 }
 hr{
 	width: 97%; margin-right: 9px;

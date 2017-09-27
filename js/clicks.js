@@ -624,7 +624,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						t.obj.visibleLayers = [0,1]
 						$('#' + t.id +'fullExt-selText').slideUp();
 						$('#' + t.id + 'mainFuncWrapper').slideUp();
-						$('#' + t.id + 'getStartedText').slideDown();
 						$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
 							t.clicks.hoverGraphic(t,1,t.obj.where)
 						});

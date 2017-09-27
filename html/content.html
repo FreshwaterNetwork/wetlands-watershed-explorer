@@ -61,6 +61,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 
 <div id="headerSectionWrapper" class="wfa-headerSectionWrapper">
+		
 	<div class="wfa-openingWrapper">
 		<div style="display: flex;">
 			<h3>What would you like to do?</h3>
@@ -71,12 +72,13 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						<div class="wfa-hamburger"></div>
 						<div class="wfa-hamburger"></div>
 					</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin-left: -118px;">
-						<li><a href="#">Bookmark and Share</a></li>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin-left: -128px;">
 						<li><a href="#">View Report</a></li>
+						<li><a href="#">Learn More</a></li>
+						<li><a href="#">Bookmark and Share</a></li>
 						<li ><a href="#">Create a PDF Map</a></li>
-						<li><a href="#">Measure</a></li>
-						<li><a href="#">Explain each section</a></li>
+						<!-- <li><a href="#">Measure</a></li> -->
+						<!-- <li><a href="#">Explain each section</a></li> -->
 					</ul>
 				</div>
 			</div>
@@ -108,17 +110,20 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<div class="wfa-helpLinkText" id="explainButton">Explain Each Section</div>
 			<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandByDesignReport_Beta.pdf" target="_blank">View Report</a></div>
 		</div> -->
-
+		<div id="helpLinkWrapper" class="wfa-helpLinkWrapper">
+			<div class="wfa-helpLinkText" id="explainButton">Explain Each Section</div>
+			<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandByDesignReport_Beta.pdf" target="_blank">View Report</a></div>
+		</div>
 		<!-- Selected Watershed header -->
 		<div class="wfa-headerInfoWrap" style="display: flex;">
-			<h3 style="margin: 6px 0 4px 0">Selected Watersheds:</h3>
+			<h3 style="margin: 0 0 4px 0">Selected Watersheds:</h3>
 			<div class="wfa-collapseText">Collapse</div>
 		</div>
 		
 		<div class="wfa-collapseSection">
-		<!-- help text -->
+			<!-- help text -->
 			<div class="wfa-helpText hide blueFont">
-				test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
+				Wisconsin’s watersheds range in size from major river basins – millions of acres in extent – down to smaller watersheds nested within them, and smaller watersheds nested within those. Single click on watersheds, at right, to navigate through these scales. To zoom back out, click on the desired watershed scale in the list below. Wetland restoration and preservation opportunities are visible at the “HUC 12” scale.
 			</div>
 			<!-- Selected watershed sections -->
 			<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-0">
@@ -151,9 +156,8 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<div class="wfa-collapseSection">
 			<!-- help text -->
 			<div class="wfa-helpText hide blueFont">
-				test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
+				The map at right shows how subwatersheds compare for services lost, due to wetland loss. Loss of services can help with watershed planning—identifying where services may be needed and the relative amount of opportunity to restore and protect them. To choose a different service for comparison, click below.
 			</div>
-			
 			<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
 				<div class="wfa-func_radioGroups">
 					<label data-wfa-mode='huc' class="form-component wfa-funcLabel"  for="combined-option">
@@ -240,7 +244,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<div class="hide" id="wildlifeCheckWrap">
 			<!-- <h3>View Wetland wildlife habittat</h3> -->
 			<div class="wfa-headerInfoWrap" style="display: flex;">
-				<h3 style="margin: 0 0 4px 0">View Wetland wildlife habittat:</h3>
+				<h3 style="margin: 0 0 4px 0">View Wetland Wildlife Habitat:</h3>
 				<div class="wfa-collapseText" style="margin-top: 0px;">Collapse</div>
 			</div>
 			<div class="wfa-collapseSection">
@@ -255,7 +259,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 									<span class="form-text">All Guilds</span>
 
 								</label>
-								<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-wildInfoIcon">
+								<!-- <img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-wildInfoIcon"> -->
 							</div>
 							<div class="wfa-wildCheckWrapper">
 								<label class="form-component wfa-funcLabel" style="display: block;" for="forest-option">

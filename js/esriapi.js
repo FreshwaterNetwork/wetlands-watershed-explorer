@@ -114,17 +114,14 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 				// main header toggle buttons
 				$('.toggle-btn input').unbind().on('click',function(c){
 					if($(c.currentTarget).next().html() == 'Explore a New Site'){
-						console.log('explore a new site');
-
 						$('#' + t.id + 'getStartedText').slideDown();
 						$('#' + t.id + 'searchWrapper').slideUp();
 
 					}else{
-						console.log('search a new site');
 						$('#' + t.id + 'getStartedText').slideUp();
 						$('#' + t.id + 'searchWrapper').slideDown();
 						$('#' + t.id + 'wfa-mainContentWrap').slideUp();
-						// $('#' + t.id + 'fullExt-selText').trigger('click');	
+						$('#' + t.id + 'fullExt-selText').trigger('click');	
 					}
 				})
 
