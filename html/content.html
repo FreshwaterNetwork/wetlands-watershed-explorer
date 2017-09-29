@@ -48,8 +48,10 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 	<!-- <div class="wfa-searchWrapper">
 		<div class="wfa-searchWidget" id="search1"></div>
 	</div> -->
-	<div id="printButton"></div>
+	<!-- <div id="printButton"></div> -->
 	<!-- <button class="button button-primary" id="viewReport">Create Report</button> -->
+	
+	
 
 	
 	
@@ -92,12 +94,31 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<label for="num2">Evaluate a known site</label>
 		</div>
 		<h4 id="getStartedText" class="blueFont" style="margin-left: 77px;">Click on the map to get started</h4>
-		<!-- Search box wrapper -->
+
 		<div class="wfa-searchWrapper hide" id="searchWrapper">
 			<div class="wfa-searchWidget" id="search1"></div>
 		</div>
+		<!-- help link text -->
+		<div id="helpLinkWrapper" class="wfa-helpLinkWrapper hide">
+			<div class="wfa-helpLinkText" id="explainButton">Explain Each Section</div>
+			<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandByDesignReport_Beta.pdf" target="_blank">View Report</a></div>
+		</div>
+		<!-- <div class="wfa-helpLinkWrapper"> -->
+			<!-- <div class="wfa-helpButtonWrap">
+				<button id="explainButton" class="button button-default">Explain Sections</button>
+			</div> -->
+			<!-- <div class="wfa-search-wrap">
+				
+				<div class="wfa-searchWrapper hide" id="searchWrapper">
+					<div class="wfa-searchWidget" id="search1"></div>
+				</div>
+			</div> -->
+
+			<!-- <div class="wfa-helpButtonWrap">
+				<button class="button button-default">View <br> Report</button>
+			</div> -->
+		<!-- </div> -->
 	</div>
-	<hr class="wfa-hr">
 </div>
 
 <!-- Evaluate A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
@@ -111,10 +132,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<div class="wfa-helpLinkText" id="explainButton">Explain Each Section</div>
 			<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandByDesignReport_Beta.pdf" target="_blank">View Report</a></div>
 		</div> -->
-		<div id="helpLinkWrapper" class="wfa-helpLinkWrapper">
-			<div class="wfa-helpLinkText" id="explainButton">Explain Each Section</div>
-			<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandByDesignReport_Beta.pdf" target="_blank">View Report</a></div>
-		</div>
+		
 		<!-- Selected Watershed header -->
 		<div class="wfa-headerInfoWrap" style="display: flex;">
 			<h3 style="margin: 0 0 4px 0">Selected Watersheds:</h3>
@@ -165,7 +183,8 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						<input checked type="radio" id="combined-option" name="func" class="rb_cb" value="Combined Services">
 						<div class="check"></div>
 						<span class="form-text">Combined Services</span>
-						<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">
+						<img id="funcInfoIcon" title="Test infoIcon" src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">
+						<div style="z-index: 100000;" id="dialogBoxTest">test dialog box</div>
 					</label>
 					<label data-wfa-mode='wet' class="form-component wfa-funcLabel hide"  style="display: none;" for="count-option">
 						<input checked type="radio" id="count-option" name="func" class="rb_cb" value="Count of Services ≥ High">
@@ -258,7 +277,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 									<input type="checkbox" id="total-option" name="wild" class="rb_cb" value="All Guilds">
 									<div class="check"></div>
 									<span class="form-text">All Guilds</span>
-
+									<div style="z-index: 100000;" id="wildDialogBoxTest"></div>
 								</label>
 								<!-- <img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-wildInfoIcon"> -->
 							</div>
@@ -331,7 +350,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 		<div id="downloadDataWrapper" class="hide">
 			<!-- <button class="button button-primary" id="dlBtn">Download Data</button> -->
-			<div id="dlBtn" class="wfa-helpLinkText" style="margin: 0 0 7px 13px;">Download Wetland Data<span></span></div>
+			<!-- <div id="dlBtn" class="wfa-helpLinkText" style="margin: 0 0 7px 13px;">Download Wetland Data<span></span></div> -->
 		</div>
 		
 	</div>

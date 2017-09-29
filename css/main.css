@@ -165,10 +165,10 @@ hr{
 	background: #fff; position: absolute; z-index: 1000; width: 420;
 }
 .wfa-mainContentWrap{
-	position: relative; padding-left: 7px; /*margin-top: 112px;*/
+	position: relative; padding-left: 7px; margin-top: 190px;
 }
 .wfa-headerSectionWrapper{
-	padding-left: 7px; /*position: absolute; z-index: 1000; background-color: white; width: 100%;*/
+	 position: absolute; z-index: 1000; background-color: white; width: 100%; box-shadow: 0 2px 2px rgba(16,22,26,.5);
 }
 .wfa-dlwrap a {
 	color: blue !important; cursor: pointer !important;
@@ -213,17 +213,34 @@ hr{
 }
 
 /* search widget styling ////////////////////////////////////////////////////////////////////////////////////////////////////*/
-.wfa-searchWidget{
+/*.wfa-searchWidget{
 	position: absolute; display: block; z-index: 1000; top:100px; left: 50px; background-color: grey !important;
+}*/
+/*.wfa-searchWrapper .arcgisSearch .searchGroup .searchInput{
+	width: 100px !important; 
 }
+.wfa-searchWrapper .arcgisSearch .searchIcon{
+	width: 10px !important;
+}
+.wfa-searchWrapper .arcgisSearch .searchBtn{
+	width: 10px !important;
+}*/
 /*.arcgisSearch{
 	color: red; background-color: grey !important;
 }*/
+/* Jquery popup stylin //////////////////////////////////////*/
+.ui-widget-header{
+	background: none; background-color: blue !important;
+}
+
 #dijit_layout_ContentPane_0search1 .arcgisSearch .searchBtn { 
 	margin-top: 15px;
 }
 .wfa-searchWrapper{
-	background-color: #457545; height: 50px; width: 350px; padding: 10px; margin: auto;
+	background-color: #457545; width: 335px; padding: 5px; border-radius: 7px; margin: auto; margin-bottom: 13px;
+}
+.tinner{
+	min-height: 380px !important;
 }
 /* Report section Styling //////////////////////////////////////////////////////////////////*/
 .wfa-buildReportText{
@@ -257,14 +274,32 @@ hr{
 /* Help section styles*/
 
 .wfa-helpLinkWrapper{
-	display: flex; color: blue; font-size: 12px; 
+	display: flex;
 }
+.wfa-helpButtonWrap{
+	flex: 1;
+}
+.wfa-helpButtonWrap .button{
+	padding: 5px;
+}
+.wfa-helpButtonWrap .button:last-of-type{
+	padding: 5px 20px 5px 20px;
+}
+.wfa-helpButtonWrap:last-of-type{
+	text-align: right; margin-right: 7px;
+}
+
+.wfa-search-wrap{
+	flex: 2.5;
+}
+
 .wfa-helpLinkText{
 	color: blue;
 }
 .wfa-helpLinkText:hover{
 	color: #2795b6; cursor: pointer; 
 }
+
 .wfa-helpText{
 	margin: 0px 0 5px 0; font-weight: normal !important; color: rgb(140, 33, 48) !important; width: 98%;
 }
@@ -286,9 +321,9 @@ hr{
 	border: none !important;
 }
 /* what would you like to do section styling //////////////////////////////*/
-/*.wfa-openingWrapper{
-	margin-left: 11px;
-}*/
+.wfa-openingWrapper{
+	padding-left: 7px;
+}
 .wfa-toolWrapper .button{
 	color: red; padding:2px; 
 }

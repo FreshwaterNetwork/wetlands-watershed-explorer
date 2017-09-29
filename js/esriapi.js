@@ -8,6 +8,9 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 
         return declare(null, {
 			esriApiFunctions: function(t){	
+				
+				
+				
 				// Add dynamic map service layer number 2
 				t.dynamicLayer2 = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.7});
 				t.map.addLayer(t.dynamicLayer2);
@@ -117,7 +120,8 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 				
 				// main header toggle buttons
 				$('.toggle-btn input').unbind().on('click',function(c){
-					if($(c.currentTarget).next().html() == 'Explore a New Site'){
+					console.log(c);
+					if($(c.currentTarget).next().html() == 'Search for a new site'){
 						$('#' + t.id + 'getStartedText').slideDown();
 						$('#' + t.id + 'searchWrapper').slideUp();
 

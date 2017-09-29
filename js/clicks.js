@@ -8,8 +8,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
         return declare(null, {
 			eventListeners: function(t){
 				//t.addShapefile.testFunction(t);
-				// console.log($("#esri_dijit_InfoWindow_1"))
-				
+				$('#' + t.id + 'dialogBoxTest').dialog({autoOpen : false,});
+				$('#' + t.id + 'wildDialogBoxTest').dialog({autoOpen : false,});
+				t.clicks.infographicText(t);
 				
 				//info accord
 				$( function() {
@@ -104,6 +105,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				});
 // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-radio-indent input').on('click',function(c, x){
+
+					
 					t.obj.funcTracker = c.target.value.split("-")[0];
 					t.obj.wetTracker = c.target.value.split("-")[0];
 					// change the function site services text when radio buttons are clicked.
@@ -113,45 +116,39 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					$.each($('.wfa-radio-indent').find('label'),function(i,v){
 						if($(v).find('img')){$(v).find('img').remove()}
 					});
-					$(c.currentTarget).parent().append('<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">')
+					$(c.currentTarget).parent().append('<img id="dialogBoxTest" title="test text" src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">');
 					// function info icon click, open the appropriate popup window
 					$('.wfa-infoIcon').on('click',function(e){
 						let value;
 						if(t.obj.currentHuc == 'WHUC12'){
-							value = t.obj.funcTracker + "_wet"
+							value = $(e.currentTarget).prev().html() + "_wet"
 						}else{
-							value = t.obj.funcTracker
+							value = $(e.currentTarget).prev().html()
 						}
-						if(value == 'Count of Services ≥ High_wet'){
-							value = 'Count of Services High_wet'
-						}
-						TINY.box.show({
-							animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
-							fixed: true, width: 660, height: 570
-						});	
+						console.log(value)
+						let textParts = t.infographicText[value].split(" - ");
+						$('.ui-dialog-title').html(textParts[0]);
+						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
+						$('#' + t.id + 'dialogBoxTest').dialog("open");
+						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
+
+						// let value;
+						// if(t.obj.currentHuc == 'WHUC12'){
+						// 	value = t.obj.funcTracker + "_wet"
+						// }else{
+						// 	value = t.obj.funcTracker
+						// }
+						// if(value == 'Count of Services ≥ High_wet'){
+						// 	value = 'Count of Services High_wet'
+						// }
+						// TINY.box.show({
+						// 	animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
+						// 	fixed: true, width: 300, height: 100
+						// });	
 					});
 				});
 
 // wildlife checkbox show and hide ///////////////////////////////////////////////////////////////////////////////////////////////////
-				// wildlife checkboxes /////////////
-				// $('#' + t.id + 'wildlifeCheck input').on('click',function(c, x){
-				// 	let isChecked = c.currentTarget.checked;
-				// 	if(isChecked){
-				// 		$('#' + t.id + 'wildlifeRadioButtons').slideDown();
-				// 		$('#' + t.id + 'wildlifeCollapseText').slideDown();
-				// 		$('#' + t.id + 'wildlifeCollapseText').html('Collapse');
-				// 		$('#' + t.id + 'wildlifeCollapseText').parent().parent().find('.wfa-collapseSection').slideDown();
-				// 		t.clicks.animateColor(t, 'viewWildlifeInfoGraphicIcon');
-				// 		t.obj.wildlifeCheck = 'wildlife'
-				// 		t.clicks.controlVizLayers(t, t.obj.maskWhere);
-				// 	}else{
-				// 		$('#' + t.id + 'wildlifeRadioButtons').slideUp();
-				// 		$('#' + t.id + 'wildlifeCollapseText').slideUp();
-				// 		t.obj.wildlifeCheck = 'null'
-				// 		t.obj.visibleLayers2 = []; // empty list of rasters
-				// 		t.clicks.controlVizLayers(t, t.obj.maskWhere);
-				// 	}
-				// });
 				// wildlife radio buttons /////////////////
 				$("#" + t.id + 'wildlifeRadioButtons input').on('click',function(c, x){
 					console.log(c, x , 'checked');
@@ -181,30 +178,38 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					$.each($("#" + t.id + 'wildlifeRadioButtons input'),function(i,v){
 						if(v.checked){
 							$(v).parent().parent().find('img').remove();
-							$(v).parent().parent().append('<img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-wildInfoIcon">');
+							$(v).parent().parent().append('<img id="wildDialogBoxTest"  src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-wildInfoIcon">');
 						}else{
 							$(v).parent().parent().find('img').remove();
 						}
 					});
 					$("#" + t.id + 'wildlifeRadioButtons .wfa-wildInfoIcon').on('click',function(e){
-						let type = $(e.currentTarget).parent().find('input')[0].name
+
 						let value;
-						if(type == 'wild'){
-							value = "Wildlife_" + t.obj.wildTracker;
-						}else{
-							value = "Wildlife_" + t.obj.prwTracker;
-						}
-						TINY.box.show({
-							animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
-							fixed: true, width: 660, height: 570
-						});	
+					
+						console.log(e.currentTarget)
+						value = $(e.currentTarget).prev().find('span').html()
+						console.log(value)
+						let textParts = t.infographicText[value].split(" - ");
+						console.log(textParts)
+						$('.ui-dialog-title').html(textParts[0]);
+						$('#' + t.id + 'wildDialogBoxTest').html(textParts[1])
+						$('#' + t.id + 'wildDialogBoxTest').dialog("open");
+						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
+						// let type = $(e.currentTarget).parent().find('input')[0].name
+						// let value;
+						// if(type == 'wild'){
+						// 	value = "Wildlife_" + t.obj.wildTracker;
+						// }else{
+						// 	value = "Wildlife_" + t.obj.prwTracker;
+						// }
+						// TINY.box.show({
+						// 	animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
+						// 	fixed: true, width: 660, height: 570
+						// });	
 					});
 
 				});
-				// $("#" + t.id + 'wildlifeRadioButtons .wfa-wildInfoIcon').on('click',function(e){
-				// 	console.log(e);
-					
-				// });
 			},
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
@@ -1041,34 +1046,10 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		            t.map.addLayer(t.countiesGraphicsLayer);
       				t.map.graphics.enableMouseEvents();
       				t.countiesGraphicsLayer.on("mouse-over",function (event) {
-      					// add a new counties graphic layer
-      					// t.countiesGraphicsLayer2 = new GraphicsLayer();
-      					// var featureCount = features.length;
-			        //     for (var i = 0; i < featureCount; i++) {
-			        //         //Get the current feature from the featureSet.
-			        //         var graphic = features[i]; //Feature is a graphic
-			        //         graphic.setSymbol(symbol);
-			        //         t.countiesGraphicsLayer2.add(graphic);
-			        //     }
-			        //     t.map.addLayer(t.countiesGraphicsLayer2);
-			            // console.log()
       					
-      					// console.log(event.graphic.geometry);
 		                t.map.graphics.clear();  //use the maps graphics layer as the highlight layer
 		                t.highlightGraphic = new Graphic(event.graphic.geometry, highlightSymbol);
-		                // console.log(t.highlightGraphic);
-		                // console.log(t.highlightGraphic);
-		                // $.each(t.highlightGraphic ,function(i,v){
-		                // 	console.log(i,v);
-		                // });
-
-		                // console.log(t.map.graphicsLayerIds);
-		                // t.highlightGraphic.id = 'highlight'
                 		t.map.graphics.add(t.highlightGraphic);
-                		// console.log(t.map.graphicsLayerIds);
-
-                		// t.countiesGraphicsLayer.show()
-                		// t.highlightGraphic.show()
                 		$('#' + t.basinId).html(event.graphic.attributes.name);
 						$('#' + t.basinId).show();
 						let atts = event.graphic.attributes;
@@ -1080,33 +1061,12 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		            t.map.graphics.on("mouse-out", function (test) {
 		            	let atts;
 		            	let array = [];
-		            	// console.log(t.map.graphics.graphics);
-		            	// if(t.map.graphics.graphics.length > -1){
-		            	// 	console.log('remove graphics with highlight id');
-		            	// 	$.each(t.map.graphics.graphics ,function(i,v){
-		            	// 		console.log(i,v);
-		            	// 		t.map.graphics.remove(v);
-		            	// 		// if(v.id == 'highlight'){
-		            	// 			// t.map.graphics.remove(v);
-		            	// 		// }
-		            	// 	})
-		            	// }
-
-		            	// dojo.forEach(t.map.graphics.graphics, )
-		            	// t.map.graphics.remove(t.highlightGraphic);
-		            	// t.countiesGraphicsLayer.hide();
-		                // t.highlightGraphic.clear()
-		                // t.highlightGraphic.setGeometry({});
-		                // t.highlightGraphic.setGeometry('');
-		                // t.map.removeLayer(t.countiesGraphicsLayer)
 		                t.map.graphics.clear();
-		                
 						$('#' + t.basinId).hide()
 						t.mousePos = 'out'
 						array.push(t.map.graphics.graphics);
 						t.clicks.hucClick(t, atts, t.mousePos); // call the huc click atts function to populate attribute box
 		            });
-		            // t.clicks.hucClick(t, t.atts, t.mousePos); // call the huc click atts function to populate attribute box
 				});
 			},
 // reset opacity values /////////////////////////////////////////////////////////////////////////////////////
@@ -1118,11 +1078,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					// reset opacity for raster layer
 					t.obj.opacityVal2 = 20;
 					t.dynamicLayer.setOpacity(1 - t.obj.opacityVal2/100); // reset init opacity
-					// reset slider bar to the approriate place //////////////////
-					// $("#slider").slider('value',50);
-					// $("#" + t.id +"sldr").slider('value',50)
-					// $("#" + t.id +"sldr").val(50)
-					// $("#" + t.id +"sldr").trigger('change')
 				}
 				if(t.obj.currentHuc == 'WHUC6'){
 					// reset opacity for vector layer
@@ -1144,14 +1099,50 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						});
 					});
 				});
-				// yellow animate
-				// $('#' + t.id + id).delay(2000).animate({backgroundColor:"rgba(243,243,21,0.3)"}, 1050, function(){
-				// 	$('#' + t.id + id).animate({backgroundColor:"#ffffff"}, 1050, function(){
-				// 		$('#' + t.id + id).animate({backgroundColor:"rgba(243,243,21,0.3)"}, 1050, function(){
-				// 			$('#' + t.id + id).animate({backgroundColor:"#ffffff"}, 1000)
-				// 		});
-				// 	});
-				// });
+				
+			},
+			infographicText: function(t){
+				t.infographicText = {
+					"Combined Services":"Combined Services - Wetlands can provide multiple services. Each wetland’s characteristics determine which services that wetland provides and to what extent.",
+					"Count of Services ≥ High_wet":"Count of Service >= High - Current and potentially restorable wetlands often have the potential to provide more than one service at “high” or “very high” levels.",
+					
+					"Flood Abatement":"Flood Abatement - After heavy rainfall, many wetlands detain storm water runoff and overbank flooding from rivers, which slows the flow of excess water downstream.",
+					"Flood Abatement_wet":"Flood Abatement - After heavy rainfall, many wetlands detain storm water runoff and overbank flooding from rivers, which slows the flow of excess water downstream.",
+					
+					"Fish and Aquatic Habitat":"Fish and Aquatic Habitat - Wetlands support some part of the full life cycle for most fish and aquatic life.",
+					"Fish and Aquatic Habitat_wet":"Fish and Aquatic Habitat - Wetlands support some part of the full life cycle for most fish and aquatic life.",
+					
+					"Phosphorus Retention":"test obj text5",
+					"Phosphorus Retention_wet":"Phosphorus Reduction - Wetlands can intercept phosphorus from water and sediments, and store it in plants and soils.",
+					
+					"Sediment Retention":"Sediment Retention - Wetlands retain some sediment that would otherwise move downstream.  Excess sediment in streams impairs water quality and aquatic habitat.",
+					"Sediment Retention_wet":"Sediment Retention - Wetlands retain some sediment that would otherwise move downstream.  Excess sediment in streams impairs water quality and aquatic habitat.",
+					
+					"Nitrogen Reduction":"",
+					"Nitrogen Reduction_wet":"Nitrogen Reduction - Wetlands remove nitrate from the water and convert it into plants, soil, or harmless gas.",
+					
+					"Nutrient Transformation":"Nutrient Transformation - Wetlands remove nutrients from the water and convert them into plants, soil, or harmless gas.",
+					"Nutrient Transformation_wet":"test obj text",
+					
+					"Surface Water Supply":"Surface Water Supply - Wetlands often contribute water to streams and rivers, especially during dry periods.",
+					"Surface Water Supply_wet":"Surface Water Supply - Many wetlands contribute water to streams and rivers, especially during dry periods.",
+					
+					"Shoreline Protection":"test obj text",
+					"Shoreline Protection_wet":"Shoreline Protection - Wetlands reduce wave energy in lakes and slow flows in rivers, protecting banks and shorelines from erosion.",
+					
+					"Carbon Storage":"test obj text",
+					"Carbon Storage_wet":"Carbon Storage - Wetlands capture carbon dioxide, a greenhouse gas, and store carbon in vegetation and deep organic soils.",
+					
+					"Floristic Integrity":"test obj text",
+					"Floristic Integrity_wet":"Floristic Integrity - Some wetlands are of high condition, containing a healthy array of plant species.",
+					
+					"All Guilds":"All Guilds - A wildlife guild is a group of species that use the same or similar habitats and resources.",
+					"Forest Interior Guild":"Forest Interior Guild - The Forest Interior Guild includes species that require forested wetlands embedded within heavily forested landscapes. Black-and-white warbler, northern waterthrush, and northern flying squirrels are examples.",
+					"Shrub Swamp Guild":"Shrub Swamp Guild - The Shrub Swamp Guild includes species that depend on dense thickets over wet soils that usually flood in spring, such as willow and alder flycatchers.",
+					"Shallow Marsh Guild":"Shallow Marsh Guild - The Shallow Marsh Guild includes species that use open canopy wetlands with shallow water, or that are saturated most of the year, and may use adjacent open canopy uplands for breeding or foraging.  These include American bittern, blue-winged teal, amphibians and aquatic invertebrates.",
+					"Open Waters Guild":"Open Waters Guild - The Open Waters Guild includes species that prefer large areas of open water, or where water is deeper and lasts longer than in a shallow marsh.  Terns and diving ducks are examples.",
+					"All-Guild Restoration Opportunities":"All-Guild Restoration Opportunities - Restorable wetlands may have the potential to provide habitat for multiple guilds, depending on the habitat type restored and its proximity to core guild habitat. See the report for details.",
+				}
 			},
 // Make vars //////////////////////////////////////////////////////////////////////////////////////////////////
 			makeVariables: function(t){
