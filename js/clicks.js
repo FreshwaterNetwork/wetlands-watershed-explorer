@@ -131,6 +131,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
 						$('#' + t.id + 'dialogBoxTest').dialog("open");
 						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
+						$('.ui-dialog-title').parent().parent().css('top', '288px');
+						$('.ui-dialog-title').parent().parent().css('left', '488px');
 
 						// let value;
 						// if(t.obj.currentHuc == 'WHUC12'){
