@@ -129,6 +129,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						let textParts = t.infographicText[value].split(" - ");
 						$('.ui-dialog-title').html(textParts[0]);
 						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
+						console.log('look here 5555555555555')
 						$('#' + t.id + 'dialogBoxTest').dialog("open");
 						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
 						$('.ui-dialog-title').parent().parent().css('top', '288px');
@@ -150,6 +151,39 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						// 	fixed: true, width: 300, height: 100
 						// });	
 					});
+				});
+				$('.wfa-infoIcon').on('click',function(e){
+					let value;
+					if(t.obj.currentHuc == 'WHUC12'){
+						value = $(e.currentTarget).prev().html() + "_wet"
+					}else{
+						value = $(e.currentTarget).prev().html()
+					}
+					console.log(value)
+					let textParts = t.infographicText[value].split(" - ");
+					$('.ui-dialog-title').html(textParts[0]);
+					$('#' + t.id + 'dialogBoxTest').html(textParts[1])
+					console.log('look here 5555555555555')
+					$('#' + t.id + 'dialogBoxTest').dialog("open");
+					$('.ui-dialog-title').parent().parent().css('z-index', '100000');
+					$('.ui-dialog-title').parent().parent().css('top', '288px');
+					$('.ui-dialog-title').parent().parent().css('left', '488px');
+					console.log($("#" + t.id + "wildDialogBoxTest"))
+					
+
+					// let value;
+					// if(t.obj.currentHuc == 'WHUC12'){
+					// 	value = t.obj.funcTracker + "_wet"
+					// }else{
+					// 	value = t.obj.funcTracker
+					// }
+					// if(value == 'Count of Services ≥ High_wet'){
+					// 	value = 'Count of Services High_wet'
+					// }
+					// TINY.box.show({
+					// 	animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
+					// 	fixed: true, width: 300, height: 100
+					// });	
 				});
 
 // wildlife checkbox show and hide ///////////////////////////////////////////////////////////////////////////////////////////////////
