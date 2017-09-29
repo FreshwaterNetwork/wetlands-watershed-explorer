@@ -228,10 +228,7 @@ hr{
 /*.arcgisSearch{
 	color: red; background-color: grey !important;
 }*/
-/* Jquery popup stylin //////////////////////////////////////*/
-.ui-widget-header{
-	background: none; background-color: blue !important;
-}
+
 
 #dijit_layout_ContentPane_0search1 .arcgisSearch .searchBtn { 
 	margin-top: 15px;
