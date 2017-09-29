@@ -10,7 +10,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 			esriApiFunctions: function(t){	
 				
 				
-				
+
 				// Add dynamic map service layer number 2
 				t.dynamicLayer2 = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.7});
 				t.map.addLayer(t.dynamicLayer2);
@@ -121,11 +121,15 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 				// main header toggle buttons
 				$('.toggle-btn input').unbind().on('click',function(c){
 					console.log(c);
+					// wfa-mainContentWrap
+					console.log($("#" + t.id + "wfa-mainContentWrap").height())
 					if($(c.currentTarget).next().html() == 'Search for a new site'){
 						$('#' + t.id + 'getStartedText').slideDown();
 						$('#' + t.id + 'searchWrapper').slideUp();
 
 					}else{
+						// t.search1.destroy();
+						// t.clicks.searchFunction(t);
 						$('#' + t.id + 'getStartedText').slideUp();
 						$('#' + t.id + 'searchWrapper').slideDown();
 						$('#' + t.id + 'wfa-mainContentWrap').slideUp();

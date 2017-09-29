@@ -238,6 +238,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				
 				// on search complete function ///////////////
 				on(t.search1, 'select-result', function (e) {
+					console.log(e);
 					t.scale = t.map.getScale();
 					if(e.source.name == "Wetlands"){
 						t.obj.wetlandClick = 'yes';
@@ -349,6 +350,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				// query for for the hucs /////////////////////////////////////////////////////////				
 // if the user is searching /////////
 				if(t.obj.search == 'yes'){
+					t.searchSuccess;
+					console.log('search')
 					t.q1 = new Query();
 					t.qt1 = new QueryTask(t.url + "/" + 4); // set qt1 let
 					t.obj.visibleLayers = [0,4,6,16]
@@ -371,14 +374,21 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						q1.outFields = ["*"];
 						qt1.execute(q1, function(evt){
 							if(evt.features.length > 0){
+								console.log('search here')
+								t.searchSuccess =  'yes'
 								t.obj.hucExtents[(i+1)] = evt.features[0].geometry.getExtent();
 								$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
 							}else{
+								t.searchSuccess =  'no'
 								$('#' + t.id + 'fullExt-selText').trigger('click');	
 								$('#' + t.id + 'searchOutsideStudy').slideDown(); // slide down warning text
 							}
 						});
 					});
+					console.log(t.searchSuccess);
+					if(t.searchSuccess == 'yes'){
+						console.log('checkbox check')
+					}
 
 				}else{
 					$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
@@ -397,6 +407,12 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'wfa-mainContentWrap').slideDown();
 						// populate the maskExps and hucExps objects after query has been triggered
 						if(t.obj.search == 'yes'){
+							console.log('search ///////////////')
+							$("#" + t.id + 'searchWrapper').slideUp();
+							$("#" + t.id + 'num1').prop('checked');
+							console.log($("#" + t.id + 'num1').prop('checked', true))
+							console.log($("#" + t.id + 'num2').prop('checked', false))
+
 							t.huc6Val = evt.features[0].attributes.WHUC6
 							t.huc8Val = evt.features[0].attributes.WHUC8;
 							t.huc10Val = evt.features[0].attributes.WHUC10;
@@ -731,6 +747,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				// });
 // search box function for main search area /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			searchFunction: function(t){
+				console.log(t.search1)
+				
 				// search box init //////////////
 				var s = t.id +'search1';
 				t.search1 = new Search({
@@ -771,10 +789,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		            enableSuggestions: true,
 		            minCharacters: 0
 		         });
+
 				//Set the sources above to the search widget
          		t.search1.set("sources", sources);
+         		// t.search1.destroy();
 		        // search startup //////////
 		        t.search1.startup();
+		        // t.search1.destroy();
 		        // call search populate function
 		        //t.clicks.searchPopulate(t);
 		        

@@ -165,7 +165,7 @@ hr{
 	background: #fff; position: absolute; z-index: 1000; width: 420;
 }
 .wfa-mainContentWrap{
-	position: relative; padding-left: 7px; margin-top: 190px;
+	position: relative; padding-left: 7px; margin-top: 132px;
 }
 .wfa-headerSectionWrapper{
 	 position: absolute; z-index: 1000; background-color: white; width: 100%; box-shadow: 0 2px 2px rgba(16,22,26,.5);
@@ -274,7 +274,7 @@ hr{
 /* Help section styles*/
 
 .wfa-helpLinkWrapper{
-	display: flex;
+	display: flex; padding: 0 0 4px 0;
 }
 .wfa-helpButtonWrap{
 	flex: 1;
