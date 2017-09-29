@@ -221,30 +221,29 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$(v).parent().parent().find('img').remove();
 						}
 					});
-					
+					$("#" + t.id + 'wildlifeRadioButtons .wfa-wildInfoIcon').on('click',function(e){
+						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
+						$('.ui-dialog-title').parent().parent().css('top', '456px');
+						$('.ui-dialog-title').parent().parent().css('left', '488px');
+						let value;
+						value = $(e.currentTarget).prev().find('span').html()
+						let textParts = t.infographicText[value].split(" - ");
+						$('.ui-dialog-title').html(textParts[0]);
+						$('#' + t.id + 'wildDialogBoxTest').html(textParts[1])
+						$('#' + t.id + 'wildDialogBoxTest').dialog("open");
+						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
+						// let value;
+						// if(type == 'wild'){
+						// 	value = "Wildlife_" + t.obj.wildTracker;
+						// }else{
+						// 	value = "Wildlife_" + t.obj.prwTracker;
+						// }
+						// TINY.box.show({
+						// 	animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
+						// 	fixed: true, width: 660, height: 570
+						// });	
+					});
 
-				});
-				$("#" + t.id + 'wildlifeRadioButtons .wfa-wildInfoIcon').on('click',function(e){
-					$('.ui-dialog-title').parent().parent().css('z-index', '100000');
-					$('.ui-dialog-title').parent().parent().css('top', '456px');
-					$('.ui-dialog-title').parent().parent().css('left', '488px');
-					let value;
-					value = $(e.currentTarget).prev().find('span').html()
-					let textParts = t.infographicText[value].split(" - ");
-					$('.ui-dialog-title').html(textParts[0]);
-					$('#' + t.id + 'wildDialogBoxTest').html(textParts[1])
-					$('#' + t.id + 'wildDialogBoxTest').dialog("open");
-					$('.ui-dialog-title').parent().parent().css('z-index', '100000');
-					// let value;
-					// if(type == 'wild'){
-					// 	value = "Wildlife_" + t.obj.wildTracker;
-					// }else{
-					// 	value = "Wildlife_" + t.obj.prwTracker;
-					// }
-					// TINY.box.show({
-					// 	animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
-					// 	fixed: true, width: 660, height: 570
-					// });	
 				});
 			},
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
