@@ -68,7 +68,8 @@ function ( 	declare, PluginBase,Draw, ContentPane, dom, domStyle, domGeom, obj, 
 			this.map.removeLayer(this.countiesGraphicsLayer); //
 			$('#search').show() // show main search bar when app is closed.
 			// show save and share when app is closed
-			$('#map-utils-control').show()
+			$('#map-utils-control').show();
+			$('.nav-main-title').html('Wisconsin’s Waters, Wetlands, and Watersheds')
 			// $('#map-utils-control').children().find('.dropdown-menu').children().last().show();
 			// $('#map-utils-control').children().find('.dropdown-menu').children().last().prev().show();
 		},	
@@ -100,6 +101,7 @@ function ( 	declare, PluginBase,Draw, ContentPane, dom, domStyle, domGeom, obj, 
 		render: function() {
 			$('#legend-container-0').find('.legend-body').css('height', '99%'); // fix the legend overlap problem
 			$('#search').hide() // hide main search bar when app is open.
+			$('.nav-main-title').html('Wetlands by Design: A Watershed Approach')
 			this.obj.extent = this.map.geographicExtent;
 			//this.oid = -1;
 			//$('.basemap-selector').trigger('change', 3);
