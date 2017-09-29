@@ -109,27 +109,18 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 					t.printMap.printMap2(t);
 					t.printMap.drawOptions(t);
 					t.addShapefile.uploadShapefile(t);
-					// // trigger initial top control clicks
-					// $.each($('#' + t.id + 'top-controls input'),function(i,v){
-					// 	if (t.obj[v.name] == v.value){
-					// 		$('#' + v.id).trigger('click');	
-					// 	}	
-					// });
-				
 				});
-				
 				// main header toggle buttons
 				$('.toggle-btn input').unbind().on('click',function(c){
-					console.log(c);
-					// wfa-mainContentWrap
-					console.log($("#" + t.id + "wfa-mainContentWrap").height())
 					if($(c.currentTarget).next().html() == 'Search for a new site'){
-						$('#' + t.id + 'getStartedText').slideDown();
+						t.currentToggle = 'newSite'
+						if($("#" + t.id + "wfa-mainContentWrap").height() == 0){
+							$('#' + t.id + 'getStartedText').slideDown();
+						}
 						$('#' + t.id + 'searchWrapper').slideUp();
-
 					}else{
-						// t.search1.destroy();
-						// t.clicks.searchFunction(t);
+						t.currentToggle = 'knownSite'
+						$('#' + t.id + 'helpLinkWrapper').slideUp();
 						$('#' + t.id + 'getStartedText').slideUp();
 						$('#' + t.id + 'searchWrapper').slideDown();
 						$('#' + t.id + 'wfa-mainContentWrap').slideUp();
@@ -168,7 +159,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 				// collapse sections code ///////////
 				$('.wfa-headerInfoWrap').on('mouseover',function(c){
 					$(c.currentTarget).children().last().addClass("blueFont");
-					console.log('mouse over')
 				})
 				$('.wfa-headerInfoWrap').on('mouseout',function(c){
 					$(c.currentTarget).children().last().removeClass("blueFont");

@@ -103,10 +103,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$( '#' + t.id + 'wfa-find_WetlandWrap').slideUp()
 					}
 				});
+				// 
 // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-radio-indent input').on('click',function(c, x){
-
-					
 					t.obj.funcTracker = c.target.value.split("-")[0];
 					t.obj.wetTracker = c.target.value.split("-")[0];
 					// change the function site services text when radio buttons are clicked.
@@ -221,7 +220,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$(v).parent().parent().find('img').remove();
 						}
 					});
-					$("#" + t.id + 'wildlifeRadioButtons .wfa-wildInfoIcon').on('click',function(e){
+					$('.wfa-wildInfoIcon').on('click',function(e){
 						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
 						$('.ui-dialog-title').parent().parent().css('top', '456px');
 						$('.ui-dialog-title').parent().parent().css('left', '488px');
@@ -289,6 +288,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(t.obj.stateSet == "yes"){
+					
 					// force the func tracker back to the coirrect value because save and share does not like '>' symbol
 					if(t.obj.funcTracker == 'Count of Services    High'){
 						t.obj.funcTracker = 'Count of Services ≥ High'
@@ -352,6 +352,12 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}catch(err){
 
 					}
+					// get started text and help link wrapper
+					if($("#" + t.id + "wfa-mainContentWrap").height() == 0){
+						$('#' + t.id + 'getStartedText').slideDown();
+					}else{
+						$('#' + t.id + 'helpLinkWrapper').slideDown();
+					}
 					// call functions here on save and share
 					t.clicks.radioAttDisplay(t);
 					t.clicks.controlVizLayers(t, t.obj.maskWhere);
@@ -360,8 +366,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					t.map.setExtent(t.fExt, true);
 					t.dynamicLayer2.setVisibleLayers(t.obj.visibleLayers2);
 					t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+
 					
 					t.obj.stateSet = 'no'; // reset state set back to no
+				}else{
+					$('#' + t.id + 'getStartedText').slideDown();
 				}
 			},
 // map click query ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -569,6 +578,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where)
 						// call the wetland click function ////////////////////////////
 						t.clicks.wetlandClick(t);
+						// slide down explain links
+						// wfa-helpLinkWrapper
+						$('#' + t.id + 'helpLinkWrapper').slideDown();
 					}
 				}) // end of main map click query
 			},
@@ -670,7 +682,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						t.obj.currentHuc = 'WHUC4'
 						t.obj.visibleLayers = [0,1]
 						$('#' + t.id +'fullExt-selText').slideUp();
+						$('#' + t.id + 'helpLinkWrapper').slideUp();
+						
 						$('#' + t.id + 'mainFuncWrapper').slideUp();
+						console.log(t.currentToggle);
+						if(t.currentToggle != 'knownSite'){
+							$('#' + t.id + 'getStartedText').slideDown();
+						}
 						$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
 							t.clicks.hoverGraphic(t,1,t.obj.where)
 						});
