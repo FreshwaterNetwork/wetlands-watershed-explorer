@@ -133,6 +133,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
 						$('.ui-dialog-title').parent().parent().css('top', '288px');
 						$('.ui-dialog-title').parent().parent().css('left', '488px');
+						console.log($("#" + t.id + "wildDialogBoxTest"))
+						
 
 						// let value;
 						// if(t.obj.currentHuc == 'WHUC12'){
@@ -186,19 +188,16 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 					});
 					$("#" + t.id + 'wildlifeRadioButtons .wfa-wildInfoIcon').on('click',function(e){
-
+						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
+						$('.ui-dialog-title').parent().parent().css('top', '456px');
+						$('.ui-dialog-title').parent().parent().css('left', '488px');
 						let value;
-					
-						console.log(e.currentTarget)
 						value = $(e.currentTarget).prev().find('span').html()
-						console.log(value)
 						let textParts = t.infographicText[value].split(" - ");
-						console.log(textParts)
 						$('.ui-dialog-title').html(textParts[0]);
 						$('#' + t.id + 'wildDialogBoxTest').html(textParts[1])
 						$('#' + t.id + 'wildDialogBoxTest').dialog("open");
 						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
-						// let type = $(e.currentTarget).parent().find('input')[0].name
 						// let value;
 						// if(type == 'wild'){
 						// 	value = "Wildlife_" + t.obj.wildTracker;
