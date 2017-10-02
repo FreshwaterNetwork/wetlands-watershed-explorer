@@ -646,11 +646,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						    '';
 						}
 						if(attVal == 1){
-							htmlVal = 'Most Opportunity'
+							htmlVal = 'Most Loss'
 						}else if(attVal == 2){
-							htmlVal = 'Moderate Opportunity'
+							htmlVal = 'Moderate Loss'
 						}else if(attVal == 3){
-							htmlVal = 'Least Opportunity'
+							htmlVal = 'Least Loss'
 						}
 						let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
 						if(t.obj.currentHuc == 'WHUC6'){
