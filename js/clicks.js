@@ -992,6 +992,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
+				console.log(t,lyrNum, where)
 				// the try catch statement below is used to remove the graphic layer. 
 				try {
 				    t.map.removeLayer(t.countiesGraphicsLayer);

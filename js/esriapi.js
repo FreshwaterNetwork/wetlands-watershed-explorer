@@ -120,7 +120,8 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						$('#' + t.id + 'searchWrapper').slideUp();
 					}else{
 						$('.searchClear').last().trigger('click')
-						$('.searchSubmit').last().trigger('click')
+						$('.searchSubmit').last().trigger('click');
+						t.map.graphics.clear(); // reset graphics before search
 						// t.clicks.searchFunction(t);
 						$('#' + t.id + 'helpLinkWrapper').slideUp();
 						$('#' + t.id + 'getStartedText').slideUp();
