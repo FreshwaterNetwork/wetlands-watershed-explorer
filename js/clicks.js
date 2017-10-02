@@ -132,20 +132,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
 						$('.ui-dialog-title').parent().parent().css('top', '288px');
 						$('.ui-dialog-title').parent().parent().css('left', '488px');
-
-						// let value;
-						// if(t.obj.currentHuc == 'WHUC12'){
-						// 	value = t.obj.funcTracker + "_wet"
-						// }else{
-						// 	value = t.obj.funcTracker
-						// }
-						// if(value == 'Count of Services ≥ High_wet'){
-						// 	value = 'Count of Services High_wet'
-						// }
-						// TINY.box.show({
-						// 	animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
-						// 	fixed: true, width: 300, height: 100
-						// });	
 					});
 				});
 				$('.wfa-infoIcon').on('click',function(e){
@@ -162,20 +148,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					$('.ui-dialog-title').parent().parent().css('z-index', '100000');
 					$('.ui-dialog-title').parent().parent().css('top', '288px');
 					$('.ui-dialog-title').parent().parent().css('left', '488px');
-
-					// let value;
-					// if(t.obj.currentHuc == 'WHUC12'){
-					// 	value = t.obj.funcTracker + "_wet"
-					// }else{
-					// 	value = t.obj.funcTracker
-					// }
-					// if(value == 'Count of Services ≥ High_wet'){
-					// 	value = 'Count of Services High_wet'
-					// }
-					// TINY.box.show({
-					// 	animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
-					// 	fixed: true, width: 300, height: 100
-					// });	
 				});
 
 // wildlife checkbox show and hide ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -223,16 +195,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'wildDialogBoxTest').html(textParts[1])
 						$('#' + t.id + 'wildDialogBoxTest').dialog("open");
 						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
-						// let value;
-						// if(type == 'wild'){
-						// 	value = "Wildlife_" + t.obj.wildTracker;
-						// }else{
-						// 	value = "Wildlife_" + t.obj.prwTracker;
-						// }
-						// TINY.box.show({
-						// 	animate: true, url: 'plugins/wetlands-watershed-explorer/infographics/' + value + '.html',
-						// 	fixed: true, width: 660, height: 570
-						// });	
 					});
 
 				});
@@ -746,44 +708,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					});
 				});
 			},
-// keep the code below for now if we want to revert from hover attribute populate back to click. //////////////////////////////////////////////
-				// let attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.elm-title');
-				// let htmlVal;
-				// let huc8Colors  = ['rgb(112,168,0)','rgb(170,204,102)', 'rgb(240,240,240)'];
-				// let huc10Colors  = ['rgb(196,10,10)','rgb(224,132,101)', 'rgb(255,235,214)'];
-				// let huc12Colors  = ['rgb(0,57,148)','rgb(85,108,201)', 'rgb(214,214,255)'];
-				// $.each(attributes, function(i,v){
-				// 	let attTracker;
-				// 	if (t.obj.currentHuc == 'WHUC8' ) {
-				// 		attTracker = 0;
-				// 	}else if (t.obj.currentHuc == 'WHUC10'){
-				// 		attTracker = 1;
-				// 	}else if (t.obj.currentHuc == 'WHUC12'){
-				// 		attTracker = 2;
-				// 	}
-				// 	// the try catch statement below is used to remove the graphic layer. 
-				// 	let attVal;
-	 		// 		try {
-	   // 				    attVal = t.hucAttributesList[attTracker][$(v).data('wfa')];
-	   // 				} catch(err) {
-				// 	    '';
-				// 	}
-				// 	if(attVal == 1){
-				// 		htmlVal = 'Most Opportunity'
-				// 	}else if(attVal == 2){
-				// 		htmlVal = 'Moderate Opportunity'
-				// 	}else if(attVal == 3){
-				// 		htmlVal = 'Least Opportunity'
-				// 	}
-				// 	let spanElem = $(v).next().find('.s2Atts').html(htmlVal);
-				// 	if(t.obj.currentHuc == 'WHUC8'){
-				// 		$(v).parent().find('.wfa-attributePatch').css('background-color', huc8Colors[(attVal-1)])
-				// 	}else if(t.obj.currentHuc == 'WHUC10'){
-				// 		$(v).parent().find('.wfa-attributePatch').css('background-color', huc10Colors[(attVal-1)])
-				// 	}else if(t.obj.currentHuc == 'WHUC12'){
-				// 		$(v).parent().find('.wfa-attributePatch').css('background-color', huc12Colors[(attVal-1)])
-				// 	}
-				// });
 // search box function for main search area /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			searchFunction: function(t){
 				// search box init //////////////
@@ -799,20 +723,20 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		        // initi sources for search 1
 		        var sources = t.search1.get("sources");
 				// Add the wetlands source 
-				sources.push({
-		            featureLayer: new FeatureLayer("http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/48"),
-		            searchFields: ["wetlandIdString"],
-		            displayField: "wetlandIdString",
-		            exactMatch: false,
-		            outFields: ["wetlandIdString"],
-		            name: "Wetlands",
-		            placeholder: "ex: 4522416546",
-		            maxResults: 6,
-		            maxSuggestions: 6,
-		            enableSuggestions: true,
-		            minCharacters: 0,
-		            minScale: 250000
-		         });
+				// sources.push({
+		  //           featureLayer: new FeatureLayer("http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/48"),
+		  //           searchFields: ["wetlandIdString"],
+		  //           displayField: "wetlandIdString",
+		  //           exactMatch: false,
+		  //           outFields: ["wetlandIdString"],
+		  //           name: "Wetlands",
+		  //           placeholder: "ex: 4522416546",
+		  //           maxResults: 6,
+		  //           maxSuggestions: 6,
+		  //           enableSuggestions: true,
+		  //           minCharacters: 0,
+		  //           minScale: 250000
+		  //        });
 				// add the huc 12 source
 				sources.push({
 		            featureLayer: new FeatureLayer("http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/4"),
