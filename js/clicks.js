@@ -452,11 +452,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'wfa-mainContentWrap').slideDown();
 						// populate the maskExps and hucExps objects after query has been triggered
 						if(t.obj.search == 'yes'){
-							console.log('search ///////////////')
 							$("#" + t.id + 'searchWrapper').slideUp();
 							$("#" + t.id + 'num1').prop('checked');
-							console.log($("#" + t.id + 'num1').prop('checked', true))
-							console.log($("#" + t.id + 'num2').prop('checked', false))
 
 							t.huc6Val = evt.features[0].attributes.WHUC6
 							t.huc8Val = evt.features[0].attributes.WHUC8;
@@ -484,6 +481,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 									})
 								})
 							});
+						}else{
+							if($('.toggle-btn input:checked').last().is(':checked')){
+								$("#" + t.id + 'searchWrapper').slideUp();
+								$("#" + t.id + 'num1').prop('checked', true);
+							}
 						}
 						// retrieve huc attributes on map click to be used in the huc Attribute functions.
 						t.hucAttributes = evt.features[0].attributes;
