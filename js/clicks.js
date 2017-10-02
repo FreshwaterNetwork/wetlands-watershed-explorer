@@ -125,17 +125,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}else{
 							value = $(e.currentTarget).prev().html()
 						}
-						console.log(value)
 						let textParts = t.infographicText[value].split(" - ");
 						$('.ui-dialog-title').html(textParts[0]);
 						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
-						console.log('look here 5555555555555')
 						$('#' + t.id + 'dialogBoxTest').dialog("open");
 						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
 						$('.ui-dialog-title').parent().parent().css('top', '288px');
 						$('.ui-dialog-title').parent().parent().css('left', '488px');
-						console.log($("#" + t.id + "wildDialogBoxTest"))
-						
 
 						// let value;
 						// if(t.obj.currentHuc == 'WHUC12'){
@@ -159,17 +155,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}else{
 						value = $(e.currentTarget).prev().html()
 					}
-					console.log(value)
 					let textParts = t.infographicText[value].split(" - ");
 					$('.ui-dialog-title').html(textParts[0]);
 					$('#' + t.id + 'dialogBoxTest').html(textParts[1])
-					console.log('look here 5555555555555')
 					$('#' + t.id + 'dialogBoxTest').dialog("open");
 					$('.ui-dialog-title').parent().parent().css('z-index', '100000');
 					$('.ui-dialog-title').parent().parent().css('top', '288px');
 					$('.ui-dialog-title').parent().parent().css('left', '488px');
-					console.log($("#" + t.id + "wildDialogBoxTest"))
-					
 
 					// let value;
 					// if(t.obj.currentHuc == 'WHUC12'){
@@ -189,7 +181,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 // wildlife checkbox show and hide ///////////////////////////////////////////////////////////////////////////////////////////////////
 				// wildlife radio buttons /////////////////
 				$("#" + t.id + 'wildlifeRadioButtons input').on('click',function(c, x){
-					console.log(c, x , 'checked');
 					t.obj.wildlifeCheck = 'wildlife'
 					if(this.checked){
 						var checkname = $(this).attr("name");
@@ -273,7 +264,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				
 				// on search complete function ///////////////
 				on(t.search1, 'select-result', function (e) {
-					console.log(e);
 					t.scale = t.map.getScale();
 					if(e.source.name == "Wetlands"){
 						t.obj.wetlandClick = 'yes';
@@ -396,7 +386,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 // if the user is searching /////////
 				if(t.obj.search == 'yes'){
 					t.searchSuccess;
-					console.log('search')
 					t.q1 = new Query();
 					t.qt1 = new QueryTask(t.url + "/" + 4); // set qt1 let
 					t.obj.visibleLayers = [0,4,6,16]
@@ -419,7 +408,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						q1.outFields = ["*"];
 						qt1.execute(q1, function(evt){
 							if(evt.features.length > 0){
-								console.log('search here')
 								t.searchSuccess =  'yes'
 								t.obj.hucExtents[(i+1)] = evt.features[0].geometry.getExtent();
 								$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
@@ -430,10 +418,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							}
 						});
 					});
-					console.log(t.searchSuccess);
-					if(t.searchSuccess == 'yes'){
-						console.log('checkbox check')
-					}
 
 				}else{
 					$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
@@ -453,7 +437,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						// populate the maskExps and hucExps objects after query has been triggered
 						if(t.obj.search == 'yes'){
 							$("#" + t.id + 'searchWrapper').slideUp();
-							$("#" + t.id + 'num1').prop('checked');
+							$("#" + t.id + 'num1').prop('checked', true);
 
 							t.huc6Val = evt.features[0].attributes.WHUC6
 							t.huc8Val = evt.features[0].attributes.WHUC8;
@@ -688,7 +672,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'helpLinkWrapper').slideUp();
 						
 						$('#' + t.id + 'mainFuncWrapper').slideUp();
-						console.log(t.currentToggle);
 						if(t.currentToggle != 'knownSite'){
 							$('#' + t.id + 'getStartedText').slideDown();
 						}
@@ -803,8 +786,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				// });
 // search box function for main search area /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			searchFunction: function(t){
-				console.log(t.search1)
-				
 				// search box init //////////////
 				var s = t.id +'search1';
 				t.search1 = new Search({
@@ -814,6 +795,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		            showInfoWindowOnSelect: false,
 		            map: t.map
 		        }, s);
+
 		        // initi sources for search 1
 		        var sources = t.search1.get("sources");
 				// Add the wetlands source 

@@ -119,6 +119,9 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						}
 						$('#' + t.id + 'searchWrapper').slideUp();
 					}else{
+						$('.searchClear').last().trigger('click')
+						$('.searchSubmit').last().trigger('click')
+						// t.clicks.searchFunction(t);
 						$('#' + t.id + 'helpLinkWrapper').slideUp();
 						$('#' + t.id + 'getStartedText').slideUp();
 						$('#' + t.id + 'searchWrapper').slideDown();

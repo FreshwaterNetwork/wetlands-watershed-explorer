@@ -90,11 +90,9 @@ function ( 	declare, PluginBase,Draw, ContentPane, dom, domStyle, domGeom, obj, 
 		//It's overwrites the default JSON definfed in initialize with the saved stae JSON.
 		setState: function (state) {
 			this.obj = state;
-			console.log('set state')
 		},
 		// Called when the user hits the print icon
 		beforePrint: function(printDeferred, $printArea, mapObject) {
-			console.log('before print', printDeferred, $printArea, mapObject);
 			printDeferred.resolve();
 		},	
 		// Called by activate and builds the plugins elements and functions
