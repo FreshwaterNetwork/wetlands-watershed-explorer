@@ -89,7 +89,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 // Download HUC 12 data click //////////////////////////////////////////////////////////////////////////////////////////////
 				// Data download click
 				$('#' + t.id + 'dlBtn').on('click',  function(){
-					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + t.obj.huc12Name + "_data.zip", "_parent");
+					let val = t.obj.huc12Name.replace('-', '_')
+					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + val + "_data.zip", "_parent");
 				});	
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// Set selected value text for button clicks
