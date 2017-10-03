@@ -142,7 +142,8 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<div class="wfa-collapseSection">
 			<!-- help text -->
 			<div class="wfa-helpText hide blueFont">
-				Wisconsin’s watersheds range in size from major river basins – millions of acres in extent – down to smaller watersheds nested within them, and smaller watersheds nested within those. Single click on watersheds, at right, to navigate through these scales. To zoom back out, click on the desired watershed scale in the list below. Wetland restoration and preservation opportunities are visible at the “HUC 12” scale.
+				Wisconsin’s watersheds range in size from major river basins – millions of acres in extent – down to smaller watersheds nested within them, and smaller watersheds nested within those. Single click on watersheds, at right, to navigate through these scales. To zoom back out, click on the desired watershed scale in the list below. Wetland restoration and preservation opportunities are visible at the “HUC 12” scale. <span id="selectWaterMetadata" class="wfa-metaDataLink"> - View Metadata</span>
+
 			</div>
 			<!-- Selected watershed sections -->
 			<div class="wfa-hucSelWrap wfa-hucZoom" id="zoom-0">
@@ -175,8 +176,9 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		<div class="wfa-collapseSection">
 			<!-- help text -->
 			<div id="functionHelpText" class="wfa-helpText hide blueFont">
-				The map at right shows how subwatersheds compare for services lost, due to wetland loss. Loss of services can help with watershed planning—identifying where services may be needed and the relative amount of opportunity to restore and protect them. To choose a different service for comparison, click below.
+				<span>The map at right shows how subwatersheds compare for services lost, due to wetland loss. Loss of services can help with watershed planning—identifying where services may be needed and the relative amount of opportunity to restore and protect them. To choose a different service for comparison, click below.</span> <span id="serviceMetadata" class="wfa-metaDataLink"> - View Metadata</span>
 			</div>
+
 			<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
 				<div class="wfa-func_radioGroups">
 					<label data-wfa-mode='huc' class="form-component wfa-funcLabel"  for="combined-option">

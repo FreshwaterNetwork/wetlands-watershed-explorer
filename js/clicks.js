@@ -92,6 +92,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					let val = t.obj.huc12Name.replace('-', '_')
 					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + val + "_data.zip", "_parent");
 				});	
+				// metadata links click
+				$('#' + t.id + 'selectWaterMetadata').on('click',  function(){
+					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/DSS_AllScore_web_metadata.xml", "_blank");
+				});	
+				$('#' + t.id + 'serviceMetadata').on('click',  function(){
+					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/WHUC%23%23_NEEDS_metadata.xml", "_blank");
+				});	
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// Set selected value text for button clicks
 				$( '#' + t.id + 'wfa-findEvalSiteToggle input' ).click(function(c){
@@ -538,10 +545,10 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				// function help text controls
 				if(t.obj.currentHuc == 'WHUC12'){
 					$("#" + t.id + "serviceOfInterest").html('Choose Service to Compare Sites:')
-					$('#' + t.id + 'functionHelpText').html('The map at right ranks sites based on their potential to provide ecosystem services, relative to other sites in the watershed. To choose a different service for comparison, click below.')	
+					$('#' + t.id + 'functionHelpText').find('span').first().html('The map at right ranks sites based on their potential to provide ecosystem services, relative to other sites in the watershed. To choose a different service for comparison, click below.')	
 				}else{
 					$("#" + t.id + "serviceOfInterest").html('Choose Service to Compare Watersheds:')
-					$('#' + t.id + 'functionHelpText').html('The map at right shows how subwatersheds compare for services lost, due to wetland loss. Loss of services can help with watershed planning—identifying where services may be needed and the relative amount of opportunity to restore and protect them. To choose a different service for comparison, click below.')
+					$('#' + t.id + 'functionHelpText').find('span').first().html('The map at right shows how subwatersheds compare for services lost, due to wetland loss. Loss of services can help with watershed planning—identifying where services may be needed and the relative amount of opportunity to restore and protect them. To choose a different service for comparison, click below.')
 				}
 				// attribute control //////////////////////////////
 				var attributes = $('#' + t.id + 'wfa-fas_AttributeWrap').find('.wfa-sum-wrap');
@@ -628,26 +635,34 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					t.obj.wetlandWhere = "OBJECTID < 0" // reset wetland where tracker
 					// reset viz layers on zoom click 
 					if(id == 0){
-						t.obj.currentHuc = 'WHUC4'
-						t.obj.visibleLayers = [0,1]
-						$('#' + t.id +'fullExt-selText').slideUp();
-						$('#' + t.id + 'helpLinkWrapper').slideUp();
-						
-						$('#' + t.id + 'mainFuncWrapper').slideUp();
-						if(t.currentToggle != 'knownSite'){
-							$('#' + t.id + 'getStartedText').slideDown();
+						console.log('look here')
+						try{
+							t.obj.currentHuc = 'WHUC4'
+							t.obj.visibleLayers = [0,1]
+							$('#' + t.id +'fullExt-selText').slideUp();
+							$('#' + t.id + 'helpLinkWrapper').slideUp();
+							
+							$('#' + t.id + 'mainFuncWrapper').slideUp();
+							if(t.currentToggle != 'knownSite'){
+								$('#' + t.id + 'getStartedText').slideDown();
+							}
+							$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
+								t.clicks.hoverGraphic(t,1,t.obj.where)
+							});
+							// $('#' + t.id + 'wfa-findASite').slideDown();
+							$('#' + t.id + 'wildlifeCheckWrap').slideUp();
+							$('#' + t.id + 'watershedHoverText').slideUp();
+							$('#' + t.id + 'wetlandHoverText').slideUp();
+							t.obj.wildlifeOpenTracker = 'null'
+							t.obj.wetlandClick = 'no';
+							// reset opacity values.
+							t.clicks.opacityReset(t);
+
+						}catch(err){
+							console.log('there was an error or nothing to zoom to')
+
 						}
-						$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
-							t.clicks.hoverGraphic(t,1,t.obj.where)
-						});
-						// $('#' + t.id + 'wfa-findASite').slideDown();
-						$('#' + t.id + 'wildlifeCheckWrap').slideUp();
-						$('#' + t.id + 'watershedHoverText').slideUp();
-						$('#' + t.id + 'wetlandHoverText').slideUp();
-						t.obj.wildlifeOpenTracker = 'null'
-						t.obj.wetlandClick = 'no';
-						// reset opacity values.
-						t.clicks.opacityReset(t);
+						
 					}else if (id == 1){
 						t.obj.currentHuc = 'WHUC6'
 						t.obj.visibleLayers = [0,2,30];
@@ -723,20 +738,20 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		        // initi sources for search 1
 		        var sources = t.search1.get("sources");
 				// Add the wetlands source 
-				// sources.push({
-		  //           featureLayer: new FeatureLayer("http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/48"),
-		  //           searchFields: ["wetlandIdString"],
-		  //           displayField: "wetlandIdString",
-		  //           exactMatch: false,
-		  //           outFields: ["wetlandIdString"],
-		  //           name: "Wetlands",
-		  //           placeholder: "ex: 4522416546",
-		  //           maxResults: 6,
-		  //           maxSuggestions: 6,
-		  //           enableSuggestions: true,
-		  //           minCharacters: 0,
-		  //           minScale: 250000
-		  //        });
+				sources.push({
+		            featureLayer: new FeatureLayer("http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/48"),
+		            searchFields: ["wetlandIdString"],
+		            displayField: "wetlandIdString",
+		            exactMatch: false,
+		            outFields: ["wetlandIdString"],
+		            name: "Wetlands",
+		            placeholder: "ex: 4522416546",
+		            maxResults: 6,
+		            maxSuggestions: 6,
+		            enableSuggestions: true, 
+		            minCharacters: 0,
+		            minScale: 250000
+		         });
 				// add the huc 12 source
 				sources.push({
 		            featureLayer: new FeatureLayer("http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/4"),
@@ -992,7 +1007,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
-				console.log(t,lyrNum, where)
 				// the try catch statement below is used to remove the graphic layer. 
 				try {
 				    t.map.removeLayer(t.countiesGraphicsLayer);

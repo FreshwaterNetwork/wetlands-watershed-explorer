@@ -119,19 +119,16 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						}
 						$('#' + t.id + 'searchWrapper').slideUp();
 					}else{
-						// $('.searchClear').last().trigger('click')
-						// $('.searchSubmit').last().trigger('click');
 						t.map.graphics.clear(); // reset graphics before search
-						// t.clicks.searchFunction(t);
 						$('#' + t.id + 'helpLinkWrapper').slideUp();
 						$('#' + t.id + 'getStartedText').slideUp();
 						$('#' + t.id + 'searchWrapper').slideDown();
 						$('#' + t.id + 'wfa-mainContentWrap').slideUp();
 						t.currentToggle = 'knownSite'
-						$('#' + t.id + 'fullExt-selText').trigger('click');
-						// t.clicks.hoverGraphic()
-						t.clicks.hoverGraphic(t,1,t.obj.where)
-						// t.clicks.hoverGraphic(t,t.obj.visibleLayers[1], t.obj.hucExps[id]);
+						if($('#' + t.id + 'wfa-mainContentWrap').height() > 0){
+							$('#' + t.id + 'fullExt-selText').trigger('click');
+							t.clicks.hoverGraphic(t,1,t.obj.where)
+						}
 						t.currentToggle = 'newSite' // set back to new site
 					}
 				})
