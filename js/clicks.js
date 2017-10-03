@@ -956,6 +956,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$.each($(t.layersArray),function(i,v){
 							if(t.obj.wildTracker == v.name){
 								t.obj.visibleLayers2.push(v.id);
+								console.log(v.id)
 							}
 						});
 					}
@@ -963,6 +964,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$.each($(t.layersArray),function(i,v){
 							if(t.obj.prwTracker == v.name){
 								t.obj.visibleLayers2.push(v.id);
+								console.log(v.id)
 							}
 						});
 					}

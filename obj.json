@@ -7,7 +7,7 @@
 	"maskWhere": "OBJECTID < 0",
 	"wetlandWhere": "OBJECTID < 0",
 	"wildlifeCheck": "null",
-	"wildTracker": "All Guilds",
+	"wildTracker": "null",
 	"prwTracker": "null",
 	"wildlifeOpenTracker": "null",
 	"wetlandClick": "no",
