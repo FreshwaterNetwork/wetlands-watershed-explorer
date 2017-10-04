@@ -302,6 +302,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					if(t.obj.currentHuc == 'WHUC12'){
 						$('#' + t.id + 'downloadDataWrapper').slideDown();
 						$('#' + t.id + 'mainAttributeWrap').slideDown();
+						$('#' + t.id + 'watershedHoverText').slideUp();
 					}
 					// slide down wildlife check wrapper if in 8, 10, or 12
 					if(t.obj.currentHuc == 'WHUC8' || t.obj.currentHuc == 'WHUC10'||t.obj.currentHuc == 'WHUC12'){
@@ -461,6 +462,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							}
 							
 							// $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
+							console.log('look here 66666')
 							$('#' + t.id + 'watershedHoverText').hide();
 						}else if(t.obj.visibleLayers[1] == 2 ){
 							t.obj.selHuc = 31;
