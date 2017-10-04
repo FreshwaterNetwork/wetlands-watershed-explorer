@@ -286,7 +286,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 								}
 								if(count == idIndex){
 									$(v).children().slideDown();
-									$(v).children().children().last().html(name)
+									$(v).children().children().last().prev().html(name)
 								}
 							})
 						}
@@ -430,7 +430,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 									$.each(zoomBtns,function(i,v){
 										let idIndex = v.id.split('-')[1];
 										if(count == idIndex){
-											$(v).children().children().last().html(evt.features[0].attributes.name)
+											$(v).children().children().last().prev().html(evt.features[0].attributes.name)
 										}
 									})
 								})
@@ -523,11 +523,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							}
 							// slide down the huc selected text area and populate
 							$('#' + t.id + t.obj.currentHuc + '-selText').parent().children().slideDown();
-							$('#' + t.id + t.obj.currentHuc + '-selText').parent().find('span').last().html(name);
+							$('#' + t.id + t.obj.currentHuc + '-selText').parent().find('span').last().prev().html(name);
 						}else{
 							// slide up the huc selected text area and populate
 							$('#' + t.id + t.obj.currentHuc + '-selText').parent().prev().children().slideDown();
-							$('#' + t.id + t.obj.currentHuc + '-selText').parent().find('span').last().html(name);
+							$('#' + t.id + t.obj.currentHuc + '-selText').parent().find('span').last().prev().html(name);
 							$('#' + t.id + t.obj.currentHuc + '-selText').slideDown();
 						}
 // Call the functions at the end of map click /////////////////////////////////////////////////////////////////
@@ -630,7 +630,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			hucZoom: function(t){
 				// zoom buttons click //////////////////////////////////////////////////////////////////////////////////////////
 				$('.wfa-hucZoom').unbind().on('click',function(c){
-					var id = c.currentTarget.id.split('-')[1];
+					var id = $(c.currentTarget).parent().attr('id').split('-')[1];
 					t.obj.hucNames = t.obj.hucNames.slice(0, id); // remove huc names out of array when zooming out
 					t.obj.where = t.obj.hucExps[id] // reset where clause with id and hucExps
 					t.obj.wetlandWhere = "OBJECTID < 0" // reset wetland where tracker
@@ -657,10 +657,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.obj.wetlandClick = 'no';
 							// reset opacity values.
 							t.clicks.opacityReset(t);
-
 						}catch(err){
 							console.log('there was an error or nothing to zoom to')
-
 						}
 						
 					}else if (id == 1){
@@ -718,7 +716,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					// call the huc click function
 					// t.clicks.hucClick(t);
 					// Loop through all zoom buttons below the button clicked, slide up. //////////////////////////////
-					$.each($('#' + c.currentTarget.id).nextAll().children(),function(i,v){
+					$.each($('#' + $(c.currentTarget).parent().attr('id')).nextAll().children(),function(i,v){
 						$('#' + v.id).slideUp();
 					});
 				});

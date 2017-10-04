@@ -13,9 +13,10 @@ hr{
 /*.form-component{
 	display: block;
 }*/
-.wfa-headerInfoWrap{
+/*.wfa-headerInfoWrap{
 	display: flex; margin: 10px;
-}
+}*/
+
 .legend-body{
 	height: 99% !important;
 }
@@ -143,9 +144,9 @@ hr{
 .wfa-hucSelWrap:hover{
 	background-color: #F3F3F3; cursor: pointer;
 }
-.wfa-hucZoom{
+/*.wfa-hucZoom{
 	color: blue; right: 7px; margin-right: 8px;
-}
+}*/
 .wfa-textZoom{
 	color: black;
 }
@@ -341,4 +342,7 @@ hr{
 }
 hr{
 	width: 97%; margin-right: 9px;
+}
+.wfa-zoomToText{
+	color: white; float: right;
 }

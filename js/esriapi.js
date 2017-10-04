@@ -178,6 +178,13 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						$(c.currentTarget).children().last().html('Collapse')
 					}
 				})
+				// zoom button hover code
+				$('.wfa-hucSelWrap').on('mouseover',function(c){
+					$(c.currentTarget).children().children().last().css('color', 'blue')
+				})
+				$('.wfa-hucSelWrap').on('mouseout',function(c){
+					$(c.currentTarget).children().children().last().css('color', 'white')
+				})
 
 // the code below may be useful. we used it to hide a legend item but it is clunky.
 				t.map.on("update-end", function (e) {
