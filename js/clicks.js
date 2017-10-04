@@ -384,6 +384,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 								$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
 							}else{
 								t.searchSuccess =  'no'
+								t.map.removeLayer(t.countiesGraphicsLayer);
 								$('#' + t.id + 'fullExt-selText').trigger('click');	
 								$('#' + t.id + 'searchOutsideStudy').slideDown(); // slide down warning text
 							}
@@ -460,9 +461,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 								t.obj.currentHuc = 'WHUC12';
 								t.obj.hucVal  = evt.features[0].attributes.WHUC12
 							}
-							
-							// $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
-							console.log('look here 66666')
 							$('#' + t.id + 'watershedHoverText').hide();
 						}else if(t.obj.visibleLayers[1] == 2 ){
 							t.obj.selHuc = 31;
@@ -1008,6 +1006,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
 				// the try catch statement below is used to remove the graphic layer. 
+				// t.map.removeLayer(t.countiesGraphicsLayer);
 				try {
 				    t.map.removeLayer(t.countiesGraphicsLayer);
 				}
@@ -1044,7 +1043,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		            t.map.addLayer(t.countiesGraphicsLayer);
       				t.map.graphics.enableMouseEvents();
       				t.countiesGraphicsLayer.on("mouse-over",function (event) {
-      					
 		                t.map.graphics.clear();  //use the maps graphics layer as the highlight layer
 		                t.highlightGraphic = new Graphic(event.graphic.geometry, highlightSymbol);
                 		t.map.graphics.add(t.highlightGraphic);
