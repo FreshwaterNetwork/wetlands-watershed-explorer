@@ -233,6 +233,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				
 				// on search complete function ///////////////
 				on(t.search1, 'select-result', function (e) {
+					// t.map.graphics.clear();
 					t.scale = t.map.getScale();
 					if(e.source.name == "Wetlands"){
 						t.obj.wetlandClick = 'yes';
@@ -244,7 +245,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}
 					t.obj.search =  'yes';
 					t.obj.pnt = e.result.feature.geometry;
-					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.mapClickQuery function
+					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.FmapClickQuery function
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(t.obj.stateSet == "yes"){
@@ -635,7 +636,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					t.obj.wetlandWhere = "OBJECTID < 0" // reset wetland where tracker
 					// reset viz layers on zoom click 
 					if(id == 0){
-						console.log('look here')
 						try{
 							t.obj.currentHuc = 'WHUC4'
 							t.obj.visibleLayers = [0,1]
@@ -956,7 +956,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$.each($(t.layersArray),function(i,v){
 							if(t.obj.wildTracker == v.name){
 								t.obj.visibleLayers2.push(v.id);
-								console.log(v.id)
 							}
 						});
 					}
@@ -964,7 +963,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$.each($(t.layersArray),function(i,v){
 							if(t.obj.prwTracker == v.name){
 								t.obj.visibleLayers2.push(v.id);
-								console.log(v.id)
 							}
 						});
 					}

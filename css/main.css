@@ -13,9 +13,9 @@ hr{
 /*.form-component{
 	display: block;
 }*/
-/*.wfa-headerInfoWrap{
-	display: flex;
-}*/
+.wfa-headerInfoWrap{
+	display: flex; margin: 10px;
+}
 .legend-body{
 	height: 99% !important;
 }
