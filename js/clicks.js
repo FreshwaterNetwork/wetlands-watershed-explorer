@@ -97,7 +97,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/DSS_AllScore_web_metadata.xml", "_blank");
 				});	
 				$('#' + t.id + 'serviceMetadata').on('click',  function(){
-					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/WHUC%23%23_NEEDS_metadata.xml", "_blank");
+					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/DSS_AllScore_web_metadata.xml", "_blank");
 				});	
 // Checkboxes for radio buttons ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				// Set selected value text for button clicks
@@ -1007,7 +1007,10 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			hoverGraphic: function(t, lyrNum, where){
 				// the try catch statement below is used to remove the graphic layer. 
 				// t.map.removeLayer(t.countiesGraphicsLayer);
+				console.log(t.map.graphics.graphics);
+
 				try {
+
 				    t.map.removeLayer(t.countiesGraphicsLayer);
 				}
 				catch(err) {
