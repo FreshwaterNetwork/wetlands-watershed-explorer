@@ -116,6 +116,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						t.currentToggle = 'newSite'
 						if($("#" + t.id + "wfa-mainContentWrap").height() == 0){
 							$('#' + t.id + 'getStartedText').slideDown();
+							console.log('main header height');
 						}
 						$('#' + t.id + 'searchWrapper').slideUp();
 					}else{

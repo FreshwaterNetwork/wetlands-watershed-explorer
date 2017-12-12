@@ -332,7 +332,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					
 					t.obj.stateSet = 'no'; // reset state set back to no
 				}else{
-					$('#' + t.id + 'getStartedText').slideDown();
+					// $('#' + t.id + 'getStartedText').slideDown();
+					console.log('get started text')
 				}
 			},
 // map click query ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -384,12 +385,17 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 								t.obj.hucExtents[(i+1)] = evt.features[0].geometry.getExtent();
 								$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
 							}else{
+								console.log('search failed')
 								t.searchSuccess =  'no'
-								if(i == 0){
+								if(i == 3){
+									console.log('trigger', i)
 									$('#' + t.id + 'fullExt-selText').trigger('click');
+									$('#' + t.id + 'searchOutsideStudy').slideDown(); // slide down warning text
+									console.log($('#' + t.id + 'searchOutsideStudy'));
 								}
+								// console.log($('#' + t.id + 'searchOutsideStudy'));
 								// t.map.removeLayer(t.countiesGraphicsLayer);
-								$('#' + t.id + 'searchOutsideStudy').slideDown(); // slide down warning text
+								
 							}
 						});
 					});
