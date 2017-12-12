@@ -332,8 +332,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					
 					t.obj.stateSet = 'no'; // reset state set back to no
 				}else{
-					// $('#' + t.id + 'getStartedText').slideDown();
-					console.log('get started text')
+					$('#' + t.id + 'getStartedText').slideDown();
 				}
 			},
 // map click query ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
