@@ -112,7 +112,7 @@ hr{
 }
 /* Attribute wrap styling for select a site /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 .wfa-fas_AttributeWrap{
-	margin-top: 0px; display: flex; flex-wrap: wrap; padding-bottom: 20px; padding-left: 7px;
+	margin-top: 0px; display: flex; flex-wrap: wrap; padding-bottom: 20px; padding-left: 7px; position: relative;
 }
 .wfa-fas_AttributeWrap div{
 	padding: 3px; line-height: 13px;
