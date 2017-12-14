@@ -346,3 +346,6 @@ hr{
 .wfa-zoomToText{
 	color: white; float: right;
 }
+.wfa-drawStyle{
+	height: 35px;
+}

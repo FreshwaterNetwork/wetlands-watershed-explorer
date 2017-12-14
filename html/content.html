@@ -79,6 +79,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						<li id="downloadDataWrapper" class="hide"><a id="dlBtn" class="wfa-download" href="#">Download Data</a></li>
 						<li ><a class="wfa-mapCreate" href="#">Print Map</a></li>
 						<li ><a class="wfa-measure" href="#">Measure</a></li>
+						<li ><a class="wfa-draw" href="#">Draw Graphics</a></li>
 					</ul>
 				</div>
 			</div>
@@ -340,18 +341,25 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 		</div>
 <!-- Dowload HUC 12 data button ////////////////////////////////////////////-->
 		<!-- <button class="button button-primary wfa-saveAndShare" id="viewReport">Save and Share</button> -->
-		<div id="bmBtn" class="wfa-helpLinkText wfa-saveAndShare hide" style="margin: 0 0 0px 13px;">Bookmark and Share<span></span></div>
-		<div id="mapBtn" class="wfa-helpLinkText wfa-mapCreate hide" style="margin: 0 0 0px 13px;"><div id="mapBtn2">Create PDF Map</div></div>
-		<div id="drawClearWrapper" class="hide">
-			<div id="drawingWrapper">
-				<div id="-point" class="wfa-drawing">Point</div>
-	            <div id="-freehandpolyline" class="wfa-drawing">Freehand Polyline</div>
-	            <div id="-freehandpolygon" class="wfa-drawing">Freehand Polygon</div>
-	            <div id="-circle" class="wfa-drawing">Circle</div>
+		<!-- <div id="bmBtn" class="wfa-helpLinkText wfa-saveAndShare hide" style="margin: 0 0 0px 13px;">Bookmark and Share<span></span></div>
+		<div id="mapBtn" class="wfa-helpLinkText wfa-mapCreate hide" style="margin: 0 0 0px 13px;"><div id="mapBtn2">Create PDF Map</div></div> -->
+		<div class="wfa-drawWrapper hide" id="drawWrapper">
+			<div style="display: flex; height: 45px; margin-top: -16px;">
+				<h3>Draw Graphics:</h3>
+				<div class="wfa-helpLinkText" style="margin: 16px 5px 0 auto;">Close</div>
 			</div>
-			<div id="drawGraphicClear">clear graphics</div>
+			<div class="blueFont" style="margin-bottom: 10px;">Click on the buttons below to create graphics on the map.</div>
+			<div id="drawClearWrapper" class="">
+				<div id="drawingWrapper" style="display: flex;">
+					<!-- <div id="-point" class="wfa-drawing">Point</div> -->
+		            <div id="-freehandpolyline" class="wfa-drawing wfa-drawStyle">Freehand Polyline</div>
+		            <div id="-freehandpolygon" class="wfa-drawing wfa-drawStyle">Freehand Polygon</div>
+		            <div id="-circle" class="wfa-drawing wfa-drawStyle">Circle</div>
+		            <div id="drawGraphicClear" class="wfa-drawStyle wfa-drawGraphicClear button" style="height: 34px; margin-top: 2px; color: rgb(140, 33, 48) !important">Clear</div>
+				</div>
+				<hr>
+			</div>
 		</div>
-
 		<!-- <div id="downloadDataWrapper" class="hide"> -->
 			<!-- <button class="button button-primary" id="dlBtn">Download Data</button> -->
 			<!-- <div id="dlBtn" class="wfa-helpLinkText" style="margin: 0 0 7px 13px;">Download Wetland Data<span></span></div> -->

@@ -98,11 +98,11 @@ define([
         	addToMap: function(t,evt){
         		t.map.showZoomSlider();
         		t.toolbar.deactivate();
-        		t.drawLayer = new GraphicsLayer();
+        		t.obj.drawLayer = new GraphicsLayer();
 		        var graphic2 = new Graphic(evt.geometry, t.symbols[t.tool]);
-		        t.drawLayer.add(graphic2);
-		        t.map.addLayer(t.drawLayer);
-		        t.lyrs.push(t.drawLayer)
+		        t.obj.drawLayer.add(graphic2);
+		        t.map.addLayer(t.obj.drawLayer);
+		        t.lyrs.push(t.obj.drawLayer)
         	},
 
    //      	printMap: function(t){

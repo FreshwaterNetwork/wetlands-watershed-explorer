@@ -26,8 +26,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 				
 // Dynamic layer on load ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				t.dynamicLayer.on("load", function () {
-					// t.toolbar = new Draw(t.map);
-        			// t.toolbar.on("draw-end", t.printMap.addToMap(t,evt));
+				
         			t.map.on("load", function(){
 	        			t.toolbar = new Draw(t.map);
 	        			t.toolbar.on("draw-end", t.printMap.addToMap(t, evt));

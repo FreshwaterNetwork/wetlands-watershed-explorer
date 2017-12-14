@@ -86,6 +86,14 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					let ss = $('#map-utils-control').find('.i18n')[0];
 					ss.click();
 				});
+				// draw tool code
+				$('.wfa-draw').on('click',  function(){
+					$('#' + t.id + 'drawWrapper').slideDown()
+				});
+				// close button for graphics toolbar
+				$('.wfa-drawWrapper .wfa-helpLinkText').on('click', function(v){
+					$(v.currentTarget).parent().parent().slideUp();
+				})
 // Download HUC 12 data click //////////////////////////////////////////////////////////////////////////////////////////////
 				// Data download click
 				$('#' + t.id + 'dlBtn').on('click',  function(){
@@ -249,6 +257,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(t.obj.stateSet == "yes"){
+					// console.log(t.obj.drawLayer);
 					
 					// force the func tracker back to the coirrect value because save and share does not like '>' symbol
 					if(t.obj.funcTracker == 'Count of Services    High'){
