@@ -257,8 +257,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(t.obj.stateSet == "yes"){
-					// console.log(t.obj.drawLayer);
-					
 					// force the func tracker back to the coirrect value because save and share does not like '>' symbol
 					if(t.obj.funcTracker == 'Count of Services    High'){
 						t.obj.funcTracker = 'Count of Services ≥ High'
@@ -393,17 +391,12 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 								t.obj.hucExtents[(i+1)] = evt.features[0].geometry.getExtent();
 								$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
 							}else{
-								console.log('search failed')
 								t.searchSuccess =  'no'
 								if(i == 3){
-									console.log('trigger', i)
 									$('#' + t.id + 'fullExt-selText').trigger('click');
 									$('#' + t.id + 'searchOutsideStudy').slideDown(); // slide down warning text
-									console.log($('#' + t.id + 'searchOutsideStudy'));
 								}
-								// console.log($('#' + t.id + 'searchOutsideStudy'));
 								// t.map.removeLayer(t.countiesGraphicsLayer);
-								
 							}
 						});
 					});
@@ -1026,19 +1019,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
-				// t.map.removeLayer(t.countiesGraphicsLayer);
-				// console.log('hover graphic call', lyrNum, where);
 				t.map.graphics.clear()
 				// the try catch statement below is used to remove the graphic layer. 
-				// t.map.removeLayer(t.countiesGraphicsLayer);
 				if(t.searchSuccess == 'no'){
-					// console.log('do nothing')
 					'do nothing'
 				}else{
 					try {
-
 					    t.map.removeLayer(t.countiesGraphicsLayer);
-					    // console.log('rmove layer')
 					}
 					catch(err) {
 					    console.log('there is no layer to remove on the first iteration')
@@ -1051,7 +1038,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					gQ.outFields = ['*'];
 					gQ.where =  where;
 					graphicQuery.execute(gQ, function(evt){
-						// console.log(evt)
 						t.map.graphics.clear();
 			            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
 			                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,

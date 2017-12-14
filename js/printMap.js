@@ -38,7 +38,6 @@ define([
 		        //   "url": t.printUrl,
 		        //   "content": { "f": "json" }
 		        // });
-		        // // console.log(printInfo);
 		        // printInfo.then(t.printMap.handlePrintInfo(t), handleError);
 
 		        // var printer = new Print({
@@ -48,7 +47,6 @@ define([
 		        // printer.startup();
         	},
         	handlePrintInfo: function(){
-        		console.log('print info')
 
         	},
         	drawOptions: function(t){
@@ -106,11 +104,9 @@ define([
         	},
 
    //      	printMap: function(t){
-   //      		console.log('print map function called');
    //      		t.url ='http://cumulus-web-adapter-1827610810.us-west-1.elb.amazonaws.com/arcgis/rest/services/nascience/ny_ExportWebMap/GPServer/Export%20Web%20Map';
 			// 	t.printTask = new esri.tasks.PrintTask(t.url);
 			// 	t.params = new esri.tasks.PrintParameters();
-			// 	console.log(t.params);
 			// 	t.params.map = t.map;
 
 			// 	//var legendLayer = new esri.tasks.LegendLayer();
@@ -134,21 +130,16 @@ define([
 			// 	// create the print templates, could also use dojo.map
 			// 	var templates = [];
 			// 	dojo.forEach(layouts, function(lo) {
-			// 		console.log(lo);
 			// 		var t = new esri.tasks.PrintTemplate();
 			// 		t.layout = lo.name;
 			// 		t.label = lo.label;
 			// 		t.format = lo.format;
 			// 		t.preserveScale = false;
 			// 		t.layoutOptions = lo.options;
-			// 		//console.log(lo.options);
 			// 		templates.push(t);
 			// 	});
 					
 			// 	t.params.template = templates;
-			// 	console.log(t.params.template);
-			// 	console.log(t.params);
-			// 	//console.log(params);
 			// 	t.printTask.execute(t.params, t.printMap.printResult());
 			// 	// $('#pbtn').hide();
 			// 	// $('#pbuild').show();
@@ -157,7 +148,6 @@ define([
 			// 	// $('#pbuild').hide();
 			// 	// $('#pdflink').show();
 			// 	// app.pdflocal = result.url;
-			// 	console.log(result);
 			// },
 		});
     }
