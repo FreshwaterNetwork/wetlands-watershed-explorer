@@ -557,6 +557,17 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.map.removeLayer(t.countiesGraphicsLayer);
 							console.log('remove layer')
 							console.log(t.map.graphicsLayerIds);
+							// t.map.graphicsLayer.clear();
+							console.log(t.map.graphicsLayerIds);
+							$.each(t.map.graphicsLayerIds,function(i,v){
+								if(v.includes('graphic')){
+									console.log(v);
+									t.map.removeLayer(lastItem);
+									console.log(t.map.graphicsLayerIds);
+									// t.map.GraphicsLayer.clear();
+
+								}
+							});
 						}
 						
 						// call the wetland click function ////////////////////////////
