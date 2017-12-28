@@ -421,6 +421,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'wfa-mainContentWrap').slideDown();
 						// populate the maskExps and hucExps objects after query has been triggered
 						if(t.obj.search == 'yes'){
+							console.log('search')
 							$("#" + t.id + 'searchWrapper').slideUp();
 							$("#" + t.id + 'num1').prop('checked', true);
 
@@ -448,8 +449,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 											$(v).children().children().last().prev().html(evt.features[0].attributes.name)
 										}
 									})
+									console.log('1')
 								})
+								console.log('2')
 							});
+							console.log('3')
 						}else{
 							if($('.toggle-btn input:checked').last().is(':checked')){
 								$("#" + t.id + 'searchWrapper').slideUp();
@@ -546,6 +550,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 // Call the functions at the end of map click /////////////////////////////////////////////////////////////////
 						// call the hover graphic function ////////////////////////////
 						t.map.removeLayer(t.countiesGraphicsLayer);
+						console.log(t.obj.visibleLayers[1], t.obj.where, 'hover graphic click');
 						t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where)
 						// call the wetland click function ////////////////////////////
 						t.clicks.wetlandClick(t);

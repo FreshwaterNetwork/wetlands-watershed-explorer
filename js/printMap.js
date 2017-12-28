@@ -66,6 +66,7 @@ define([
 		        t.symbols.polyline = new SimpleLineSymbol("solid", new Color([255, 128, 0]), 2);
 		        t.symbols.polygon = new SimpleFillSymbol().setColor(new Color([255,255,0,0.25]));
 		        t.symbols.circle = new SimpleFillSymbol().setColor(new Color([0, 0, 180, 0.25]));
+		        t.symbols.rectangle = new SimpleFillSymbol().setColor(new Color([0, 0, 180, 0.25]));
 		        // find the divs for buttons
 		        query(".wfa-drawing").forEach(function(btn) {
 		          var button = new Button({
