@@ -564,6 +564,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 									console.log(v);
 									t.map.removeLayer(v);
 									console.log(t.map.graphicsLayerIds);
+									t.map.removeLayer(t.countiesGraphicsLayer);
+									t.countiesGraphicsLayer.clear();
 									// t.map.GraphicsLayer.clear();
 
 								}
@@ -1083,6 +1085,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			                t.countiesGraphicsLayer.add(graphic);
 			            }
 			            t.map.addLayer(t.countiesGraphicsLayer);
+			            // t.map.removeLayer(t.countiesGraphicsLayer);
 	      				t.map.graphics.enableMouseEvents();
 	      				// on mouse out and over functions
 	      				t.countiesGraphicsLayer.on("mouse-over",function (event) {
