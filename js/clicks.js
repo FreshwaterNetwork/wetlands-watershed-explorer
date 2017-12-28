@@ -559,16 +559,22 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							console.log(t.map.graphicsLayerIds);
 							// t.map.graphicsLayer.clear();
 							console.log(t.map.graphicsLayerIds);
+
+							t.map.removeLayer(t.countiesGraphicsLayer);
+							t.map.graphics.clear();
+							
+
 							$.each(t.map.graphicsLayerIds,function(i,v){
 								if(v.includes('graphic')){
-									console.log(v);
-									t.map.removeLayer(v);
-									console.log(t.map.graphicsLayerIds);
 									t.map.removeLayer(t.countiesGraphicsLayer);
-									// t.countiesGraphicsLayer.clear();/////////
-									t.countiesGraphicsLayer.remove(v);
+									console.log(v);
+									// t.map.removeLayer(v);
 									console.log(t.map.graphicsLayerIds);
-									t.map.graphics.clear();
+									// t.map.removeLayer(t.countiesGraphicsLayer);
+									// t.countiesGraphicsLayer.clear();/////////
+									// t.countiesGraphicsLayer.remove(v);
+									console.log(t.map.graphicsLayerIds);
+									// t.map.graphics.clear();
 
 								}
 							});
@@ -584,7 +590,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 // Radio/attribute display function //////////////////////////////////////////////////////////////////////////////////////
 			radioAttDisplay: function(t){
-				// function help text controls
+				// function help text controlsF
 				if(t.obj.currentHuc == 'WHUC12'){
 					$("#" + t.id + "serviceOfInterest").html('Choose Service to Compare Sites:')
 					$('#' + t.id + 'functionHelpText').find('span').first().html('The map at right ranks sites based on their potential to provide ecosystem services, relative to other sites in the watershed. To choose a different service for comparison, click below.')	
