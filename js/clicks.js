@@ -562,11 +562,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$.each(t.map.graphicsLayerIds,function(i,v){
 								if(v.includes('graphic')){
 									console.log(v);
-									t.map.removeLayer(v);
+									// t.map.removeLayer(v);
 									console.log(t.map.graphicsLayerIds);
-									t.map.removeLayer(t.countiesGraphicsLayer);
-									t.countiesGraphicsLayer.clear();
-									t.countiesGraphicsLayer.remove(v);
+									// t.map.removeLayer(t.countiesGraphicsLayer);
+									// t.countiesGraphicsLayer.clear();
+									// t.countiesGraphicsLayer.remove(v);
 									// t.map.GraphicsLayer.clear();
 
 								}
