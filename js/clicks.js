@@ -566,6 +566,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 									console.log(t.map.graphicsLayerIds);
 									t.map.removeLayer(t.countiesGraphicsLayer);
 									t.countiesGraphicsLayer.clear();
+									t.countiesGraphicsLayer.remove(v);
 									// t.map.GraphicsLayer.clear();
 
 								}
