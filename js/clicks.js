@@ -560,7 +560,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							// t.map.graphicsLayer.clear();
 							console.log(t.map.graphicsLayerIds);
 
-							t.map.removeLayer(t.countiesGraphicsLayer);
+							// t.map.removeLayer(t.countiesGraphicsLayer);
 							t.map.graphics.clear();
 							console.log(t.countiesGraphicsLayer);
 							var gl = t.map.getLayer("hoverGraphic");
@@ -574,7 +574,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 
 							$.each(t.map.graphicsLayerIds,function(i,v){
 								if(v.includes('graphic')){
-									t.map.removeLayer(t.countiesGraphicsLayer);
+									// t.map.removeLayer(t.countiesGraphicsLayer);
 									console.log(v);
 									// t.map.removeLayer(v);
 									console.log(t.map.graphicsLayerIds);
