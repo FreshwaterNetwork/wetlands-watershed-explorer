@@ -554,27 +554,14 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						if(t.obj.search != 'yes'){
 							t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where)
 						}else{
-							// t.map.removeLayer(t.countiesGraphicsLayer);
-							console.log('remove layer')
-							console.log(t.map.graphicsLayerIds);
-							// t.map.graphicsLayer.clear();
-							console.log(t.map.graphicsLayerIds);
-
-							// t.map.removeLayer(t.countiesGraphicsLayer);
 							t.map.graphics.clear();
-							console.log(t.countiesGraphicsLayer);
+							// console.log(t.countiesGraphicsLayer);
 							var gl = t.map.getLayer("hoverGraphic");
-							// var gl2 = t.map.getLayer(t.countiesGraphicsLayer);
-
 							console.log(gl);
-							// console.log(gl2);
-							// t.countiesGraphicsLayer.hide();
 							if(gl){
-								console.log('yes gl')
 								gl.clear();
 								t.map.removeLayer(gl);
 							}
-							
 
 							$.each(t.map.graphicsLayerIds,function(i,v){
 								if(v.includes('graphic')){
