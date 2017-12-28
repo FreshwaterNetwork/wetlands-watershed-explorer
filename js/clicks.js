@@ -549,7 +549,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 // Call the functions at the end of map click /////////////////////////////////////////////////////////////////
 						// call the hover graphic function ////////////////////////////
-						t.map.removeLayer(t.countiesGraphicsLayer);
+						// t.map.removeLayer(t.countiesGraphicsLayer);
 						// console.log(t.obj.visibleLayers[1], t.obj.where, 'hover graphic click');
 						if(t.obj.search != 'yes'){
 							t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where)
