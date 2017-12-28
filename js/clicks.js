@@ -563,8 +563,12 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.map.removeLayer(t.countiesGraphicsLayer);
 							t.map.graphics.clear();
 							console.log(t.countiesGraphicsLayer);
-							var gl = map.getLayer("hoverGraphic");
+							var gl = t.map.getLayer("hoverGraphic");
+							var gl2 = t.map.getLayer(t.countiesGraphicsLayer);
+
 							console.log(gl);
+							console.log(gl2);
+							t.countiesGraphicsLayer.hide();
 
 							
 
