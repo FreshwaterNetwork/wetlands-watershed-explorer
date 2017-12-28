@@ -564,12 +564,16 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.map.graphics.clear();
 							console.log(t.countiesGraphicsLayer);
 							var gl = t.map.getLayer("hoverGraphic");
-							var gl2 = t.map.getLayer(t.countiesGraphicsLayer);
+							// var gl2 = t.map.getLayer(t.countiesGraphicsLayer);
 
 							console.log(gl);
-							console.log(gl2);
-							t.countiesGraphicsLayer.hide();
-
+							// console.log(gl2);
+							// t.countiesGraphicsLayer.hide();
+							if(gl){
+								console.log('yes gl')
+								cl.clear();
+								t.map.removeLayer(gl);
+							}
 							
 
 							$.each(t.map.graphicsLayerIds,function(i,v){
