@@ -568,6 +568,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 									// t.countiesGraphicsLayer.clear();/////////
 									t.countiesGraphicsLayer.remove(v);
 									console.log(t.map.graphicsLayerIds);
+									t.map.graphics.clear();
 
 								}
 							});
