@@ -571,7 +571,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							// t.countiesGraphicsLayer.hide();
 							if(gl){
 								console.log('yes gl')
-								cl.clear();
+								gl.clear();
 								t.map.removeLayer(gl);
 							}
 							
