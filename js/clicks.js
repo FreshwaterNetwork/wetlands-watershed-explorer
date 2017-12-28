@@ -1046,6 +1046,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					gQ.returnGeometry = true;
 					gQ.outFields = ['*'];
 					gQ.where =  where;
+					console.log(where, 'in q where');
 					graphicQuery.execute(gQ, function(evt){
 						t.map.graphics.clear();
 			            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
@@ -1068,6 +1069,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			            }
 			            t.map.addLayer(t.countiesGraphicsLayer);
 	      				t.map.graphics.enableMouseEvents();
+	      				// on mouse out and over functions
 	      				t.countiesGraphicsLayer.on("mouse-over",function (event) {
 			                t.map.graphics.clear();  //use the maps graphics layer as the highlight layer
 			                t.highlightGraphic = new Graphic(event.graphic.geometry, highlightSymbol);
