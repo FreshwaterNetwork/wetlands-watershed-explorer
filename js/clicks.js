@@ -554,7 +554,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						if(t.obj.search != 'yes'){
 							t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where)
 						}else{
-							t.map.removeLayer(t.countiesGraphicsLayer);
+							// t.map.removeLayer(t.countiesGraphicsLayer);
 							console.log('remove layer')
 							console.log(t.map.graphicsLayerIds);
 							// t.map.graphicsLayer.clear();
