@@ -562,7 +562,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$.each(t.map.graphicsLayerIds,function(i,v){
 								if(v.includes('graphic')){
 									console.log(v);
-									t.map.removeLayer(lastItem);
+									t.map.removeLayer(v);
 									console.log(t.map.graphicsLayerIds);
 									// t.map.GraphicsLayer.clear();
 
