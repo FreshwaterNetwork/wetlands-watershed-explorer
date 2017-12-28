@@ -562,6 +562,10 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 
 							t.map.removeLayer(t.countiesGraphicsLayer);
 							t.map.graphics.clear();
+							console.log(t.countiesGraphicsLayer);
+							var gl = map.getLayer("hoverGraphic");
+							console.log(gl);
+
 							
 
 							$.each(t.map.graphicsLayerIds,function(i,v){
@@ -1082,7 +1086,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
 			                  new Color([255, 255, 255, 0]), 1), new Color([125, 125, 125, 0]));
 			            var features = evt.features;
-			            t.countiesGraphicsLayer = new GraphicsLayer();
+			            t.countiesGraphicsLayer = new GraphicsLayer({ id: "hoverGraphic" });
 			            //QueryTask returns a featureSet.
 			            //Loop through features in the featureSet and add them to the map.
 			            var featureCount = features.length;
