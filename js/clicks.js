@@ -1154,7 +1154,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 			infographicText: function(t){
 				t.infographicText = {
-					"Combined Services":"Combined Services - Wetlands can provide multiple services. Each wetland’s characteristics determine which services that wetland provides and to what extent. <br><a style='color:blue;' href=''>How watersheds were ranked based on the potential for wetlands to provide this service.</a>",
+					"Combined Services":"Combined Services - Wetlands can provide multiple services. Each wetland’s characteristics determine which services that wetland provides and to what extent. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=12' target='_blank'>How watersheds were ranked based on the potential for wetlands to provide this service.</a>",
 					"Count of Services ≥ High_wet":"Count of Service >= High - Current and potentially restorable wetlands often have the potential to provide more than one service at “high” or “very high” levels.",
 					
 					"Flood Abatement":"Flood Abatement - After heavy rainfall, many wetlands detain storm water runoff and overbank flooding from rivers, which slows the flow of excess water downstream.",
