@@ -131,6 +131,20 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					$.each($('.wfa-radio-indent').find('label'),function(i,v){
 						if($(v).find('img')){$(v).find('img').remove()}
 					});
+					// add new text to dialog box if open. base this on what function the user clicks
+					if ($('#' + t.id + 'dialogBoxTest').dialog('isOpen')) {
+						// force click on info icon.
+						let value;
+						if(t.obj.currentHuc == 'WHUC12'){
+							value = $(c.currentTarget).next().next().html() + "_wet"
+						}else{
+							value = $(c.currentTarget).next().next().html()
+						}
+						let textParts = t.infographicText[value].split(" - ");
+						$('.ui-dialog-title').html(textParts[0]);
+						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
+					}
+
 					$(c.currentTarget).parent().append('<img id="dialogBoxTest" title="test text" src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">');
 					// function info icon click, open the appropriate popup window
 					$('.wfa-infoIcon').on('click',function(e){
@@ -199,6 +213,14 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$(v).parent().parent().find('img').remove();
 						}
 					});
+					if ($('#' + t.id + 'wildDialogBoxTest').dialog('isOpen')) {
+						let value;
+						value = $(c.currentTarget).next().next().html()
+						let textParts = t.infographicText[value].split(" - ");
+						$('.ui-dialog-title').html(textParts[0]);
+						$('#' + t.id + 'wildDialogBoxTest').html(textParts[1])
+					}
+					
 					$('.wfa-wildInfoIcon').on('click',function(e){
 						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
 						$('.ui-dialog-title').parent().parent().css('top', '456px');
@@ -1154,45 +1176,45 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 			infographicText: function(t){
 				t.infographicText = {
-					"Combined Services":"Combined Services - Wetlands can provide multiple services. Each wetland’s characteristics determine which services that wetland provides and to what extent. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=12' target='_blank'>How watersheds were ranked based on the potential for wetlands to provide this service.</a>",
-					"Count of Services ≥ High_wet":"Count of Service >= High - Current and potentially restorable wetlands often have the potential to provide more than one service at “high” or “very high” levels.",
+					"Combined Services":"Combined Services - Wetlands can provide multiple services. Each wetland’s characteristics determine which services that wetland provides and to what extent. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=18' target='_blank'>View in report</a>",
+					"Count of Services ≥ High_wet":"Count of Service >= High - Current and potentially restorable wetlands often have the potential to provide more than one service at “high” or “very high” levels. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=24' target='_blank'>View in report</a>",
 					
-					"Flood Abatement":"Flood Abatement - After heavy rainfall, many wetlands detain storm water runoff and overbank flooding from rivers, which slows the flow of excess water downstream.",
-					"Flood Abatement_wet":"Flood Abatement - After heavy rainfall, many wetlands detain storm water runoff and overbank flooding from rivers, which slows the flow of excess water downstream.",
+					"Flood Abatement":"Flood Abatement - After heavy rainfall, many wetlands detain storm water runoff and overbank flooding from rivers, which slows the flow of excess water downstream. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=20' target='_blank'>View in report</a>",
+					"Flood Abatement_wet":"Flood Abatement - After heavy rainfall, many wetlands detain storm water runoff and overbank flooding from rivers, which slows the flow of excess water downstream. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=49' target='_blank'>View in report</a>",
 					
-					"Fish and Aquatic Habitat":"Fish and Aquatic Habitat - Wetlands support some part of the full life cycle for most fish and aquatic life.",
-					"Fish and Aquatic Habitat_wet":"Fish and Aquatic Habitat - Wetlands support some part of the full life cycle for most fish and aquatic life.",
+					"Fish and Aquatic Habitat":"Fish and Aquatic Habitat - Wetlands support some part of the full life cycle for most fish and aquatic life. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=23' target='_blank'>View in report</a>",
+					"Fish and Aquatic Habitat_wet":"Fish and Aquatic Habitat - Wetlands support some part of the full life cycle for most fish and aquatic life. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=59' target='_blank'>View in report</a>",
 					
 					"Phosphorus Retention":"test obj text5",
-					"Phosphorus Retention_wet":"Phosphorus Reduction - Wetlands can intercept phosphorus from water and sediments, and store it in plants and soils.",
+					"Phosphorus Retention_wet":"Phosphorus Reduction - Wetlands can intercept phosphorus from water and sediments, and store it in plants and soils. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=53' target='_blank'>View in report</a>",
 					
-					"Sediment Retention":"Sediment Retention - Wetlands retain some sediment that would otherwise move downstream.  Excess sediment in streams impairs water quality and aquatic habitat.",
-					"Sediment Retention_wet":"Sediment Retention - Wetlands retain some sediment that would otherwise move downstream.  Excess sediment in streams impairs water quality and aquatic habitat.",
+					"Sediment Retention":"Sediment Retention - Wetlands retain some sediment that would otherwise move downstream.  Excess sediment in streams impairs water quality and aquatic habitat. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=20' target='_blank'>View in report</a>",
+					"Sediment Retention_wet":"Sediment Retention - Wetlands retain some sediment that would otherwise move downstream.  Excess sediment in streams impairs water quality and aquatic habitat. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=51' target='_blank'>View in report</a>",
 					
 					"Nitrogen Reduction":"",
-					"Nitrogen Reduction_wet":"Nitrogen Reduction - Wetlands remove nitrate from the water and convert it into plants, soil, or harmless gas.",
+					"Nitrogen Reduction_wet":"Nitrogen Reduction - Wetlands remove nitrate from the water and convert it into plants, soil, or harmless gas. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=55' target='_blank'>View in report</a>",
 					
-					"Nutrient Transformation":"Nutrient Transformation - Wetlands remove nutrients from the water and convert them into plants, soil, or harmless gas.",
+					"Nutrient Transformation":"Nutrient Transformation - Wetlands remove nutrients from the water and convert them into plants, soil, or harmless gas. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=22' target='_blank'>View in report</a>",
 					"Nutrient Transformation_wet":"test obj text",
 					
-					"Surface Water Supply":"Surface Water Supply - Wetlands often contribute water to streams and rivers, especially during dry periods.",
-					"Surface Water Supply_wet":"Surface Water Supply - Many wetlands contribute water to streams and rivers, especially during dry periods.",
+					"Surface Water Supply":"Surface Water Supply - Wetlands often contribute water to streams and rivers, especially during dry periods. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=22' target='_blank'>View in report</a>",
+					"Surface Water Supply_wet":"Surface Water Supply - Many wetlands contribute water to streams and rivers, especially during dry periods. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=57' target='_blank'>View in report</a>",
 					
 					"Shoreline Protection":"test obj text",
-					"Shoreline Protection_wet":"Shoreline Protection - Wetlands reduce wave energy in lakes and slow flows in rivers, protecting banks and shorelines from erosion.",
+					"Shoreline Protection_wet":"Shoreline Protection - Wetlands reduce wave energy in lakes and slow flows in rivers, protecting banks and shorelines from erosion. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=58' target='_blank'>View in report</a>",
 					
 					"Carbon Storage":"test obj text",
-					"Carbon Storage_wet":"Carbon Storage - Wetlands capture carbon dioxide, a greenhouse gas, and store carbon in vegetation and deep organic soils.",
+					"Carbon Storage_wet":"Carbon Storage - Wetlands capture carbon dioxide, a greenhouse gas, and store carbon in vegetation and deep organic soils. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=60' target='_blank'>View in report</a>",
 					
 					"Floristic Integrity":"test obj text",
-					"Floristic Integrity_wet":"Floristic Integrity - Some wetlands are of high condition, containing a healthy array of plant species.",
+					"Floristic Integrity_wet":"Floristic Integrity - Some wetlands are of high condition, containing a healthy array of plant species. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=61' target='_blank'>View in report</a>",
 					
-					"All Guilds":"All Guilds - A wildlife guild is a group of species that use the same or similar habitats and resources.",
-					"Forest Interior Guild":"Forest Interior Guild - The Forest Interior Guild includes species that require forested wetlands embedded within heavily forested landscapes. Black-and-white warbler, northern waterthrush, and northern flying squirrels are examples.",
-					"Shrub Swamp Guild":"Shrub Swamp Guild - The Shrub Swamp Guild includes species that depend on dense thickets over wet soils that usually flood in spring, such as willow and alder flycatchers.",
-					"Shallow Marsh Guild":"Shallow Marsh Guild - The Shallow Marsh Guild includes species that use open canopy wetlands with shallow water, or that are saturated most of the year, and may use adjacent open canopy uplands for breeding or foraging.  These include American bittern, blue-winged teal, amphibians and aquatic invertebrates.",
-					"Open Waters Guild":"Open Waters Guild - The Open Waters Guild includes species that prefer large areas of open water, or where water is deeper and lasts longer than in a shallow marsh.  Terns and diving ducks are examples.",
-					"All-Guild Restoration Opportunities":"All-Guild Restoration Opportunities - Restorable wetlands may have the potential to provide habitat for multiple guilds, depending on the habitat type restored and its proximity to core guild habitat. See the report for details.",
+					"All Guilds":"All Guilds - A wildlife guild is a group of species that use the same or similar habitats and resources. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=16' target='_blank'>View in report</a>",
+					"Forest Interior Guild":"Forest Interior Guild - The Forest Interior Guild includes species that require forested wetlands embedded within heavily forested landscapes. Black-and-white warbler, northern waterthrush, and northern flying squirrels are examples. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=25' target='_blank'>View in report</a>",
+					"Shrub Swamp Guild":"Shrub Swamp Guild - The Shrub Swamp Guild includes species that depend on dense thickets over wet soils that usually flood in spring, such as willow and alder flycatchers. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=25' target='_blank'>View in report</a>",
+					"Shallow Marsh Guild":"Shallow Marsh Guild - The Shallow Marsh Guild includes species that use open canopy wetlands with shallow water, or that are saturated most of the year, and may use adjacent open canopy uplands for breeding or foraging.  These include American bittern, blue-winged teal, amphibians and aquatic invertebrates. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=25' target='_blank'>View in report</a>",
+					"Open Waters Guild":"Open Waters Guild - The Open Waters Guild includes species that prefer large areas of open water, or where water is deeper and lasts longer than in a shallow marsh.  Terns and diving ducks are examples. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=25' target='_blank'>View in report</a>",
+					"All-Guild Restoration Opportunities":"All-Guild Restoration Opportunities - Restorable wetlands may have the potential to provide habitat for multiple guilds, depending on the habitat type restored and its proximity to core guild habitat. See the report for details. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=25' target='_blank'>View in report</a>",
 				}
 			},
 // Make vars //////////////////////////////////////////////////////////////////////////////////////////////////
