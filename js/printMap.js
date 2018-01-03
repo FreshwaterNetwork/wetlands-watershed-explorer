@@ -29,26 +29,6 @@ define([
         "use strict";
 
         return declare(null, {
-        	printMap2: function(t){
-        		// t.printUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task";
-        		// parser.parse();
-		        // esriConfig.defaults.io.proxyUrl = "/proxy/";
-		        // // get print templates from the export web map task
-		        // var printInfo = esriRequest({
-		        //   "url": t.printUrl,
-		        //   "content": { "f": "json" }
-		        // });
-		        // printInfo.then(t.printMap.handlePrintInfo(t), handleError);
-
-		        // var printer = new Print({
-		        //   map: t.map,
-		        //   url: t.printUrl
-		        // }, dom.byId(t.id + "mapBtn2"));
-		        // printer.startup();
-        	},
-        	handlePrintInfo: function(){
-
-        	},
         	drawOptions: function(t){
         		t.lyrs = []
         		t.toolbar = new Draw(t.map);
@@ -103,53 +83,6 @@ define([
 		        t.map.addLayer(t.obj.drawLayer);
 		        t.lyrs.push(t.obj.drawLayer)
         	},
-
-   //      	printMap: function(t){
-   //      		t.url ='http://cumulus-web-adapter-1827610810.us-west-1.elb.amazonaws.com/arcgis/rest/services/nascience/ny_ExportWebMap/GPServer/Export%20Web%20Map';
-			// 	t.printTask = new esri.tasks.PrintTask(t.url);
-			// 	t.params = new esri.tasks.PrintParameters();
-			// 	t.params.map = t.map;
-
-			// 	//var legendLayer = new esri.tasks.LegendLayer();
-			// 	//    legendLayer.layerId = "nyService";
-			// 	var layoutTemplate, templateNames, mapOnlyIndex, templates;
-			// 	var printTitle = "Biodiversity and Energy in New York - Working Together";
-
-			// 	var layouts = [
-			// 	  { 
-			// 	  	"name": "Letter ANSI A Landscape", 
-			// 	    "label": "Landscape (PDF)", 
-			// 	    "format": "png", 
-			// 	    "options": { 
-			// 	    	"legendLayers": [t.legendLayer], // empty array means no legend
-			// 	      "scalebarUnit": "Miles",
-			// 	      "titleText": printTitle,
-			// 	 			"copyrightText": "The Nature Conservancy"
-			// 	   	}
-			// 	  }];
-
-			// 	// create the print templates, could also use dojo.map
-			// 	var templates = [];
-			// 	dojo.forEach(layouts, function(lo) {
-			// 		var t = new esri.tasks.PrintTemplate();
-			// 		t.layout = lo.name;
-			// 		t.label = lo.label;
-			// 		t.format = lo.format;
-			// 		t.preserveScale = false;
-			// 		t.layoutOptions = lo.options;
-			// 		templates.push(t);
-			// 	});
-					
-			// 	t.params.template = templates;
-			// 	t.printTask.execute(t.params, t.printMap.printResult());
-			// 	// $('#pbtn').hide();
-			// 	// $('#pbuild').show();
-   //      	},
-   //      	printResult: function(result){
-			// 	// $('#pbuild').hide();
-			// 	// $('#pdflink').show();
-			// 	// app.pdflocal = result.url;
-			// },
 		});
     }
 );

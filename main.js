@@ -145,11 +145,6 @@ function ( 	declare, PluginBase,Draw, ContentPane, dom, domStyle, domGeom, obj, 
 			// Click listeners
 			this.clicks.eventListeners(this);
 			this.report.createReport(this);
-			// this.printMap.testMap(this);
-			// this.printMap.printMap2(this);
-			  
-			//this.clicks.featureLayerListeners(this);
-			
 			this.rendered = true;	
 		}
 	});

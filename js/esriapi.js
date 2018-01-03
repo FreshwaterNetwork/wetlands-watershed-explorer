@@ -8,9 +8,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 
         return declare(null, {
 			esriApiFunctions: function(t){	
-				
-				
-
 				// Add dynamic map service layer number 2
 				t.dynamicLayer2 = new ArcGISDynamicMapServiceLayer(t.url, {opacity:0.7});
 				t.map.addLayer(t.dynamicLayer2);
@@ -31,14 +28,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 	        			t.toolbar = new Draw(t.map);
 	        			t.toolbar.on("draw-end", t.printMap.addToMap(t, evt));
 	        		})
-
-					// hide save and share html on app load;
-					// $('#map-utils-control').children().find('.dropdown-menu').children().last().hide();
-					// hide the create map tool on app load
-					// $('#map-utils-control').children().find('.dropdown-menu').children().last().prev().hide();
-					// measure tool
-					// $('#map-utils-control').children().find('.dropdown-menu').children().last().prev().prev().prev().hide();
-
 					$('#map-utils-control').hide();
 					// add tooltip to info icon.
 					$('#' + t.id + 'funcInfoGraphicWrapper').tooltip();
@@ -105,7 +94,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						t.obj.stateSet = "no";
 					}
 					// instantiate print button and draw buttons
-					t.printMap.printMap2(t);
 					t.printMap.drawOptions(t);
 					t.addShapefile.uploadShapefile(t);
 				});
