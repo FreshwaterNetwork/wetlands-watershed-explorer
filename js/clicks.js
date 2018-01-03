@@ -141,7 +141,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							value = $(c.currentTarget).next().next().html()
 						}
 						let textParts = t.infographicText[value].split(" - ");
-						$('.ui-dialog-title').html(textParts[0]);
+						$('#ui-id-1').html(textParts[0]);
 						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
 					}
 
@@ -155,12 +155,12 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							value = $(e.currentTarget).prev().html()
 						}
 						let textParts = t.infographicText[value].split(" - ");
-						$('.ui-dialog-title').html(textParts[0]);
+						$('#ui-id-1').html(textParts[0]);
 						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
 						$('#' + t.id + 'dialogBoxTest').dialog("open");
-						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
-						$('.ui-dialog-title').parent().parent().css('top', '288px');
-						$('.ui-dialog-title').parent().parent().css('left', '488px');
+						$('#ui-id-1').parent().parent().css('z-index', '100000');
+						$('#ui-id-1').parent().parent().css('top', '250px');
+						$('#ui-id-1').parent().parent().css('left', '488px');
 					});
 				});
 				$('.wfa-infoIcon').on('click',function(e){
@@ -171,12 +171,12 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						value = $(e.currentTarget).prev().html()
 					}
 					let textParts = t.infographicText[value].split(" - ");
-					$('.ui-dialog-title').html(textParts[0]);
+					$('#ui-id-1').html(textParts[0]);
 					$('#' + t.id + 'dialogBoxTest').html(textParts[1])
 					$('#' + t.id + 'dialogBoxTest').dialog("open");
-					$('.ui-dialog-title').parent().parent().css('z-index', '100000');
-					$('.ui-dialog-title').parent().parent().css('top', '288px');
-					$('.ui-dialog-title').parent().parent().css('left', '488px');
+					$('#ui-id-1').parent().parent().css('z-index', '100000');
+					$('#ui-id-1').parent().parent().css('top', '250px');
+					$('#ui-id-1').parent().parent().css('left', '488px');
 				});
 
 // wildlife checkbox show and hide ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -217,21 +217,20 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						let value;
 						value = $(c.currentTarget).next().next().html()
 						let textParts = t.infographicText[value].split(" - ");
-						$('.ui-dialog-title').html(textParts[0]);
+						$('#ui-id-2').html(textParts[0]);
 						$('#' + t.id + 'wildDialogBoxTest').html(textParts[1])
 					}
 					
 					$('.wfa-wildInfoIcon').on('click',function(e){
-						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
-						$('.ui-dialog-title').parent().parent().css('top', '456px');
-						$('.ui-dialog-title').parent().parent().css('left', '488px');
 						let value;
 						value = $(e.currentTarget).prev().find('span').html()
 						let textParts = t.infographicText[value].split(" - ");
-						$('.ui-dialog-title').html(textParts[0]);
+						$('#ui-id-2').html(textParts[0]);
 						$('#' + t.id + 'wildDialogBoxTest').html(textParts[1])
 						$('#' + t.id + 'wildDialogBoxTest').dialog("open");
-						$('.ui-dialog-title').parent().parent().css('z-index', '100000');
+						$('#ui-id-2').parent().parent().css('z-index', '100000');
+						$('#ui-id-2').parent().parent().css('top', '470px');
+						$('#ui-id-2').parent().parent().css('left', '488px');
 					});
 
 				});
@@ -347,7 +346,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					if($("#" + t.id + "wfa-mainContentWrap").height() == 0){
 						$('#' + t.id + 'getStartedText').slideDown();
 					}else{
-						$('#' + t.id + 'helpLinkWrapper').slideDown();
+						$('#' + t.id + 'explainButton').slideDown();
 					}
 					// call functions here on save and share
 					t.clicks.radioAttDisplay(t);
@@ -422,8 +421,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							}
 						});
 					});
-					
-					
 
 				}else{
 					$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
@@ -443,7 +440,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'wfa-mainContentWrap').slideDown();
 						// populate the maskExps and hucExps objects after query has been triggered
 						if(t.obj.search == 'yes'){
-							console.log('search')
 							$("#" + t.id + 'searchWrapper').slideUp();
 							$("#" + t.id + 'num1').prop('checked', true);
 
@@ -471,11 +467,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 											$(v).children().children().last().prev().html(evt.features[0].attributes.name)
 										}
 									})
-									console.log('1')
 								})
-								console.log('2')
 							});
-							console.log('3')
 						}else{
 							if($('.toggle-btn input:checked').last().is(':checked')){
 								$("#" + t.id + 'searchWrapper').slideUp();
@@ -487,6 +480,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						t.obj.hucNames.push(t.hucAttributes.name);
 						t.fExt = evt.features[0].geometry.getExtent().expand(1);
 						if(t.obj.visibleLayers[1] == 1 ){
+							console.log('1')
+							t.firstClick = 'yes';
 							t.obj.selHuc = 30;
 							t.obj.currentHuc = 'WHUC6' 
 							t.obj.hucVal  = evt.features[0].attributes.WHUC6
@@ -577,35 +572,33 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where)
 						}else{
 							t.map.graphics.clear();
-							// console.log(t.countiesGraphicsLayer);
 							var gl = t.map.getLayer("hoverGraphic");
-							console.log(gl);
 							if(gl){
 								gl.clear();
 								t.map.removeLayer(gl);
 							}
 
-							$.each(t.map.graphicsLayerIds,function(i,v){
-								if(v.includes('graphic')){
-									// t.map.removeLayer(t.countiesGraphicsLayer);
-									console.log(v);
-									// t.map.removeLayer(v);
-									console.log(t.map.graphicsLayerIds);
-									// t.map.removeLayer(t.countiesGraphicsLayer);
-									// t.countiesGraphicsLayer.clear();/////////
-									// t.countiesGraphicsLayer.remove(v);
-									console.log(t.map.graphicsLayerIds);
-									// t.map.graphics.clear();
+							// $.each(t.map.graphicsLayerIds,function(i,v){
+							// 	if(v.includes('graphic')){
+							// 		// t.map.removeLayer(t.countiesGraphicsLayer);
+							// 		console.log(v);
+							// 		// t.map.removeLayer(v);
+							// 		console.log(t.map.graphicsLayerIds);
+							// 		// t.map.removeLayer(t.countiesGraphicsLayer);
+							// 		// t.countiesGraphicsLayer.clear();/////////
+							// 		// t.countiesGraphicsLayer.remove(v);
+							// 		console.log(t.map.graphicsLayerIds);
+							// 		// t.map.graphics.clear();
 
-								}
-							});
+							// 	}
+							// });
 						}
 						
 						// call the wetland click function ////////////////////////////
 						t.clicks.wetlandClick(t);
 						// slide down explain links
 						// wfa-helpLinkWrapper
-						$('#' + t.id + 'helpLinkWrapper').slideDown();
+						$('#' + t.id + 'explainButton').slideDown();
 					}
 				}) // end of main map click query
 			},
@@ -633,10 +626,12 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$(v).slideDown();
 					}
 					if (t.radAttVal == 'wet') {
+
 						$('#' + t.id + 'mainAttributeWrap').slideUp();
 						
 					}
 				});
+				
 				// radio buttons controls //////////////////////////////
 				var radioBtns = $('#' + t.id + 'funcWrapper').find('label');
 				$.each(radioBtns,function(i,v){
@@ -655,6 +650,11 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				if(mousePos == 'over'){
 					if(t.obj.currentHuc != 'WHUC4'){
 						$('#' + t.id + 'mainAttributeWrap').show();
+						// check to see if its the first click if not change display to flex, this fixes the jumpyness on page load
+						if(t.firstClick != 'yes'){
+							$('#' + t.id + 'wfa-fas_AttributeWrap').css('display', 'flex');
+						}
+						t.firstClick = 'no'; // set the first click back to no
 						$('#' + t.id).scrollTop(500) // force a scroll on hover so the user can see the attribute table on small screens
 						$('#' + t.id + 'watershedHoverText').hide();
 					}
@@ -708,7 +708,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.obj.currentHuc = 'WHUC4'
 							t.obj.visibleLayers = [0,1]
 							$('#' + t.id +'fullExt-selText').slideUp();
-							$('#' + t.id + 'helpLinkWrapper').slideUp();
+							$('#' + t.id + 'explainButton').slideUp();
 							
 							$('#' + t.id + 'mainFuncWrapper').slideUp();
 							if(t.currentToggle != 'knownSite'){

@@ -272,7 +272,7 @@ hr{
 /* Help section styles*/
 
 .wfa-helpLinkWrapper{
-	display: flex; padding: 0 0 4px 0;
+	display: flex; padding: 0 0 4px 0; height: 20px;
 }
 .wfa-helpButtonWrap{
 	flex: 1;

@@ -119,7 +119,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						$('#' + t.id + 'searchWrapper').slideUp();
 					}else{
 						t.map.graphics.clear(); // reset graphics before search
-						$('#' + t.id + 'helpLinkWrapper').slideUp();
+						$('#' + t.id + 'explainButton').slideUp();
 						$('#' + t.id + 'getStartedText').slideUp();
 						$('#' + t.id + 'searchWrapper').slideDown();
 						$('#' + t.id + 'wfa-mainContentWrap').slideUp();
