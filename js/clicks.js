@@ -249,7 +249,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
-				t.obj.hucInfo = {};
 				t.clickCounter = 1;
 				// set initial array vars, these will be populated later. 
 				t.obj.hucExtents[0] = t.obj.dynamicLyrExt
@@ -272,7 +271,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				t.clicks.hoverGraphic(t,1,t.obj.where)
 				t.clicks.searchFunction(t); // call the searchbox init function ///////
 				t.clicks.hucZoom(t); // call the huc zoom function
-				
 				// on search complete function ///////////////
 				on(t.search1, 'select-result', function (e) {
 					// t.map.graphics.clear();
