@@ -433,6 +433,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				t.q1.outFields = ["*"];
 				// t.q1.where = t.obj.where;
 				t.qt1.execute(t.q1, function(evt){
+					console.log('look here 444444')
 					// t.obj.maskClick = 'no';
 					if (evt.features.length > 0 && t.obj.maskClick == 'no'){
 						t.searchSuccess =  'yes'
@@ -577,21 +578,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 								gl.clear();
 								t.map.removeLayer(gl);
 							}
-
-							// $.each(t.map.graphicsLayerIds,function(i,v){
-							// 	if(v.includes('graphic')){
-							// 		// t.map.removeLayer(t.countiesGraphicsLayer);
-							// 		console.log(v);
-							// 		// t.map.removeLayer(v);
-							// 		console.log(t.map.graphicsLayerIds);
-							// 		// t.map.removeLayer(t.countiesGraphicsLayer);
-							// 		// t.countiesGraphicsLayer.clear();/////////
-							// 		// t.countiesGraphicsLayer.remove(v);
-							// 		console.log(t.map.graphicsLayerIds);
-							// 		// t.map.graphics.clear();
-
-							// 	}
-							// });
 						}
 						
 						// call the wetland click function ////////////////////////////
