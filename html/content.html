@@ -3,67 +3,7 @@ Dijit ContentPane to hold all the elements. The ContentPane is assigned a dynami
 takes the ContentPane id and prepends it to every element with a declared id in this HTML before the elements are created.
 The unique ContentPane id makes all the element ids unique and prevents duplicate id errors across other apps.-->
 
-<!--Add class accord to the accordion's parent div-->
-<!-- Main Content accordian window -->
-
-<!-- <div class="wfa-app hide">
-	<section id="selComReminder" style="margin-top:0px; width: 420px;">
-		<h3 style="margin-left:8px;">What would you like to do?</h3>
-	</section>
-
-	<div id="tabBtns" class="toggle-btn tabBtns hide" style="width:429px;">
-		<input checked type="radio" id="dfe1" name="crs-dfe" value="wfa-findASite"/>
-		<label for="dfe1">Find a Site</label>
-	 <input type="radio" id="dfe2" name="crs-dfe" value="wfa-evalASite"/>
-		<label for="dfe2">Evaluate a Site</label> 
-		<input type="radio" id="dfe3" name="crs-dfe" value="wfa-downloadData"/>
-		<label for="dfe3">Download Data</label>
-		<input type="radio" id="dfe4" name="crs-dfe" value="wfa-showInfo"/>
-		<label for="dfe4">Info</label>
-	</div>
-</div>  -->
-
-<!-- Find A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<div id="wfa-findASite" class="wfa-fasWrap wfa-sections hide">
-	<div class="wfa-helpLinkText" id="learnMoreButton" style="margin-top: 5px; font-size: 14px">Learn more about the Explorer</div>
-	<div id="wfa-intoText" class="blueFont hide" style="font-weight: normal; margin-top: 10px;">
-		<p>Wetlands provide many services for people and wildlife: improving water quality, reducing flood impacts, helping streams flow, supporting fish and wildlife habitat, and others.</p>
-		<p>But not all wetlands are the same. The types and amounts of services each wetland provides depends on habitat type, location in the watershed, surrounding land-use, soil characteristics, and many other factors.</p>
-		<p>The Wetlands and Watersheds Explorer takes these factors into account to help you to identify the top tier of sites that meet your needs.  For further context and details see the report.</p>
-
-	</div>
-	<!-- <img src="plugins/wetlands-watershed-explorer/images/plus-icon.png" style="height: 18px;"> -->
-	<h3>Explore a New Site:</h3>
-	<!-- <p style="font-size: 100px;">&#8594;</p> -->
-	
-
-	<h4 style="border-bottom:1pt solid #dbe1e1; padding-bottom: 22px;"> - Single-click on Mapped Watersheds to Explore Opportunities and Find Sites</h4>
-	<!-- <p style="font-style: italic;">-	Single-click through basins, watersheds, and subwatersheds to   see potentially restorable and current wetlands.</p>
-	<p style="font-style: italic;">-	An important step after using this tool is to visit sites in the field   to verify results and determine next steps.</p> -->
-	<h3>Evaluate a Known Site:</h3>
-	<h4> - Search a known location below</h4>
-	<!-- <p style="font-style: italic;">-	Use dropdpown arrow on left to search by specific data.</p> -->
-	
-	<!-- Search box wrapper -->
-	<!-- <div class="wfa-searchWrapper">
-		<div class="wfa-searchWidget" id="search1"></div>
-	</div> -->
-	<!-- <div id="printButton"></div> -->
-	<!-- <button class="button button-primary" id="viewReport">Create Report</button> -->
-	
-	
-
-	
-	
-
-</div>
-
-
-
-
-
 <div id="headerSectionWrapper" class="wfa-headerSectionWrapper">
-		
 	<div class="wfa-openingWrapper">
 		<div style="display: flex;">
 			<h3>What would you like to do?</h3>
@@ -91,7 +31,6 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<input type="radio" id="num2" name="num" value="two"/>
 			<label for="num2">Evaluate a known site</label>
 		</div>
-	<!-- 	<h4 <h4 id="getStartedText" class="blueFont" style="border-bottom:1pt solid #dbe1e1; padding-bottom: 22px;"> - Single-click on Mapped Watersheds to Explore Opportunities and Find Sites</h4> -->
 		<h4 id="getStartedText" class="blueFont hide" style="margin-left: 77px;">Single-click on a watershed to get started</h4>
 		<div class="hide" id="searchOutsideStudy" style="color: rgb(140, 33, 48); font-weight: bold; margin: auto; text-align: center;">Your search was outside the study area, please try again.</div>
 
@@ -99,44 +38,19 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<div class="wfa-searchWidget" id="search1"></div>
 		</div>
 		<!-- help link text -->
-		<!-- <div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf" target="_blank">View Report</a></div> -->
 		<div id="helpLinkWrapper" class="">
 			<div class="wfa-helpLinkWrapper">
 				<div class="wfa-helpLinkText hide" id="explainButton">Explain Each Section</div>
 				<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf" target="_blank">View Report</a></div>
 			</div>
-			
 		</div>
-		<!-- <div class="wfa-helpLinkWrapper"> -->
-			<!-- <div class="wfa-helpButtonWrap">
-				<button id="explainButton" class="button button-default">Explain Sections</button>
-			</div> -->
-			<!-- <div class="wfa-search-wrap">
-				
-				<div class="wfa-searchWrapper hide" id="searchWrapper">
-					<div class="wfa-searchWidget" id="search1"></div>
-				</div>
-			</div> -->
-
-			<!-- <div class="wfa-helpButtonWrap">
-				<button class="button button-default">View <br> Report</button>
-			</div> -->
-		<!-- </div> -->
 	</div>
 </div>
 
 <!-- Evaluate A site Wrapper //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- <div id="wfa-evalASite" class="wfa-easWrap wfa-sections hide">
-	test text eval a site wrap
-</div> -->
 <!-- Main Content Wrap area ///////////////////////////////////////////////////////////////////////////////////// -->
 <div id="wfa-mainContentWrap" class="wfa-mainContentWrap">
 	<div id="hucSelWrap" class="hide">
-		<!-- <div id="helpLinkWrapper" class="wfa-helpLinkWrapper">
-			<div class="wfa-helpLinkText" id="explainButton">Explain Each Section</div>
-			<div class="wfa-helpLinkText" id="reportButton" style="position: absolute; right: 7px;"><a href="plugins/wetlands-watershed-explorer/assets/WetlandByDesignReport_Beta.pdf" target="_blank">View Report</a></div>
-		</div> -->
-		
 		<!-- Selected Watershed header -->
 		<div class="wfa-headerInfoWrap" style="display: flex; margin-top: 5px;">
 			<h3 style="margin: 0 0 4px 0">Selected Watersheds:</h3>
@@ -285,7 +199,6 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 									<span class="form-text">All Guilds</span>
 									<div style="z-index: 100000;" id="wildDialogBoxTest"></div>
 								</label>
-								<!-- <img src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-wildInfoIcon"> -->
 							</div>
 							<div class="wfa-wildCheckWrapper">
 								<label class="form-component wfa-funcLabel" style="display: block;" for="forest-option">
@@ -341,9 +254,6 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			</div>
 		</div>
 <!-- Dowload HUC 12 data button ////////////////////////////////////////////-->
-		<!-- <button class="button button-primary wfa-saveAndShare" id="viewReport">Save and Share</button> -->
-		<!-- <div id="bmBtn" class="wfa-helpLinkText wfa-saveAndShare hide" style="margin: 0 0 0px 13px;">Bookmark and Share<span></span></div>
-		<div id="mapBtn" class="wfa-helpLinkText wfa-mapCreate hide" style="margin: 0 0 0px 13px;"><div id="mapBtn2">Create PDF Map</div></div> -->
 		<div class="wfa-drawWrapper hide" id="drawWrapper">
 			<div style="display: flex; height: 45px; margin-top: -16px;">
 				<h3>Draw Graphics:</h3>
@@ -364,20 +274,8 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				<hr>
 			</div>
 		</div>
-		<!-- <div id="downloadDataWrapper" class="hide"> -->
-			<!-- <button class="button button-primary" id="dlBtn">Download Data</button> -->
-			<!-- <div id="dlBtn" class="wfa-helpLinkText" style="margin: 0 0 7px 13px;">Download Wetland Data<span></span></div> -->
-		<!-- </div> -->
-		
 	</div>
 <!-- Create report Wrapper section /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
-		<!-- <div id="createReportWrapper" class="hide">
-			<button class="button button-primary wfa-buildReportText" id="buildReport">Build Wetland Report</button>
-		</div> -->
-		<!-- Report help text -->
-		<!-- <div class="wfa-helpText hide blueFont">
-			test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
-		</div> -->
 	<div id="watershedHoverText" class="wfa-watershedHoverText hide blueFont">Hover over subwatersheds to compare range of services.</div>
 	<div id="wetlandHoverText" class="wfa-wetlandHoverText blueFont hide">Click on individual wetland sites to see how they compare to others in this watershed.</div>
 
@@ -538,13 +436,6 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 </div>
 
 <!-- Find/eval a site attribute wrap //////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-	
-	<!-- help text -->
-	<!-- <div class="wfa-helpText hide blueFont">
-		test help text "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
-	</div> -->
-	<!-- <div id="wetlandHoverText" class="wfa-wetlandHoverText blueFont hide">Click on individual wetland sites to see how they compare to others in this watershed.</div> -->
 	
 </div>
 

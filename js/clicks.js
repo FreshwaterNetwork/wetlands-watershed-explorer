@@ -433,7 +433,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				t.q1.outFields = ["*"];
 				// t.q1.where = t.obj.where;
 				t.qt1.execute(t.q1, function(evt){
-					console.log('look here 444444')
 					// t.obj.maskClick = 'no';
 					if (evt.features.length > 0 && t.obj.maskClick == 'no'){
 						t.searchSuccess =  'yes'
@@ -481,7 +480,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						t.obj.hucNames.push(t.hucAttributes.name);
 						t.fExt = evt.features[0].geometry.getExtent().expand(1);
 						if(t.obj.visibleLayers[1] == 1 ){
-							console.log('1')
 							t.firstClick = 'yes';
 							t.obj.selHuc = 30;
 							t.obj.currentHuc = 'WHUC6' 
@@ -567,8 +565,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 // Call the functions at the end of map click /////////////////////////////////////////////////////////////////
 						// call the hover graphic function ////////////////////////////
-						// t.map.removeLayer(t.countiesGraphicsLayer);
-						// console.log(t.obj.visibleLayers[1], t.obj.where, 'hover graphic click');
 						if(t.obj.search != 'yes'){
 							t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where)
 						}else{
@@ -1059,7 +1055,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
-				console.log('in hover graphic')
 				t.map.graphics.clear()
 				// the try catch statement below is used to remove the graphic layer. 
 				if(t.searchSuccess == 'no'){
@@ -1078,7 +1073,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					gQ.returnGeometry = true;
 					gQ.outFields = ['*'];
 					gQ.where =  where;
-					console.log(where, 'in q where');
 					graphicQuery.execute(gQ, function(evt){
 						t.map.graphics.clear();
 			            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
