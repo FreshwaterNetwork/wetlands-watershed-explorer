@@ -178,6 +178,18 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					$('#ui-id-1').parent().parent().css('top', '250px');
 					$('#ui-id-1').parent().parent().css('left', '488px');
 				});
+				// code for hover over huc name, this codes changes the huc name to the huc code.
+				$('.wfa-hucCode').on('mouseover',function(e){
+					let str = e.currentTarget.id.split('ContentPane_0')[1]
+					str = str.substr(0, str.length-3);
+					t.prevHTML = $(e.currentTarget).html()
+					$(e.currentTarget).html('HUC Code: ' + t.obj.hucInfo[str])
+					$(e.currentTarget).css('color' , 'rgb(140, 33, 48)')
+				})
+				$('.wfa-hucCode').on('mouseout',function(e){
+					$(e.currentTarget).html(t.prevHTML);
+					$(e.currentTarget).css('color' , '#2f6384')
+				})
 
 // wildlife checkbox show and hide ///////////////////////////////////////////////////////////////////////////////////////////////////
 				// wildlife radio buttons /////////////////
@@ -237,6 +249,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
+				t.obj.hucInfo = {};
 				t.clickCounter = 1;
 				// set initial array vars, these will be populated later. 
 				t.obj.hucExtents[0] = t.obj.dynamicLyrExt
@@ -484,6 +497,10 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.obj.selHuc = 30;
 							t.obj.currentHuc = 'WHUC6' 
 							t.obj.hucVal  = evt.features[0].attributes.WHUC6
+
+							t.obj.hucInfo.huc6 = evt.features[0].attributes.WHUC6;
+
+							// t.obj.hucVal  = evt.features[0].attributes.WHUC6
 							t.obj.visibleLayers = [0,2,t.obj.selHuc]
 							$('#' + t.id + 'watershedHoverText').show();
 							$('#' + t.id + 'wetlandHoverText').hide();
@@ -499,6 +516,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.obj.selHuc = 31;
 							t.obj.currentHuc = 'WHUC8';
 							t.obj.hucVal  = evt.features[0].attributes.WHUC8
+							t.obj.hucInfo.huc8 = evt.features[0].attributes.WHUC8;
 							t.obj.wildlifeOpenTracker = 'open';
 							t.obj.visibleLayers = [0,3,t.obj.selHuc]
 							// slide down wildlife checkbox
@@ -508,6 +526,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.obj.selHuc = 32;
 							t.obj.currentHuc = 'WHUC10'
 							t.obj.hucVal  = evt.features[0].attributes.WHUC10
+							t.obj.hucInfo.huc10 = evt.features[0].attributes.WHUC10;
 							t.obj.visibleLayers = [0,4,t.obj.selHuc]
 							$('#' + t.id + 'createReportWrapper').slideUp(); // slide up report button
 							$('#' + t.id + 'downloadDataWrapper').slideUp(); // slide down report button
@@ -515,6 +534,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.obj.selHuc = 33;
 							t.obj.currentHuc = 'WHUC12';
 							t.obj.hucVal  = evt.features[0].attributes.WHUC12
+							t.obj.hucInfo.huc12 = evt.features[0].attributes.WHUC12;
 							t.obj.huc12Name = evt.features[0].attributes.name
 							t.obj.visibleLayers = [0,4,6,16]
 							$('#' + t.id + 'mainAttributeWrap').slideUp();
