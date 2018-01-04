@@ -61,6 +61,8 @@ define([
 		        });
 		        $.each($("#dijit_layout_ContentPane_0drawingWrapper .dijitButton"),function(i,v){
 		        	$(v).addClass('button');
+		        	$(v).css('padding', '0');
+		        	$(v).find('.dijitButtonText').css('margin', '10px 5px 10px 5px');
 		        });
 		        // clear button for graphics
 		        $('#' + t.id + 'drawGraphicClear').on('click', function(){
