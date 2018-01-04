@@ -1,5 +1,24 @@
+  Main CSS Styling for WI apps //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
 .infoIcon{
-	margin-bottom:-2px; margin-left:3px; cursor:pointer;
+	margin-left:4px; cursor:pointer; height: 16px;
+}
+
+.wfa-helpText{
+	font-weight: 100 !important;
+}
+hr{
+	border-bottom: 1px solid #cdd5d5; width: 400px; margin-right: 14px;
+}
+/*.form-component{
+	display: block;
+}*/
+/*.wfa-headerInfoWrap{
+	display: flex; margin: 10px;
+}*/
+
+.legend-body{
+	height: 99% !important;
 }
 .flex-center{
 	display:flex; align-items:center;
@@ -25,28 +44,308 @@
 .sidebar-content .getHelpBtnWrap .button{
 	margin-bottom:0;
 }
-.umr-wrap .slider{
+.wfa-infoIcon{
+	vertical-align:bottom; padding: 2px 2px 2px 2px; height: 20px;
+}
+.wfa-wildInfoIcon{
+	vertical-align:middle; padding: 2px 2px 2px 2px; height: 20px;
+}
+.wfa-infoIcon:hover{
+	cursor: pointer;
+}
+.wfa-wildInfoIcon:hover{
+	cursor: pointer;
+}
+.wfa-wildCheckWrapper{
+	display: flex;
+}
+.wfa-wrap .slider{
 	margin-left:30px;
 }
-.umr-first-section .toggle-btn{
+.wfa-wrap{
+	display: none;
+}
+.wfa-sections{
+	position: relative; top: -10px; padding: 10px;
+}
+
+.wfa-first-section .toggle-btn{
 	margin-top:-10px;	
 }
 .under{
 	text-decoration:underline;
 }
-/* fix the accordion height issue in Safari */
+/* fix the accordion height issue in Safari //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 .sidebar-content{
 	height:auto !important;
 }
-.umr-count-font{
+.wfa-count-font{
 	color:#2f6384; text-align:center; margin-top:-5px; margin-bottom:-10px;
 }
 .slider-container .ui-state-disabled {
     cursor: not-allowed !important;
 }
-.umr-slider-label{
+.wfa-slider-label{
 	display:none; margin-left:-8px;
 }
-.umr-radio-indent{
-	margin-left:22px;
+.wfa-radio-indent{
+	margin-left:10px;
+}
+.wfa-grth{
+	display:none; color: #2f6384; font-weight: 700;
+}
+.wfa-shosu{
+	position:absolute; top:94px; right:3px;
+}
+/* HUC dropdown styling area ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.wfa-huc8Chosen, .wfa-huc10Chosen, .wfa-huc12Chosen{
+	display: none;
+}
+/*.wfa-huc6Text, .wfa-huc8Text, .wfa-huc10Text, .wfa-huc12Text{
+	display: none;
+}*/
+.wfa-hucSelText{
+	margin: 10px;
+}
+.wfa-backBtn{
+	cursor: pointer; color: #2F6384;
+}
+/* Attribute wrap styling for select a site /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+.wfa-fas_AttributeWrap{
+	margin-top: 0px; display: flex; flex-wrap: wrap; padding-bottom: 20px; padding-left: 7px; position: relative;
+}
+.wfa-fas_AttributeWrap div{
+	padding: 3px; line-height: 13px;
+}
+.wfa-watershedHoverText{
+    color: #2f6384; text-align: center; margin-top: 8px; width: 380px; margin: auto; margin-top: 20px; margin-bottom: 0px;
+}
+.wfa-wetlandHoverText{
+	font-weight: normal; margin-bottom: 10px; width: 285px; text-align: center; margin: auto; margin-top: 20px; margin-bottom: 0px; position: relative;
+}
+.wfa-sum-wrap {
+    width: 350px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative; display: flex;
+}
+.wfa-huc-wrap{
+	width: 300px; margin: 3px; border: 1pt solid #cdd5d5; padding: 5px; box-shadow: 0 1px 1px rgba(16,22,26,.2); position: relative;
+}
+.wfa-attributePatch{
+	height: 18px; width: 18px; background-color: red; margin-right: 5px; border: 1pt solid #cdd5d5;
+}
+.s2Atts{
+	font-size: 13px; color: #2f6384; font-weight: bold;
+}
+.wfa-transOpSlider{
+	/*border-top:1pt solid #dbe1e1;*/ margin: 2px 15px 0px 10px; padding-bottom: 4px; font-size: 12px;
+}
+.wfa-hucSelWrap{
+	font-size: 12px; margin-right: 8px; border-radius: 5px; padding-left: 3px;
+}
+.wfa-hucSelWrap:hover{
+	background-color: #F3F3F3; cursor: pointer;
+}
+/*.wfa-hucZoom{
+	color: blue; right: 7px; margin-right: 8px;
+}*/
+.wfa-textZoom{
+	color: black;
+}
+.wfa-funcLabel{
+	margin-bottom: 3px !important; font-size: 12px;
+}
+.tabBtns{
+	margin-right:-6px; margin-bottom:0 !important; background:#f3f3f3; border-bottom: 1px solid #cdd5d5 !important; border-top: 1px solid #cdd5d5 !important;
+}
+.wfa-funcWrapper{
+	margin-top: 0px; position: relative; display: flex; width:415px;
+}
+.wfa-func_radioGroups{
+	flex: 1; width: 200px;
+}
+.wfa-app{
+	background: #fff; position: absolute; z-index: 1000; width: 420;
+}
+.wfa-mainContentWrap{
+	position: relative; padding-left: 7px; margin-top: 132px;
+}
+.wfa-headerSectionWrapper{
+	 position: absolute; z-index: 1000; background-color: white; width: 100%; box-shadow: 0 2px 2px rgba(16,22,26,.5);
+}
+.wfa-dlwrap a {
+	color: blue !important; cursor: pointer !important;
+}
+.wfa_basinText{
+	color:#FFF; background-color:#21658c; font-size: 23px; width: 66px;
+}
+
+/* wildlife check/radio button section */
+.wfa-wildlifeCheck{
+	font-size: 13px; margin-top: 16px; margin-left: 14px;
+}
+.wfa-wildlifeRadioButtons{
+	display: flex; margin-left: 13px;
+}
+.wfa-prwCheck{
+	margin-left: 13px; color: #2f6384;
+}
+
+/* Bottom Bar Opacity slider Elements  ///////////////////////////////////////////////////////////////////////////////////////*/
+.bottomDiv{
+	width: 100%; position: relative; height: 80px;
+}
+.slider-container{
+	display: flex; align-items: center; margin: 0px !important; border-radius: 5px;
+	width: 100%; justify-content: center;
+}
+.wfa-sliderLabels{
+	padding: 5px;
+}
+.sliderDiv{
+	width:252px; margin:0 auto; text-align:center; 
+}
+.leftSliderLabel{
+	display:inline-block; margin-right:9px; font-size:10pt;
+}	
+.slider{
+	width:100px; display:inline-block; width: 250px; margin-right: 5px; margin-left: 5px;
+}
+.rightSliderLabel{
+	display:inline-block; margin-left:5px; font-size:10pt;
+}
+
+/* search widget styling ////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*.wfa-searchWidget{
+	position: absolute; display: block; z-index: 1000; top:100px; left: 50px; background-color: grey !important;
+}*/
+/*.wfa-searchWrapper .arcgisSearch .searchGroup .searchInput{
+	width: 100px !important; 
+}
+.wfa-searchWrapper .arcgisSearch .searchIcon{
+	width: 10px !important;
+}
+.wfa-searchWrapper .arcgisSearch .searchBtn{
+	width: 10px !important;
+}*/
+/*.arcgisSearch{
+	color: red; background-color: grey !important;
+}*/
+
+
+#dijit_layout_ContentPane_0search1 .arcgisSearch .searchBtn { 
+	margin-top: 15px;
+}
+.wfa-searchWrapper{
+	background-color: #457545; width: 335px; padding: 5px; border-radius: 7px; margin: auto; margin-bottom: 13px;
+}
+.tinner{
+	min-height: 380px !important;
+}
+/* Report section Styling //////////////////////////////////////////////////////////////////*/
+.wfa-buildReportText{
+	margin-left: 14px;
+}
+.wfa-buildReportBack{
+	position: absolute; top: 10px; right: 10px;
+}
+.wfa-reportIntText{
+	font-weight: normal; color: #2f6384; padding: 10px;
+}
+.wfa-wetlandSelected{
+	padding-left: 10px;
+}
+.wfa-wetlandSelected span{
+	font-weight: bold;
+}
+.wfa-wetlandSelected a{
+	color: blue; padding-left:5px; padding-right: 5px;
+}
+.wfa-wetlandSelected a:hover{
+	color: red; cursor: pointer; background-color: #F3F3F3; border-radius: 5px;
+}
+.wetlandSelCounter{
+	margin-left: 10px; color: #2f6384;
+}
+.wfa-reportContent{
+	width: 200px; position: absolute; top: 300px; right: 25px; background-color: red;
+}
+
+/* Help section styles*/
+
+.wfa-helpLinkWrapper{
+	display: flex; padding: 0 0 4px 0; height: 20px;
+}
+.wfa-helpButtonWrap{
+	flex: 1;
+}
+.wfa-helpButtonWrap .button{
+	padding: 5px;
+}
+.wfa-helpButtonWrap .button:last-of-type{
+	padding: 5px 20px 5px 20px;
+}
+.wfa-helpButtonWrap:last-of-type{
+	text-align: right; margin-right: 7px;
+}
+
+.wfa-search-wrap{
+	flex: 2.5;
+}
+
+.wfa-helpLinkText{
+	color: blue;
+}
+.wfa-helpLinkText:hover{
+	color: #2795b6; cursor: pointer; 
+}
+
+.wfa-helpText{
+	margin: 0px 0 5px 0; font-weight: normal !important; color: rgb(140, 33, 48) !important; width: 98%;
+}
+.wfa-metaDataLink{
+	color: blue;
+}
+.wfa-metaDataLink:hover{
+	cursor: pointer; color: #2795b6;
+}
+/*.wfa-ig-icon{
+    padding:3px !important; height:31px; z-index:2600; position: absolute; right: 7px;
+}*/
+/* collapse styling ////////////////////////////////////////////////////////*/
+.wfa-collapseText{
+	margin-left: auto; margin-top: 0px; margin-right: 4px; color: white;
+}
+/*.wfa-collapseText:hover{
+	cursor: pointer; color: #2795b6;
+}*/
+.wfa-headerInfoWrap:hover{
+	cursor: pointer; background-color: #F3F3F3; border-radius: 5px;
+}
+/* styling the drawing tools*/
+.dijitButtonNode{
+	border: none !important;
+}
+/* what would you like to do section styling //////////////////////////////*/
+.wfa-openingWrapper{
+	padding-left: 7px;
+}
+.wfa-toolWrapper .button{
+	color: red; padding:2px; 
+}
+.wfa-toolWrapper{
+	text-align: right; margin: 10px 10px 0 auto;
+}
+.dropdown-menu li{
+	float: right;
+}
+.wfa-hamburger{
+	width: 20px; margin: 4px; height: 3px; background-color: #2f6384;
+}
+hr{
+	width: 97%; margin-right: 9px;
+}
+.wfa-zoomToText{
+	color: white; float: right;
+}
+.wfa-drawStyle{
+	height: 35px;
 }

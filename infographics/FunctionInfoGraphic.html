@@ -1,0 +1,93 @@
+<style type="text/css">
+	.radioDivGroups{
+		width: 200px;
+	}
+
+</style>
+
+
+
+<!-- Infographic Radio buttons  -->
+<div style="display: flex;" id="radioButtonWrap">
+	<div class="radioDivGroups" id="testID">
+		<label data-wfa-mode='huc' class="form-component1 wfa-funcLabel"  for="combined-option">
+			<input checked type="radio" id="combined-option" name="func" class="rb_cb" value="Combined Services">
+			<div class="check"></div>
+			<span class="form-text">Combined Services</span>
+		</label>
+		<label data-wfa-mode='wet' class="form-component1 wfa-funcLabel"  for="count-option">
+			<input checked type="radio" id="count-option" name="func" class="rb_cb" value="Count of Services ≥ High">
+			<div class="check"></div>
+			<span class="form-text">Count of Services ≥ High</span>
+		</label>
+		<label data-wfa-mode='both' class="form-component1 wfa-funcLabel" for="flood-option">
+			<input type="radio" id="flood-option" name="func" class="rb_cb" value="Flood Abatement">
+			<div class="check"></div>
+			<span class="form-text">Flood Abatement</span>
+		</label>
+	</div>
+	<div class="radioDivGroups">
+		<label data-wfa-mode='both' class="form-component1 wfa-funcLabel" style="display: block;" for="fish-option">
+			<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
+			<div class="check"></div>
+			<span class="form-text">Fish and Aquatic Habitat</span>
+		</label>
+		<label data-wfa-mode='wet' class="form-component1 wfa-funcLabel hide" style="display: block;" for="phos-option">
+			<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous Retention">
+			<div class="check"></div>
+			<span class="form-text">Phosphorus Retention</span>
+		</label>
+		<label data-wfa-mode='wet' class="form-component1 wfa-funcLabel hide" style="display: block;" for="sed-option">
+			<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment Retention">
+			<div class="check"></div>
+			<span class="form-text">Sediment Retention</span>
+		</label>
+	</div>
+	<div class="radioDivGroups">
+		<label data-wfa-mode='both' class="form-component1 wfa-funcLabel" style="display: block;" for="fish-option">
+			<input type="radio" id="fish-option" name="func" class="rb_cb" value="Fish and Aquatic Habitat">
+			<div class="check"></div>
+			<span class="form-text">Fish and Aquatic Habitat</span>
+		</label>
+		<label data-wfa-mode='wet' class="form-component1 wfa-funcLabel hide" style="display: block;" for="phos-option">
+			<input type="radio" id="phos-option" name="func" class="rb_cb" value="Phosphorous Retention">
+			<div class="check"></div>
+			<span class="form-text">Phosphorus Retention</span>
+		</label>
+		<label data-wfa-mode='wet' class="form-component1 wfa-funcLabel hide" style="display: block;" for="sed-option">
+			<input type="radio" id="sed-option" name="func" class="rb_cb" value="Sediment Retention">
+			<div class="check"></div>
+			<span class="form-text">Sediment Retention</span>
+		</label>
+	</div>
+</div>
+
+
+
+
+<div id="wfa-Combined Services">
+	<div style='padding:5px; text-align:justify; margin-top:20px;'>
+		<div style="margin:10px;">
+			<h3>Combined Services</h3>
+			This application helps planners identify areas that are eligible for Open Space Preservation credits in <a target='_blank' href='https://www.fema.gov/national-flood-insurance-program-community-rating-system'>FEMA’s Community Rating System</a> (CRS) and provides exportable information to support the application process.* CRS is a voluntary program that encourages a more comprehensive approach to floodplain management and provides opportunities for communities to lower their flood insurance premiums by participating in activities that reduce flood damage to insurable property.
+		</div>
+		<div>
+			<img src='plugins/wetlands-watershed-explorer/images/infoGraphic.jpg'/>
+		</div>
+		<div style="margin:0 20px;">
+			* The information provided by this app does not represent a final analysis or score. All findings should be verified by your CRS ISO representative. Find your CRS representative<a target='_blank' href='http://crsresources.org/100-2/'> here.</a>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	console.log('hello world')
+	let test = $('#radioButtonWrap').find('input');
+	// $('.form-component1 input').on('click',function(c, x){
+	// 	console.log(c,x);
+	// });
+	// $('#' + t.id + 'funcInfoGraphicWrapper').on('click', function(e){
+
+
+</script>
