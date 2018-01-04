@@ -42,11 +42,14 @@ define([
 		        optionsArray[3] = drawingOptions;
 		        // set up symbols for the various geometry types
 		        t.symbols = {};
-		        t.symbols.point = new SimpleMarkerSymbol("square", 10, new SimpleLineSymbol(), new Color([0, 255, 0, 0.75]));
+		        // t.symbols.point = new SimpleMarkerSymbol("square", 10, new SimpleLineSymbol(), new Color([0, 255, 0, 0.75]));
 		        t.symbols.polyline = new SimpleLineSymbol("solid", new Color([255, 128, 0]), 2);
-		        t.symbols.polygon = new SimpleFillSymbol().setColor(new Color([255,255,0,0.1]));
-		        t.symbols.circle = new SimpleFillSymbol().setColor(new Color([0, 0, 180, 0.1]));
-		        t.symbols.rectangle = new SimpleFillSymbol().setColor(new Color([0, 0, 180, 0.1]));
+		        t.symbols.polygon = new SimpleFillSymbol().setColor(new Color([255,0,0,0.0]));
+		        t.symbols.polygon.setOutline(new SimpleLineSymbol("solid", new Color([17, 124, 7]), 3));
+		        t.symbols.circle = new SimpleFillSymbol().setColor(new Color([255, 0, 180, 0]));
+		        t.symbols.circle.setOutline(new SimpleLineSymbol("solid", new Color([9, 50, 196]), 3));
+		        t.symbols.rectangle = new SimpleFillSymbol().setColor(new Color([0, 0, 180, 0.0]));
+		        t.symbols.rectangle.setOutline(new SimpleLineSymbol("solid", new Color([196, 37, 9]), 3));
 		        // find the divs for buttons
 		        query(".wfa-drawing").forEach(function(btn) {
 		          var button = new Button({
