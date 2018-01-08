@@ -7,6 +7,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 
         return declare(null, {
 			eventListeners: function(t){
+				
 				//t.addShapefile.testFunction(t);
 				$('#' + t.id + 'dialogBoxTest').dialog({autoOpen : false,});
 				$('#' + t.id + 'wildDialogBoxTest').dialog({autoOpen : false,});
