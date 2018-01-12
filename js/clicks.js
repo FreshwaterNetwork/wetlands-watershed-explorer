@@ -291,8 +291,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				if(t.obj.stateSet == "yes"){
-					console.log('in state set')
-					console.log(t.obj.currentHuc);
 					// force the func tracker back to the coirrect value because save and share does not like '>' symbol
 					if(t.obj.funcTracker == 'Count of Services    High'){
 						t.obj.funcTracker = 'Count of Services ≥ High'
