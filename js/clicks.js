@@ -7,6 +7,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 
         return declare(null, {
 			eventListeners: function(t){
+				// building
 
 				//t.addShapefile.testFunction(t);
 				$('#' + t.id + 'dialogBoxTest').dialog({autoOpen : false,});
@@ -146,7 +147,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
 					}
 
-					$(c.currentTarget).parent().append('<img id="dialogBoxTest" title="test text" src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">');
+					$(c.currentTarget).parent().append('<img id="dialogBoxTest" title="" src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">');
 					// function info icon click, open the appropriate popup window
 					$('.wfa-infoIcon').on('click',function(e){
 						let value;
@@ -184,7 +185,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					let str = e.currentTarget.id.split('ContentPane_0')[1]
 					str = str.substr(0, str.length-3);
 					t.prevHTML = $(e.currentTarget).html()
-					$(e.currentTarget).html('HUC Code: ' + t.obj.hucInfo[str])
+					$(e.currentTarget).html('HU Code: ' + t.obj.hucInfo[str])
 					$(e.currentTarget).css('color' , 'rgb(140, 33, 48)')
 				})
 				$('.wfa-hucCode').on('mouseout',function(e){
