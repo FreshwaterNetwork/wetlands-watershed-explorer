@@ -147,7 +147,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'dialogBoxTest').html(textParts[1])
 					}
 
-					$(c.currentTarget).parent().append('<img id="dialogBoxTest" title="test text" src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">');
+					$(c.currentTarget).parent().append('<img id="dialogBoxTest" title="" src="plugins/wetlands-watershed-explorer/images/info.png" alt="show more info in documentation" class="wfa-infoIcon">');
 					// function info icon click, open the appropriate popup window
 					$('.wfa-infoIcon').on('click',function(e){
 						let value;
