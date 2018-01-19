@@ -334,10 +334,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					});
 					
 					// slide and show various elements based on what huc we are in.
-					$('#' + t.id + 'watershedHoverText').show()
-					$('#' + t.id + 'wfa-findASite').slideUp();
-					$('#' + t.id + 'mainFuncWrapper').slideDown();
-					$('#' + t.id + 'hucSelWrap').slideDown();
+					if(t.obj.currentHuc != 'WHUC4'){
+						$('#' + t.id + 'watershedHoverText').show()
+						$('#' + t.id + 'wfa-findASite').slideUp();
+						$('#' + t.id + 'mainFuncWrapper').slideDown();
+						$('#' + t.id + 'hucSelWrap').slideDown();
+					}
+					
 					
 					// slide down donload button if in huc 12 section
 					if(t.obj.currentHuc == 'WHUC12'){
