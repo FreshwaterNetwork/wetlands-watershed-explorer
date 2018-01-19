@@ -275,6 +275,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				t.clicks.hucZoom(t); // call the huc zoom function
 				// on search complete function ///////////////
 				on(t.search1, 'select-result', function (e) {
+					$("#dijit_layout_ContentPane_1").hide();
 					// t.map.graphics.clear();
 					t.scale = t.map.getScale();
 					if(e.source.name == "Wetlands"){
