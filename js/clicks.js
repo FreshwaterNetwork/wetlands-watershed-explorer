@@ -275,6 +275,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				t.clicks.hucZoom(t); // call the huc zoom function
 				// on search complete function ///////////////
 				on(t.search1, 'select-result', function (e) {
+					$("#dijit_layout_ContentPane_1").hide();
 					// t.map.graphics.clear();
 					t.scale = t.map.getScale();
 					if(e.source.name == "Wetlands"){
@@ -600,7 +601,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 						
 						// call the wetland click function ////////////////////////////
-						t.clicks.wetlandClick(t);
+							t.clicks.wetlandClick(t);
 						// slide down explain links
 						// wfa-helpLinkWrapper
 						$('#' + t.id + 'explainButton').slideDown();
@@ -858,33 +859,41 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				wq.returnGeometry = true;
 				wq.outFields = ["*"];
 				wq.where = "OBJECTID > 0"
-				wetQ.execute(wq, function(evt){
-					if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
-						$('#' + t.id + 'wetlandHoverText').hide();
-						if(t.obj.buildReport != 'yes'){
-							t.obj.wetlandClick = 'yes'
-							t.obj.wetlandAtts = evt.features[0].attributes;
-							// set the wetland where clause
-							t.wetlandID = t.obj.wetlandAtts.OBJECTID;
-							t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
-							t.clicks.wetlandAttributePopulate(t);
+				if(t.obj.currentHuc == "WHUC12"){
+					wetQ.execute(wq, function(evt){
+						if (evt.features.length > 0 && t.obj.currentWet == 'wetland'){
+							$('#' + t.id + 'wetlandHoverText').hide();
+							if(t.obj.buildReport != 'yes'){
+								t.obj.wetlandClick = 'yes'
+								t.obj.wetlandAtts = evt.features[0].attributes;
+								// set the wetland where clause
+								t.wetlandID = t.obj.wetlandAtts.OBJECTID;
+								t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
+								t.clicks.wetlandAttributePopulate(t);
+							}else{
+								t.obj.wetlandClick = 'yes'
+								// call the function to build the report wetland list
+								t.report.populateWetlandList(t, evt);
+							}
+							$('#' + t.id + 'mainAttributeWrap').slideDown();
 						}else{
-							t.obj.wetlandClick = 'yes'
-							// call the function to build the report wetland list
-							t.report.populateWetlandList(t, evt);
+							t.obj.wetlandClick = 'no'
+							if(t.obj.currentWet == 'wetland'){
+								$('#' + t.id + 'wetlandHoverText').show();
+							}
 						}
-						$('#' + t.id + 'mainAttributeWrap').slideDown();
-					}else{
-						t.obj.wetlandClick = 'no'
-						if(t.obj.currentWet == 'wetland'){
-							$('#' + t.id + 'wetlandHoverText').show();
-						}
-					}
+						// call the control viz layers function ////////////////////////////////////
+						t.clicks.controlVizLayers(t,t.obj.maskWhere);
+						// call the radio attribute controller function
+						t.clicks.radioAttDisplay(t);
+						
+					});
+				}else{
 					// call the control viz layers function ////////////////////////////////////
 					t.clicks.controlVizLayers(t,t.obj.maskWhere);
 					// call the radio attribute controller function
 					t.clicks.radioAttDisplay(t);
-				});
+				}
 			},
 			wetlandAttributePopulate: function(t){
 				var curColors  = ['rgb(237,248,233)', 'rgb(0,109,44)','rgb(49,163,84)', 'rgb(116,196,118)'];
