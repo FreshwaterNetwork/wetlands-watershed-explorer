@@ -510,7 +510,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							$('#' + t.id + 'wetlandHoverText').hide();
 							t.clicks.animateColor(t, 'viewCrsInfoGraphicIcon'); // call the animate color function
 						}else if(t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26){
-							console.log('else wetland')
 							t.obj.currentWet = 'wetland' // this is a wetland click
 							if(t.obj.search == 'yes'){
 								t.obj.currentHuc = 'WHUC12';
