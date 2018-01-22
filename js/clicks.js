@@ -251,7 +251,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
-				t.clickCounter = 1;
+				t.clickCounter = 0;
 				// set initial array vars, these will be populated later. 
 				t.obj.hucExtents[0] = t.obj.dynamicLyrExt
 				t.layerDefinitions = [];	
@@ -434,7 +434,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 									$('#' + t.id + 'fullExt-selText').trigger('click');
 									$('#' + t.id + 'searchOutsideStudy').slideDown(); // slide down warning text
 								}
-								// t.map.removeLayer(t.countiesGraphicsLayer);
 							}
 						});
 					});
@@ -589,6 +588,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 // Call the functions at the end of map click /////////////////////////////////////////////////////////////////
 						// call the hover graphic function ////////////////////////////
+						console.log(t.obj.search);
 						if(t.obj.search != 'yes'){
 							t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where)
 						}else{
@@ -1087,15 +1087,33 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
-				t.map.graphics.clear()
+				t.map.graphics.clear();
 				// the try catch statement below is used to remove the graphic layer. 
+				console.log('look 1///////////////////')
+				t.map.graphics.refresh();
 				if(t.searchSuccess == 'no'){
 					'do nothing'
 				}else{
 					try {
-					    t.map.removeLayer(t.countiesGraphicsLayer);
+						if(t.countiesGraphicsLayer){
+							console.log('mmmmmmmsdfsdfdsfdsfsdfds')
+							t.map.removeLayer(t.countiesGraphicsLayer);
+						}else{
+							console.log('kkkkkkkkkkkkkkkkkkkkkkkkk')
+						}
+					    
 					}
 					catch(err) {
+						if(err && t.clickCounter != 0){
+							try{
+								t.clicks.hoverGraphic(t,lyrNum, where);
+								// console.log('////////////////////////////////')
+							}catch(err2){
+								console.log(errs);
+							}
+							console.log(err);
+						}
+						t.clickCounter += 1;
 					    console.log('there is no layer to remove on the first iteration')
 					}
 	// graphics layer hover code below ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1126,7 +1144,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			                t.countiesGraphicsLayer.add(graphic);
 			            }
 			            t.map.addLayer(t.countiesGraphicsLayer);
-			            // t.map.removeLayer(t.countiesGraphicsLayer);
 	      				t.map.graphics.enableMouseEvents();
 	      				// on mouse out and over functions
 	      				t.countiesGraphicsLayer.on("mouse-over",function (event) {
