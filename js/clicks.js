@@ -721,7 +721,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 								$('#' + t.id + 'getStartedText').slideDown();
 							}
 							$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
+								console.log('before')
 								t.clicks.hoverGraphic(t,1,t.obj.where)
+								console.log('after')
 							});
 							// $('#' + t.id + 'wfa-findASite').slideDown();
 							$('#' + t.id + 'wildlifeCheckWrap').slideUp();
@@ -764,7 +766,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'createReportWrapper').slideUp(); // slide up report button
 						$('#' + t.id + 'downloadDataWrapper').slideUp(); // slide down report button
 						$('#' + t.id + 'wetlandHoverText').hide();
-						//t.clicks.hoverGraphic(t,1,t.obj.where)
+						
 					// below code is for if the user clicks on the huc 12 zoom //////////////////////////////
 					}else if(id == 4){ // set extent back to huc 12 when the go to button is clicked
 						t.obj.currentWet = 'null'; // reset this tracker
@@ -1089,30 +1091,19 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			hoverGraphic: function(t, lyrNum, where){
 				t.map.graphics.clear();
 				// the try catch statement below is used to remove the graphic layer. 
-				console.log('look 1///////////////////')
 				t.map.graphics.refresh();
 				if(t.searchSuccess == 'no'){
 					'do nothing'
 				}else{
 					try {
-						if(t.countiesGraphicsLayer){
-							console.log('mmmmmmmsdfsdfdsfdsfsdfds')
-							t.map.removeLayer(t.countiesGraphicsLayer);
-						}else{
-							console.log('kkkkkkkkkkkkkkkkkkkkkkkkk')
+						var gl = t.map.getLayer("hoverGraphic");
+						if(gl){
+							gl.clear();
+							t.map.removeLayer(gl);
 						}
-					    
+						// t.map.removeLayer(t.countiesGraphicsLayer);
 					}
 					catch(err) {
-						if(err && t.clickCounter != 0){
-							try{
-								t.clicks.hoverGraphic(t,lyrNum, where);
-								// console.log('////////////////////////////////')
-							}catch(err2){
-								console.log(errs);
-							}
-							console.log(err);
-						}
 						t.clickCounter += 1;
 					    console.log('there is no layer to remove on the first iteration')
 					}
