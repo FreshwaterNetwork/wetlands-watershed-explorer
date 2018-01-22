@@ -251,7 +251,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 // Function for clicks on map and zooming /////////////////////////////////////////////////////////////////////////////////////////////
 			featureLayerListeners: function(t){
-				t.clickCounter = 1;
+				t.clickCounter = 0;
 				// set initial array vars, these will be populated later. 
 				t.obj.hucExtents[0] = t.obj.dynamicLyrExt
 				t.layerDefinitions = [];	
@@ -434,7 +434,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 									$('#' + t.id + 'fullExt-selText').trigger('click');
 									$('#' + t.id + 'searchOutsideStudy').slideDown(); // slide down warning text
 								}
-								// t.map.removeLayer(t.countiesGraphicsLayer);
 							}
 						});
 					});
@@ -589,6 +588,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 // Call the functions at the end of map click /////////////////////////////////////////////////////////////////
 						// call the hover graphic function ////////////////////////////
+						console.log(t.obj.search);
 						if(t.obj.search != 'yes'){
 							t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where)
 						}else{
@@ -721,7 +721,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 								$('#' + t.id + 'getStartedText').slideDown();
 							}
 							$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
+								console.log('before')
 								t.clicks.hoverGraphic(t,1,t.obj.where)
+								console.log('after')
 							});
 							// $('#' + t.id + 'wfa-findASite').slideDown();
 							$('#' + t.id + 'wildlifeCheckWrap').slideUp();
@@ -764,7 +766,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						$('#' + t.id + 'createReportWrapper').slideUp(); // slide up report button
 						$('#' + t.id + 'downloadDataWrapper').slideUp(); // slide down report button
 						$('#' + t.id + 'wetlandHoverText').hide();
-						//t.clicks.hoverGraphic(t,1,t.obj.where)
+						
 					// below code is for if the user clicks on the huc 12 zoom //////////////////////////////
 					}else if(id == 4){ // set extent back to huc 12 when the go to button is clicked
 						t.obj.currentWet = 'null'; // reset this tracker
@@ -1087,15 +1089,22 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
 			hoverGraphic: function(t, lyrNum, where){
-				t.map.graphics.clear()
+				t.map.graphics.clear();
 				// the try catch statement below is used to remove the graphic layer. 
+				t.map.graphics.refresh();
 				if(t.searchSuccess == 'no'){
 					'do nothing'
 				}else{
 					try {
-					    t.map.removeLayer(t.countiesGraphicsLayer);
+						var gl = t.map.getLayer("hoverGraphic");
+						if(gl){
+							gl.clear();
+							t.map.removeLayer(gl);
+						}
+						// t.map.removeLayer(t.countiesGraphicsLayer);
 					}
 					catch(err) {
+						t.clickCounter += 1;
 					    console.log('there is no layer to remove on the first iteration')
 					}
 	// graphics layer hover code below ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1126,7 +1135,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			                t.countiesGraphicsLayer.add(graphic);
 			            }
 			            t.map.addLayer(t.countiesGraphicsLayer);
-			            // t.map.removeLayer(t.countiesGraphicsLayer);
 	      				t.map.graphics.enableMouseEvents();
 	      				// on mouse out and over functions
 	      				t.countiesGraphicsLayer.on("mouse-over",function (event) {
