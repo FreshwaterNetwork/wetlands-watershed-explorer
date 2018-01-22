@@ -588,7 +588,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						}
 // Call the functions at the end of map click /////////////////////////////////////////////////////////////////
 						// call the hover graphic function ////////////////////////////
-						console.log(t.obj.search);
 						if(t.obj.search != 'yes'){
 							t.clicks.hoverGraphic(t, t.obj.visibleLayers[1], t.obj.where)
 						}else{
@@ -721,9 +720,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 								$('#' + t.id + 'getStartedText').slideDown();
 							}
 							$('#' + t.id + 'hucSelWrap').slideUp('400', function(){
-								console.log('before')
 								t.clicks.hoverGraphic(t,1,t.obj.where)
-								console.log('after')
 							});
 							// $('#' + t.id + 'wfa-findASite').slideDown();
 							$('#' + t.id + 'wildlifeCheckWrap').slideUp();
