@@ -1093,6 +1093,82 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 			
 // control hover on HUCs ////////////////////////////////////////////////////////////////////////////////////////////////
+	// 		hoverGraphic: function(t, lyrNum, where){
+	// 			t.map.graphics.clear();
+	// 			// the try catch statement below is used to remove the graphic layer. 
+	// 			t.map.graphics.refresh();
+	// 			if(t.searchSuccess == 'no'){
+	// 				'do nothing'
+	// 			}else{
+	// 				try {
+	// 					var gl = t.map.getLayer("hoverGraphic");
+	// 					if(gl){
+	// 						gl.clear();
+	// 						t.map.removeLayer(gl);
+	// 					}
+	// 					// t.map.removeLayer(t.countiesGraphicsLayer);
+	// 				}
+	// 				catch(err) {
+	// 					t.clickCounter += 1;
+	// 				    console.log('there is no layer to remove on the first iteration')
+	// 				}
+	// // graphics layer hover code below ////////////////////////////////////////////////////////////////////////////////////////////////
+	// 				//and add it to the maps graphics layer
+	// 				var graphicQuery = new QueryTask(t.url + "/" + lyrNum);
+	// 				var gQ = new Query();
+	// 				gQ.returnGeometry = true;
+	// 				gQ.outFields = ['*'];
+	// 				gQ.where =  where;
+	// 				graphicQuery.execute(gQ, function(evt){
+	// 					t.map.graphics.clear();
+	// 		            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+	// 		                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+	// 		                  new Color([0, 0, 255]), 1), new Color([125, 125, 125, 0.1]));
+
+	// 		            var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+	// 		                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+	// 		                  new Color([255, 255, 255, 0]), 1), new Color([125, 125, 125, 0]));
+	// 		            var features = evt.features;
+	// 		            t.countiesGraphicsLayer = new GraphicsLayer({ id: "hoverGraphic" });
+	// 		            //QueryTask returns a featureSet.
+	// 		            //Loop through features in the featureSet and add them to the map.
+	// 		            var featureCount = features.length;
+	// 		            for (var i = 0; i < featureCount; i++) {
+	// 		                //Get the current feature from the featureSet.
+	// 		                var graphic = features[i]; //Feature is a graphic
+	// 		                graphic.setSymbol(symbol);
+	// 		                t.countiesGraphicsLayer.add(graphic);
+	// 		            }
+	// 		            t.map.addLayer(t.countiesGraphicsLayer);
+	//       				t.map.graphics.enableMouseEvents();
+	//       				// on mouse out and over functions
+	//       				t.countiesGraphicsLayer.on("mouse-over",function (event) {
+	// 		                t.map.graphics.clear();  //use the maps graphics layer as the highlight layer
+	// 		                t.highlightGraphic = new Graphic(event.graphic.geometry, highlightSymbol);
+	//                 		t.map.graphics.add(t.highlightGraphic);
+	//                 		$('#' + t.basinId).html(event.graphic.attributes.name);
+	// 						$('#' + t.basinId).show();
+	// 						let atts = event.graphic.attributes;
+	// 						t.mousePos = 'over'
+	// 						t.clicks.hucClick(t, atts, t.mousePos); // call the huc click atts function to populate attribute box
+	// 		            });
+	// 		            //listen for when map.graphics mouse-out event is fired
+	// 		            //and then clear the highlight graphic
+	// 		            t.map.graphics.on("mouse-out", function (test) {
+	// 		            	let atts;
+	// 		            	let array = [];
+	// 		                t.map.graphics.clear();
+	// 						$('#' + t.basinId).hide()
+	// 						t.mousePos = 'out'
+	// 						array.push(t.map.graphics.graphics);
+	// 						t.clicks.hucClick(t, atts, t.mousePos); // call the huc click atts function to populate attribute box
+	// 		            });
+	// 				});
+	// 				console.log('look here 1')
+
+	// 			}
+	// 			console.log('look here 2')
+	// 		},
 			hoverGraphic: function(t, lyrNum, where){
 				t.map.graphics.clear();
 				// the try catch statement below is used to remove the graphic layer. 
@@ -1119,7 +1195,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					gQ.returnGeometry = true;
 					gQ.outFields = ['*'];
 					gQ.where =  where;
-					graphicQuery.execute(gQ, function(evt){
+					// graphicQuery.execute(gQ, function(evt){
+					graphicQuery.on('complete', function(evt){
+						console.log(evt);
 						t.map.graphics.clear();
 			            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
 			                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
@@ -1128,7 +1206,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			            var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
 			                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
 			                  new Color([255, 255, 255, 0]), 1), new Color([125, 125, 125, 0]));
-			            var features = evt.features;
+			            var features = evt.featureSet.features;
 			            t.countiesGraphicsLayer = new GraphicsLayer({ id: "hoverGraphic" });
 			            //QueryTask returns a featureSet.
 			            //Loop through features in the featureSet and add them to the map.
@@ -1164,8 +1242,10 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.clicks.hucClick(t, atts, t.mousePos); // call the huc click atts function to populate attribute box
 			            });
 					});
+					console.log('look here 1')
+					graphicQuery.execute(gQ);
 				}
-
+				console.log('look here 2')
 			},
 // reset opacity values /////////////////////////////////////////////////////////////////////////////////////
 			opacityReset: function(t){
