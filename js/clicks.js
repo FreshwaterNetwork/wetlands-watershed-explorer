@@ -184,7 +184,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				$('.wfa-hucCode').on('mouseover',function(e){
 					let str = e.currentTarget.id.split('ContentPane_0')[1]
 					str = str.substr(0, str.length-3);
-					t.prevHTML = $(e.currentTarget).html()
+					t.prevHTML = $(e.currentTarget).html();
+					console.log(t.obj.hucInfo);
 					$(e.currentTarget).html('HU Code: ' + t.obj.hucInfo[str])
 					$(e.currentTarget).css('color' , 'rgb(140, 33, 48)')
 				})
@@ -425,6 +426,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						qt1.execute(q1, function(evt){
 							t.searchSuccess
 							if(evt.features.length > 0){
+								if((i+1) == 4){
+									t.obj.hucInfo.huc6 = evt.features[0].attributes.WHUC6;
+									t.obj.hucInfo.huc8 = evt.features[0].attributes.WHUC8;
+									t.obj.hucInfo.huc10 = evt.features[0].attributes.WHUC10;
+									t.obj.hucInfo.huc12 = evt.features[0].attributes.WHUC12;
+								}
+								// t.obj.hucInfo;
 								t.searchSuccess =  'yes'
 								t.obj.hucExtents[(i+1)] = evt.features[0].geometry.getExtent();
 								$('#' + t.id + 'searchOutsideStudy').slideUp(); // slide up warning text
