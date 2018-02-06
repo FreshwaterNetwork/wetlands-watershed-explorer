@@ -1288,7 +1288,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					"Flood Abatement_wet":"Flood Abatement - After heavy rainfall, many wetlands detain storm water runoff and overbank flooding from rivers, which slows the flow of excess water downstream. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=49' target='_blank'>View in report</a>",
 					
 					"Fish and Aquatic Habitat":"Fish and Aquatic Habitat - Wetlands support some part of the full life cycle for most fish and aquatic life. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=23' target='_blank'>View in report</a>",
-					"Fish and Aquatic Habitat_wet":"Fish and Aquatic Habitat - Wetlands support some part of the full life cycle for most fish and aquatic life. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=59' target='_blank'>View in report</a>",
+					"Fish and Aquatic Habitat_wet":"Fish and Aquatic Habitat - Wetlands support some part of the full life cycle for most fish and aquatic life. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=58' target='_blank'>View in report</a>",
 					
 					"Phosphorus Retention":"test obj text5",
 					"Phosphorus Retention_wet":"Phosphorus Retention - Wetlands can intercept phosphorus from water and sediments, and store it in plants and soils. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=53' target='_blank'>View in report</a>",
@@ -1303,16 +1303,16 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					"Nutrient Transformation_wet":"test obj text",
 					
 					"Surface Water Supply":"Surface Water Supply - Wetlands often contribute water to streams and rivers, especially during dry periods. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=22' target='_blank'>View in report</a>",
-					"Surface Water Supply_wet":"Surface Water Supply - Many wetlands contribute water to streams and rivers, especially during dry periods. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=57' target='_blank'>View in report</a>",
+					"Surface Water Supply_wet":"Surface Water Supply - Many wetlands contribute water to streams and rivers, especially during dry periods. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=56' target='_blank'>View in report</a>",
 					
 					"Shoreline Protection":"test obj text",
-					"Shoreline Protection_wet":"Shoreline Protection - Wetlands reduce wave energy in lakes and slow flows in rivers, protecting banks and shorelines from erosion. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=58' target='_blank'>View in report</a>",
+					"Shoreline Protection_wet":"Shoreline Protection - Wetlands reduce wave energy in lakes and slow flows in rivers, protecting banks and shorelines from erosion. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=57' target='_blank'>View in report</a>",
 					
 					"Carbon Storage":"test obj text",
-					"Carbon Storage_wet":"Carbon Storage - Wetlands capture carbon dioxide, a greenhouse gas, and store carbon in vegetation and deep organic soils. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=60' target='_blank'>View in report</a>",
+					"Carbon Storage_wet":"Carbon Storage - Wetlands capture carbon dioxide, a greenhouse gas, and store carbon in vegetation and deep organic soils. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=59' target='_blank'>View in report</a>",
 					
 					"Floristic Integrity":"test obj text",
-					"Floristic Integrity_wet":"Floristic Integrity - Some wetlands are of high condition, containing a healthy array of plant species. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=61' target='_blank'>View in report</a>",
+					"Floristic Integrity_wet":"Floristic Integrity - Some wetlands are of high condition, containing a healthy array of plant species. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=60' target='_blank'>View in report</a>",
 					
 					"All Guilds":"All Guilds - A wildlife guild is a group of species that use the same or similar habitats and resources. Some wetlands, and associated uplands, can support multiple guilds.<br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=16' target='_blank'>View in report</a>",
 					"Forest Interior Guild":"Forest Interior Guild - The Forest Interior Guild includes species that require forested wetlands embedded within heavily forested landscapes. Black-and-white warbler, northern waterthrush, and northern flying squirrels are examples. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=25' target='_blank'>View in report</a>",
