@@ -276,6 +276,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				t.clicks.hucZoom(t); // call the huc zoom function
 				// on search complete function ///////////////
 				on(t.search1, 'select-result', function (e) {
+					console.log(e);
 					$("#dijit_layout_ContentPane_1").hide();
 					// t.map.graphics.clear();
 					t.scale = t.map.getScale();
@@ -289,6 +290,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}
 					t.obj.search =  'yes';
 					t.obj.pnt = e.result.feature.geometry;
+					console.log(e.result.feature)
 					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.FmapClickQuery function
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -383,6 +385,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 // map click query ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t,p){
+				console.log(p);
 				// mask query ////////////////////////
 				t.mq = new Query();
 				t.maskQ = new QueryTask(t.url + "/" + 0);
@@ -452,6 +455,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					t.qt1 = new QueryTask(t.url + "/" + t.obj.visibleLayers[1]);
 				}
 // start of main query ////////////////////////////////////////////
+				console.log(p);
 				t.q1.geometry = p;
 				t.q1.returnGeometry = true;
 				t.q1.outFields = ["*"];
