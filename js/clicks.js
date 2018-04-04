@@ -185,7 +185,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					let str = e.currentTarget.id.split('ContentPane_0')[1]
 					str = str.substr(0, str.length-3);
 					t.prevHTML = $(e.currentTarget).html();
-					console.log(t.obj.hucInfo);
 					$(e.currentTarget).html('HU Code: ' + t.obj.hucInfo[str])
 					$(e.currentTarget).css('color' , 'rgb(140, 33, 48)')
 				})
@@ -271,12 +270,13 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 						t.clicks.mapClickQuery(t,t.obj.pnt); // call t.mapClickQuery function
 					}
 				});
-				t.clicks.hoverGraphic(t,1,t.obj.where)
+				if(t.obj.stateSet != 'yes'){
+					t.clicks.hoverGraphic(t,1,t.obj.where)
+				}
 				t.clicks.searchFunction(t); // call the searchbox init function ///////
 				t.clicks.hucZoom(t); // call the huc zoom function
 				// on search complete function ///////////////
 				on(t.search1, 'select-result', function (e) {
-					console.log(e);
 					$("#dijit_layout_ContentPane_1").hide();
 					// t.map.graphics.clear();
 					t.scale = t.map.getScale();
@@ -290,7 +290,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}
 					t.obj.search =  'yes';
 					t.obj.pnt = e.result.feature.geometry;
-					console.log(e.result.feature)
+					// slide down download button in toolbox
+					$('#' + t.id + 'downloadDataWrapper').show();
 					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.FmapClickQuery function
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -385,7 +386,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 			},
 // map click query ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			mapClickQuery: function(t,p){
-				console.log(p);
 				// mask query ////////////////////////
 				t.mq = new Query();
 				t.maskQ = new QueryTask(t.url + "/" + 0);
@@ -455,7 +455,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					t.qt1 = new QueryTask(t.url + "/" + t.obj.visibleLayers[1]);
 				}
 // start of main query ////////////////////////////////////////////
-				console.log(p);
 				t.q1.geometry = p;
 				t.q1.returnGeometry = true;
 				t.q1.outFields = ["*"];
@@ -1168,10 +1167,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 	// 						t.clicks.hucClick(t, atts, t.mousePos); // call the huc click atts function to populate attribute box
 	// 		            });
 	// 				});
-	// 				console.log('look here 1')
-
 	// 			}
-	// 			console.log('look here 2')
 	// 		},
 			hoverGraphic: function(t, lyrNum, where){
 				t.map.graphics.clear();
@@ -1201,7 +1197,6 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					gQ.where =  where;
 					// graphicQuery.execute(gQ, function(evt){
 					graphicQuery.on('complete', function(evt){
-						console.log(evt);
 						t.map.graphics.clear();
 			            var highlightSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
 			                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
@@ -1246,10 +1241,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 							t.clicks.hucClick(t, atts, t.mousePos); // call the huc click atts function to populate attribute box
 			            });
 					});
-					console.log('look here 1')
 					graphicQuery.execute(gQ);
 				}
-				console.log('look here 2')
 			},
 // reset opacity values /////////////////////////////////////////////////////////////////////////////////////
 			opacityReset: function(t){
