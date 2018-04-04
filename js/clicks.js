@@ -290,6 +290,8 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					}
 					t.obj.search =  'yes';
 					t.obj.pnt = e.result.feature.geometry;
+					// slide down download button in toolbox
+					$('#' + t.id + 'downloadDataWrapper').show();
 					t.clicks.mapClickQuery(t,t.obj.pnt); // call t.FmapClickQuery function
 				});
 // on state set true /////////////////////////////////////////////////////////////////////////////////////////////////////////////
