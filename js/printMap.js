@@ -30,6 +30,7 @@ define([
 
         return declare(null, {
         	drawOptions: function(t){
+        		console.log('draw options call')
         		t.lyrs = []
         		t.toolbar = new Draw(t.map);
     			t.toolbar.on("draw-end", function(evt){
