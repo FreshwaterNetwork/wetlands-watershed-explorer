@@ -23,10 +23,11 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 				
 // Dynamic layer on load ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				t.dynamicLayer.on("load", function () {
-				
+					// console.log('look here 1');
         			t.map.on("load", function(){
-	        			t.toolbar = new Draw(t.map);
-	        			t.toolbar.on("draw-end", t.printMap.addToMap(t, evt));
+        				// console.log('look here')
+	        			// t.toolbar = new Draw(t.map);
+	        			// t.toolbar.on("draw-end", t.printMap.addToMap(t, evt));
 	        		})
 					$('#map-utils-control').hide();
 					// add tooltip to info icon.
