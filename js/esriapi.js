@@ -23,12 +23,6 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 				
 // Dynamic layer on load ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				t.dynamicLayer.on("load", function () {
-					// console.log('look here 1');
-        			t.map.on("load", function(){
-        				// console.log('look here')
-	        			// t.toolbar = new Draw(t.map);
-	        			// t.toolbar.on("draw-end", t.printMap.addToMap(t, evt));
-	        		})
 					$('#map-utils-control').hide();
 					// add tooltip to info icon.
 					$('#' + t.id + 'funcInfoGraphicWrapper').tooltip();
@@ -66,6 +60,8 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 							$('#' + c.target.id ).parent().next().find("span").html(v)
 						});
 					// call feature layer function
+					// instantiate print button and draw buttons
+					t.printMap.drawOptions(t);
 					t.clicks.featureLayerListeners(t);
 					if (t.obj.stateSet == "no"){
 						t.map.setExtent(t.dynamicLayer.fullExtent.expand(.6), true)
@@ -95,7 +91,7 @@ function ( 	ArcGISDynamicMapServiceLayer, Extent,Draw, SpatialReference, Query, 
 						t.obj.stateSet = "no";
 					}
 					// instantiate print button and draw buttons
-					t.printMap.drawOptions(t);
+					// t.printMap.drawOptions(t);
 					t.addShapefile.uploadShapefile(t);
 				});
 				// main header toggle buttons
