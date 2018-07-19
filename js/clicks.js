@@ -104,6 +104,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 					$('#' + t.id + 'dataInfoPopup').dialog("open");
 					$('#' + t.id + 'dataInfoPopup').prev().find('span').html('Data Error - Please Read')
 					$('#' + t.id + 'dataInfoPopup').prev().parent().css('top', '90.5px');
+					$('#' + t.id + 'dataInfoPopup').prev().parent().css('left', '495px');
 					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + val + "_data.zip", "_parent");
 				});	
 				// metadata links click
