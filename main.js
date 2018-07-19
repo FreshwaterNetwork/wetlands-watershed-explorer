@@ -18,7 +18,7 @@ function ( 	declare, PluginBase,Draw, ContentPane, dom, domStyle, domGeom, obj, 
 		initialize: function (frameworkParameters) {
 			// Access framework parameters
 			declare.safeMixin(this, frameworkParameters);
-			// Define object to access global variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
+			// Define object to access gFlobal variables from JSON object. Only add variables to varObject.json that are needed by Save and Share. 
 			this.obj = dojo.eval("[" + obj + "]")[0];	
 			this.url = "http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer";
 			this.layerDefs = [];
