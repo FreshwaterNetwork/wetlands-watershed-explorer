@@ -12,6 +12,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				//t.addShapefile.testFunction(t);
 				$('#' + t.id + 'dialogBoxTest').dialog({autoOpen : false,});
 				$('#' + t.id + 'wildDialogBoxTest').dialog({autoOpen : false,});
+				$('#' + t.id + 'dataInfoPopup').dialog({autoOpen : false,});
 				t.clicks.infographicText(t);
 				
 				//info accord
@@ -100,6 +101,9 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 				// Data download click
 				$('#' + t.id + 'dlBtn').on('click',  function(){
 					let val = t.obj.huc12Name.replace('-', '_')
+					$('#' + t.id + 'dataInfoPopup').dialog("open");
+					$('#' + t.id + 'dataInfoPopup').prev().find('span').html('Data Error - Please Read')
+					$('#' + t.id + 'dataInfoPopup').prev().parent().css('top', '90.5px');
 					window.open("https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" + val + "_data.zip", "_parent");
 				});	
 				// metadata links click
