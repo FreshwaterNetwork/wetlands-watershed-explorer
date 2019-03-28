@@ -208,7 +208,7 @@ function ( declare, Query, QueryTask,FeatureLayer, Search, SimpleLineSymbol, Sim
 				// let printUrl = 
 				// var printer = new Print({
 				//     map: t.map,
-				//     url: 'http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ExportWebMap2/GPServer/Export%20Web%20Map'
+				//     url: 'https://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ExportWebMap2/GPServer/Export%20Web%20Map'
 				// }, dom.byId( t.id + "printButton"));
 				// console.log('before startup')
 				// console.log(printer);

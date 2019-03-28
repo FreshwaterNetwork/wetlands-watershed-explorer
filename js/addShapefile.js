@@ -33,13 +33,13 @@ function (declare, esriConfig, InfoTemplate, Map, request, scaleUtils, FeatureLa
 	          function generateFeatureCollection (fileName) {
 	            var name = fileName.split(".");
 	            //Chrome and IE add c:\fakepath to the value - we need to remove it
-	            //See this link for more info: http://davidwalsh.name/fakepath
+	            //See this link for more info: https://davidwalsh.name/fakepath
 	            name = name[0].replace("c:\\fakepath\\", "");
 
 	            dom.byId(t.id + 'upload-status').innerHTML = '<b>Loading </b>' + name;
 
 	            //Define the input params for generate see the rest doc for details
-	            //http://www.arcgis.com/apidocs/rest/index.html?generate.html
+	            //https://www.arcgis.com/apidocs/rest/index.html?generate.html
 	            var params = {
 	              'name': name,
 	              'targetSR': t.map.spatialReference,
@@ -188,13 +188,13 @@ function (declare, esriConfig, InfoTemplate, Map, request, scaleUtils, FeatureLa
         	// generateFeatureCollection: function(t,filename){
         	// 	var name = filename.split(".");
 	        //     //Chrome and IE add c:\fakepath to the value - we need to remove it
-	        //     //See this link for more info: http://davidwalsh.name/fakepath
+	        //     //See this link for more info: https://davidwalsh.name/fakepath
 	        //     name = name[0].replace("c:\\fakepath\\", "");
 
 	        //     // dom.byId('upload-status').innerHTML = '<b>Loading </b>' + name;
 
 	        //     //Define the input params for generate see the rest doc for details
-	        //     //http://www.arcgis.com/apidocs/rest/index.html?generate.html
+	        //     //https://www.arcgis.com/apidocs/rest/index.html?generate.html
 	        //     var params = {
 	        //       'name': name,
 	        //       'targetSR': t.map.spatialReference,

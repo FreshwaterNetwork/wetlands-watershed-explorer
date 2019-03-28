@@ -826,7 +826,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		        var sources = t.search1.get("sources");
 				// Add the wetlands source 
 				sources.push({
-		            featureLayer: new FeatureLayer("http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/48"),
+		            featureLayer: new FeatureLayer("https://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/48"),
 		            searchFields: ["wetlandIdString"],
 		            displayField: "wetlandIdString",
 		            exactMatch: false,
@@ -841,7 +841,7 @@ function ( declare, Query, QueryTask,Extent,SpatialReference,FeatureLayer, Searc
 		         });
 				// add the huc 12 source
 				sources.push({
-		            featureLayer: new FeatureLayer("http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/4"),
+		            featureLayer: new FeatureLayer("https://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/4"),
 		            searchFields: ["name"],
 		            displayField: "name",
 		            exactMatch: false,
