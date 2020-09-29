@@ -1286,6 +1286,7 @@ define([
           }
         });
       }
+      // console.log(t.obj.visibleLayers, "final viz layers");
       // call the radio button selector function ////////////////////
       t.clicks.radioSelector(t);
       // set layer defs and update the mask layer /////////////////////
