@@ -792,15 +792,15 @@ define([
         }
       });
 
-      // show/hide the feasabilty wrapper
+      // show/hide the feasibilty wrapper
       if (t.obj.currentHuc == "WHUC12") {
-        $(".wfa-feasability-toggle-wrapper").show();
+        $(".wfa-feasibility-toggle-wrapper").show();
       } else {
-        $(".wfa-feasability-toggle-wrapper").hide();
+        $(".wfa-feasibility-toggle-wrapper").hide();
       }
 
       // feas/ num of services toggle buttons
-      $(".wfa-view-feasability-toggle input").on("click", function (evt) {
+      $(".wfa-view-feasibility-toggle input").on("click", function (evt) {
         if (evt.currentTarget.value === "numServe") {
           $(".wfa-feasWrapper").hide();
           $(".wfa-funcWrapper").show();
@@ -1201,7 +1201,7 @@ define([
         var curWetLyrName = "Current Wetlands - " + t.obj.funcTracker;
         var potWetLyrName =
           "Potentially Restorable Wetlands - " + t.obj.funcTracker;
-        var feasWetlandLyrName = "Wetland Feasability - " + t.obj.funcTracker;
+        var feasWetlandLyrName = "Wetland Feasibility - " + t.obj.funcTracker;
         var wetlandSelected = "Wetlands - Selected";
 
         // loop through layers array and see if any layer name matches
