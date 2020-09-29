@@ -366,14 +366,14 @@ hr {
 .tinner {
   min-height: 380px !important;
 }
-/* feasability section styles //////////////////////////////////////////////////////////*/
-.wfa-feasability-toggle-wrapper {
+/* feasibility section styles //////////////////////////////////////////////////////////*/
+.wfa-feasibility-toggle-wrapper {
   display: none;
   width: 250px;
   margin: auto;
   margin-bottom: 5px;
 }
-.wfa-feasability-toggle-wrapper label {
+.wfa-feasibility-toggle-wrapper label {
   height: 25px;
   display: flex;
   align-items: center;
