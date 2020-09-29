@@ -143,7 +143,7 @@ define([
         t.addShapefile.uploadShapefile(t);
       });
       // main header toggle buttons
-      $(".toggle-btn input")
+      $(".wfa-opening-toggle input")
         .unbind()
         .on("click", function (c) {
           if ($(c.currentTarget).next().html() == "Search for a new site") {

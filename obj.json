@@ -4,6 +4,7 @@
 	"hucClickTracker": "huc6",
 	"selHuc": 11,
 	"funcTracker": "Count of Services ≥ High",
+	"wetlandToggleTracker": "services",
 	"maskWhere": "OBJECTID < 0",
 	"wetlandWhere": "OBJECTID < 0",
 	"wildlifeCheck": "null",
@@ -32,5 +33,5 @@
 	"hucNames": [],
 	"hucVal": "",
 	"wetlandAtts": "",
-	"hucInfo": {},
+	"hucInfo": {}
 }

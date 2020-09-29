@@ -56,7 +56,7 @@ define([
     resizable: false,
     hasCustomPrint: true,
     size: "custom",
-    width: 430,
+    width: 455,
     hasHelp: true,
 
     // First function called when the user clicks the pluging icon.
@@ -66,7 +66,7 @@ define([
       // Define object to access gFlobal variables from JSON object. Only add variables to varObject.json that are needed by Save and Share.
       this.obj = dojo.eval("[" + obj + "]")[0];
       this.url =
-        "http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer";
+        "http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All_addFeas/MapServer";
       this.layerDefs = [];
     },
     // Called after initialize at plugin startup (why the tests for undefined). Also called after deactivate when user closes app by clicking X.

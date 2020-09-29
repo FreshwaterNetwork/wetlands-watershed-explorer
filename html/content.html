@@ -31,7 +31,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				contain corrected data. Data visually portrayed in the tool are accurate and not affected.</div>
 		</div>
 
-		<div class="toggle-btn" style="width:350px;">
+		<div class="toggle-btn wfa-opening-toggle" style="width:350px;">
 			<input type="radio" id="num1" name="num" value="one" checked />
 			<label for="num1">Search for a new site</label>
 			<input type="radio" id="num2" name="num" value="two" />
@@ -119,6 +119,16 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			<div class="wfa-collapseText" style="margin-top: 0px;">Collapse</div>
 		</div>
 		<div class="wfa-collapseSection">
+			<!-- feasability/num services toggle wrapper -->
+			<div class="wfa-feasability-toggle-wrapper">
+				<!-- <h4>View Potentially Restorable Wetlands by:</h4> -->
+				<div class="toggle-btn wfa-view-feasability-toggle">
+					<input type="radio" id="num-services" name="num1" value="numServe" checked />
+					<label for="num-services">Num. of Services</label>
+					<input type="radio" id="feasability" name="num1" value="feas" />
+					<label for="feasability">Feasability</label>
+				</div>
+			</div>
 			<!-- help text -->
 			<div id="functionHelpText" class="wfa-helpText hide blueFont">
 				<span>The map at right shows how subwatersheds compare for services lost, due to wetland loss. Loss of
@@ -128,6 +138,35 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				<!-- <span id="serviceMetadata" class="wfa-metaDataLink"> - View Metadata</span> -->
 			</div>
 
+
+			<div id="feasWrapper" class="wfa-feasWrapper wfa-radio-indent">
+				<label data-wfa-mode='wet' class="form-component wfa-funcLabel" for="feas-overall-option">
+					<input checked type="radio" id="feas-overall-option" name="feas" class="rb_cb" value="Overall">
+					<div class="check"></div>
+					<span class="form-text">Overall Feasability</span>
+				</label>
+				<br>
+				<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="feas-landscape-option">
+					<input type="radio" id="feas-landscape-option" name="feas" class="rb_cb"
+						value="For Natural Landscapes and Human Changes">
+					<div class="check"></div>
+					<span class="form-text">For Natural Landscapes and Human Changes</span>
+				</label>
+				<br>
+				<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="feas-landowner-option">
+					<input type="radio" id="feas-landowner-option" name="feas" class="rb_cb"
+						value="For Landowner Feasibility">
+					<div class="check"></div>
+					<span class="form-text">For Landowner Feasibility</span>
+				</label>
+				<br>
+				<label data-wfa-mode='both' class="form-component wfa-funcLabel" for="feas-invasive-option">
+					<input type="radio" id="feas-invasive-option" name="feas" class="rb_cb"
+						value="For Invasive Species">
+					<div class="check"></div>
+					<span class="form-text">For Invasive Species</span>
+				</label>
+			</div>
 			<div id="funcWrapper" class="wfa-funcWrapper wfa-radio-indent">
 				<div class="wfa-func_radioGroups">
 					<label data-wfa-mode='huc' class="form-component wfa-funcLabel" for="combined-option">
@@ -220,6 +259,8 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					<div class="wfa-sliderLabels">Transparent</div>
 				</div>
 			</div>
+
+
 			<hr>
 		</div>
 		<!-- View wildlife data checkbox -->
@@ -486,6 +527,9 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="wfa-floating-attribute-wrapper">
+		<h3>test floating div</h3>
 	</div>
 </div>
 
