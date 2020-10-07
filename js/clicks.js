@@ -1276,6 +1276,7 @@ define([
                 }
               });
             } else if (t.obj.wetlandToggleTracker === "feas") {
+              console.log("look here");
               $.each($(t.layersArray), function (i, v) {
                 if (feasWetlandLyrName == v.name) {
                   t.obj.visibleLayers.push(v.id);

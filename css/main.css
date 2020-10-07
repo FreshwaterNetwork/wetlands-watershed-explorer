@@ -390,6 +390,13 @@ hr {
   top: 63px;
 }
 
+.wfa-mainAttributeWrap {
+  position: fixed;
+  left: 500px;
+  top: 200px;
+  background-color: white;
+}
+
 /* Report section Styling //////////////////////////////////////////////////////////////////*/
 .wfa-buildReportText {
   margin-left: 14px;
