@@ -171,7 +171,7 @@ hr {
   margin-bottom: 20px;
   position: relative;
 }
-.wfa-mainAttributeWrap {
+/* .wfa-mainAttributeWrap {
   position: fixed;
   left: 509px;
   top: 64px;
@@ -180,9 +180,9 @@ hr {
   border-radius: 5px;
   border: 1px solid black;
   padding: 5px;
-}
+} */
 .wfa-sum-wrap {
-  /* width: 350px; */
+  width: 350px;
   margin: 3px;
   border: 1pt solid #cdd5d5;
   padding: 5px;
