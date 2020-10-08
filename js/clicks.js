@@ -1261,28 +1261,36 @@ define([
             });
 
             if (t.obj.wetlandToggleTracker === "services") {
-              $.each($(t.layersArray), function (i, v) {
-                if (curWetLyrName == v.name) {
+              // $.each($(t.layersArray), function (i, v) {
+              console.log(curWetLyrName, potWetLyrName);
+              if (curWetLyrName == v.name) {
+                t.obj.visibleLayers.push(v.id);
+              }
+              if (potWetLyrName == v.name) {
+                t.obj.visibleLayers.push(v.id);
+              }
+              // add the wetland selected layer
+              if (t.obj.wetlandWhere != "OBJECTID < 0") {
+                if (wetlandSelected == v.name) {
                   t.obj.visibleLayers.push(v.id);
                 }
-                if (potWetLyrName == v.name) {
-                  t.obj.visibleLayers.push(v.id);
-                }
-                // add the wetland selected layer
-                if (t.obj.wetlandWhere != "OBJECTID < 0") {
-                  if (wetlandSelected == v.name) {
-                    t.obj.visibleLayers.push(v.id);
-                  }
-                }
-              });
+              }
+              // });
             } else if (t.obj.wetlandToggleTracker === "feas") {
-              console.log("look here");
-              $.each($(t.layersArray), function (i, v) {
-                if (feasWetlandLyrName == v.name) {
-                  t.obj.visibleLayers.push(v.id);
-                  t.obj.visibleLayers.push(59);
-                }
-              });
+              console.log("look here", feasWetlandLyrName, v.name, v.id);
+              console.log(feasWetlandLyrName === v.name);
+              if (feasWetlandLyrName == v.name) {
+                console.log("look here", v.id, "they match");
+                t.obj.visibleLayers.push(v.id);
+                t.obj.visibleLayers.push(59);
+              }
+              // $.each($(t.layersArray), function (i, v) {
+              //   console.log("look here again");
+              //   if (feasWetlandLyrName == v.name) {
+              //     t.obj.visibleLayers.push(v.id);
+              //     t.obj.visibleLayers.push(59);
+              //   }
+              // });
             }
           }
         });
