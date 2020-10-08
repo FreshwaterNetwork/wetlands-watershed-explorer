@@ -1,4 +1,4 @@
-Main CSS Styling for WI apps //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+/*Main CSS Styling for WI apps ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 .infoIcon {
   margin-left: 4px;
@@ -150,7 +150,6 @@ hr {
   position: relative;
 }
 .wfa-fas_AttributeWrap div {
-  padding: 3px;
   line-height: 13px;
 }
 .wfa-watershedHoverText {
@@ -172,14 +171,25 @@ hr {
   margin-bottom: 20px;
   position: relative;
 }
+.wfa-mainAttributeWrap {
+  position: fixed;
+  left: 509px;
+  top: 64px;
+  background-color: white;
+  width: 275px;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 5px;
+}
 .wfa-sum-wrap {
-  width: 350px;
+  /* width: 350px; */
   margin: 3px;
   border: 1pt solid #cdd5d5;
   padding: 5px;
   box-shadow: 0 1px 1px rgba(16, 22, 26, 0.2);
   position: relative;
   display: flex;
+  align-items: center;
 }
 .wfa-huc-wrap {
   width: 300px;
@@ -388,13 +398,6 @@ hr {
   z-index: 1000000000;
   background-color: white;
   top: 63px;
-}
-
-.wfa-mainAttributeWrap {
-  position: fixed;
-  left: 500px;
-  top: 200px;
-  background-color: white;
 }
 
 /* Report section Styling //////////////////////////////////////////////////////////////////*/
