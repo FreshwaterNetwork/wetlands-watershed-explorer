@@ -191,6 +191,9 @@ hr {
   display: flex;
   align-items: center;
 }
+.elm-results {
+  padding-left: 3px;
+}
 .wfa-huc-wrap {
   width: 300px;
   margin: 3px;

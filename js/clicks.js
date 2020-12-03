@@ -763,29 +763,60 @@ define([
       var attributes = $("#" + t.id + "wfa-fas_AttributeWrap").find(
         ".wfa-sum-wrap"
       );
+
+      // new version
+      t.attributeTracker = "";
+      if (t.obj.wetlandClick == "yes") {
+        // you have clicked a wetland
+        if (t.obj.wetlandToggleTracker === "services") {
+          // you have clicked wetland with services toggle checked
+          t.attributeTracker = "wet";
+        } else {
+          // you have clicked a wetland with feasability toggle checked
+          t.attributeTracker = "feas";
+        }
+      } else {
+        // you are not in wetlands, hide all wetland related attrbutes and show huc related atts
+        t.attributeTracker = "huc";
+      }
+
       $.each(attributes, function (i, v) {
-        if (t.obj.wetlandClick == "yes") {
-          t.radAttVal = "huc";
-        } else {
-          t.radAttVal = "wet";
-        }
-        if ($(v).data().wfaMode == t.radAttVal) {
-          $(v).slideUp();
-        } else {
-          $(v).slideDown();
-        }
-        if (t.radAttVal == "wet") {
-          $("#" + t.id + "mainAttributeWrap").slideUp();
+        // if attribute tracker is feas, slide up wet and huc
+        if (t.attributeTracker === "feas") {
+          if ($(v).data().wfaMode === "wet" || $(v).data().wfaMode === "huc") {
+            $(v).hide();
+          } else {
+            $(v).show();
+          }
+          // if attribute tracker is wet, slide up feas and huc
+        } else if (t.attributeTracker === "wet") {
+          if ($(v).data().wfaMode === "feas" || $(v).data().wfaMode === "huc") {
+            $(v).hide();
+          } else {
+            $(v).show();
+          }
+          // if attribute tracker is huc, slide up wet and feas
+        } else if (t.attributeTracker === "huc") {
+          if ($(v).data().wfaMode === "feas" || $(v).data().wfaMode === "wet") {
+            $(v).hide();
+          } else {
+            $(v).show();
+          }
         }
       });
 
       // radio buttons controls //////////////////////////////
       var radioBtns = $("#" + t.id + "funcWrapper").find("label");
+      if (t.obj.wetlandClick == "yes") {
+        t.radVal = "huc";
+      } else {
+        t.radVal = "wet";
+      }
       $.each(radioBtns, function (i, v) {
         if (t.obj.currentHuc == "WHUC12") {
-          t.radAttVal = "huc";
+          t.radVal = "huc";
         }
-        if ($(v).data().wfaMode == t.radAttVal) {
+        if ($(v).data().wfaMode == t.radVal) {
           $(v).slideUp();
         } else {
           $(v).slideDown();
@@ -817,6 +848,7 @@ define([
           $(".wfa-funcWrapper").hide();
           $(".wfa-feasWrapper").show();
           t.obj.wetlandToggleTracker = "feas";
+          console.log(t.obj.wetlandToggleTracker);
           // on toggle click find the checked radio button and trigger click
           // to display the layers
           let feasRadioButtons = $(".wfa-feasWrapper input");
