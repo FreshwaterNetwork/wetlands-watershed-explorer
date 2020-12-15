@@ -858,6 +858,7 @@ define([
           let feasRadioButtons = $(".wfa-feasWrapper input");
           $.each(feasRadioButtons, (i, radBtn) => {
             if (radBtn.checked) {
+              console.log(radBtn)
               $(radBtn).trigger("click");
             }
           });
