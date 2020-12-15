@@ -185,6 +185,8 @@ define([
       //
       // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
       $(".wfa-radio-indent input").on("click", function (c, x) {
+        console.log('radio click')
+        console.log(c.currentTarget)
         t.obj.funcTracker = c.target.value.split("-")[0];
         t.obj.wetTracker = c.target.value.split("-")[0];
 
@@ -222,7 +224,9 @@ define([
         $(".wfa-infoIcon").on("click", function (e) {
           let value;
           if (t.obj.currentHuc == "WHUC12") {
+            console.log('look here')
             value = $(e.currentTarget).prev().html() + "_wet";
+            console.log(value)
           } else {
             value = $(e.currentTarget).prev().html();
           }
@@ -235,21 +239,21 @@ define([
           $("#ui-id-1").parent().parent().css("left", "507px");
         });
       });
-      $(".wfa-infoIcon").on("click", function (e) {
-        let value;
-        if (t.obj.currentHuc == "WHUC12") {
-          value = $(e.currentTarget).prev().html() + "_wet";
-        } else {
-          value = $(e.currentTarget).prev().html();
-        }
-        let textParts = t.infographicText[value].split(" - ");
-        $("#ui-id-1").html(textParts[0]);
-        $("#" + t.id + "dialogBoxTest").html(textParts[1]);
-        $("#" + t.id + "dialogBoxTest").dialog("open");
-        $("#ui-id-1").parent().parent().css("z-index", "100000");
-        $("#ui-id-1").parent().parent().css("top", "250px");
-        $("#ui-id-1").parent().parent().css("left", "507px");
-      });
+      // $(".wfa-infoIcon").on("click", function (e) {
+      //   let value;
+      //   if (t.obj.currentHuc == "WHUC12") {
+      //     value = $(e.currentTarget).prev().html() + "_wet";
+      //   } else {
+      //     value = $(e.currentTarget).prev().html();
+      //   }
+      //   let textParts = t.infographicText[value].split(" - ");
+      //   $("#ui-id-1").html(textParts[0]);
+      //   $("#" + t.id + "dialogBoxTest").html(textParts[1]);
+      //   $("#" + t.id + "dialogBoxTest").dialog("open");
+      //   $("#ui-id-1").parent().parent().css("z-index", "100000");
+      //   $("#ui-id-1").parent().parent().css("top", "250px");
+      //   $("#ui-id-1").parent().parent().css("left", "507px");
+      // });
       // code for hover over huc name, this codes changes the huc name to the huc code.
       $(".wfa-hucCode").on("mouseover", function (e) {
         let str = e.currentTarget.id.split("ContentPane_0")[1];
@@ -1575,6 +1579,15 @@ define([
         "Floristic Integrity": "test obj text",
         "Floristic Integrity_wet":
           "Floristic Integrity - Some wetlands are of high condition, containing a healthy array of plant species. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=60' target='_blank'>View in report</a>",
+        // feasability descriptions
+          "Overall Feasibility_wet":
+          "Overall Feasibility - Overall Feasibility test description",
+          "Land use considerations_wet":
+          "Land use considerations - Land use considerations test description",
+          "Ownership Considerations_wet":
+          "Ownership Considerations - Ownership Considerations test description",
+          "Invasive species considerations_wet":
+          "Invasive species considerations - Invasive species considerations test description",
 
         "All Guilds":
           "All Guilds - A wildlife guild is a group of species that use the same or similar habitats and resources. Some wetlands, and associated uplands, can support multiple guilds.<br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=16' target='_blank'>View in report</a>",

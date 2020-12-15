@@ -16,7 +16,7 @@ define([
   "dojo/text!./html/report.html",
   "./js/esriapi",
   "./js/clicks",
-  "./js/addShapefile",
+  // "./js/addShapefile",
   "./js/report",
   "./js/printMap",
   "dojo/_base/lang",
@@ -38,7 +38,7 @@ define([
   reportHtml,
   esriapi,
   clicks,
-  addShapefile,
+  // addShapefile,
   report,
   printMap,
   lang,
@@ -156,7 +156,7 @@ define([
       // BRING IN OTHER JS FILES
       this.esriapi = new esriapi();
       this.clicks = new clicks();
-      this.addShapefile = new addShapefile();
+      // this.addShapefile = new addShapefile();
       this.report = new report();
       this.printMap = new printMap();
 
