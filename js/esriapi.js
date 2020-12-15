@@ -215,6 +215,16 @@ define([
           $(c.currentTarget).children().last().html("Collapse");
         }
       });
+      // on header click slide up and down content below
+      $(".wfa-sectionHeaderWrapper").on("click", function (c) {
+        if ($(c.currentTarget).next().is(":visible")) {
+          $(c.currentTarget).next().slideUp();
+          $(c.currentTarget).children().last().html("Show");
+        } else {
+          $(c.currentTarget).next().slideDown();
+          $(c.currentTarget).children().last().html("Collapse");
+        }
+      });
       // zoom button hover code
       $(".wfa-hucSelWrap").on("mouseover", function (c) {
         $(c.currentTarget).children().children().last().css("color", "blue");

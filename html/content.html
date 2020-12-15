@@ -6,7 +6,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <div id="headerSectionWrapper" class="wfa-headerSectionWrapper">
 	<div class="wfa-openingWrapper">
 		<div style="display: flex;">
-			<h3>What would you like to do??</h3>
+			<h3>What would you like to do?</h3>
 			<div class="wfa-toolWrapper">
 				<div class="dropdown">
 					<button class="button dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
@@ -63,9 +63,14 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 <div id="wfa-mainContentWrap" class="wfa-mainContentWrap">
 	<div id="hucSelWrap" class="hide">
 		<!-- Selected Watershed header -->
-		<div class="wfa-headerInfoWrap" style="display: flex; margin-top: 5px;">
+		<!-- <div class="wfa-headerInfoWrap" style="display: flex; margin-top: 5px;">
 			<h3 style="margin: 0 0 4px 0">Selected Watersheds:</h3>
 			<div class="wfa-collapseText">Collapse</div>
+		</div> -->
+
+		<div class="wfa-sectionHeaderWrapper">
+			<h3 style="margin: 0 0 4px 0">Selected Watersheds:</h3>
+			<div style="margin-left: auto;" class="blueFont">Collapse</div>
 		</div>
 
 		<div class="wfa-collapseSection">
@@ -106,7 +111,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					<!-- <span>Go to: </span> --><span class="wfa-textZoom">HUC 12 Watershed:</span> <span id="huc12Sel"
 						class="blueFont wfa-hucCode">test text</span><span class="wfa-zoomToText">Zoom to</span></div>
 			</div>
-			<hr class="wfa-hr">
+			<!-- <hr class="wfa-hr"> -->
 		</div>
 
 	</div>
@@ -114,9 +119,13 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 
 	<!-- Function of Interest find/eval wrapper ///////////////////////////////////////////////////////////////////////////////////////// -->
 	<div class="hide" id="mainFuncWrapper">
-		<div class="wfa-headerInfoWrap" style="display: flex; margin-top: 8px;">
+		<!-- <div class="wfa-headerInfoWrap" style="display: flex; margin-top: 8px;">
 			<h3 id="serviceOfInterest" style="margin: 0 0 4px 0">Choose Service to Compare Watersheds:</h3>
 			<div class="wfa-collapseText" style="margin-top: 0px;">Collapse</div>
+		</div> -->
+		<div class="wfa-sectionHeaderWrapper">
+			<h3 style="margin: 0 0 4px 0">Choose Service to Compare Watersheds:</h3>
+			<div style="margin-left: auto;" class="blueFont">Collapse</div>
 		</div>
 		<div class="wfa-collapseSection">
 			<!-- feasibility/num services toggle wrapper -->
@@ -261,16 +270,20 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 			</div>
 
 
-			<hr>
+			<!-- <hr> -->
 		</div>
 		<!-- View wildlife data checkbox -->
 		<div class="hide" id="wildlifeCheckWrap">
 			<!-- <h3>View Wetland wildlife habittat</h3> -->
-			<div class="wfa-headerInfoWrap" style="display: flex; margin-top:8px;">
+			<!-- <div class="wfa-headerInfoWrap" style="display: flex; margin-top:8px;">
 				<h3 style="margin: 0 0 4px 0">View Wetland Wildlife Habitat:</h3>
 				<div class="wfa-collapseText" style="margin-top: 0px;">Collapse</div>
+			</div> -->
+			<div class="wfa-sectionHeaderWrapper">
+				<h3 style="margin: 0 0 4px 0">View Wetland Wildlife Habitat:</h3>
+				<div style="margin-left: auto;" class="blueFont">Show</div>
 			</div>
-			<div class="wfa-collapseSection">
+			<div class="wfa-collapseSection" style="display: none;">
 				<!-- Wildlife radio buttons ///////////////////////////////////////////////////////////////////////-->
 				<div id="wildlifeRadioButtons" class="wfa-wildlifeRadioButtonsWrapper">
 					<div class="wfa-wildlifeRadioButtons" id="wildlife-only">
@@ -340,7 +353,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 						</div>
 					</div>
 				</div>
-				<hr>
+				<!-- <hr> -->
 			</div>
 		</div>
 		<!-- Dowload HUC 12 data button ////////////////////////////////////////////-->
@@ -363,7 +376,7 @@ The unique ContentPane id makes all the element ids unique and prevents duplicat
 					<div id="drawGraphicClear" class="wfa-drawStyle wfa-drawGraphicClear button"
 						style="height: 37px; margin-top: 2px; color: rgb(140, 33, 48) !important">Clear</div>
 				</div>
-				<hr>
+				<!-- <hr> -->
 			</div>
 		</div>
 	</div>
