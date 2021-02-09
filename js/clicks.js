@@ -85,6 +85,13 @@ define([
           helpText.slideDown();
         }
       });
+      $(".wfa-download-feas-data").on("click", (evt) => {
+        window.open(
+          "https://nascience.s3-us-west-1.amazonaws.com/apps/wisconsin_wbd_data/PRW_Feasability_Data.zip",
+          "_parent"
+        );
+      });
+
       // suppress help on startup click
       $("#" + t.id + "-shosu").on("click", function (c) {
         if (c.clicked == true) {
@@ -1319,6 +1326,7 @@ define([
                 }
               });
             } else if (t.obj.wetlandToggleTracker === "feas") {
+              console.log(t.obj.wetlandWhere);
               $.each($(t.layersArray), function (i, v) {
                 if (feasWetlandLyrName == v.name) {
                   t.obj.visibleLayers.push(v.id);
