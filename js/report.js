@@ -204,7 +204,6 @@ define([
     },
     printMap: function (t) {
       // parser.parse();
-      // t.printUrl = "https://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ExportWebMap2/GPServer/Export%20Web%20Map"
       // esriConfig.defaults.io.proxyUrl = "/proxy/";
       // t.printInfo = esriRequest({
       //        	"url": t.printUrl,
@@ -257,7 +256,6 @@ define([
       // let printUrl =
       // var printer = new Print({
       //     map: t.map,
-      //     url: 'http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ExportWebMap2/GPServer/Export%20Web%20Map'
       // }, dom.byId( t.id + "printButton"));
       // console.log('before startup')
       // console.log(printer);

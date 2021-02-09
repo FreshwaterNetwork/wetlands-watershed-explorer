@@ -185,8 +185,8 @@ define([
       //
       // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
       $(".wfa-radio-indent input").on("click", function (c, x) {
-        console.log('radio click')
-        console.log(c.currentTarget)
+        console.log("radio click");
+        console.log(c.currentTarget);
         t.obj.funcTracker = c.target.value.split("-")[0];
         t.obj.wetTracker = c.target.value.split("-")[0];
 
@@ -224,9 +224,9 @@ define([
         $(".wfa-infoIcon").on("click", function (e) {
           let value;
           if (t.obj.currentHuc == "WHUC12") {
-            console.log('look here')
+            console.log("look here");
             value = $(e.currentTarget).prev().html() + "_wet";
-            console.log(value)
+            console.log(value);
           } else {
             value = $(e.currentTarget).prev().html();
           }
@@ -741,6 +741,7 @@ define([
     },
     // Radio/attribute display function //////////////////////////////////////////////////////////////////////////////////////
     radioAttDisplay: function (t) {
+      console.log(t.obj.currentHuc);
       // function help text controlsF
       if (t.obj.currentHuc == "WHUC12") {
         $("#" + t.id + "serviceOfInterest").html(
@@ -762,6 +763,8 @@ define([
           .html(
             "The map at right shows how subwatersheds compare for services lost, due to wetland loss. Loss of services can help with watershed planning—identifying where services may be needed and the relative amount of opportunity to restore and protect them. To choose a different service for comparison, click below."
           );
+
+        $("#" + t.id + "num-services").click();
       }
       // attribute control //////////////////////////////
       var attributes = $("#" + t.id + "wfa-fas_AttributeWrap").find(
@@ -852,13 +855,11 @@ define([
           $(".wfa-funcWrapper").hide();
           $(".wfa-feasWrapper").show();
           t.obj.wetlandToggleTracker = "feas";
-          console.log(t.obj.wetlandToggleTracker);
           // on toggle click find the checked radio button and trigger click
           // to display the layers
           let feasRadioButtons = $(".wfa-feasWrapper input");
           $.each(feasRadioButtons, (i, radBtn) => {
             if (radBtn.checked) {
-              console.log(radBtn)
               $(radBtn).trigger("click");
             }
           });
@@ -1065,9 +1066,7 @@ define([
       var sources = t.search1.get("sources");
       // Add the wetlands source
       sources.push({
-        featureLayer: new FeatureLayer(
-          "http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/48"
-        ),
+        featureLayer: new FeatureLayer(t.url + "/48"),
         searchFields: ["wetlandIdString"],
         displayField: "wetlandIdString",
         exactMatch: false,
@@ -1082,9 +1081,7 @@ define([
       });
       // add the huc 12 source
       sources.push({
-        featureLayer: new FeatureLayer(
-          "http://cirrus-web-adapter-241060755.us-west-1.elb.amazonaws.com/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All/MapServer/4"
-        ),
+        featureLayer: new FeatureLayer(t.url + "/4"),
         searchFields: ["name"],
         displayField: "name",
         exactMatch: false,
@@ -1119,6 +1116,7 @@ define([
       if (t.obj.currentHuc == "WHUC12") {
         wetQ.execute(wq, function (evt) {
           if (evt.features.length > 0 && t.obj.currentWet == "wetland") {
+            console.log("inside wetland click");
             $("#" + t.id + "wetlandHoverText").hide();
             if (t.obj.buildReport != "yes") {
               t.obj.wetlandClick = "yes";
@@ -1164,8 +1162,16 @@ define([
         "rgb(222,45,38)",
         "rgb(251,106,74)",
       ];
+      var feasColors = [
+        "rgb(254,229,217)",
+        "rgb(165,15,21)",
+        "rgb(222,45,38)",
+        "rgb(251,106,74)",
+      ];
       var title = $("#" + t.id + "wfa-fas_AttributeWrap").find(".elm-title");
       var htmlVal;
+      console.log(t.obj.wetlandAtts);
+      console.log(t.obj.wetlandToggleTracker);
       $.each(title, function (i, v) {
         let attVal = t.obj.wetlandAtts[$(v).data("wfa")];
         if (attVal == 0) {
@@ -1316,7 +1322,7 @@ define([
               $.each($(t.layersArray), function (i, v) {
                 if (feasWetlandLyrName == v.name) {
                   t.obj.visibleLayers.push(v.id);
-                  t.obj.visibleLayers.push(59);
+                  t.obj.visibleLayers.push(58);
                 }
               });
             }
@@ -1581,13 +1587,13 @@ define([
         "Floristic Integrity_wet":
           "Floristic Integrity - Some wetlands are of high condition, containing a healthy array of plant species. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=60' target='_blank'>View in report</a>",
         // feasability descriptions
-          "Overall Feasibility_wet":
+        "Overall Feasibility_wet":
           "Overall Feasibility - Overall Feasibility test description",
-          "Land use considerations_wet":
+        "Land use considerations_wet":
           "Land use considerations - Land use considerations test description",
-          "Ownership Considerations_wet":
+        "Ownership Considerations_wet":
           "Ownership Considerations - Ownership Considerations test description",
-          "Invasive species considerations_wet":
+        "Invasive species considerations_wet":
           "Invasive species considerations - Invasive species considerations test description",
 
         "All Guilds":
