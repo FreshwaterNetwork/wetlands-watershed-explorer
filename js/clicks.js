@@ -192,12 +192,15 @@ define([
       //
       // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
       $(".wfa-radio-indent input").on("click", function (c, x) {
-        console.log("radio click");
-        console.log(c.currentTarget);
         t.obj.funcTracker = c.target.value.split("-")[0];
         t.obj.wetTracker = c.target.value.split("-")[0];
 
         // change the function site services text when radio buttons are clicked.
+        if (t.obj.wetlandToggleTracker == "services") {
+          $(".wfa-att-title-1").html("Range of Services: ");
+        } else {
+          $(".wfa-att-title-1").html("Feasibility: ");
+        }
         $("#" + t.id + "siteServices_span").html(
           "(Currently selected: " + c.target.value + ")"
         );
@@ -231,9 +234,7 @@ define([
         $(".wfa-infoIcon").on("click", function (e) {
           let value;
           if (t.obj.currentHuc == "WHUC12") {
-            console.log("look here");
             value = $(e.currentTarget).prev().html() + "_wet";
-            console.log(value);
           } else {
             value = $(e.currentTarget).prev().html();
           }
@@ -246,21 +247,7 @@ define([
           $("#ui-id-1").parent().parent().css("left", "507px");
         });
       });
-      // $(".wfa-infoIcon").on("click", function (e) {
-      //   let value;
-      //   if (t.obj.currentHuc == "WHUC12") {
-      //     value = $(e.currentTarget).prev().html() + "_wet";
-      //   } else {
-      //     value = $(e.currentTarget).prev().html();
-      //   }
-      //   let textParts = t.infographicText[value].split(" - ");
-      //   $("#ui-id-1").html(textParts[0]);
-      //   $("#" + t.id + "dialogBoxTest").html(textParts[1]);
-      //   $("#" + t.id + "dialogBoxTest").dialog("open");
-      //   $("#ui-id-1").parent().parent().css("z-index", "100000");
-      //   $("#ui-id-1").parent().parent().css("top", "250px");
-      //   $("#ui-id-1").parent().parent().css("left", "507px");
-      // });
+
       // code for hover over huc name, this codes changes the huc name to the huc code.
       $(".wfa-hucCode").on("mouseover", function (e) {
         let str = e.currentTarget.id.split("ContentPane_0")[1];
@@ -748,7 +735,6 @@ define([
     },
     // Radio/attribute display function //////////////////////////////////////////////////////////////////////////////////////
     radioAttDisplay: function (t) {
-      console.log(t.obj.currentHuc);
       // function help text controlsF
       if (t.obj.currentHuc == "WHUC12") {
         $("#" + t.id + "serviceOfInterest").html(
@@ -858,6 +844,18 @@ define([
               $(radBtn).trigger("click");
             }
           });
+
+          // remove the wetland selected layer
+          let index = t.obj.visibleLayers.indexOf(5);
+          if (index > -1) {
+            t.obj.visibleLayers.splice(index, 1); // colors = ["red","blue","green"]
+          }
+          t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+          // close attribute wrapper
+          $(".wfa-mainAttributeWrap").hide();
+
+          // show click on map text
+          $(".wfa-wetlandHoverText").show();
         } else if (evt.currentTarget.value === "feas") {
           $(".wfa-funcWrapper").hide();
           $(".wfa-feasWrapper").show();
@@ -870,6 +868,17 @@ define([
               $(radBtn).trigger("click");
             }
           });
+          // remove the wetland selected layer
+          let index = t.obj.visibleLayers.indexOf(5);
+          if (index > -1) {
+            t.obj.visibleLayers.splice(index, 1); // colors = ["red","blue","green"]
+          }
+          t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
+          // close attribute wrapper
+          $(".wfa-mainAttributeWrap").hide();
+
+          // show click on map text
+          $(".wfa-wetlandHoverText").show();
         }
       });
     },
@@ -1113,7 +1122,6 @@ define([
 
     // Wetland click function /////////////////////////////////////////////////////////////////////////////////////////////////
     wetlandClick: function (t) {
-      console.log("in wetland click", t.obj.currentHuc);
       // wetland query
       var wq = new Query();
       var wetQ = new QueryTask(t.url + "/" + 48);
@@ -1128,22 +1136,15 @@ define([
         wetQ.execute(wq, function (evt) {
           $("body").css("cursor", "default");
           t.map.setMapCursor("pointer");
-          console.log("after wetland query", t.obj.currentWet);
           if (evt.features.length > 0 && t.obj.currentWet == "wetland") {
-            console.log("inside wetland click");
+            t.obj.wetlandClick = "yes";
+            t.obj.wetlandAtts = evt.features[0].attributes;
+
+            // set the wetland where clause
+            t.wetlandID = t.obj.wetlandAtts.OBJECTID;
+            t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
+            t.clicks.wetlandAttributePopulate(t);
             $("#" + t.id + "wetlandHoverText").hide();
-            if (t.obj.buildReport != "yes") {
-              t.obj.wetlandClick = "yes";
-              t.obj.wetlandAtts = evt.features[0].attributes;
-              // set the wetland where clause
-              t.wetlandID = t.obj.wetlandAtts.OBJECTID;
-              t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
-              t.clicks.wetlandAttributePopulate(t);
-            } else {
-              // t.obj.wetlandClick = "yes";
-              // // call the function to build the report wetland list
-              // t.report.populateWetlandList(t, evt);
-            }
             $("#" + t.id + "mainAttributeWrap").slideDown();
           } else {
             t.obj.wetlandClick = "no";
@@ -1184,23 +1185,35 @@ define([
       ];
       var title = $("#" + t.id + "wfa-fas_AttributeWrap").find(".elm-title");
       var htmlVal;
-      console.log(t.obj.wetlandAtts);
-      console.log(t.obj.wetlandToggleTracker);
+
       $.each(title, function (i, v) {
         let attVal = t.obj.wetlandAtts[$(v).data("wfa")];
-        if (attVal == 0) {
-          htmlVal = "Not Applicable";
-          t.countVal = "0";
-        } else if (attVal == 1) {
-          htmlVal = "Very High";
-          t.countVal = "7-9";
-        } else if (attVal == 2) {
-          htmlVal = "High";
-          t.countVal = "4-6";
-        } else if (attVal == 3) {
-          htmlVal = "Moderate";
-          t.countVal = "1-3";
+        if (t.obj.wetlandToggleTracker == "services") {
+          if (attVal == 0) {
+            htmlVal = "Not Applicable";
+            t.countVal = "0";
+          } else if (attVal == 1) {
+            htmlVal = "Very High";
+            t.countVal = "7-9";
+          } else if (attVal == 2) {
+            htmlVal = "High";
+            t.countVal = "4-6";
+          } else if (attVal == 3) {
+            htmlVal = "Moderate";
+            t.countVal = "1-3";
+          }
+        } else {
+          if (attVal == 0) {
+            htmlVal = "Not Applicable";
+          } else if (attVal == 1) {
+            htmlVal = "Very High";
+          } else if (attVal == 2) {
+            htmlVal = "High";
+          } else if (attVal == 3) {
+            htmlVal = "Moderate";
+          }
         }
+
         // set the wetland id
         if ($(v).data("wfa") == "WETLAND_ID") {
           let wetlandVal;
@@ -1234,16 +1247,22 @@ define([
             .find(".wfa-attributePatch")
             .css("background-color", curColors[attVal]);
         } else {
-          $(v)
-            .parent()
-            .find(".wfa-attributePatch")
-            .css("background-color", potColors[attVal]);
+          if (t.obj.wetlandToggleTracker == "services") {
+            $(v)
+              .parent()
+              .find(".wfa-attributePatch")
+              .css("background-color", potColors[attVal]);
+          } else {
+            $(v)
+              .parent()
+              .find(".wfa-attributePatch")
+              .css("background-color", feasColors[attVal]);
+          }
         }
       });
     },
     // control visible layers function /////////////////////////////////////////////////////////////////////////////
     controlVizLayers: function (t, maskWhere) {
-      console.log("control viz layers");
       if (t.obj.currentHuc != "WHUC4") {
         // manipulate string to the proper format, use the same tracker as for the queries but add 2 unless it is a huc 12
         var curHucNum = t.obj.currentHuc.slice(-1);
@@ -1334,7 +1353,6 @@ define([
                 }
               });
             } else if (t.obj.wetlandToggleTracker === "feas") {
-              console.log(t.obj.wetlandWhere);
               $.each($(t.layersArray), function (i, v) {
                 if (feasWetlandLyrName == v.name) {
                   t.obj.visibleLayers.push(v.id);
