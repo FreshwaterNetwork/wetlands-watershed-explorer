@@ -1596,13 +1596,13 @@ define([
           "Floristic Integrity - Some wetlands are of high condition, containing a healthy array of plant species. <br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=60' target='_blank'>View in report</a>",
         // feasability descriptions
         "Overall Feasibility_wet":
-          "Overall Feasibility - Overall Feasibility test description",
+          "Overall Feasibility - Potentially restorable wetlands (PRWs) are ranked for restoration feasibility based on land use, susceptibility to invasive plants, and ownership. PRWs are also ranked based on each of these three categories, individually (see below). <br> This information helps to distinguish which PRWs have fewer obstacles to restoration and merit further assessment at the site level. None of the feasibility factors preclude wetland restoration. <br> <a style='color:blue;' href='https://nascience.s3-us-west-1.amazonaws.com/apps/wisconsin_wbd_data/Feasibility-info-blurbs-for-Explorer_final.pdf' target='_blank'>View in report</a>",
         "Land use considerations_wet":
-          "Land use considerations - Land use considerations test description",
+          "Land Use Considerations - Land use and land cover factors affect restoration feasibility. Agricultural lands are the most feasible due to the general absence of structures. Proximity to urban areas reduces feasibility, varying by intensity of development. Due to regulations, proximity to airports is a consideration, but not an absolute barrier. Sites within drainage districts are considered not feasible for restoration. <br> <a style='color:blue;' href='https://nascience.s3-us-west-1.amazonaws.com/apps/wisconsin_wbd_data/Feasibility-info-blurbs-for-Explorer_final.pdf' target='_blank'>View in report</a>",
         "Ownership Considerations_wet":
           "Ownership Considerations - Ownership Considerations test description",
         "Invasive species considerations_wet":
-          "Invasive species considerations - Invasive species considerations test description",
+          "Invasive Plant Species Considerations - The presence of invasive plants, or proximity to an invasive plant seed source, reduces the habitat quality of wetland restorations and may increase long-term management needs. Four common invaders are considered: reed canary grass, Phragmites, cattails, and invasive shrubs (buckthorn or honeysuckle). <br> <a style='color:blue;' href='https://nascience.s3-us-west-1.amazonaws.com/apps/wisconsin_wbd_data/Feasibility-info-blurbs-for-Explorer_final.pdf' target='_blank'>View in report</a>",
 
         "All Guilds":
           "All Guilds - A wildlife guild is a group of species that use the same or similar habitats and resources. Some wetlands, and associated uplands, can support multiple guilds.<br><a style='color:blue;' href='plugins/wetlands-watershed-explorer/assets/WetlandsByDesign_FinalReport.pdf#page=16' target='_blank'>View in report</a>",
