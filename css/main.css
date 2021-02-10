@@ -162,6 +162,7 @@ hr {
   margin-bottom: 20px;
 }
 .wfa-wetlandHoverText {
+  display: none;
   font-weight: normal;
   margin-bottom: 10px;
   width: 285px;

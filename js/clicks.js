@@ -44,7 +44,6 @@ define([
       //t.addShapefile.testFunction(t);
       $("#" + t.id + "dialogBoxTest").dialog({ autoOpen: false });
       $("#" + t.id + "wildDialogBoxTest").dialog({ autoOpen: false });
-      $("#" + t.id + "dataInfoPopup").dialog({ autoOpen: false });
       t.clicks.infographicText(t);
 
       //info accord
@@ -145,19 +144,7 @@ define([
       // Data download click
       $("#" + t.id + "dlBtn").on("click", function () {
         let val = t.obj.huc12Name.replace("-", "_");
-        $("#" + t.id + "dataInfoPopup").dialog("open");
-        $("#" + t.id + "dataInfoPopup")
-          .prev()
-          .find("span")
-          .html("Data Error - Please Read");
-        $("#" + t.id + "dataInfoPopup")
-          .prev()
-          .parent()
-          .css("top", "90.5px");
-        $("#" + t.id + "dataInfoPopup")
-          .prev()
-          .parent()
-          .css("left", "495px");
+
         window.open(
           "https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" +
             val +
