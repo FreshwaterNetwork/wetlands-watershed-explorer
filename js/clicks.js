@@ -624,8 +624,8 @@ define([
             $("#" + t.id + "wetlandHoverText").hide();
             t.clicks.animateColor(t, "viewCrsInfoGraphicIcon"); // call the animate color function
           } else if (
-            t.obj.visibleLayers[2] > 4 &&
-            t.obj.visibleLayers[2] < 26
+            (t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26) ||
+            (t.obj.visibleLayers[2] > 54 && t.obj.visibleLayers[2] < 58)
           ) {
             t.obj.currentWet = "wetland"; // this is a wetland click
             if (t.obj.search == "yes") {
@@ -1113,6 +1113,7 @@ define([
 
     // Wetland click function /////////////////////////////////////////////////////////////////////////////////////////////////
     wetlandClick: function (t) {
+      console.log("in wetland click", t.obj.currentHuc);
       // wetland query
       var wq = new Query();
       var wetQ = new QueryTask(t.url + "/" + 48);
@@ -1120,8 +1121,14 @@ define([
       wq.returnGeometry = true;
       wq.outFields = ["*"];
       wq.where = "OBJECTID > 0";
+
       if (t.obj.currentHuc == "WHUC12") {
+        $("body").css("cursor", "progress");
+        t.map.setMapCursor("progress");
         wetQ.execute(wq, function (evt) {
+          $("body").css("cursor", "default");
+          t.map.setMapCursor("pointer");
+          console.log("after wetland query", t.obj.currentWet);
           if (evt.features.length > 0 && t.obj.currentWet == "wetland") {
             console.log("inside wetland click");
             $("#" + t.id + "wetlandHoverText").hide();
@@ -1133,9 +1140,9 @@ define([
               t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
               t.clicks.wetlandAttributePopulate(t);
             } else {
-              t.obj.wetlandClick = "yes";
-              // call the function to build the report wetland list
-              t.report.populateWetlandList(t, evt);
+              // t.obj.wetlandClick = "yes";
+              // // call the function to build the report wetland list
+              // t.report.populateWetlandList(t, evt);
             }
             $("#" + t.id + "mainAttributeWrap").slideDown();
           } else {
@@ -1236,6 +1243,7 @@ define([
     },
     // control visible layers function /////////////////////////////////////////////////////////////////////////////
     controlVizLayers: function (t, maskWhere) {
+      console.log("control viz layers");
       if (t.obj.currentHuc != "WHUC4") {
         // manipulate string to the proper format, use the same tracker as for the queries but add 2 unless it is a huc 12
         var curHucNum = t.obj.currentHuc.slice(-1);
@@ -1331,6 +1339,7 @@ define([
                 if (feasWetlandLyrName == v.name) {
                   t.obj.visibleLayers.push(v.id);
                   t.obj.visibleLayers.push(58);
+                  t.obj.visibleLayers.push(5);
                 }
               });
             }
