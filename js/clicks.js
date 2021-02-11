@@ -531,6 +531,7 @@ define([
             $("#" + t.id + "num1").prop("checked", true);
 
             t.huc6Val = evt.features[0].attributes.WHUC6;
+            console.log(t.huc6Val, "init");
             t.huc8Val = evt.features[0].attributes.WHUC8;
             t.huc10Val = evt.features[0].attributes.WHUC10;
             t.huc12Val = evt.features[0].attributes.WHUC12;
@@ -917,6 +918,7 @@ define([
           }
           let spanElem = $(v).next().find(".s2Atts").html(htmlVal);
           if (t.obj.currentHuc == "WHUC6") {
+            console.log("huc 6 click");
             $(v)
               .parent()
               .find(".wfa-attributePatch")
@@ -1111,7 +1113,12 @@ define([
     wetlandClick: function (t) {
       // wetland query
       var wq = new Query();
-      var wetQ = new QueryTask(t.url + "/" + 48);
+      console.log(t.huc6Val);
+      console.log($("#" + t.id + "huc6Sel")[0].innerHTML, t.obj.hucInfo.huc6);
+      // var wetQ = new QueryTask(t.url + "/" + 48);
+      var wetQ = new QueryTask(
+        "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All_Final_huc_6_test/MapServer/48"
+      );
       wq.geometry = t.obj.pnt;
       wq.returnGeometry = true;
       wq.outFields = ["*"];
@@ -1128,8 +1135,8 @@ define([
             t.obj.wetlandAtts = evt.features[0].attributes;
 
             // set the wetland where clause
-            t.wetlandID = t.obj.wetlandAtts.OBJECTID;
-            t.obj.wetlandWhere = "OBJECTID = " + t.wetlandID;
+            t.wetlandID = t.obj.wetlandAtts.WETLAND_ID;
+            t.obj.wetlandWhere = "WETLAND_ID = " + t.wetlandID;
             t.clicks.wetlandAttributePopulate(t);
             $("#" + t.id + "wetlandHoverText").hide();
             $("#" + t.id + "mainAttributeWrap").slideDown();
@@ -1172,9 +1179,7 @@ define([
       let feasColor;
 
       $.each(title, function (i, v) {
-        console.log(t.obj.wetlandAtts, $(v).data("wfa"));
         let attVal = t.obj.wetlandAtts[$(v).data("wfa")];
-        console.log(attVal, "att vallllll", t.obj.wetlandToggleTracker);
         if (t.obj.wetlandToggleTracker == "services") {
           if (attVal == 0) {
             htmlVal = "Not Applicable";
@@ -1190,8 +1195,6 @@ define([
             t.countVal = "1-3";
           }
         } else {
-          console.log("in here ^^^^^^^^^^^^^^", attVal, t.obj.wetlandAtts);
-          console.log($(v)[0]);
           if ($(v)[0].innerHTML == "Overall Feasibility") {
             if (attVal > -9 && attVal <= -3) {
               feasColorVal = "rgb(254,229,217)";
@@ -1205,13 +1208,6 @@ define([
               feasColorVal = "rgb(165,15,21)";
             }
           } else if ($(v)[0].innerHTML == "Land use considerations") {
-            console.log("land use");
-            // var feasColors = [
-            //   "rgb(254,229,217)",
-            //   "rgb(252,174,145)",
-            //   "rgb(251,106,74)",
-            //   "rgb(203,24,29)",
-            // ];
             if (attVal < 1) {
               feasColorVal = "rgb(254,229,217)";
             } else if (attVal == 1) {
@@ -1222,7 +1218,6 @@ define([
               feasColorVal = "rgb(203,24,29)";
             }
           } else {
-            console.log("esle");
             if (attVal < -2) {
               feasColorVal = "rgb(254,229,217)";
             } else if (attVal == -2) {
@@ -1392,6 +1387,7 @@ define([
       // set layer defs and update the mask layer /////////////////////
       t.layerDefinitions = [];
       t.layerDefinitions[0] = maskWhere;
+      console.log(t.obj.wetlandWhere);
       t.layerDefinitions[5] = t.obj.wetlandWhere;
       t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
       // remove the wetland selected layer if not clicked ////////////////////////
