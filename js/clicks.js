@@ -1164,17 +1164,17 @@ define([
         "rgb(222,45,38)",
         "rgb(251,106,74)",
       ];
-      var feasColors = [
-        "rgb(254,229,217)",
-        "rgb(165,15,21)",
-        "rgb(222,45,38)",
-        "rgb(251,106,74)",
-      ];
+
       var title = $("#" + t.id + "wfa-fas_AttributeWrap").find(".elm-title");
+      console.log(title);
       var htmlVal;
+      let feasColorVal;
+      let feasColor;
 
       $.each(title, function (i, v) {
+        console.log(t.obj.wetlandAtts, $(v).data("wfa"));
         let attVal = t.obj.wetlandAtts[$(v).data("wfa")];
+        console.log(attVal, "att vallllll", t.obj.wetlandToggleTracker);
         if (t.obj.wetlandToggleTracker == "services") {
           if (attVal == 0) {
             htmlVal = "Not Applicable";
@@ -1190,14 +1190,48 @@ define([
             t.countVal = "1-3";
           }
         } else {
-          if (attVal == 0) {
-            htmlVal = "Not Applicable";
-          } else if (attVal == 1) {
-            htmlVal = "Very High";
-          } else if (attVal == 2) {
-            htmlVal = "High";
-          } else if (attVal == 3) {
-            htmlVal = "Moderate";
+          console.log("in here ^^^^^^^^^^^^^^", attVal, t.obj.wetlandAtts);
+          console.log($(v)[0]);
+          if ($(v)[0].innerHTML == "Overall Feasibility") {
+            if (attVal > -9 && attVal <= -3) {
+              feasColorVal = "rgb(254,229,217)";
+            } else if (attVal == -2) {
+              feasColorVal = "rgb(252,174,145)";
+            } else if (attVal == -1) {
+              feasColorVal = "rgb(251,106,74)";
+            } else if (attVal == 0 || attVal == 1) {
+              feasColorVal = "rgb(222,45,38)";
+            } else if (attVal > 1) {
+              feasColorVal = "rgb(165,15,21)";
+            }
+          } else if ($(v)[0].innerHTML == "Land use considerations") {
+            console.log("land use");
+            // var feasColors = [
+            //   "rgb(254,229,217)",
+            //   "rgb(252,174,145)",
+            //   "rgb(251,106,74)",
+            //   "rgb(203,24,29)",
+            // ];
+            if (attVal < 1) {
+              feasColorVal = "rgb(254,229,217)";
+            } else if (attVal == 1) {
+              feasColorVal = "rgb(252,174,145)";
+            } else if (attVal == 2) {
+              feasColorVal = "rgb(251,106,74)";
+            } else if (attVal > 2) {
+              feasColorVal = "rgb(203,24,29)";
+            }
+          } else {
+            console.log("esle");
+            if (attVal < -2) {
+              feasColorVal = "rgb(254,229,217)";
+            } else if (attVal == -2) {
+              feasColorVal = "rgb(252,174,145)";
+            } else if (attVal == -1) {
+              feasColorVal = "rgb(251,106,74)";
+            } else if (attVal > 0) {
+              feasColorVal = "rgb(203,24,29)";
+            }
           }
         }
 
@@ -1240,10 +1274,12 @@ define([
               .find(".wfa-attributePatch")
               .css("background-color", potColors[attVal]);
           } else {
+            console.log(feasColorVal);
             $(v)
               .parent()
               .find(".wfa-attributePatch")
-              .css("background-color", feasColors[attVal]);
+              .css("background-color", feasColorVal);
+            // .css("background-color", feasColors[feasColorVal]);
           }
         }
       });
