@@ -861,6 +861,7 @@ define([
           if (index > -1) {
             t.obj.visibleLayers.splice(index, 1); // colors = ["red","blue","green"]
           }
+          console.log("set viz layers", t.obj.visibleLayers);
           t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
           // close attribute wrapper
           $(".wfa-mainAttributeWrap").hide();
@@ -1115,10 +1116,20 @@ define([
       var wq = new Query();
       console.log(t.huc6Val);
       console.log($("#" + t.id + "huc6Sel")[0].innerHTML, t.obj.hucInfo.huc6);
+      let queryLayerName = "wetlands_" + t.obj.hucInfo.huc6;
       // var wetQ = new QueryTask(t.url + "/" + 48);
-      var wetQ = new QueryTask(
-        "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All_Final_huc_6_test/MapServer/48"
-      );
+      console.log(t.layersArray);
+      let lyrID;
+      t.layersArray.forEach((lyr) => {
+        console.log(lyr.name);
+        if (lyr.name == queryLayerName) {
+          console.log(queryLayerName);
+          lyrID = lyr.id;
+        }
+      });
+
+      console.log(t.url + "/" + lyrID);
+      var wetQ = new QueryTask(t.url + "/" + lyrID);
       wq.geometry = t.obj.pnt;
       wq.returnGeometry = true;
       wq.outFields = ["*"];
@@ -1372,9 +1383,11 @@ define([
               });
             } else if (t.obj.wetlandToggleTracker === "feas") {
               $.each($(t.layersArray), function (i, v) {
+                // console.log(v.name, feasWetlandLyrName);
                 if (feasWetlandLyrName == v.name) {
+                  console.log("in here", v.name, feasWetlandLyrName);
                   t.obj.visibleLayers.push(v.id);
-                  t.obj.visibleLayers.push(58);
+                  t.obj.visibleLayers.push(57);
                   t.obj.visibleLayers.push(5);
                 }
               });

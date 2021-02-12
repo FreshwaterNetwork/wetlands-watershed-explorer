@@ -67,6 +67,8 @@ define([
       this.obj = dojo.eval("[" + obj + "]")[0];
       this.url =
         "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All_addFeas/MapServer";
+      this.url =
+        "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All_Final_huc_6_test/MapServer";
       this.layerDefs = [];
     },
     // Called after initialize at plugin startup (why the tests for undefined). Also called after deactivate when user closes app by clicking X.
