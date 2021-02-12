@@ -273,7 +273,9 @@ define([
           $(".wfa-mainAttributeWrap").hide();
 
           // show click on map text
-          $(".wfa-wetlandHoverText").show();
+          if (t.obj.currentHuc == "WHUC12") {
+            $(".wfa-wetlandHoverText").show();
+          }
         } else if (evt.currentTarget.value === "feas") {
           $(".wfa-funcWrapper").hide();
           $(".wfa-feasWrapper").show();
@@ -296,7 +298,9 @@ define([
           $(".wfa-mainAttributeWrap").hide();
 
           // show click on map text
-          $(".wfa-wetlandHoverText").show();
+          if (t.obj.currentHuc == "WHUC12") {
+            $(".wfa-wetlandHoverText").show();
+          }
         }
       });
 
