@@ -651,7 +651,7 @@ define([
             t.clicks.animateColor(t, "viewCrsInfoGraphicIcon"); // call the animate color function
           } else if (
             (t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26) ||
-            (t.obj.visibleLayers[2] > 54 && t.obj.visibleLayers[2] < 58)
+            (t.obj.visibleLayers[2] > 53 && t.obj.visibleLayers[2] < 57)
           ) {
             t.obj.currentWet = "wetland"; // this is a wetland click
             if (t.obj.search == "yes") {
@@ -1126,7 +1126,6 @@ define([
       wq.returnGeometry = true;
       wq.outFields = ["*"];
       wq.where = "OBJECTID > 0";
-
       if (t.obj.currentHuc == "WHUC12") {
         $("body").css("cursor", "progress");
         t.map.setMapCursor("progress");
