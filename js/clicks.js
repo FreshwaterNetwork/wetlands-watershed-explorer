@@ -179,7 +179,6 @@ define([
       //
       // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
       $(".wfa-radio-indent input").on("click", function (c, x) {
-        console.log("ra button click");
         t.obj.funcTracker = c.target.value.split("-")[0];
         t.obj.wetTracker = c.target.value.split("-")[0];
 
@@ -276,7 +275,6 @@ define([
           // show click on map text
           $(".wfa-wetlandHoverText").show();
         } else if (evt.currentTarget.value === "feas") {
-          console.log(t.obj.visibleLayers);
           $(".wfa-funcWrapper").hide();
           $(".wfa-feasWrapper").show();
           t.obj.wetlandToggleTracker = "feas";
@@ -293,7 +291,6 @@ define([
           if (index > -1) {
             t.obj.visibleLayers.splice(index, 1); // colors = ["red","blue","green"]
           }
-          console.log("set viz layers", t.obj.visibleLayers);
           t.dynamicLayer.setVisibleLayers(t.obj.visibleLayers);
           // close attribute wrapper
           $(".wfa-mainAttributeWrap").hide();
@@ -586,7 +583,6 @@ define([
             $("#" + t.id + "num1").prop("checked", true);
 
             t.huc6Val = evt.features[0].attributes.WHUC6;
-            console.log(t.huc6Val, "init");
             t.huc8Val = evt.features[0].attributes.WHUC8;
             t.huc10Val = evt.features[0].attributes.WHUC10;
             t.huc12Val = evt.features[0].attributes.WHUC12;
@@ -1115,11 +1111,8 @@ define([
     wetlandClick: function (t) {
       // wetland query
       var wq = new Query();
-      console.log(t.huc6Val);
-      console.log($("#" + t.id + "huc6Sel")[0].innerHTML, t.obj.hucInfo.huc6);
       let queryLayerName = "wetlands_" + t.obj.hucInfo.huc6;
       // var wetQ = new QueryTask(t.url + "/" + 48);
-      console.log(t.layersArray);
       // let lyrID;
       // t.layersArray.forEach((lyr) => {
       //   console.log(lyr.name);
@@ -1186,7 +1179,6 @@ define([
       ];
 
       var title = $("#" + t.id + "wfa-fas_AttributeWrap").find(".elm-title");
-      console.log(title);
       var htmlVal;
       let feasColorVal;
       let feasColor;
@@ -1282,7 +1274,6 @@ define([
               .find(".wfa-attributePatch")
               .css("background-color", potColors[attVal]);
           } else {
-            console.log(feasColorVal);
             $(v)
               .parent()
               .find(".wfa-attributePatch")
@@ -1310,7 +1301,6 @@ define([
         var potWetLyrName =
           "Potentially Restorable Wetlands - " + t.obj.funcTracker;
         var feasWetlandLyrName = "Wetland Feasibility - " + t.obj.funcTracker;
-        console.log(feasWetlandLyrName, "********************");
         var wetlandSelected = "Wetlands - Selected";
 
         // loop through layers array and see if any layer name matches
@@ -1386,9 +1376,7 @@ define([
               });
             } else if (t.obj.wetlandToggleTracker === "feas") {
               $.each($(t.layersArray), function (i, v) {
-                // console.log(v.name, feasWetlandLyrName);
                 if (feasWetlandLyrName == v.name) {
-                  // console.log("in here", v.name, feasWetlandLyrName);
                   t.obj.visibleLayers.push(v.id);
                   t.obj.visibleLayers.push(58);
                   t.obj.visibleLayers.push(5);
@@ -1403,7 +1391,6 @@ define([
       // set layer defs and update the mask layer /////////////////////
       t.layerDefinitions = [];
       t.layerDefinitions[0] = maskWhere;
-      console.log(t.obj.wetlandWhere);
       t.layerDefinitions[5] = t.obj.wetlandWhere;
       t.dynamicLayer.setLayerDefinitions(t.layerDefinitions);
       // remove the wetland selected layer if not clicked ////////////////////////
