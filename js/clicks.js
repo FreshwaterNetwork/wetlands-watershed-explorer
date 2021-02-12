@@ -845,6 +845,7 @@ define([
           // show click on map text
           $(".wfa-wetlandHoverText").show();
         } else if (evt.currentTarget.value === "feas") {
+          console.log(t.obj.visibleLayers);
           $(".wfa-funcWrapper").hide();
           $(".wfa-feasWrapper").show();
           t.obj.wetlandToggleTracker = "feas";
