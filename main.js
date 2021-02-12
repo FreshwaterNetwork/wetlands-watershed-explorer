@@ -65,10 +65,10 @@ define([
       declare.safeMixin(this, frameworkParameters);
       // Define object to access gFlobal variables from JSON object. Only add variables to varObject.json that are needed by Save and Share.
       this.obj = dojo.eval("[" + obj + "]")[0];
-      this.url =
-        "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All_addFeas/MapServer";
       // this.url =
-      // "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All_Final_huc_6_test/MapServer";
+      //   "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All_addFeas/MapServer";
+      this.url =
+        "https://cirrus.tnc.org/arcgis/rest/services/FN_Wisconsin/ScoringExplore_All_Final_huc_6_test/MapServer";
       this.layerDefs = [];
     },
     // Called after initialize at plugin startup (why the tests for undefined). Also called after deactivate when user closes app by clicking X.

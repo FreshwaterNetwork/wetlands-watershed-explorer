@@ -1386,11 +1386,15 @@ define([
               });
             } else if (t.obj.wetlandToggleTracker === "feas") {
               $.each($(t.layersArray), function (i, v) {
-                // console.log(v.name, feasWetlandLyrName);
+                console.log(
+                  v.name,
+                  feasWetlandLyrName,
+                  "%%%%%%%%%%%%%%%%%%%%%"
+                );
                 if (feasWetlandLyrName == v.name) {
                   // console.log("in here", v.name, feasWetlandLyrName);
                   t.obj.visibleLayers.push(v.id);
-                  t.obj.visibleLayers.push(58);
+                  t.obj.visibleLayers.push(57);
                   t.obj.visibleLayers.push(5);
                 }
               });
