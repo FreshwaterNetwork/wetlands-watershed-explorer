@@ -179,7 +179,6 @@ define([
       //
       // Radio button clicks //////////////////////////////////////////////////////////////////////////////////////////////////////////////
       $(".wfa-radio-indent input").on("click", function (c, x) {
-        console.log("ra button click");
         t.obj.funcTracker = c.target.value.split("-")[0];
         t.obj.wetTracker = c.target.value.split("-")[0];
 
@@ -276,7 +275,6 @@ define([
           // show click on map text
           $(".wfa-wetlandHoverText").show();
         } else if (evt.currentTarget.value === "feas") {
-          console.log(t.obj.visibleLayers);
           $(".wfa-funcWrapper").hide();
           $(".wfa-feasWrapper").show();
           t.obj.wetlandToggleTracker = "feas";
@@ -586,7 +584,6 @@ define([
             $("#" + t.id + "num1").prop("checked", true);
 
             t.huc6Val = evt.features[0].attributes.WHUC6;
-            console.log(t.huc6Val, "init");
             t.huc8Val = evt.features[0].attributes.WHUC8;
             t.huc10Val = evt.features[0].attributes.WHUC10;
             t.huc12Val = evt.features[0].attributes.WHUC12;
@@ -1115,23 +1112,17 @@ define([
     wetlandClick: function (t) {
       // wetland query
       var wq = new Query();
-      console.log(t.huc6Val);
-      console.log($("#" + t.id + "huc6Sel")[0].innerHTML, t.obj.hucInfo.huc6);
       let queryLayerName = "wetlands_" + t.obj.hucInfo.huc6;
       // var wetQ = new QueryTask(t.url + "/" + 48);
-      console.log(t.layersArray);
       let lyrID;
       t.layersArray.forEach((lyr) => {
-        console.log(lyr.name);
         if (lyr.name == queryLayerName) {
-          console.log(queryLayerName);
           lyrID = lyr.id;
         }
       });
 
-      console.log(t.url + "/" + lyrID);
       var wetQ = new QueryTask(t.url + "/" + lyrID);
-      var wetQ = new QueryTask(t.url + "/48");
+      // var wetQ = new QueryTask(t.url + "/48");
       wq.geometry = t.obj.pnt;
       wq.returnGeometry = true;
       wq.outFields = ["*"];
@@ -1186,7 +1177,6 @@ define([
       ];
 
       var title = $("#" + t.id + "wfa-fas_AttributeWrap").find(".elm-title");
-      console.log(title);
       var htmlVal;
       let feasColorVal;
       let feasColor;
@@ -1282,7 +1272,6 @@ define([
               .find(".wfa-attributePatch")
               .css("background-color", potColors[attVal]);
           } else {
-            console.log(feasColorVal);
             $(v)
               .parent()
               .find(".wfa-attributePatch")
@@ -1356,6 +1345,7 @@ define([
               23,
               24,
               25,
+              54,
               55,
               56,
               57,
@@ -1386,13 +1376,7 @@ define([
               });
             } else if (t.obj.wetlandToggleTracker === "feas") {
               $.each($(t.layersArray), function (i, v) {
-                console.log(
-                  v.name,
-                  feasWetlandLyrName,
-                  "%%%%%%%%%%%%%%%%%%%%%"
-                );
                 if (feasWetlandLyrName == v.name) {
-                  // console.log("in here", v.name, feasWetlandLyrName);
                   t.obj.visibleLayers.push(v.id);
                   t.obj.visibleLayers.push(57);
                   t.obj.visibleLayers.push(5);
