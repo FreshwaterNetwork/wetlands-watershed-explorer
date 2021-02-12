@@ -1120,17 +1120,17 @@ define([
       let queryLayerName = "wetlands_" + t.obj.hucInfo.huc6;
       // var wetQ = new QueryTask(t.url + "/" + 48);
       console.log(t.layersArray);
-      // let lyrID;
-      // t.layersArray.forEach((lyr) => {
-      //   console.log(lyr.name);
-      //   if (lyr.name == queryLayerName) {
-      //     console.log(queryLayerName);
-      //     lyrID = lyr.id;
-      //   }
-      // });
+      let lyrID;
+      t.layersArray.forEach((lyr) => {
+        console.log(lyr.name);
+        if (lyr.name == queryLayerName) {
+          console.log(queryLayerName);
+          lyrID = lyr.id;
+        }
+      });
 
-      // console.log(t.url + "/" + lyrID);
-      // var wetQ = new QueryTask(t.url + "/" + lyrID);
+      console.log(t.url + "/" + lyrID);
+      var wetQ = new QueryTask(t.url + "/" + lyrID);
       var wetQ = new QueryTask(t.url + "/48");
       wq.geometry = t.obj.pnt;
       wq.returnGeometry = true;
