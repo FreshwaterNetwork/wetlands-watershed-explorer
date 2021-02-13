@@ -1073,7 +1073,7 @@ define([
       var sources = t.search1.get("sources");
       // Add the wetlands source
       sources.push({
-        featureLayer: new FeatureLayer(t.url + "/48"),
+        featureLayer: new FeatureLayer(t.url + "/5"),
         searchFields: ["wetlandIdString"],
         displayField: "wetlandIdString",
         exactMatch: false,
