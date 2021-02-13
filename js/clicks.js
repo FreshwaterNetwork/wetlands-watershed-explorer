@@ -1201,15 +1201,15 @@ define([
           }
         } else {
           if ($(v)[0].innerHTML == "Overall Feasibility") {
-            if (attVal > -9 && attVal <= -3) {
+            if (attVal <= -1) {
               feasColorVal = "rgb(254,229,217)";
-            } else if (attVal == -2) {
+            } else if (attVal == 0) {
               feasColorVal = "rgb(252,174,145)";
-            } else if (attVal == -1) {
+            } else if (attVal == 1) {
               feasColorVal = "rgb(251,106,74)";
-            } else if (attVal == 0 || attVal == 1) {
+            } else if (attVal == 2) {
               feasColorVal = "rgb(222,45,38)";
-            } else if (attVal > 1) {
+            } else if (attVal >= 3) {
               feasColorVal = "rgb(165,15,21)";
             }
           } else if ($(v)[0].innerHTML == "Land use considerations") {
