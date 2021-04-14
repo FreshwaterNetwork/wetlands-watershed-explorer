@@ -143,6 +143,7 @@ define([
       // Download HUC 12 data click //////////////////////////////////////////////////////////////////////////////////////////////
       // Data download click
       $("#" + t.id + "dlBtn").on("click", function () {
+        console.log(t.obj.huc6Name);
         let val = t.obj.huc12Name.replace("-", "_");
 
         window.open(
@@ -645,6 +646,7 @@ define([
             t.obj.selHuc = 30;
             t.obj.currentHuc = "WHUC6";
             t.obj.hucVal = evt.features[0].attributes.WHUC6;
+            t.obj.huc6Name = evt.features[0].attributes.name;
 
             t.obj.hucInfo.huc6 = evt.features[0].attributes.WHUC6;
 
@@ -657,6 +659,7 @@ define([
             (t.obj.visibleLayers[2] > 4 && t.obj.visibleLayers[2] < 26) ||
             (t.obj.visibleLayers[2] > 53 && t.obj.visibleLayers[2] < 57)
           ) {
+            console.log("wetland clikc");
             t.obj.currentWet = "wetland"; // this is a wetland click
             if (t.obj.search == "yes") {
               t.obj.currentHuc = "WHUC12";
@@ -1151,6 +1154,9 @@ define([
             if (t.obj.currentWet == "wetland") {
               $("#" + t.id + "wetlandHoverText").show();
             }
+            // slide up attribute box here
+            console.log("no wetland click slide up att box");
+            $(".wfa-mainAttributeWrap").hide();
           }
           // call the control viz layers function ////////////////////////////////////
           t.clicks.controlVizLayers(t, t.obj.maskWhere);
