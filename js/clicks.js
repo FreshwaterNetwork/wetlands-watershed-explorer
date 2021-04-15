@@ -143,13 +143,13 @@ define([
       // Download HUC 12 data click //////////////////////////////////////////////////////////////////////////////////////////////
       // Data download click
       $("#" + t.id + "dlBtn").on("click", function () {
-        console.log(t.obj.huc6Name);
-        let val = t.obj.huc12Name.replace("-", "_");
+        let val = t.obj.huc6Name.replace(" ", "+");
+        // let val = t.obj.huc12Name.replace("-", "_");
 
         window.open(
-          "https://nsttnc.blob.core.windows.net/freshwater-network/wi-wetland-explorer/" +
+          "https://nascience.s3-us-west-1.amazonaws.com/apps/wisconsin_wbd_data/huc_6_download_packages/" +
             val +
-            "_data.zip",
+            ".zip",
           "_parent"
         );
       });
