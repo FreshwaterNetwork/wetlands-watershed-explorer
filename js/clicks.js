@@ -84,12 +84,12 @@ define([
           helpText.slideDown();
         }
       });
-      $(".wfa-download-feas-data").on("click", (evt) => {
-        window.open(
-          "https://nascience.s3-us-west-1.amazonaws.com/apps/wisconsin_wbd_data/PRW_Feasability_Data.zip",
-          "_parent"
-        );
-      });
+      // $(".wfa-download-feas-data").on("click", (evt) => {
+      //   window.open(
+      //     "https://nascience.s3-us-west-1.amazonaws.com/apps/wisconsin_wbd_data/PRW_Feasability_Data.zip",
+      //     "_parent"
+      //   );
+      // });
 
       // suppress help on startup click
       $("#" + t.id + "-shosu").on("click", function (c) {
@@ -466,7 +466,7 @@ define([
 
         // slide down donload button if in huc 12 section
         if (t.obj.currentHuc == "WHUC12") {
-          $("#" + t.id + "downloadDataWrapper").slideDown();
+          // $("#" + t.id + "downloadDataWrapper").slideDown();
           $("#" + t.id + "mainAttributeWrap").slideDown();
           $("#" + t.id + "watershedHoverText").slideUp();
         }
@@ -649,6 +649,7 @@ define([
             t.obj.huc6Name = evt.features[0].attributes.name;
 
             t.obj.hucInfo.huc6 = evt.features[0].attributes.WHUC6;
+            $("#" + t.id + "downloadDataWrapper").slideDown(); // slide down report button
 
             // t.obj.hucVal  = evt.features[0].attributes.WHUC6
             t.obj.visibleLayers = [0, 2, t.obj.selHuc];
@@ -683,7 +684,7 @@ define([
             t.obj.hucInfo.huc10 = evt.features[0].attributes.WHUC10;
             t.obj.visibleLayers = [0, 4, t.obj.selHuc];
             $("#" + t.id + "createReportWrapper").slideUp(); // slide up report button
-            $("#" + t.id + "downloadDataWrapper").slideUp(); // slide down report button
+            // $("#" + t.id + "downloadDataWrapper").slideUp(); // slide down report button
           } else if (t.obj.visibleLayers[1] == 4) {
             t.obj.selHuc = 33;
             t.obj.currentHuc = "WHUC12";
@@ -694,7 +695,7 @@ define([
             $("#" + t.id + "mainAttributeWrap").slideUp();
             $("#" + t.id + "wetlandHoverText").show();
             // $('#' + t.id + 'createReportWrapper').slideDown(); // slide down report button
-            $("#" + t.id + "downloadDataWrapper").slideDown(); // slide down report button
+            // $("#" + t.id + "downloadDataWrapper").slideDown(); // slide down report button
           }
           // set the def query for the huc mask /////////////////////
           if (t.obj.currentHuc != "WHUC12") {
@@ -978,6 +979,7 @@ define([
               $("#" + t.id + "wildlifeCheckWrap").slideUp();
               $("#" + t.id + "watershedHoverText").slideUp();
               $("#" + t.id + "wetlandHoverText").slideUp();
+              $("#" + t.id + "downloadDataWrapper").slideUp();
               t.obj.wildlifeOpenTracker = "null";
               t.obj.wetlandClick = "no";
               // reset opacity values.
@@ -1012,7 +1014,7 @@ define([
             // control viz function
             t.clicks.controlVizLayers(t, t.obj.maskWhere);
             $("#" + t.id + "createReportWrapper").slideUp(); // slide up report button
-            $("#" + t.id + "downloadDataWrapper").slideUp(); // slide down report button
+            // $("#" + t.id + "downloadDataWrapper").slideUp(); // slide down report button
             $("#" + t.id + "wetlandHoverText").hide();
 
             // below code is for if the user clicks on the huc 12 zoom //////////////////////////////

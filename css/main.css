@@ -261,14 +261,14 @@ hr {
   width: 415px;
   display: none;
 }
-.wfa-download-feas-data {
+/* .wfa-download-feas-data {
   color: blue;
   text-align: center;
   margin-top: -10px;
 }
 .wfa-download-feas-data:hover {
   cursor: pointer;
-}
+} */
 .wfa-func_radioGroups {
   flex: 1;
   width: 200px;
