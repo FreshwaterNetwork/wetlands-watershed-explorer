@@ -1141,16 +1141,30 @@ define([
         wetQ.execute(wq, function (evt) {
           $("body").css("cursor", "default");
           t.map.setMapCursor("pointer");
+          console.log(evt.features[0], t.attributeTracker);
           if (evt.features.length > 0 && t.obj.currentWet == "wetland") {
-            t.obj.wetlandClick = "yes";
-            t.obj.wetlandAtts = evt.features[0].attributes;
+            if (
+              evt.features[0].attributes.WETLAND_TYPE == "WWI" &&
+              t.obj.wetlandToggleTracker === "feas"
+            ) {
+              console.log("WWI Click", t.attributeTracker, "do nothing");
+              t.obj.wetlandClick = "no";
+              if (t.obj.currentWet == "wetland") {
+                $("#" + t.id + "wetlandHoverText").show();
+              }
+              // slide up attribute box here
+              $(".wfa-mainAttributeWrap").hide();
+            } else {
+              t.obj.wetlandClick = "yes";
+              t.obj.wetlandAtts = evt.features[0].attributes;
 
-            // set the wetland where clause
-            t.wetlandID = t.obj.wetlandAtts.WETLAND_ID;
-            t.obj.wetlandWhere = "WETLAND_ID = " + t.wetlandID;
-            t.clicks.wetlandAttributePopulate(t);
-            $("#" + t.id + "wetlandHoverText").hide();
-            $("#" + t.id + "mainAttributeWrap").slideDown();
+              // set the wetland where clause
+              t.wetlandID = t.obj.wetlandAtts.WETLAND_ID;
+              t.obj.wetlandWhere = "WETLAND_ID = " + t.wetlandID;
+              t.clicks.wetlandAttributePopulate(t);
+              $("#" + t.id + "wetlandHoverText").hide();
+              $("#" + t.id + "mainAttributeWrap").slideDown();
+            }
           } else {
             t.obj.wetlandClick = "no";
             if (t.obj.currentWet == "wetland") {
